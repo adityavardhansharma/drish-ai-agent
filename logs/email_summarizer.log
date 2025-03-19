@@ -1,0 +1,2196 @@
+2025-03-17 17:22:05,728 - root - INFO - Logger initialized with level INFO
+2025-03-17 17:23:25,128 - google_auth_oauthlib.flow - INFO - "GET /?state=vCZCuY4bphKFMvsmOAuikbI2iQEAZu&code=4/0AQSTgQEznQkDtzT41F4GxredqHzgHNaPXZCcKF0mQ-hLMcF_Y5BMygvpiyYtcTKugRC5Jw&scope=https://www.googleapis.com/auth/gmail.readonly HTTP/1.1" 200 65
+2025-03-17 17:23:25,880 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-17 17:23:30,863 - llm.gemini_api - WARNING - Email content too long (16403 chars), truncating
+2025-03-17 17:23:33,461 - llm.gemini_api - WARNING - Email content too long (88550 chars), truncating
+2025-03-17 17:29:06,819 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-17 17:29:11,060 - llm.gemini_api - WARNING - Email content too long (16403 chars), truncating
+2025-03-17 17:29:13,661 - llm.gemini_api - WARNING - Email content too long (88550 chars), truncating
+2025-03-17 17:32:19,210 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-17 17:32:23,834 - llm.gemini_api - WARNING - Email content too long (16403 chars), truncating
+2025-03-17 17:32:24,816 - llm.gemini_api - WARNING - Email content too long (88550 chars), truncating
+2025-03-17 17:33:29,863 - root - INFO - Logger initialized with level INFO
+2025-03-17 17:33:33,717 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-17 17:33:34,711 - email_utils.gmail_api - INFO - Found 20 messages, fetching content...
+2025-03-17 17:33:35,835 - email_utils.gmail_api - INFO - Fetched message 195a3c2e8bec619f
+2025-03-17 17:33:36,228 - email_utils.gmail_api - INFO - Fetched message 195a39c7c2db8b4d
+2025-03-17 17:33:36,550 - email_utils.gmail_api - INFO - Fetched message 195a386984a8d9cb
+2025-03-17 17:33:36,868 - email_utils.gmail_api - INFO - Fetched message 195a36ba333489b9
+2025-03-17 17:33:37,209 - email_utils.gmail_api - INFO - Fetched message 195a36ad1b2c0033
+2025-03-17 17:33:37,527 - email_utils.gmail_api - INFO - Fetched message 195a365ea679a202
+2025-03-17 17:33:37,854 - email_utils.gmail_api - INFO - Fetched message 195a362bbfe00671
+2025-03-17 17:33:38,177 - email_utils.gmail_api - INFO - Fetched message 195a360e4f435a5d
+2025-03-17 17:33:38,574 - email_utils.gmail_api - INFO - Fetched message 195a31a33206cd87
+2025-03-17 17:33:38,890 - email_utils.gmail_api - INFO - Fetched message 195a30d82f6fa4a2
+2025-03-17 17:33:39,271 - email_utils.gmail_api - INFO - Fetched message 195a2fbaf450a40d
+2025-03-17 17:33:39,735 - email_utils.gmail_api - INFO - Fetched message 195a2de5c05f1698
+2025-03-17 17:33:40,086 - email_utils.gmail_api - INFO - Fetched message 195a2992a40ad7b4
+2025-03-17 17:33:40,497 - email_utils.gmail_api - INFO - Fetched message 195a23ef56a6e236
+2025-03-17 17:33:40,930 - email_utils.gmail_api - INFO - Fetched message 195a21a2b1f7a727
+2025-03-17 17:33:41,289 - email_utils.gmail_api - INFO - Fetched message 195a19404bd5a1e2
+2025-03-17 17:33:41,646 - email_utils.gmail_api - INFO - Fetched message 195a1634902cac3f
+2025-03-17 17:33:42,012 - email_utils.gmail_api - INFO - Fetched message 195a0f50fd278194
+2025-03-17 17:33:42,371 - email_utils.gmail_api - INFO - Fetched message 195a0033765284a2
+2025-03-17 17:33:42,697 - email_utils.gmail_api - INFO - Fetched message 1959feb8fab86453
+2025-03-17 17:33:42,697 - email_utils.gmail_api - INFO - Successfully fetched 20 emails
+2025-03-17 17:33:42,697 - root - INFO - Processing email 1: Subject: INSIDE: Special Rewards Just f...
+2025-03-17 17:33:42,697 - llm.gemini_api - INFO - Sending Gemini API request 274277e1
+2025-03-17 17:33:45,241 - llm.gemini_api - INFO - Received response for request 274277e1
+2025-03-17 17:33:45,241 - root - INFO - Generated summary for email 1
+2025-03-17 17:33:45,245 - gui.main_window - INFO - Added email summary: INSIDE: Special Rewards Just for You
+2025-03-17 17:33:45,245 - root - INFO - Processing email 2: Subject: Jobs that match your backgroun...
+2025-03-17 17:33:45,245 - llm.gemini_api - INFO - Sending Gemini API request 2742d276
+2025-03-17 17:33:48,446 - llm.gemini_api - INFO - Received response for request 2742d276
+2025-03-17 17:33:48,446 - root - INFO - Generated summary for email 2
+2025-03-17 17:33:48,446 - root - INFO - Processing email 3: Subject: Failed production deployment o...
+2025-03-17 17:33:48,459 - llm.gemini_api - INFO - Sending Gemini API request 274278c8
+2025-03-17 17:33:50,264 - llm.gemini_api - INFO - Received response for request 274278c8
+2025-03-17 17:33:50,267 - root - INFO - Generated summary for email 3
+2025-03-17 17:33:50,268 - gui.main_window - INFO - Added email summary: Failed production deployment on team 'adityavardhansharma's projects'
+2025-03-17 17:33:50,268 - root - INFO - Processing email 4: Subject: Getting started with Cryptolen...
+2025-03-17 17:33:50,268 - llm.gemini_api - INFO - Sending Gemini API request 2742558c
+2025-03-17 17:33:51,124 - llm.gemini_api - INFO - Received response for request 2742558c
+2025-03-17 17:33:51,124 - root - INFO - Generated summary for email 4
+2025-03-17 17:33:51,124 - gui.main_window - INFO - Added email summary: Getting started with Cryptolens
+2025-03-17 17:33:51,124 - root - INFO - Processing email 5: Subject: Complete Registration Process ...
+2025-03-17 17:33:51,124 - llm.gemini_api - INFO - Sending Gemini API request 27422a02
+2025-03-17 17:33:52,436 - llm.gemini_api - INFO - Received response for request 27422a02
+2025-03-17 17:33:52,436 - root - INFO - Generated summary for email 5
+2025-03-17 17:33:52,436 - gui.main_window - INFO - Added email summary: Complete Registration Process - Cryptolens
+2025-03-17 17:33:52,440 - root - INFO - Processing email 6: Subject: [GitHub] A third-party OAuth a...
+2025-03-17 17:33:52,440 - llm.gemini_api - INFO - Sending Gemini API request 27425035
+2025-03-17 17:33:53,311 - llm.gemini_api - INFO - Received response for request 27425035
+2025-03-17 17:33:53,311 - root - INFO - Generated summary for email 6
+2025-03-17 17:33:53,311 - gui.main_window - INFO - Added email summary: [GitHub] A third-party OAuth application has been added to your account
+2025-03-17 17:33:53,311 - root - INFO - Processing email 7: Subject: [GitHub] A GitHub owned Applic...
+2025-03-17 17:33:53,315 - llm.gemini_api - INFO - Sending Gemini API request 27427717
+2025-03-17 17:33:54,452 - llm.gemini_api - INFO - Received response for request 27427717
+2025-03-17 17:33:54,452 - root - INFO - Generated summary for email 7
+2025-03-17 17:33:54,452 - gui.main_window - INFO - Added email summary: [GitHub] A GitHub owned Application has been added to your account
+2025-03-17 17:33:54,456 - root - INFO - Processing email 8: Subject: [GitHub] A third-party OAuth a...
+2025-03-17 17:33:54,456 - llm.gemini_api - INFO - Sending Gemini API request 27427111
+2025-03-17 17:33:55,304 - llm.gemini_api - INFO - Received response for request 27427111
+2025-03-17 17:33:55,304 - root - INFO - Generated summary for email 8
+2025-03-17 17:33:55,304 - gui.main_window - INFO - Added email summary: [GitHub] A third-party OAuth application has been added to your account
+2025-03-17 17:33:55,304 - root - INFO - Processing email 9: Subject: “data science intern”: Unified...
+2025-03-17 17:33:55,308 - llm.gemini_api - INFO - Sending Gemini API request 2742d39a
+2025-03-17 17:33:56,266 - llm.gemini_api - INFO - Received response for request 2742d39a
+2025-03-17 17:33:56,266 - root - INFO - Generated summary for email 9
+2025-03-17 17:33:56,266 - gui.main_window - INFO - Added email summary: “data science intern”: Unified Mentor - Data Science Intern and more
+2025-03-17 17:33:56,270 - llm.gemini_api - INFO - Sending Gemini API request 274274b9
+2025-03-17 17:33:57,044 - llm.gemini_api - INFO - Received response for request 274274b9
+2025-03-17 17:33:57,044 - root - INFO - Generated summary for email 10
+2025-03-17 17:33:57,048 - root - INFO - Processing email 11: Subject: Hey Aditya Vardhan Sharma, Hel...
+2025-03-17 17:33:57,052 - llm.gemini_api - INFO - Sending Gemini API request 2742d285
+2025-03-17 17:33:58,353 - llm.gemini_api - INFO - Received response for request 2742d285
+2025-03-17 17:33:58,353 - root - INFO - Generated summary for email 11
+2025-03-17 17:33:58,353 - gui.main_window - INFO - Added email summary: Hey Aditya Vardhan Sharma, Help Ram Dalal Holidays with your valuable feedback!
+2025-03-17 17:33:58,353 - root - INFO - Processing email 12: Subject: [Job Alert] Nasdaq - World’s #...
+2025-03-17 17:33:58,353 - llm.gemini_api - INFO - Sending Gemini API request 274278b6
+2025-03-17 17:33:59,190 - llm.gemini_api - INFO - Received response for request 274278b6
+2025-03-17 17:33:59,192 - root - INFO - Generated summary for email 12
+2025-03-17 17:33:59,192 - gui.main_window - INFO - Added email summary: [Job Alert] Nasdaq - World’s #2 Stock Exchange is Hiring!
+2025-03-17 17:33:59,192 - root - INFO - Processing email 13: Subject: Exams Done, Discounts On: Dive...
+2025-03-17 17:33:59,192 - llm.gemini_api - INFO - Sending Gemini API request 2742d2b0
+2025-03-17 17:34:02,329 - llm.gemini_api - INFO - Received response for request 2742d2b0
+2025-03-17 17:34:02,329 - root - INFO - Generated summary for email 13
+2025-03-17 17:34:02,329 - gui.main_window - INFO - Added email summary: Exams Done, Discounts On: Dive Into EOFY Student Offers!
+2025-03-17 17:34:02,332 - root - INFO - Processing email 14: Subject: Wipro Ltd in your portfolio mo...
+2025-03-17 17:34:02,332 - llm.gemini_api - INFO - Sending Gemini API request 2742d329
+2025-03-17 17:35:02,417 - llm.gemini_api - ERROR - Error generating summary: 504 Deadline Exceeded
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\gemini_api.py", line 41, in generate_summary
+    response = model.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\generativeai\generative_models.py", line 243, in generate_content
+    response = self._client.generate_content(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 566, in generate_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.DeadlineExceeded: 504 Deadline Exceeded
+2025-03-17 17:35:02,429 - root - INFO - Generated summary for email 14
+2025-03-17 17:35:02,433 - root - INFO - Processing email 15: Subject: RBI Likely to Cut Rates in Apr...
+2025-03-17 17:35:02,433 - gui.main_window - INFO - Added email summary: Wipro Ltd in your portfolio moved -7% in a week
+2025-03-17 17:35:02,433 - llm.gemini_api - INFO - Sending Gemini API request 2742d435
+2025-03-17 17:35:04,603 - llm.gemini_api - INFO - Received response for request 2742d435
+2025-03-17 17:35:04,608 - root - INFO - Generated summary for email 15
+2025-03-17 17:35:04,608 - gui.main_window - INFO - Added email summary: RBI Likely to Cut Rates in April, Starlink Partners with Jio & Airtel, Blackstone Eyes $100B Investment, and more
+2025-03-17 17:35:04,608 - root - INFO - Processing email 16: Subject: Your Monday morning trip with ...
+2025-03-17 17:35:04,608 - llm.gemini_api - INFO - Sending Gemini API request 2742d620
+2025-03-17 17:35:07,817 - llm.gemini_api - INFO - Received response for request 2742d620
+2025-03-17 17:35:07,817 - root - INFO - Generated summary for email 16
+2025-03-17 17:35:07,817 - gui.main_window - INFO - Added email summary: Your Monday morning trip with Uber
+2025-03-17 17:35:07,821 - root - INFO - Processing email 17: Subject: Add Sunanjita Mahajan, Assista...
+2025-03-17 17:35:07,821 - llm.gemini_api - INFO - Sending Gemini API request 2742d39f
+2025-03-17 17:35:08,749 - llm.gemini_api - INFO - Received response for request 2742d39f
+2025-03-17 17:35:08,749 - root - INFO - Generated summary for email 17
+2025-03-17 17:35:08,749 - gui.main_window - INFO - Added email summary: Add Sunanjita Mahajan, Assistant Professor to your network
+2025-03-17 17:35:08,749 - root - INFO - Processing email 18: Subject: “data analyst”: Unified Mentor...
+2025-03-17 17:35:08,749 - llm.gemini_api - INFO - Sending Gemini API request 2742d617
+2025-03-17 17:35:09,752 - llm.gemini_api - INFO - Received response for request 2742d617
+2025-03-17 17:35:09,752 - root - INFO - Generated summary for email 18
+2025-03-17 17:35:09,752 - gui.main_window - INFO - Added email summary: “data analyst”: Unified Mentor - Data Analyst Intern and more
+2025-03-17 17:35:09,752 - root - INFO - Processing email 19: Subject: Aditya Vardhan Sharma, here’s ...
+2025-03-17 17:35:09,752 - llm.gemini_api - INFO - Sending Gemini API request 2742d455
+2025-03-17 17:35:11,248 - llm.gemini_api - INFO - Received response for request 2742d455
+2025-03-17 17:35:11,252 - root - INFO - Generated summary for email 19
+2025-03-17 17:35:11,252 - gui.main_window - INFO - Added email summary: Aditya Vardhan Sharma, here’s everything you need for your trip to Chandigarh
+2025-03-17 17:35:11,257 - llm.gemini_api - INFO - Sending Gemini API request 2742d52a
+2025-03-17 17:35:12,001 - llm.gemini_api - INFO - Received response for request 2742d52a
+2025-03-17 17:35:12,001 - root - INFO - Generated summary for email 20
+2025-03-17 17:44:51,088 - root - INFO - Logger initialized with level INFO
+2025-03-17 17:44:59,435 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-17 17:45:00,255 - email_utils.gmail_api - INFO - Found 20 messages, fetching content...
+2025-03-17 17:45:00,586 - email_utils.gmail_api - INFO - Fetched message 195a3c2e8bec619f
+2025-03-17 17:45:01,073 - email_utils.gmail_api - INFO - Fetched message 195a39c7c2db8b4d
+2025-03-17 17:45:01,425 - email_utils.gmail_api - INFO - Fetched message 195a386984a8d9cb
+2025-03-17 17:45:01,763 - email_utils.gmail_api - INFO - Fetched message 195a36ba333489b9
+2025-03-17 17:45:02,106 - email_utils.gmail_api - INFO - Fetched message 195a36ad1b2c0033
+2025-03-17 17:45:02,416 - email_utils.gmail_api - INFO - Fetched message 195a365ea679a202
+2025-03-17 17:45:02,742 - email_utils.gmail_api - INFO - Fetched message 195a362bbfe00671
+2025-03-17 17:45:03,069 - email_utils.gmail_api - INFO - Fetched message 195a360e4f435a5d
+2025-03-17 17:45:03,397 - email_utils.gmail_api - INFO - Fetched message 195a31a33206cd87
+2025-03-17 17:45:03,757 - email_utils.gmail_api - INFO - Fetched message 195a30d82f6fa4a2
+2025-03-17 17:45:04,085 - email_utils.gmail_api - INFO - Fetched message 195a2fbaf450a40d
+2025-03-17 17:45:04,426 - email_utils.gmail_api - INFO - Fetched message 195a2de5c05f1698
+2025-03-17 17:45:04,832 - email_utils.gmail_api - INFO - Fetched message 195a2992a40ad7b4
+2025-03-17 17:45:05,249 - email_utils.gmail_api - INFO - Fetched message 195a23ef56a6e236
+2025-03-17 17:45:05,645 - email_utils.gmail_api - INFO - Fetched message 195a21a2b1f7a727
+2025-03-17 17:45:06,049 - email_utils.gmail_api - INFO - Fetched message 195a19404bd5a1e2
+2025-03-17 17:45:06,445 - email_utils.gmail_api - INFO - Fetched message 195a1634902cac3f
+2025-03-17 17:45:06,877 - email_utils.gmail_api - INFO - Fetched message 195a0f50fd278194
+2025-03-17 17:45:07,268 - email_utils.gmail_api - INFO - Fetched message 195a0033765284a2
+2025-03-17 17:45:07,616 - email_utils.gmail_api - INFO - Fetched message 1959feb8fab86453
+2025-03-17 17:45:07,617 - email_utils.gmail_api - INFO - Successfully fetched 20 emails
+2025-03-17 17:45:07,617 - root - INFO - Processing email 1: Subject: INSIDE: Special Rewards Just f...
+2025-03-17 17:45:07,618 - llm.gemini_api - INFO - Sending Gemini API request 20d6ca96
+2025-03-17 17:45:10,230 - llm.gemini_api - INFO - Received response for request 20d6ca96
+2025-03-17 17:45:10,231 - root - INFO - Generated summary for email 1
+2025-03-17 17:45:10,234 - gui.main_window - INFO - Added email summary: INSIDE: Special Rewards Just for You
+2025-03-17 17:45:10,235 - root - INFO - Processing email 2: Subject: Jobs that match your backgroun...
+2025-03-17 17:45:10,236 - llm.gemini_api - INFO - Sending Gemini API request 20d72bc7
+2025-03-17 17:45:13,376 - llm.gemini_api - INFO - Received response for request 20d72bc7
+2025-03-17 17:45:13,377 - root - INFO - Generated summary for email 2
+2025-03-17 17:45:13,383 - root - INFO - Processing email 3: Subject: Failed production deployment o...
+2025-03-17 17:45:13,387 - llm.gemini_api - INFO - Sending Gemini API request 20d6c358
+2025-03-17 17:45:14,204 - llm.gemini_api - INFO - Received response for request 20d6c358
+2025-03-17 17:45:14,205 - root - INFO - Generated summary for email 3
+2025-03-17 17:45:14,207 - gui.main_window - INFO - Added email summary: Failed production deployment on team 'adityavardhansharma's projects'
+2025-03-17 17:45:14,207 - root - INFO - Processing email 4: Subject: Getting started with Cryptolen...
+2025-03-17 17:45:14,208 - llm.gemini_api - INFO - Sending Gemini API request 20d6c88f
+2025-03-17 17:45:16,436 - llm.gemini_api - INFO - Received response for request 20d6c88f
+2025-03-17 17:45:16,437 - root - INFO - Generated summary for email 4
+2025-03-17 17:45:16,438 - gui.main_window - INFO - Added email summary: Getting started with Cryptolens
+2025-03-17 17:45:16,439 - root - INFO - Processing email 5: Subject: Complete Registration Process ...
+2025-03-17 17:45:16,439 - llm.gemini_api - INFO - Sending Gemini API request 20d67f02
+2025-03-17 17:45:17,293 - llm.gemini_api - INFO - Received response for request 20d67f02
+2025-03-17 17:45:17,294 - root - INFO - Generated summary for email 5
+2025-03-17 17:45:17,295 - gui.main_window - INFO - Added email summary: Complete Registration Process - Cryptolens
+2025-03-17 17:45:17,296 - root - INFO - Processing email 6: Subject: [GitHub] A third-party OAuth a...
+2025-03-17 17:45:17,296 - llm.gemini_api - INFO - Sending Gemini API request 20d69b5b
+2025-03-17 17:45:18,144 - llm.gemini_api - INFO - Received response for request 20d69b5b
+2025-03-17 17:45:18,144 - root - INFO - Generated summary for email 6
+2025-03-17 17:45:18,146 - gui.main_window - INFO - Added email summary: [GitHub] A third-party OAuth application has been added to your account
+2025-03-17 17:45:18,147 - root - INFO - Processing email 7: Subject: [GitHub] A GitHub owned Applic...
+2025-03-17 17:45:18,147 - llm.gemini_api - INFO - Sending Gemini API request 20d6cc4a
+2025-03-17 17:45:18,928 - llm.gemini_api - INFO - Received response for request 20d6cc4a
+2025-03-17 17:45:18,928 - root - INFO - Generated summary for email 7
+2025-03-17 17:45:18,930 - gui.main_window - INFO - Added email summary: [GitHub] A GitHub owned Application has been added to your account
+2025-03-17 17:45:18,930 - root - INFO - Processing email 8: Subject: [GitHub] A third-party OAuth a...
+2025-03-17 17:45:18,931 - llm.gemini_api - INFO - Sending Gemini API request 20d6c537
+2025-03-17 17:45:19,819 - llm.gemini_api - INFO - Received response for request 20d6c537
+2025-03-17 17:45:19,820 - root - INFO - Generated summary for email 8
+2025-03-17 17:45:19,822 - gui.main_window - INFO - Added email summary: [GitHub] A third-party OAuth application has been added to your account
+2025-03-17 17:45:19,823 - root - INFO - Processing email 9: Subject: “data science intern”: Unified...
+2025-03-17 17:45:19,823 - llm.gemini_api - INFO - Sending Gemini API request 20d72b92
+2025-03-17 17:45:20,844 - llm.gemini_api - INFO - Received response for request 20d72b92
+2025-03-17 17:45:20,845 - root - INFO - Generated summary for email 9
+2025-03-17 17:45:20,845 - gui.main_window - INFO - Added email summary: “data science intern”: Unified Mentor - Data Science Intern and more
+2025-03-17 17:45:20,847 - llm.gemini_api - INFO - Sending Gemini API request 20d6ca0d
+2025-03-17 17:45:21,662 - llm.gemini_api - INFO - Received response for request 20d6ca0d
+2025-03-17 17:45:21,664 - root - INFO - Generated summary for email 10
+2025-03-17 17:45:21,664 - root - INFO - Processing email 11: Subject: Hey Aditya Vardhan Sharma, Hel...
+2025-03-17 17:45:21,667 - llm.gemini_api - INFO - Sending Gemini API request 20d72c57
+2025-03-17 17:45:23,008 - llm.gemini_api - INFO - Received response for request 20d72c57
+2025-03-17 17:45:23,009 - root - INFO - Generated summary for email 11
+2025-03-17 17:45:23,009 - gui.main_window - INFO - Added email summary: Hey Aditya Vardhan Sharma, Help Ram Dalal Holidays with your valuable feedback!
+2025-03-17 17:45:23,010 - root - INFO - Processing email 12: Subject: [Job Alert] Nasdaq - World’s #...
+2025-03-17 17:45:23,011 - llm.gemini_api - INFO - Sending Gemini API request 20d6c3f7
+2025-03-17 17:45:23,825 - llm.gemini_api - INFO - Received response for request 20d6c3f7
+2025-03-17 17:45:23,826 - root - INFO - Generated summary for email 12
+2025-03-17 17:45:23,826 - gui.main_window - INFO - Added email summary: [Job Alert] Nasdaq - World’s #2 Stock Exchange is Hiring!
+2025-03-17 17:45:23,827 - root - INFO - Processing email 13: Subject: Exams Done, Discounts On: Dive...
+2025-03-17 17:45:23,828 - llm.gemini_api - INFO - Sending Gemini API request 20d72ce1
+2025-03-17 17:45:27,013 - llm.gemini_api - INFO - Received response for request 20d72ce1
+2025-03-17 17:45:27,014 - root - INFO - Generated summary for email 13
+2025-03-17 17:45:27,014 - gui.main_window - INFO - Added email summary: Exams Done, Discounts On: Dive Into EOFY Student Offers!
+2025-03-17 17:45:27,015 - root - INFO - Processing email 14: Subject: Wipro Ltd in your portfolio mo...
+2025-03-17 17:45:27,016 - llm.gemini_api - INFO - Sending Gemini API request 20d72be3
+2025-03-17 17:45:29,837 - llm.gemini_api - INFO - Received response for request 20d72be3
+2025-03-17 17:45:29,838 - root - INFO - Generated summary for email 14
+2025-03-17 17:45:29,838 - gui.main_window - INFO - Added email summary: Wipro Ltd in your portfolio moved -7% in a week
+2025-03-17 17:45:29,839 - root - INFO - Processing email 15: Subject: RBI Likely to Cut Rates in Apr...
+2025-03-17 17:45:29,840 - llm.gemini_api - INFO - Sending Gemini API request 20d72bab
+2025-03-17 17:45:31,971 - llm.gemini_api - INFO - Received response for request 20d72bab
+2025-03-17 17:45:31,973 - root - INFO - Generated summary for email 15
+2025-03-17 17:45:31,973 - gui.main_window - INFO - Added email summary: RBI Likely to Cut Rates in April, Starlink Partners with Jio & Airtel, Blackstone Eyes $100B Investment, and more
+2025-03-17 17:45:31,974 - root - INFO - Processing email 16: Subject: Your Monday morning trip with ...
+2025-03-17 17:45:31,975 - llm.gemini_api - INFO - Sending Gemini API request 20d72bf4
+2025-03-17 17:45:35,227 - llm.gemini_api - INFO - Received response for request 20d72bf4
+2025-03-17 17:45:35,228 - root - INFO - Generated summary for email 16
+2025-03-17 17:45:35,228 - gui.main_window - INFO - Added email summary: Your Monday morning trip with Uber
+2025-03-17 17:45:35,228 - root - INFO - Processing email 17: Subject: Add Sunanjita Mahajan, Assista...
+2025-03-17 17:45:35,229 - llm.gemini_api - INFO - Sending Gemini API request 20d6a922
+2025-03-17 17:45:35,592 - llm.gemini_api - ERROR - Error generating summary: 429 Resource has been exhausted (e.g. check quota).
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\gemini_api.py", line 41, in generate_summary
+    response = model.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\generativeai\generative_models.py", line 243, in generate_content
+    response = self._client.generate_content(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 566, in generate_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource has been exhausted (e.g. check quota).
+2025-03-17 17:45:35,598 - root - INFO - Generated summary for email 17
+2025-03-17 17:45:35,598 - gui.main_window - INFO - Added email summary: Add Sunanjita Mahajan, Assistant Professor to your network
+2025-03-17 17:45:35,599 - root - INFO - Processing email 18: Subject: “data analyst”: Unified Mentor...
+2025-03-17 17:45:35,600 - llm.gemini_api - INFO - Sending Gemini API request 20d72cc3
+2025-03-17 17:45:35,967 - llm.gemini_api - ERROR - Error generating summary: 429 Resource has been exhausted (e.g. check quota).
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\gemini_api.py", line 41, in generate_summary
+    response = model.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\generativeai\generative_models.py", line 243, in generate_content
+    response = self._client.generate_content(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 566, in generate_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource has been exhausted (e.g. check quota).
+2025-03-17 17:45:35,968 - root - INFO - Generated summary for email 18
+2025-03-17 17:45:35,968 - gui.main_window - INFO - Added email summary: “data analyst”: Unified Mentor - Data Analyst Intern and more
+2025-03-17 17:45:35,969 - root - INFO - Processing email 19: Subject: Aditya Vardhan Sharma, here’s ...
+2025-03-17 17:45:35,969 - llm.gemini_api - INFO - Sending Gemini API request 20d72c01
+2025-03-17 17:45:37,213 - llm.gemini_api - INFO - Received response for request 20d72c01
+2025-03-17 17:45:37,214 - root - INFO - Generated summary for email 19
+2025-03-17 17:45:37,214 - gui.main_window - INFO - Added email summary: Aditya Vardhan Sharma, here’s everything you need for your trip to Chandigarh
+2025-03-17 17:45:37,216 - llm.gemini_api - INFO - Sending Gemini API request 20d6c88b
+2025-03-17 17:45:37,539 - llm.gemini_api - ERROR - Error generating summary: 429 Resource has been exhausted (e.g. check quota).
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\gemini_api.py", line 41, in generate_summary
+    response = model.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\generativeai\generative_models.py", line 243, in generate_content
+    response = self._client.generate_content(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 566, in generate_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource has been exhausted (e.g. check quota).
+2025-03-17 17:45:37,540 - root - INFO - Generated summary for email 20
+2025-03-17 17:52:23,380 - root - INFO - Logger initialized with level INFO
+2025-03-17 17:52:27,261 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-17 17:52:28,023 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-17 17:52:28,387 - email_utils.gmail_api - INFO - Fetched message 195a3c2e8bec619f
+2025-03-17 17:52:28,770 - email_utils.gmail_api - INFO - Fetched message 195a39c7c2db8b4d
+2025-03-17 17:52:29,114 - email_utils.gmail_api - INFO - Fetched message 195a386984a8d9cb
+2025-03-17 17:52:29,448 - email_utils.gmail_api - INFO - Fetched message 195a36ba333489b9
+2025-03-17 17:52:29,754 - email_utils.gmail_api - INFO - Fetched message 195a36ad1b2c0033
+2025-03-17 17:52:30,065 - email_utils.gmail_api - INFO - Fetched message 195a365ea679a202
+2025-03-17 17:52:30,944 - email_utils.gmail_api - INFO - Fetched message 195a362bbfe00671
+2025-03-17 17:52:31,265 - email_utils.gmail_api - INFO - Fetched message 195a360e4f435a5d
+2025-03-17 17:52:31,617 - email_utils.gmail_api - INFO - Fetched message 195a31a33206cd87
+2025-03-17 17:52:31,940 - email_utils.gmail_api - INFO - Fetched message 195a30d82f6fa4a2
+2025-03-17 17:52:31,941 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-17 17:52:31,941 - root - INFO - Processing email 1: Subject: INSIDE: Special Rewards Just f...
+2025-03-17 17:52:31,942 - llm.gemini_api - WARNING - Email content too long (16403 chars), truncating
+2025-03-17 17:52:31,942 - llm.gemini_api - INFO - Sending Gemini API request 13db4011
+2025-03-17 17:52:34,398 - llm.gemini_api - INFO - Received response for request 13db4011
+2025-03-17 17:52:34,399 - root - INFO - Generated summary for email 1
+2025-03-17 17:52:34,402 - gui.main_window - INFO - Added email summary: INSIDE: Special Rewards Just for You
+2025-03-17 17:52:34,403 - root - INFO - Processing email 2: Subject: Jobs that match your backgroun...
+2025-03-17 17:52:34,404 - llm.gemini_api - WARNING - Email content too long (88550 chars), truncating
+2025-03-17 17:52:34,405 - llm.gemini_api - INFO - Sending Gemini API request 13db4226
+2025-03-17 17:52:35,523 - llm.gemini_api - INFO - Received response for request 13db4226
+2025-03-17 17:52:35,524 - root - INFO - Generated summary for email 2
+2025-03-17 17:52:35,530 - root - INFO - Processing email 3: Subject: Failed production deployment o...
+2025-03-17 17:52:35,534 - llm.gemini_api - INFO - Sending Gemini API request 13db3b34
+2025-03-17 17:52:36,528 - llm.gemini_api - INFO - Received response for request 13db3b34
+2025-03-17 17:52:36,529 - root - INFO - Generated summary for email 3
+2025-03-17 17:52:36,531 - gui.main_window - INFO - Added email summary: Failed production deployment on team 'adityavardhansharma's projects'
+2025-03-17 17:52:36,531 - root - INFO - Processing email 4: Subject: Getting started with Cryptolen...
+2025-03-17 17:52:36,532 - llm.gemini_api - INFO - Sending Gemini API request 13db1f36
+2025-03-17 17:52:37,789 - llm.gemini_api - INFO - Received response for request 13db1f36
+2025-03-17 17:52:37,790 - root - INFO - Generated summary for email 4
+2025-03-17 17:52:37,792 - gui.main_window - INFO - Added email summary: Getting started with Cryptolens
+2025-03-17 17:52:37,792 - root - INFO - Processing email 5: Subject: Complete Registration Process ...
+2025-03-17 17:52:37,793 - llm.gemini_api - INFO - Sending Gemini API request 13db8c72
+2025-03-17 17:52:38,737 - llm.gemini_api - INFO - Received response for request 13db8c72
+2025-03-17 17:52:38,738 - root - INFO - Generated summary for email 5
+2025-03-17 17:52:38,739 - gui.main_window - INFO - Added email summary: Complete Registration Process - Cryptolens
+2025-03-17 17:52:38,740 - root - INFO - Processing email 6: Subject: [GitHub] A third-party OAuth a...
+2025-03-17 17:52:38,741 - llm.gemini_api - INFO - Sending Gemini API request 13db40c6
+2025-03-17 17:52:39,944 - llm.gemini_api - INFO - Received response for request 13db40c6
+2025-03-17 17:52:39,945 - root - INFO - Generated summary for email 6
+2025-03-17 17:52:39,947 - gui.main_window - INFO - Added email summary: [GitHub] A third-party OAuth application has been added to your account
+2025-03-17 17:52:39,948 - root - INFO - Processing email 7: Subject: [GitHub] A GitHub owned Applic...
+2025-03-17 17:52:39,948 - llm.gemini_api - INFO - Sending Gemini API request 13db403d
+2025-03-17 17:52:40,804 - llm.gemini_api - INFO - Received response for request 13db403d
+2025-03-17 17:52:40,805 - root - INFO - Generated summary for email 7
+2025-03-17 17:52:40,807 - gui.main_window - INFO - Added email summary: [GitHub] A GitHub owned Application has been added to your account
+2025-03-17 17:52:40,807 - root - INFO - Processing email 8: Subject: [GitHub] A third-party OAuth a...
+2025-03-17 17:52:40,808 - llm.gemini_api - INFO - Sending Gemini API request 13db3f86
+2025-03-17 17:52:42,142 - llm.gemini_api - INFO - Received response for request 13db3f86
+2025-03-17 17:52:42,143 - root - INFO - Generated summary for email 8
+2025-03-17 17:52:42,144 - gui.main_window - INFO - Added email summary: [GitHub] A third-party OAuth application has been added to your account
+2025-03-17 17:52:42,144 - root - INFO - Processing email 9: Subject: “data science intern”: Unified...
+2025-03-17 17:52:42,146 - llm.gemini_api - INFO - Sending Gemini API request 13db421b
+2025-03-17 17:52:43,135 - llm.gemini_api - INFO - Received response for request 13db421b
+2025-03-17 17:52:43,135 - root - INFO - Generated summary for email 9
+2025-03-17 17:52:43,136 - gui.main_window - INFO - Added email summary: “data science intern”: Unified Mentor - Data Science Intern and more
+2025-03-17 17:52:43,138 - llm.gemini_api - INFO - Sending Gemini API request 13db41d8
+2025-03-17 17:52:43,923 - llm.gemini_api - INFO - Received response for request 13db41d8
+2025-03-17 17:52:43,924 - root - INFO - Generated summary for email 10
+2025-03-17 17:53:47,817 - root - INFO - Logger initialized with level INFO
+2025-03-17 17:53:49,555 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-17 17:53:50,250 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-17 17:53:50,606 - email_utils.gmail_api - INFO - Fetched message 195a3c2e8bec619f
+2025-03-17 17:53:50,961 - email_utils.gmail_api - INFO - Fetched message 195a39c7c2db8b4d
+2025-03-17 17:53:51,296 - email_utils.gmail_api - INFO - Fetched message 195a386984a8d9cb
+2025-03-17 17:53:51,662 - email_utils.gmail_api - INFO - Fetched message 195a36ba333489b9
+2025-03-17 17:53:51,970 - email_utils.gmail_api - INFO - Fetched message 195a36ad1b2c0033
+2025-03-17 17:53:52,287 - email_utils.gmail_api - INFO - Fetched message 195a365ea679a202
+2025-03-17 17:53:52,592 - email_utils.gmail_api - INFO - Fetched message 195a362bbfe00671
+2025-03-17 17:53:52,896 - email_utils.gmail_api - INFO - Fetched message 195a360e4f435a5d
+2025-03-17 17:53:53,223 - email_utils.gmail_api - INFO - Fetched message 195a31a33206cd87
+2025-03-17 17:53:53,569 - email_utils.gmail_api - INFO - Fetched message 195a30d82f6fa4a2
+2025-03-17 17:53:53,570 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-17 17:53:53,571 - root - INFO - Processing email 1: Subject: INSIDE: Special Rewards Just f...
+2025-03-17 17:53:53,571 - llm.gemini_api - INFO - Sending Gemini API request 19bf275e
+2025-03-17 17:53:56,103 - llm.gemini_api - INFO - Received response for request 19bf275e
+2025-03-17 17:53:56,105 - root - INFO - Generated summary for email 1
+2025-03-17 17:53:56,107 - gui.main_window - INFO - Added email summary: INSIDE: Special Rewards Just for You
+2025-03-17 17:53:56,108 - root - INFO - Processing email 2: Subject: Jobs that match your backgroun...
+2025-03-17 17:53:56,109 - llm.gemini_api - WARNING - Email content too long (88550 chars), truncating
+2025-03-17 17:53:56,109 - llm.gemini_api - INFO - Sending Gemini API request 19bf77c6
+2025-03-17 17:53:58,152 - llm.gemini_api - INFO - Received response for request 19bf77c6
+2025-03-17 17:53:58,153 - root - INFO - Generated summary for email 2
+2025-03-17 17:53:58,158 - root - INFO - Processing email 3: Subject: Failed production deployment o...
+2025-03-17 17:53:58,162 - llm.gemini_api - INFO - Sending Gemini API request 19bf2340
+2025-03-17 17:53:58,890 - llm.gemini_api - INFO - Received response for request 19bf2340
+2025-03-17 17:53:58,891 - root - INFO - Generated summary for email 3
+2025-03-17 17:53:58,892 - gui.main_window - INFO - Added email summary: Failed production deployment on team 'adityavardhansharma's projects'
+2025-03-17 17:53:58,892 - root - INFO - Processing email 4: Subject: Getting started with Cryptolen...
+2025-03-17 17:53:58,893 - llm.gemini_api - INFO - Sending Gemini API request 19bf062a
+2025-03-17 17:54:00,383 - llm.gemini_api - INFO - Received response for request 19bf062a
+2025-03-17 17:54:00,383 - root - INFO - Generated summary for email 4
+2025-03-17 17:54:00,384 - gui.main_window - INFO - Added email summary: Getting started with Cryptolens
+2025-03-17 17:54:00,384 - root - INFO - Processing email 5: Subject: Complete Registration Process ...
+2025-03-17 17:54:00,385 - llm.gemini_api - INFO - Sending Gemini API request 19bedb02
+2025-03-17 17:54:01,264 - llm.gemini_api - INFO - Received response for request 19bedb02
+2025-03-17 17:54:01,265 - root - INFO - Generated summary for email 5
+2025-03-17 17:54:01,266 - gui.main_window - INFO - Added email summary: Complete Registration Process - Cryptolens
+2025-03-17 17:54:01,267 - root - INFO - Processing email 6: Subject: [GitHub] A third-party OAuth a...
+2025-03-17 17:54:01,268 - llm.gemini_api - INFO - Sending Gemini API request 19bf233a
+2025-03-17 17:54:02,520 - llm.gemini_api - INFO - Received response for request 19bf233a
+2025-03-17 17:54:02,521 - root - INFO - Generated summary for email 6
+2025-03-17 17:54:02,522 - gui.main_window - INFO - Added email summary: [GitHub] A third-party OAuth application has been added to your account
+2025-03-17 17:54:02,523 - root - INFO - Processing email 7: Subject: [GitHub] A GitHub owned Applic...
+2025-03-17 17:54:02,524 - llm.gemini_api - INFO - Sending Gemini API request 19bf2812
+2025-03-17 17:54:03,379 - llm.gemini_api - INFO - Received response for request 19bf2812
+2025-03-17 17:54:03,379 - root - INFO - Generated summary for email 7
+2025-03-17 17:54:03,381 - gui.main_window - INFO - Added email summary: [GitHub] A GitHub owned Application has been added to your account
+2025-03-17 17:54:03,381 - root - INFO - Processing email 8: Subject: [GitHub] A third-party OAuth a...
+2025-03-17 17:54:03,382 - llm.gemini_api - INFO - Sending Gemini API request 19bf22c9
+2025-03-17 17:54:04,758 - llm.gemini_api - INFO - Received response for request 19bf22c9
+2025-03-17 17:54:04,759 - root - INFO - Generated summary for email 8
+2025-03-17 17:54:04,760 - gui.main_window - INFO - Added email summary: [GitHub] A third-party OAuth application has been added to your account
+2025-03-17 17:54:04,761 - root - INFO - Processing email 9: Subject: “data science intern”: Unified...
+2025-03-17 17:54:04,761 - llm.gemini_api - INFO - Sending Gemini API request 19bf2969
+2025-03-17 17:54:05,755 - llm.gemini_api - INFO - Received response for request 19bf2969
+2025-03-17 17:54:05,756 - root - INFO - Generated summary for email 9
+2025-03-17 17:54:05,758 - gui.main_window - INFO - Added email summary: “data science intern”: Unified Mentor - Data Science Intern and more
+2025-03-17 17:54:05,760 - llm.gemini_api - INFO - Sending Gemini API request 19bf2763
+2025-03-17 17:54:06,502 - llm.gemini_api - INFO - Received response for request 19bf2763
+2025-03-17 17:54:06,503 - root - INFO - Generated summary for email 10
+2025-03-18 10:39:10,678 - root - INFO - Logger initialized with level INFO
+2025-03-18 10:39:13,114 - root - ERROR - An error occurred during email processing.
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\main.py", line 35, in run
+    service = get_gmail_service()
+              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\OneDrive\Desktop\agentic\email_utils\gmail_api.py", line 22, in get_gmail_service
+    if os.path.exists(TOKEN_PATH):
+                      ^^^^^^^^^^
+NameError: name 'TOKEN_PATH' is not defined
+2025-03-18 10:40:08,322 - root - INFO - Logger initialized with level INFO
+2025-03-18 10:40:14,277 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 10:40:18,928 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 10:40:20,214 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 10:40:21,548 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 10:40:23,259 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 10:40:24,634 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 10:40:26,334 - email_utils.gmail_api - INFO - Fetched message 195a61b64c81e0d9
+2025-03-18 10:40:27,806 - email_utils.gmail_api - INFO - Fetched message 195a5df80f5ae37d
+2025-03-18 10:40:29,148 - email_utils.gmail_api - INFO - Fetched message 195a587c6813dcbc
+2025-03-18 10:40:30,212 - email_utils.gmail_api - INFO - Fetched message 195a51f261c2f1ef
+2025-03-18 10:40:30,941 - email_utils.gmail_api - INFO - Fetched message 195a4e46f239e655
+2025-03-18 10:40:31,645 - email_utils.gmail_api - INFO - Fetched message 195a46fda59db891
+2025-03-18 10:40:31,646 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 10:40:31,646 - root - INFO - Processing email 1: Subject: 182942...
+2025-03-18 10:40:31,647 - llm.gemini_api - INFO - Sending Gemini API request 1b862552
+2025-03-18 10:40:34,558 - llm.gemini_api - INFO - Received response for request 1b862552
+2025-03-18 10:40:34,559 - root - INFO - Generated summary for email 1
+2025-03-18 10:40:34,561 - gui.main_window - INFO - Added email summary: 182942
+2025-03-18 10:40:34,562 - root - INFO - Processing email 2: Subject: ISRO’s Microprocessor Breakthr...
+2025-03-18 10:40:34,562 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 10:40:34,563 - llm.gemini_api - INFO - Sending Gemini API request 1b8675a1
+2025-03-18 10:40:36,406 - llm.gemini_api - INFO - Received response for request 1b8675a1
+2025-03-18 10:40:36,407 - root - INFO - Generated summary for email 2
+2025-03-18 10:40:36,410 - root - INFO - Processing email 3: Subject: Introducing v0 integrations...
+2025-03-18 10:40:36,415 - llm.gemini_api - INFO - Sending Gemini API request 1b861f1d
+2025-03-18 10:40:38,344 - llm.gemini_api - INFO - Received response for request 1b861f1d
+2025-03-18 10:40:38,345 - root - INFO - Generated summary for email 3
+2025-03-18 10:40:38,346 - gui.main_window - INFO - Added email summary: Introducing v0 integrations
+2025-03-18 10:40:38,349 - llm.gemini_api - INFO - Sending Gemini API request 1b86752c
+2025-03-18 10:40:39,124 - llm.gemini_api - INFO - Received response for request 1b86752c
+2025-03-18 10:40:39,125 - root - INFO - Generated summary for email 4
+2025-03-18 10:40:39,135 - root - INFO - Processing email 5: Subject: “data analyst”: 2Cents Capital...
+2025-03-18 10:40:39,152 - llm.gemini_api - INFO - Sending Gemini API request 1b867513
+2025-03-18 10:40:40,684 - llm.gemini_api - INFO - Received response for request 1b867513
+2025-03-18 10:40:40,685 - root - INFO - Generated summary for email 5
+2025-03-18 10:40:40,686 - gui.main_window - INFO - Added email summary: “data analyst”: 2Cents Capital - Data Science Intern and more
+2025-03-18 10:40:40,686 - root - INFO - Processing email 6: Subject: Competition Launch: BirdCLEF+ ...
+2025-03-18 10:40:40,687 - llm.gemini_api - INFO - Sending Gemini API request 1b861ebd
+2025-03-18 10:40:41,665 - llm.gemini_api - INFO - Received response for request 1b861ebd
+2025-03-18 10:40:41,666 - root - INFO - Generated summary for email 6
+2025-03-18 10:40:41,667 - gui.main_window - INFO - Added email summary: Competition Launch: BirdCLEF+ 2025
+2025-03-18 10:40:41,668 - root - INFO - Processing email 7: Subject: Space Toggles, Input Magic, an...
+2025-03-18 10:40:41,669 - llm.gemini_api - INFO - Sending Gemini API request 1b867559
+2025-03-18 10:40:43,458 - llm.gemini_api - INFO - Received response for request 1b867559
+2025-03-18 10:40:43,459 - root - INFO - Generated summary for email 7
+2025-03-18 10:40:43,460 - gui.main_window - INFO - Added email summary: Space Toggles, Input Magic, and Shader Alternatives
+2025-03-18 10:40:43,463 - llm.gemini_api - INFO - Sending Gemini API request 1b861f2d
+2025-03-18 10:40:44,315 - llm.gemini_api - INFO - Received response for request 1b861f2d
+2025-03-18 10:40:44,315 - root - INFO - Generated summary for email 8
+2025-03-18 10:40:44,318 - root - INFO - Processing email 9: Subject: Your Expertise is Requested!...
+2025-03-18 10:40:44,320 - llm.gemini_api - INFO - Sending Gemini API request 1b86254b
+2025-03-18 10:40:46,027 - llm.gemini_api - INFO - Received response for request 1b86254b
+2025-03-18 10:40:46,028 - root - INFO - Generated summary for email 9
+2025-03-18 10:40:46,029 - gui.main_window - INFO - Added email summary: Your Expertise is Requested!
+2025-03-18 10:40:46,030 - root - INFO - Processing email 10: Subject: GPT-4.5 Performance at 1% Cost...
+2025-03-18 10:40:46,031 - llm.gemini_api - INFO - Sending Gemini API request 1b867647
+2025-03-18 10:40:47,503 - llm.gemini_api - INFO - Received response for request 1b867647
+2025-03-18 10:40:47,504 - root - INFO - Generated summary for email 10
+2025-03-18 10:40:47,505 - gui.main_window - INFO - Added email summary: GPT-4.5 Performance at 1% Cost
+2025-03-18 11:51:12,210 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:07:10,565 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:07:32,533 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 12:07:33,336 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 12:07:33,676 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 12:07:34,000 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 12:07:34,315 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 12:07:34,629 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 12:07:35,056 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 12:07:35,364 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 12:07:36,585 - email_utils.gmail_api - INFO - Fetched message 195a61b64c81e0d9
+2025-03-18 12:07:36,958 - email_utils.gmail_api - INFO - Fetched message 195a5df80f5ae37d
+2025-03-18 12:07:37,392 - email_utils.gmail_api - INFO - Fetched message 195a587c6813dcbc
+2025-03-18 12:07:37,732 - email_utils.gmail_api - INFO - Fetched message 195a51f261c2f1ef
+2025-03-18 12:07:37,733 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 12:07:37,733 - root - INFO - Processing email 1: Subject: Your JetBrains Educational Pac...
+2025-03-18 12:07:37,734 - llm.gemini_api - INFO - Sending Gemini API request 21fb984f
+2025-03-18 12:07:40,118 - llm.gemini_api - INFO - Received response for request 21fb984f
+2025-03-18 12:07:40,119 - root - INFO - Generated summary for email 1
+2025-03-18 12:07:40,119 - gui.main_window - INFO - Added email summary: Your JetBrains Educational Pack has expired!
+2025-03-18 12:07:40,120 - root - INFO - Processing email 2: Subject: Deadline Reminder: TCS NQT 202...
+2025-03-18 12:07:40,121 - llm.gemini_api - INFO - Sending Gemini API request 21fbf561
+2025-03-18 12:07:41,055 - llm.gemini_api - INFO - Received response for request 21fbf561
+2025-03-18 12:07:41,055 - root - INFO - Generated summary for email 2
+2025-03-18 12:07:41,056 - gui.main_window - INFO - Added email summary: Deadline Reminder: TCS NQT 2025 registrations are closing.
+2025-03-18 12:07:41,056 - root - INFO - Processing email 3: Subject: 182942...
+2025-03-18 12:07:41,057 - llm.gemini_api - INFO - Sending Gemini API request 21fbf5d4
+2025-03-18 12:07:42,459 - llm.gemini_api - INFO - Received response for request 21fbf5d4
+2025-03-18 12:07:42,460 - root - INFO - Generated summary for email 3
+2025-03-18 12:07:42,460 - gui.main_window - INFO - Added email summary: 182942
+2025-03-18 12:07:42,462 - root - INFO - Processing email 4: Subject: ISRO’s Microprocessor Breakthr...
+2025-03-18 12:07:42,463 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 12:07:42,464 - llm.gemini_api - INFO - Sending Gemini API request 21fbf642
+2025-03-18 12:07:44,564 - llm.gemini_api - INFO - Received response for request 21fbf642
+2025-03-18 12:07:44,565 - root - INFO - Generated summary for email 4
+2025-03-18 12:07:44,566 - root - INFO - Processing email 5: Subject: Introducing v0 integrations...
+2025-03-18 12:07:44,573 - llm.gemini_api - INFO - Sending Gemini API request 21fbf642
+2025-03-18 12:07:46,459 - llm.gemini_api - INFO - Received response for request 21fbf642
+2025-03-18 12:07:46,460 - root - INFO - Generated summary for email 5
+2025-03-18 12:07:46,461 - gui.main_window - INFO - Added email summary: Introducing v0 integrations
+2025-03-18 12:07:46,464 - llm.gemini_api - INFO - Sending Gemini API request 21fbf641
+2025-03-18 12:07:47,236 - llm.gemini_api - INFO - Received response for request 21fbf641
+2025-03-18 12:07:47,237 - root - INFO - Generated summary for email 6
+2025-03-18 12:07:47,238 - root - INFO - Processing email 7: Subject: “data analyst”: 2Cents Capital...
+2025-03-18 12:07:47,240 - llm.gemini_api - INFO - Sending Gemini API request 21fbf746
+2025-03-18 12:07:48,801 - llm.gemini_api - INFO - Received response for request 21fbf746
+2025-03-18 12:07:48,802 - root - INFO - Generated summary for email 7
+2025-03-18 12:07:48,802 - gui.main_window - INFO - Added email summary: “data analyst”: 2Cents Capital - Data Science Intern and more
+2025-03-18 12:07:48,803 - root - INFO - Processing email 8: Subject: Competition Launch: BirdCLEF+ ...
+2025-03-18 12:07:48,805 - llm.gemini_api - INFO - Sending Gemini API request 21fb9405
+2025-03-18 12:07:49,778 - llm.gemini_api - INFO - Received response for request 21fb9405
+2025-03-18 12:07:49,779 - root - INFO - Generated summary for email 8
+2025-03-18 12:07:49,779 - gui.main_window - INFO - Added email summary: Competition Launch: BirdCLEF+ 2025
+2025-03-18 12:07:49,780 - root - INFO - Processing email 9: Subject: Space Toggles, Input Magic, an...
+2025-03-18 12:07:49,781 - llm.gemini_api - INFO - Sending Gemini API request 21fbf795
+2025-03-18 12:07:51,599 - llm.gemini_api - INFO - Received response for request 21fbf795
+2025-03-18 12:07:51,600 - root - INFO - Generated summary for email 9
+2025-03-18 12:07:51,601 - gui.main_window - INFO - Added email summary: Space Toggles, Input Magic, and Shader Alternatives
+2025-03-18 12:07:51,603 - llm.gemini_api - INFO - Sending Gemini API request 21fbf63c
+2025-03-18 12:07:52,430 - llm.gemini_api - INFO - Received response for request 21fbf63c
+2025-03-18 12:07:52,432 - root - INFO - Generated summary for email 10
+2025-03-18 12:23:03,064 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:26:27,348 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:26:38,941 - gui.main_window - INFO - Updated status in HTML: Cancelled.
+2025-03-18 12:29:44,782 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:30:12,814 - gui.main_window - INFO - Updated status: Fetching emails...
+2025-03-18 12:30:12,814 - gui.main_window - INFO - Updated status: Fetching emails...
+2025-03-18 12:30:12,815 - gui.main_window - INFO - Updated status: Fetching emails...
+2025-03-18 12:30:12,821 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 12:30:17,890 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 12:30:19,301 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 12:30:20,740 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 12:30:22,125 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 12:30:24,140 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 12:30:26,257 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 12:30:27,674 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 12:30:29,008 - email_utils.gmail_api - INFO - Fetched message 195a61b64c81e0d9
+2025-03-18 12:30:30,019 - email_utils.gmail_api - INFO - Fetched message 195a5df80f5ae37d
+2025-03-18 12:30:31,098 - email_utils.gmail_api - INFO - Fetched message 195a587c6813dcbc
+2025-03-18 12:30:32,211 - email_utils.gmail_api - INFO - Fetched message 195a51f261c2f1ef
+2025-03-18 12:30:32,212 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 12:30:32,213 - root - INFO - Processing email 1: Subject: Your JetBrains Educational Pac...
+2025-03-18 12:30:32,213 - gui.main_window - INFO - Updated status: Found 10 emails. Starting summarization...
+2025-03-18 12:30:32,213 - llm.gemini_api - INFO - Sending Gemini API request 20e75f93
+2025-03-18 12:30:32,214 - gui.main_window - INFO - Updated progress: 1/10
+2025-03-18 12:30:32,215 - gui.main_window - INFO - Updated status: Processing email 1 of 10...
+2025-03-18 12:30:36,097 - llm.gemini_api - INFO - Received response for request 20e75f93
+2025-03-18 12:30:36,098 - root - INFO - Generated summary for email 1
+2025-03-18 12:30:36,098 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:36,098 - root - INFO - Processing email 2: Subject: Deadline Reminder: TCS NQT 202...
+2025-03-18 12:30:36,098 - gui.main_window - INFO - Updated progress: 2/10
+2025-03-18 12:30:36,100 - llm.gemini_api - INFO - Sending Gemini API request 20e76336
+2025-03-18 12:30:36,100 - gui.main_window - INFO - Updated status: Processing email 2 of 10...
+2025-03-18 12:30:37,395 - llm.gemini_api - INFO - Received response for request 20e76336
+2025-03-18 12:30:37,396 - root - INFO - Generated summary for email 2
+2025-03-18 12:30:37,396 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:37,397 - root - INFO - Processing email 3: Subject: 182942...
+2025-03-18 12:30:37,397 - gui.main_window - INFO - Updated progress: 3/10
+2025-03-18 12:30:37,397 - llm.gemini_api - INFO - Sending Gemini API request 20e7630a
+2025-03-18 12:30:37,398 - gui.main_window - INFO - Updated status: Processing email 3 of 10...
+2025-03-18 12:30:38,672 - llm.gemini_api - INFO - Received response for request 20e7630a
+2025-03-18 12:30:38,673 - root - INFO - Generated summary for email 3
+2025-03-18 12:30:38,674 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:38,675 - root - INFO - Processing email 4: Subject: ISRO’s Microprocessor Breakthr...
+2025-03-18 12:30:38,675 - gui.main_window - INFO - Updated progress: 4/10
+2025-03-18 12:30:38,675 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 12:30:38,676 - gui.main_window - INFO - Updated status: Processing email 4 of 10...
+2025-03-18 12:30:38,676 - llm.gemini_api - INFO - Sending Gemini API request 20e763a4
+2025-03-18 12:30:41,180 - llm.gemini_api - INFO - Received response for request 20e763a4
+2025-03-18 12:30:41,181 - root - INFO - Generated summary for email 4
+2025-03-18 12:30:41,181 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:41,182 - root - INFO - Processing email 5: Subject: Introducing v0 integrations...
+2025-03-18 12:30:41,183 - gui.main_window - INFO - Updated progress: 5/10
+2025-03-18 12:30:41,183 - llm.gemini_api - INFO - Sending Gemini API request 20e7635b
+2025-03-18 12:30:41,183 - gui.main_window - INFO - Updated status: Processing email 5 of 10...
+2025-03-18 12:30:42,898 - llm.gemini_api - INFO - Received response for request 20e7635b
+2025-03-18 12:30:42,899 - root - INFO - Generated summary for email 5
+2025-03-18 12:30:42,899 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:42,900 - gui.main_window - INFO - Updated progress: 6/10
+2025-03-18 12:30:42,903 - llm.gemini_api - INFO - Sending Gemini API request 20e76236
+2025-03-18 12:30:42,904 - gui.main_window - INFO - Updated status: Processing email 6 of 10...
+2025-03-18 12:30:43,642 - llm.gemini_api - INFO - Received response for request 20e76236
+2025-03-18 12:30:43,643 - root - INFO - Generated summary for email 6
+2025-03-18 12:30:43,643 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:43,643 - root - INFO - Processing email 7: Subject: “data analyst”: 2Cents Capital...
+2025-03-18 12:30:43,644 - gui.main_window - INFO - Updated progress: 7/10
+2025-03-18 12:30:43,644 - llm.gemini_api - INFO - Sending Gemini API request 20e76269
+2025-03-18 12:30:43,645 - gui.main_window - INFO - Updated status: Processing email 7 of 10...
+2025-03-18 12:30:44,695 - llm.gemini_api - INFO - Received response for request 20e76269
+2025-03-18 12:30:44,696 - root - INFO - Generated summary for email 7
+2025-03-18 12:30:44,696 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:44,697 - root - INFO - Processing email 8: Subject: Competition Launch: BirdCLEF+ ...
+2025-03-18 12:30:44,697 - gui.main_window - INFO - Updated progress: 8/10
+2025-03-18 12:30:44,697 - llm.gemini_api - INFO - Sending Gemini API request 20e540a4
+2025-03-18 12:30:44,698 - gui.main_window - INFO - Updated status: Processing email 8 of 10...
+2025-03-18 12:30:45,652 - llm.gemini_api - INFO - Received response for request 20e540a4
+2025-03-18 12:30:45,652 - root - INFO - Generated summary for email 8
+2025-03-18 12:30:45,652 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:45,653 - root - INFO - Processing email 9: Subject: Space Toggles, Input Magic, an...
+2025-03-18 12:30:45,654 - gui.main_window - INFO - Updated progress: 9/10
+2025-03-18 12:30:45,654 - llm.gemini_api - INFO - Sending Gemini API request 20e7633b
+2025-03-18 12:30:45,654 - gui.main_window - INFO - Updated status: Processing email 9 of 10...
+2025-03-18 12:30:47,149 - llm.gemini_api - INFO - Received response for request 20e7633b
+2025-03-18 12:30:47,151 - root - INFO - Generated summary for email 9
+2025-03-18 12:30:47,151 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:47,152 - gui.main_window - INFO - Updated progress: 10/10
+2025-03-18 12:30:47,154 - llm.gemini_api - INFO - Sending Gemini API request 20e761cf
+2025-03-18 12:30:47,154 - gui.main_window - INFO - Updated status: Processing email 10 of 10...
+2025-03-18 12:30:47,973 - llm.gemini_api - INFO - Received response for request 20e761cf
+2025-03-18 12:30:47,973 - root - INFO - Generated summary for email 10
+2025-03-18 12:30:47,974 - gui.main_window - INFO - Added email summary via JS.
+2025-03-18 12:30:47,975 - gui.main_window - INFO - Updated status: Done!
+2025-03-18 12:32:09,437 - gui.main_window - INFO - Updated status: Cancelled.
+2025-03-18 12:34:24,672 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:34:33,453 - gui.main_window - INFO - Updated status in HTML: Fetching emails...
+2025-03-18 12:34:33,454 - gui.main_window - INFO - Updated status in HTML: Fetching emails...
+2025-03-18 12:34:33,455 - gui.main_window - INFO - Updated status in HTML: Fetching emails...
+2025-03-18 12:34:33,460 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 12:34:34,220 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 12:34:34,574 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 12:34:34,918 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 12:34:35,260 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 12:34:35,664 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 12:34:36,042 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 12:34:36,376 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 12:34:36,732 - email_utils.gmail_api - INFO - Fetched message 195a61b64c81e0d9
+2025-03-18 12:34:37,057 - email_utils.gmail_api - INFO - Fetched message 195a5df80f5ae37d
+2025-03-18 12:34:37,456 - email_utils.gmail_api - INFO - Fetched message 195a587c6813dcbc
+2025-03-18 12:34:37,824 - email_utils.gmail_api - INFO - Fetched message 195a51f261c2f1ef
+2025-03-18 12:34:37,825 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 12:34:37,826 - root - INFO - Processing email 1: Subject: Your JetBrains Educational Pac...
+2025-03-18 12:34:37,826 - gui.main_window - INFO - Updated status in HTML: Found 10 emails. Starting summarization...
+2025-03-18 12:34:37,827 - llm.gemini_api - INFO - Sending Gemini API request 1217e69d
+2025-03-18 12:34:37,827 - gui.main_window - INFO - Updated progress in HTML: 1/10
+2025-03-18 12:34:37,828 - gui.main_window - INFO - Updated status in HTML: Processing email 1 of 10...
+2025-03-18 12:34:40,202 - llm.gemini_api - INFO - Received response for request 1217e69d
+2025-03-18 12:34:40,204 - root - INFO - Generated summary for email 1
+2025-03-18 12:34:40,205 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:40,205 - root - INFO - Processing email 2: Subject: Deadline Reminder: TCS NQT 202...
+2025-03-18 12:34:40,206 - gui.main_window - INFO - Updated progress in HTML: 2/10
+2025-03-18 12:34:40,206 - llm.gemini_api - INFO - Sending Gemini API request 1217e97e
+2025-03-18 12:34:40,206 - gui.main_window - INFO - Updated status in HTML: Processing email 2 of 10...
+2025-03-18 12:34:41,065 - llm.gemini_api - INFO - Received response for request 1217e97e
+2025-03-18 12:34:41,066 - root - INFO - Generated summary for email 2
+2025-03-18 12:34:41,066 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:41,067 - root - INFO - Processing email 3: Subject: 182942...
+2025-03-18 12:34:41,067 - gui.main_window - INFO - Updated progress in HTML: 3/10
+2025-03-18 12:34:41,067 - llm.gemini_api - INFO - Sending Gemini API request 1217e99f
+2025-03-18 12:34:41,068 - gui.main_window - INFO - Updated status in HTML: Processing email 3 of 10...
+2025-03-18 12:34:42,530 - llm.gemini_api - INFO - Received response for request 1217e99f
+2025-03-18 12:34:42,531 - root - INFO - Generated summary for email 3
+2025-03-18 12:34:42,532 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:42,532 - root - INFO - Processing email 4: Subject: ISRO’s Microprocessor Breakthr...
+2025-03-18 12:34:42,533 - gui.main_window - INFO - Updated progress in HTML: 4/10
+2025-03-18 12:34:42,533 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 12:34:42,534 - gui.main_window - INFO - Updated status in HTML: Processing email 4 of 10...
+2025-03-18 12:34:42,534 - llm.gemini_api - INFO - Sending Gemini API request 1217ea25
+2025-03-18 12:34:44,624 - llm.gemini_api - INFO - Received response for request 1217ea25
+2025-03-18 12:34:44,625 - root - INFO - Generated summary for email 4
+2025-03-18 12:34:44,625 - root - INFO - Processing email 5: Subject: Introducing v0 integrations...
+2025-03-18 12:34:44,625 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:44,626 - llm.gemini_api - INFO - Sending Gemini API request 1217e9dd
+2025-03-18 12:34:44,626 - gui.main_window - INFO - Updated progress in HTML: 5/10
+2025-03-18 12:34:44,628 - gui.main_window - INFO - Updated status in HTML: Processing email 5 of 10...
+2025-03-18 12:34:46,362 - llm.gemini_api - INFO - Received response for request 1217e9dd
+2025-03-18 12:34:46,363 - root - INFO - Generated summary for email 5
+2025-03-18 12:34:46,363 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:46,364 - gui.main_window - INFO - Updated progress in HTML: 6/10
+2025-03-18 12:34:46,368 - llm.gemini_api - INFO - Sending Gemini API request 1217ea99
+2025-03-18 12:34:46,368 - gui.main_window - INFO - Updated status in HTML: Processing email 6 of 10...
+2025-03-18 12:34:47,127 - llm.gemini_api - INFO - Received response for request 1217ea99
+2025-03-18 12:34:47,128 - root - INFO - Generated summary for email 6
+2025-03-18 12:34:47,128 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:47,129 - root - INFO - Processing email 7: Subject: “data analyst”: 2Cents Capital...
+2025-03-18 12:34:47,129 - gui.main_window - INFO - Updated progress in HTML: 7/10
+2025-03-18 12:34:47,129 - llm.gemini_api - INFO - Sending Gemini API request 1215e410
+2025-03-18 12:34:47,130 - gui.main_window - INFO - Updated status in HTML: Processing email 7 of 10...
+2025-03-18 12:34:48,688 - llm.gemini_api - INFO - Received response for request 1215e410
+2025-03-18 12:34:48,690 - root - INFO - Generated summary for email 7
+2025-03-18 12:34:48,690 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:48,690 - root - INFO - Processing email 8: Subject: Competition Launch: BirdCLEF+ ...
+2025-03-18 12:34:48,691 - gui.main_window - INFO - Updated progress in HTML: 8/10
+2025-03-18 12:34:48,691 - llm.gemini_api - INFO - Sending Gemini API request 1215e16d
+2025-03-18 12:34:48,691 - gui.main_window - INFO - Updated status in HTML: Processing email 8 of 10...
+2025-03-18 12:34:49,678 - llm.gemini_api - INFO - Received response for request 1215e16d
+2025-03-18 12:34:49,679 - root - INFO - Generated summary for email 8
+2025-03-18 12:34:49,679 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:49,679 - root - INFO - Processing email 9: Subject: Space Toggles, Input Magic, an...
+2025-03-18 12:34:49,680 - gui.main_window - INFO - Updated progress in HTML: 9/10
+2025-03-18 12:34:49,680 - llm.gemini_api - INFO - Sending Gemini API request 1217ea0d
+2025-03-18 12:34:49,681 - gui.main_window - INFO - Updated status in HTML: Processing email 9 of 10...
+2025-03-18 12:34:51,618 - llm.gemini_api - INFO - Received response for request 1217ea0d
+2025-03-18 12:34:51,619 - root - INFO - Generated summary for email 9
+2025-03-18 12:34:51,619 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:51,620 - gui.main_window - INFO - Updated progress in HTML: 10/10
+2025-03-18 12:34:51,622 - llm.gemini_api - INFO - Sending Gemini API request 1217e44f
+2025-03-18 12:34:51,622 - gui.main_window - INFO - Updated status in HTML: Processing email 10 of 10...
+2025-03-18 12:34:52,434 - llm.gemini_api - INFO - Received response for request 1217e44f
+2025-03-18 12:34:52,434 - root - INFO - Generated summary for email 10
+2025-03-18 12:34:52,434 - gui.main_window - INFO - Called addEmailSummary in HTML with summary.
+2025-03-18 12:34:52,435 - gui.main_window - INFO - Updated status in HTML: Done!
+2025-03-18 12:41:23,510 - gui.main_window - INFO - Updated status in HTML: Cancelled.
+2025-03-18 12:41:32,129 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:46:22,783 - gui.main_window - INFO - Updated status in HTML: Cancelled.
+2025-03-18 12:46:40,316 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:46:53,989 - gui.main_window - INFO - Updated status in HTML: Fetching emails...
+2025-03-18 12:46:53,990 - gui.main_window - INFO - Updated status in HTML: Fetching emails...
+2025-03-18 12:46:53,991 - gui.main_window - INFO - Updated status in HTML: Fetching emails...
+2025-03-18 12:46:53,997 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 12:46:54,871 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 12:46:55,203 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 12:46:55,733 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 12:46:56,059 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 12:46:56,407 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 12:46:56,784 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 12:46:57,109 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 12:46:57,506 - email_utils.gmail_api - INFO - Fetched message 195a61b64c81e0d9
+2025-03-18 12:46:57,818 - email_utils.gmail_api - INFO - Fetched message 195a5df80f5ae37d
+2025-03-18 12:46:58,276 - email_utils.gmail_api - INFO - Fetched message 195a587c6813dcbc
+2025-03-18 12:46:58,610 - email_utils.gmail_api - INFO - Fetched message 195a51f261c2f1ef
+2025-03-18 12:46:58,610 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 12:46:58,611 - root - INFO - Processing email 1: Subject: Your JetBrains Educational Pac...
+2025-03-18 12:46:58,611 - llm.gemini_api - INFO - Sending Gemini API request 20dd8c3a
+2025-03-18 12:46:58,615 - gui.main_window - INFO - Updated status in HTML: Found 10 emails. Starting summarization...
+2025-03-18 12:46:58,616 - gui.main_window - INFO - Updated progress in HTML: 1/10
+2025-03-18 12:46:58,620 - gui.main_window - INFO - Updated status in HTML: Processing email 1 of 10...
+2025-03-18 12:47:00,044 - llm.gemini_api - INFO - Received response for request 20dd8c3a
+2025-03-18 12:47:00,044 - root - INFO - Generated summary for email 1
+2025-03-18 12:47:00,045 - root - INFO - Processing email 2: Subject: Deadline Reminder: TCS NQT 202...
+2025-03-18 12:47:00,045 - llm.gemini_api - INFO - Sending Gemini API request 20dd8f7c
+2025-03-18 12:47:00,048 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:00,049 - gui.main_window - INFO - Updated progress in HTML: 2/10
+2025-03-18 12:47:00,050 - gui.main_window - INFO - Updated status in HTML: Processing email 2 of 10...
+2025-03-18 12:47:01,332 - llm.gemini_api - INFO - Received response for request 20dd8f7c
+2025-03-18 12:47:01,333 - root - INFO - Generated summary for email 2
+2025-03-18 12:47:01,333 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:01,333 - root - INFO - Processing email 3: Subject: 182942...
+2025-03-18 12:47:01,334 - gui.main_window - INFO - Updated progress in HTML: 3/10
+2025-03-18 12:47:01,334 - llm.gemini_api - INFO - Sending Gemini API request 20dd8f9b
+2025-03-18 12:47:01,334 - gui.main_window - INFO - Updated status in HTML: Processing email 3 of 10...
+2025-03-18 12:47:02,462 - llm.gemini_api - INFO - Received response for request 20dd8f9b
+2025-03-18 12:47:02,463 - root - INFO - Generated summary for email 3
+2025-03-18 12:47:02,463 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:02,464 - root - INFO - Processing email 4: Subject: ISRO’s Microprocessor Breakthr...
+2025-03-18 12:47:02,464 - gui.main_window - INFO - Updated progress in HTML: 4/10
+2025-03-18 12:47:02,464 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 12:47:02,465 - gui.main_window - INFO - Updated status in HTML: Processing email 4 of 10...
+2025-03-18 12:47:02,465 - llm.gemini_api - INFO - Sending Gemini API request 20dd8fc0
+2025-03-18 12:47:04,668 - llm.gemini_api - INFO - Received response for request 20dd8fc0
+2025-03-18 12:47:04,669 - root - INFO - Generated summary for email 4
+2025-03-18 12:47:04,669 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:04,670 - root - INFO - Processing email 5: Subject: Introducing v0 integrations...
+2025-03-18 12:47:04,670 - gui.main_window - INFO - Updated progress in HTML: 5/10
+2025-03-18 12:47:04,671 - llm.gemini_api - INFO - Sending Gemini API request 20dd8f94
+2025-03-18 12:47:04,671 - gui.main_window - INFO - Updated status in HTML: Processing email 5 of 10...
+2025-03-18 12:47:06,722 - llm.gemini_api - INFO - Received response for request 20dd8f94
+2025-03-18 12:47:06,723 - root - INFO - Generated summary for email 5
+2025-03-18 12:47:06,723 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:06,724 - gui.main_window - INFO - Updated progress in HTML: 6/10
+2025-03-18 12:47:06,728 - llm.gemini_api - INFO - Sending Gemini API request 20de3f17
+2025-03-18 12:47:06,728 - gui.main_window - INFO - Updated status in HTML: Processing email 6 of 10...
+2025-03-18 12:47:07,422 - llm.gemini_api - INFO - Received response for request 20de3f17
+2025-03-18 12:47:07,423 - root - INFO - Generated summary for email 6
+2025-03-18 12:47:07,423 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:07,424 - root - INFO - Processing email 7: Subject: “data analyst”: 2Cents Capital...
+2025-03-18 12:47:07,424 - gui.main_window - INFO - Updated progress in HTML: 7/10
+2025-03-18 12:47:07,424 - llm.gemini_api - INFO - Sending Gemini API request 20dd8fd0
+2025-03-18 12:47:07,425 - gui.main_window - INFO - Updated status in HTML: Processing email 7 of 10...
+2025-03-18 12:47:09,049 - llm.gemini_api - INFO - Received response for request 20dd8fd0
+2025-03-18 12:47:09,050 - root - INFO - Generated summary for email 7
+2025-03-18 12:47:09,051 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:09,051 - root - INFO - Processing email 8: Subject: Competition Launch: BirdCLEF+ ...
+2025-03-18 12:47:09,052 - gui.main_window - INFO - Updated progress in HTML: 8/10
+2025-03-18 12:47:09,052 - llm.gemini_api - INFO - Sending Gemini API request 20dcc958
+2025-03-18 12:47:09,052 - gui.main_window - INFO - Updated status in HTML: Processing email 8 of 10...
+2025-03-18 12:47:10,056 - llm.gemini_api - INFO - Received response for request 20dcc958
+2025-03-18 12:47:10,056 - root - INFO - Generated summary for email 8
+2025-03-18 12:47:10,057 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:10,058 - root - INFO - Processing email 9: Subject: Space Toggles, Input Magic, an...
+2025-03-18 12:47:10,058 - gui.main_window - INFO - Updated progress in HTML: 9/10
+2025-03-18 12:47:10,059 - llm.gemini_api - INFO - Sending Gemini API request 20de3f86
+2025-03-18 12:47:10,059 - gui.main_window - INFO - Updated status in HTML: Processing email 9 of 10...
+2025-03-18 12:47:11,532 - llm.gemini_api - INFO - Received response for request 20de3f86
+2025-03-18 12:47:11,532 - root - INFO - Generated summary for email 9
+2025-03-18 12:47:11,533 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:11,534 - gui.main_window - INFO - Updated progress in HTML: 10/10
+2025-03-18 12:47:11,535 - llm.gemini_api - INFO - Sending Gemini API request 20dd904d
+2025-03-18 12:47:11,536 - gui.main_window - INFO - Updated status in HTML: Processing email 10 of 10...
+2025-03-18 12:47:12,413 - llm.gemini_api - INFO - Received response for request 20dd904d
+2025-03-18 12:47:12,414 - root - INFO - Generated summary for email 10
+2025-03-18 12:47:12,414 - gui.main_window - INFO - Called addEmailSummary in HTML with the new summary.
+2025-03-18 12:47:12,415 - gui.main_window - INFO - Updated status in HTML: Done!
+2025-03-18 12:53:08,282 - gui.main_window - INFO - Updated status in HTML: Cancelled.
+2025-03-18 12:53:15,395 - root - INFO - Logger initialized with level INFO
+2025-03-18 12:59:12,801 - gui.main_window - INFO - Updated status in HTML: Cancelled.
+2025-03-18 13:00:52,719 - root - INFO - Logger initialized with level INFO
+2025-03-18 13:01:02,169 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:22:08,975 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:22:35,775 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:24:35,776 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:26:29,989 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:26:36,183 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:28:08,703 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:28:15,397 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:33:54,275 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:33:54,275 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:33:54,277 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:33:54,816 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 14:33:56,301 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 14:33:56,665 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 14:33:57,066 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 14:33:57,390 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 14:33:57,712 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 14:33:58,042 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 14:33:58,362 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 14:33:58,721 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 14:33:59,151 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 14:33:59,484 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 14:33:59,823 - email_utils.gmail_api - INFO - Fetched message 195a61b64c81e0d9
+2025-03-18 14:33:59,823 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 14:33:59,824 - root - INFO - Processing email 1: Subject: Funds/Securities Balance…
+2025-03-18 14:33:59,824 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 14:33:59,825 - llm.gemini_api - INFO - Sending Gemini API request 240aaa0f
+2025-03-18 14:33:59,825 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 14:33:59,827 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 14:34:02,192 - llm.gemini_api - INFO - Received response for request 240aaa0f
+2025-03-18 14:34:02,193 - root - INFO - Generated summary for email 1
+2025-03-18 14:34:02,193 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:02,194 - root - INFO - Processing email 2: Subject: “data science intern”: WebBoos…
+2025-03-18 14:34:02,194 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 14:34:02,195 - llm.gemini_api - INFO - Sending Gemini API request 240c9439
+2025-03-18 14:34:02,196 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 14:34:03,211 - llm.gemini_api - INFO - Received response for request 240c9439
+2025-03-18 14:34:03,212 - root - INFO - Generated summary for email 2
+2025-03-18 14:34:03,212 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:03,213 - root - INFO - Processing email 3: Subject: If Basket Investing is New for…
+2025-03-18 14:34:03,214 - llm.gemini_api - INFO - Sending Gemini API request 240c946d
+2025-03-18 14:34:03,214 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 14:34:03,215 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 14:34:05,389 - llm.gemini_api - INFO - Received response for request 240c946d
+2025-03-18 14:34:05,389 - root - INFO - Generated summary for email 3
+2025-03-18 14:34:05,390 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:05,390 - root - INFO - Processing email 4: Subject: Your JetBrains Educational Pac…
+2025-03-18 14:34:05,391 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 14:34:05,391 - llm.gemini_api - INFO - Sending Gemini API request 240c93f7
+2025-03-18 14:34:05,391 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 14:34:06,278 - llm.gemini_api - INFO - Received response for request 240c93f7
+2025-03-18 14:34:06,279 - root - INFO - Generated summary for email 4
+2025-03-18 14:34:06,279 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:06,280 - root - INFO - Processing email 5: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 14:34:06,280 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 14:34:06,280 - llm.gemini_api - INFO - Sending Gemini API request 240c9432
+2025-03-18 14:34:06,282 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 14:34:07,563 - llm.gemini_api - INFO - Received response for request 240c9432
+2025-03-18 14:34:07,564 - root - INFO - Generated summary for email 5
+2025-03-18 14:34:07,564 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:07,564 - root - INFO - Processing email 6: Subject: 182942…
+2025-03-18 14:34:07,565 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 14:34:07,565 - llm.gemini_api - INFO - Sending Gemini API request 240c9435
+2025-03-18 14:34:07,566 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 14:34:08,758 - llm.gemini_api - INFO - Received response for request 240c9435
+2025-03-18 14:34:08,759 - root - INFO - Generated summary for email 6
+2025-03-18 14:34:08,759 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:08,760 - root - INFO - Processing email 7: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 14:34:08,761 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 14:34:08,761 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 14:34:08,761 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 14:34:08,762 - llm.gemini_api - INFO - Sending Gemini API request 240d576a
+2025-03-18 14:34:10,947 - llm.gemini_api - INFO - Received response for request 240d576a
+2025-03-18 14:34:10,947 - root - INFO - Generated summary for email 7
+2025-03-18 14:34:10,948 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:10,948 - root - INFO - Processing email 8: Subject: Introducing v0 integrations…
+2025-03-18 14:34:10,949 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 14:34:10,949 - llm.gemini_api - INFO - Sending Gemini API request 240d572a
+2025-03-18 14:34:10,950 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 14:34:12,862 - llm.gemini_api - INFO - Received response for request 240d572a
+2025-03-18 14:34:12,863 - root - INFO - Generated summary for email 8
+2025-03-18 14:34:12,863 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:12,865 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 14:34:12,869 - llm.gemini_api - INFO - Sending Gemini API request 240d56b7
+2025-03-18 14:34:12,869 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 14:34:13,642 - llm.gemini_api - INFO - Received response for request 240d56b7
+2025-03-18 14:34:13,643 - root - INFO - Generated summary for email 9
+2025-03-18 14:34:13,644 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:13,644 - root - INFO - Processing email 10: Subject: “data analyst”: 2Cents Capital…
+2025-03-18 14:34:13,645 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 14:34:13,645 - llm.gemini_api - INFO - Sending Gemini API request 240d5704
+2025-03-18 14:34:13,645 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 14:34:14,995 - llm.gemini_api - INFO - Received response for request 240d5704
+2025-03-18 14:34:14,996 - root - INFO - Generated summary for email 10
+2025-03-18 14:34:14,996 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:14,997 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 14:34:29,104 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:34:29,104 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:34:29,105 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:34:29,108 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 14:34:29,814 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 14:34:30,353 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 14:34:30,709 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 14:34:31,115 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 14:34:31,429 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 14:34:31,740 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 14:34:32,043 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 14:34:32,436 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 14:34:32,790 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 14:34:33,104 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 14:34:33,527 - email_utils.gmail_api - INFO - Fetched message 195a61b64c81e0d9
+2025-03-18 14:34:33,528 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 14:34:33,528 - root - INFO - Processing email 1: Subject: Funds/Securities Balance…
+2025-03-18 14:34:33,528 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 14:34:33,529 - llm.gemini_api - INFO - Sending Gemini API request 240aaa0e
+2025-03-18 14:34:33,530 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 14:34:33,531 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 14:34:34,284 - llm.gemini_api - INFO - Received response for request 240aaa0e
+2025-03-18 14:34:34,285 - root - INFO - Generated summary for email 1
+2025-03-18 14:34:34,285 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:34,286 - root - INFO - Processing email 2: Subject: “data science intern”: WebBoos…
+2025-03-18 14:34:34,286 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 14:34:34,287 - llm.gemini_api - INFO - Sending Gemini API request 240c91b4
+2025-03-18 14:34:34,287 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 14:34:35,297 - llm.gemini_api - INFO - Received response for request 240c91b4
+2025-03-18 14:34:35,298 - root - INFO - Generated summary for email 2
+2025-03-18 14:34:35,299 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:35,300 - root - INFO - Processing email 3: Subject: If Basket Investing is New for…
+2025-03-18 14:34:35,300 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 14:34:35,300 - llm.gemini_api - INFO - Sending Gemini API request 240c90f0
+2025-03-18 14:34:35,301 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 14:34:36,876 - llm.gemini_api - INFO - Received response for request 240c90f0
+2025-03-18 14:34:36,877 - root - INFO - Generated summary for email 3
+2025-03-18 14:34:36,877 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:36,878 - root - INFO - Processing email 4: Subject: Your JetBrains Educational Pac…
+2025-03-18 14:34:36,878 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 14:34:36,878 - llm.gemini_api - INFO - Sending Gemini API request 240c8e03
+2025-03-18 14:34:36,879 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 14:34:37,739 - llm.gemini_api - INFO - Received response for request 240c8e03
+2025-03-18 14:34:37,739 - root - INFO - Generated summary for email 4
+2025-03-18 14:34:37,739 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:37,740 - root - INFO - Processing email 5: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 14:34:37,740 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 14:34:37,741 - llm.gemini_api - INFO - Sending Gemini API request 240c90b6
+2025-03-18 14:34:37,741 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 14:34:38,709 - llm.gemini_api - INFO - Received response for request 240c90b6
+2025-03-18 14:34:38,710 - root - INFO - Generated summary for email 5
+2025-03-18 14:34:38,710 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:38,711 - root - INFO - Processing email 6: Subject: 182942…
+2025-03-18 14:34:38,711 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 14:34:38,711 - llm.gemini_api - INFO - Sending Gemini API request 240c9435
+2025-03-18 14:34:38,712 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 14:34:39,744 - llm.gemini_api - INFO - Received response for request 240c9435
+2025-03-18 14:34:39,745 - root - INFO - Generated summary for email 6
+2025-03-18 14:34:39,746 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:39,746 - root - INFO - Processing email 7: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 14:34:39,747 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 14:34:39,747 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 14:34:39,748 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 14:34:39,748 - llm.gemini_api - INFO - Sending Gemini API request 240d5788
+2025-03-18 14:34:40,281 - llm.gemini_api - ERROR - Error generating summary: 429 Resource has been exhausted (e.g. check quota).
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\gemini_api.py", line 39, in generate_summary
+    response = model.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\generativeai\generative_models.py", line 243, in generate_content
+    response = self._client.generate_content(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 566, in generate_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource has been exhausted (e.g. check quota).
+2025-03-18 14:34:40,300 - root - INFO - Generated summary for email 7
+2025-03-18 14:34:40,300 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:40,301 - root - INFO - Processing email 8: Subject: Introducing v0 integrations…
+2025-03-18 14:34:40,302 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 14:34:40,302 - llm.gemini_api - INFO - Sending Gemini API request 240d5768
+2025-03-18 14:34:40,302 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 14:34:40,754 - llm.gemini_api - ERROR - Error generating summary: 429 Resource has been exhausted (e.g. check quota).
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\gemini_api.py", line 39, in generate_summary
+    response = model.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\generativeai\generative_models.py", line 243, in generate_content
+    response = self._client.generate_content(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 566, in generate_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource has been exhausted (e.g. check quota).
+2025-03-18 14:34:40,756 - root - INFO - Generated summary for email 8
+2025-03-18 14:34:40,756 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:40,757 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 14:34:40,759 - llm.gemini_api - INFO - Sending Gemini API request 240c8f61
+2025-03-18 14:34:40,759 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 14:34:41,074 - llm.gemini_api - ERROR - Error generating summary: 429 Resource has been exhausted (e.g. check quota).
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\gemini_api.py", line 39, in generate_summary
+    response = model.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\generativeai\generative_models.py", line 243, in generate_content
+    response = self._client.generate_content(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 566, in generate_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource has been exhausted (e.g. check quota).
+2025-03-18 14:34:41,076 - root - INFO - Generated summary for email 9
+2025-03-18 14:34:41,076 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:41,076 - root - INFO - Processing email 10: Subject: “data analyst”: 2Cents Capital…
+2025-03-18 14:34:41,077 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 14:34:41,077 - llm.gemini_api - INFO - Sending Gemini API request 240c8f84
+2025-03-18 14:34:41,078 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 14:34:41,443 - llm.gemini_api - ERROR - Error generating summary: 429 Resource has been exhausted (e.g. check quota).
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\gemini_api.py", line 39, in generate_summary
+    response = model.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\generativeai\generative_models.py", line 243, in generate_content
+    response = self._client.generate_content(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 566, in generate_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource has been exhausted (e.g. check quota).
+2025-03-18 14:34:41,445 - root - INFO - Generated summary for email 10
+2025-03-18 14:34:41,446 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:34:41,447 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 14:36:42,241 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:36:42,241 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:36:42,243 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:36:42,245 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 14:36:42,369 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:36:42,370 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:36:42,962 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 14:36:43,295 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 14:36:43,660 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 14:36:44,110 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 14:36:44,446 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 14:36:44,767 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 14:36:45,094 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 14:36:45,412 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 14:36:45,749 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 14:36:46,070 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 14:36:46,428 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 14:36:46,428 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 14:36:46,429 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 14:36:46,429 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 14:36:46,429 - llm.gemini_api - INFO - Sending Gemini API request 240bee81
+2025-03-18 14:36:46,430 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 14:36:46,431 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 14:36:47,213 - llm.gemini_api - INFO - Received response for request 240bee81
+2025-03-18 14:36:47,214 - root - INFO - Generated summary for email 1
+2025-03-18 14:36:47,214 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:47,214 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 14:36:47,215 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 14:36:47,215 - llm.gemini_api - INFO - Sending Gemini API request 240aaa0c
+2025-03-18 14:36:47,215 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 14:36:48,009 - llm.gemini_api - INFO - Received response for request 240aaa0c
+2025-03-18 14:36:48,010 - root - INFO - Generated summary for email 2
+2025-03-18 14:36:48,010 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:48,010 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 14:36:48,011 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 14:36:48,011 - llm.gemini_api - INFO - Sending Gemini API request 240c9027
+2025-03-18 14:36:48,011 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 14:36:48,986 - llm.gemini_api - INFO - Received response for request 240c9027
+2025-03-18 14:36:48,987 - root - INFO - Generated summary for email 3
+2025-03-18 14:36:48,987 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:48,987 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 14:36:48,988 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 14:36:48,988 - llm.gemini_api - INFO - Sending Gemini API request 240c91a7
+2025-03-18 14:36:48,988 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 14:36:50,596 - llm.gemini_api - INFO - Received response for request 240c91a7
+2025-03-18 14:36:50,596 - root - INFO - Generated summary for email 4
+2025-03-18 14:36:50,596 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:50,597 - root - INFO - Processing email 5: Subject: Your JetBrains Educational Pac…
+2025-03-18 14:36:50,597 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 14:36:50,598 - llm.gemini_api - INFO - Sending Gemini API request 240c8f55
+2025-03-18 14:36:50,598 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 14:36:51,591 - llm.gemini_api - INFO - Received response for request 240c8f55
+2025-03-18 14:36:51,593 - root - INFO - Generated summary for email 5
+2025-03-18 14:36:51,593 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:51,594 - root - INFO - Processing email 6: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 14:36:51,594 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 14:36:51,595 - llm.gemini_api - INFO - Sending Gemini API request 240c9133
+2025-03-18 14:36:51,595 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 14:36:52,496 - llm.gemini_api - INFO - Received response for request 240c9133
+2025-03-18 14:36:52,497 - root - INFO - Generated summary for email 6
+2025-03-18 14:36:52,497 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:52,498 - root - INFO - Processing email 7: Subject: 182942…
+2025-03-18 14:36:52,498 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 14:36:52,498 - llm.gemini_api - INFO - Sending Gemini API request 240c9519
+2025-03-18 14:36:52,499 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 14:36:53,567 - llm.gemini_api - INFO - Received response for request 240c9519
+2025-03-18 14:36:53,568 - root - INFO - Generated summary for email 7
+2025-03-18 14:36:53,568 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:53,569 - root - INFO - Processing email 8: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 14:36:53,570 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 14:36:53,570 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 14:36:53,570 - llm.gemini_api - INFO - Sending Gemini API request 240c90da
+2025-03-18 14:36:53,570 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 14:36:55,356 - llm.gemini_api - INFO - Received response for request 240c90da
+2025-03-18 14:36:55,357 - root - INFO - Generated summary for email 8
+2025-03-18 14:36:55,358 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:55,358 - root - INFO - Processing email 9: Subject: Introducing v0 integrations…
+2025-03-18 14:36:55,359 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 14:36:55,359 - llm.gemini_api - INFO - Sending Gemini API request 240d57eb
+2025-03-18 14:36:55,359 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 14:36:57,046 - llm.gemini_api - INFO - Received response for request 240d57eb
+2025-03-18 14:36:57,047 - root - INFO - Generated summary for email 9
+2025-03-18 14:36:57,047 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:57,048 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 14:36:57,049 - llm.gemini_api - INFO - Sending Gemini API request 240ac091
+2025-03-18 14:36:57,049 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 14:36:57,797 - llm.gemini_api - INFO - Received response for request 240ac091
+2025-03-18 14:36:57,798 - root - INFO - Generated summary for email 10
+2025-03-18 14:36:57,798 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:36:57,799 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 14:37:37,719 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:38:42,524 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:39:06,658 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:42:46,297 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:44:55,558 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:45:59,227 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:49:26,381 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:49:59,118 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:52:21,310 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:52:21,312 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:52:21,313 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 14:52:21,320 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 14:52:22,159 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 14:52:22,479 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 14:52:22,825 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 14:52:23,206 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 14:52:23,584 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 14:52:23,907 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 14:52:24,211 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 14:52:24,523 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 14:52:24,862 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 14:52:25,212 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 14:52:25,541 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 14:52:25,542 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 14:52:25,542 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 14:52:25,543 - llm.gemini_api - INFO - Sending Gemini API request 20950d19
+2025-03-18 14:52:25,545 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 14:52:25,546 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 14:52:25,547 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 14:52:26,560 - llm.gemini_api - INFO - Received response for request 20950d19
+2025-03-18 14:52:26,561 - root - INFO - Generated summary for email 1
+2025-03-18 14:52:26,562 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:27,562 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 14:52:27,562 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 14:52:27,563 - llm.gemini_api - INFO - Sending Gemini API request 2093cd1f
+2025-03-18 14:52:27,563 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 14:52:28,392 - llm.gemini_api - INFO - Received response for request 2093cd1f
+2025-03-18 14:52:28,393 - root - INFO - Generated summary for email 2
+2025-03-18 14:52:28,395 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:29,394 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 14:52:29,394 - llm.gemini_api - INFO - Sending Gemini API request 2095b52b
+2025-03-18 14:52:29,395 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 14:52:29,396 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 14:52:30,398 - llm.gemini_api - INFO - Received response for request 2095b52b
+2025-03-18 14:52:30,398 - root - INFO - Generated summary for email 3
+2025-03-18 14:52:30,402 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:31,400 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 14:52:31,400 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 14:52:31,401 - llm.gemini_api - INFO - Sending Gemini API request 2095b535
+2025-03-18 14:52:31,401 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 14:52:33,033 - llm.gemini_api - INFO - Received response for request 2095b535
+2025-03-18 14:52:33,034 - root - INFO - Generated summary for email 4
+2025-03-18 14:52:33,043 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:34,036 - root - INFO - Processing email 5: Subject: Your JetBrains Educational Pac…
+2025-03-18 14:52:34,036 - llm.gemini_api - INFO - Sending Gemini API request 2095b45f
+2025-03-18 14:52:34,044 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 14:52:34,045 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 14:52:34,868 - llm.gemini_api - INFO - Received response for request 2095b45f
+2025-03-18 14:52:34,869 - root - INFO - Generated summary for email 5
+2025-03-18 14:52:34,876 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:35,870 - root - INFO - Processing email 6: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 14:52:35,871 - llm.gemini_api - INFO - Sending Gemini API request 2095b542
+2025-03-18 14:52:35,876 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 14:52:35,877 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 14:52:36,761 - llm.gemini_api - INFO - Received response for request 2095b542
+2025-03-18 14:52:36,764 - root - INFO - Generated summary for email 6
+2025-03-18 14:52:36,766 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:37,768 - root - INFO - Processing email 7: Subject: 182942…
+2025-03-18 14:52:37,768 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 14:52:37,769 - llm.gemini_api - INFO - Sending Gemini API request 2095b52e
+2025-03-18 14:52:37,769 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 14:52:38,802 - llm.gemini_api - INFO - Received response for request 2095b52e
+2025-03-18 14:52:38,802 - root - INFO - Generated summary for email 7
+2025-03-18 14:52:38,809 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:39,804 - root - INFO - Processing email 8: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 14:52:39,805 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 14:52:39,805 - llm.gemini_api - INFO - Sending Gemini API request 2095b62e
+2025-03-18 14:52:39,809 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 14:52:39,810 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 14:52:41,972 - llm.gemini_api - INFO - Received response for request 2095b62e
+2025-03-18 14:52:41,973 - root - INFO - Generated summary for email 8
+2025-03-18 14:52:41,975 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:42,975 - root - INFO - Processing email 9: Subject: Introducing v0 integrations…
+2025-03-18 14:52:42,975 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 14:52:42,976 - llm.gemini_api - INFO - Sending Gemini API request 2095b5e7
+2025-03-18 14:52:42,977 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 14:52:44,860 - llm.gemini_api - INFO - Received response for request 2095b5e7
+2025-03-18 14:52:44,861 - root - INFO - Generated summary for email 9
+2025-03-18 14:52:44,861 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:45,862 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 14:52:45,866 - llm.gemini_api - INFO - Sending Gemini API request 2095b45f
+2025-03-18 14:52:45,867 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 14:52:46,613 - llm.gemini_api - INFO - Received response for request 2095b45f
+2025-03-18 14:52:46,616 - root - INFO - Generated summary for email 10
+2025-03-18 14:52:46,624 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 14:52:47,625 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 14:52:47,625 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:52:52,740 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 14:54:30,450 - root - INFO - Logger initialized with level INFO
+2025-03-18 14:58:08,822 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:01:00,548 - root - INFO - Logger initialized with level INFO
+2025-03-18 15:13:18,035 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:13:26,861 - root - INFO - Logger initialized with level INFO
+2025-03-18 15:13:37,744 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:13:37,745 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:13:37,747 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:13:37,752 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 15:13:38,831 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 15:13:39,147 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 15:13:39,688 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 15:13:40,101 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 15:13:40,447 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 15:13:40,798 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 15:13:41,131 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 15:13:41,462 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 15:13:41,864 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 15:13:43,082 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 15:13:43,400 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 15:13:43,401 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 15:13:43,403 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 15:13:43,404 - llm.gemini_api - INFO - Sending Gemini API request 1f42204c
+2025-03-18 15:13:43,404 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 15:13:43,408 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 15:13:43,411 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 15:13:44,746 - llm.gemini_api - INFO - Received response for request 1f42204c
+2025-03-18 15:13:44,747 - root - INFO - Generated summary for email 1
+2025-03-18 15:13:44,753 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:13:45,748 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 15:13:45,748 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 15:13:45,748 - llm.gemini_api - INFO - Sending Gemini API request 1f4041bb
+2025-03-18 15:13:45,749 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 15:13:46,580 - llm.gemini_api - INFO - Received response for request 1f4041bb
+2025-03-18 15:13:46,580 - root - INFO - Generated summary for email 2
+2025-03-18 15:13:46,587 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:13:47,581 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 15:13:47,582 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 15:13:47,582 - llm.gemini_api - INFO - Sending Gemini API request 1f42f185
+2025-03-18 15:13:47,583 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 15:13:48,587 - llm.gemini_api - INFO - Received response for request 1f42f185
+2025-03-18 15:13:48,588 - root - INFO - Generated summary for email 3
+2025-03-18 15:13:48,588 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:13:49,589 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 15:13:49,589 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 15:13:49,590 - llm.gemini_api - INFO - Sending Gemini API request 1f42f191
+2025-03-18 15:13:49,591 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 15:13:51,388 - llm.gemini_api - INFO - Received response for request 1f42f191
+2025-03-18 15:13:51,389 - root - INFO - Generated summary for email 4
+2025-03-18 15:13:51,389 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:13:52,390 - root - INFO - Processing email 5: Subject: Your JetBrains Educational Pac…
+2025-03-18 15:13:52,390 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 15:13:52,390 - llm.gemini_api - INFO - Sending Gemini API request 1f42f185
+2025-03-18 15:13:52,391 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 15:13:53,254 - llm.gemini_api - INFO - Received response for request 1f42f185
+2025-03-18 15:13:53,255 - root - INFO - Generated summary for email 5
+2025-03-18 15:13:53,255 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:13:54,257 - root - INFO - Processing email 6: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 15:13:54,257 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 15:13:54,257 - llm.gemini_api - INFO - Sending Gemini API request 1f42f0d4
+2025-03-18 15:13:54,258 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 15:13:55,128 - llm.gemini_api - INFO - Received response for request 1f42f0d4
+2025-03-18 15:13:55,128 - root - INFO - Generated summary for email 6
+2025-03-18 15:13:55,129 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:13:56,131 - root - INFO - Processing email 7: Subject: 182942…
+2025-03-18 15:13:56,132 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 15:13:56,132 - llm.gemini_api - INFO - Sending Gemini API request 1f42f193
+2025-03-18 15:13:56,133 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 15:13:57,198 - llm.gemini_api - INFO - Received response for request 1f42f193
+2025-03-18 15:13:57,198 - root - INFO - Generated summary for email 7
+2025-03-18 15:13:57,199 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:13:58,201 - root - INFO - Processing email 8: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 15:13:58,201 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 15:13:58,202 - llm.gemini_api - INFO - Sending Gemini API request 1f42f1fe
+2025-03-18 15:13:58,202 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 15:13:58,204 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 15:14:00,433 - llm.gemini_api - INFO - Received response for request 1f42f1fe
+2025-03-18 15:14:00,433 - root - INFO - Generated summary for email 8
+2025-03-18 15:14:00,434 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:14:01,435 - root - INFO - Processing email 9: Subject: Introducing v0 integrations…
+2025-03-18 15:14:01,436 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 15:14:01,436 - llm.gemini_api - INFO - Sending Gemini API request 1f42f1e6
+2025-03-18 15:14:01,437 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 15:14:03,355 - llm.gemini_api - INFO - Received response for request 1f42f1e6
+2025-03-18 15:14:03,356 - root - INFO - Generated summary for email 9
+2025-03-18 15:14:03,356 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:14:04,357 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 15:14:04,362 - llm.gemini_api - INFO - Sending Gemini API request 1f40554f
+2025-03-18 15:14:04,362 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 15:14:05,132 - llm.gemini_api - INFO - Received response for request 1f40554f
+2025-03-18 15:14:05,134 - root - INFO - Generated summary for email 10
+2025-03-18 15:14:05,134 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:14:06,135 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 15:14:06,135 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:15:13,120 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:15:22,266 - root - INFO - Logger initialized with level INFO
+2025-03-18 15:15:25,822 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:15:25,822 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:15:25,823 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:15:25,830 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 15:15:26,566 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 15:15:26,895 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 15:15:27,485 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 15:15:28,131 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 15:15:28,523 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 15:15:28,874 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 15:15:29,198 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 15:15:29,540 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 15:15:29,944 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 15:15:30,346 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 15:15:30,670 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 15:15:30,670 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 15:15:30,671 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 15:15:30,671 - llm.gemini_api - INFO - Sending Gemini API request 164dc855
+2025-03-18 15:15:30,671 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 15:15:30,673 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 15:15:30,674 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 15:15:32,936 - llm.gemini_api - INFO - Received response for request 164dc855
+2025-03-18 15:15:32,937 - root - INFO - Generated summary for email 1
+2025-03-18 15:15:32,937 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:33,938 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 15:15:33,938 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 15:15:33,939 - llm.gemini_api - INFO - Sending Gemini API request 164be54b
+2025-03-18 15:15:33,940 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 15:15:34,686 - llm.gemini_api - INFO - Received response for request 164be54b
+2025-03-18 15:15:34,687 - root - INFO - Generated summary for email 2
+2025-03-18 15:15:34,688 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:35,689 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 15:15:35,689 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 15:15:35,689 - llm.gemini_api - INFO - Sending Gemini API request 164dd093
+2025-03-18 15:15:35,690 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 15:15:36,677 - llm.gemini_api - INFO - Received response for request 164dd093
+2025-03-18 15:15:36,678 - root - INFO - Generated summary for email 3
+2025-03-18 15:15:36,678 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:37,679 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 15:15:37,680 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 15:15:37,680 - llm.gemini_api - INFO - Sending Gemini API request 164dd0a8
+2025-03-18 15:15:37,681 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 15:15:39,525 - llm.gemini_api - INFO - Received response for request 164dd0a8
+2025-03-18 15:15:39,526 - root - INFO - Generated summary for email 4
+2025-03-18 15:15:39,526 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:40,527 - root - INFO - Processing email 5: Subject: Your JetBrains Educational Pac…
+2025-03-18 15:15:40,527 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 15:15:40,528 - llm.gemini_api - INFO - Sending Gemini API request 164d45eb
+2025-03-18 15:15:40,528 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 15:15:41,371 - llm.gemini_api - INFO - Received response for request 164d45eb
+2025-03-18 15:15:41,371 - root - INFO - Generated summary for email 5
+2025-03-18 15:15:41,372 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:42,373 - root - INFO - Processing email 6: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 15:15:42,373 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 15:15:42,374 - llm.gemini_api - INFO - Sending Gemini API request 164dd0ae
+2025-03-18 15:15:42,375 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 15:15:43,490 - llm.gemini_api - INFO - Received response for request 164dd0ae
+2025-03-18 15:15:43,491 - root - INFO - Generated summary for email 6
+2025-03-18 15:15:43,492 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:44,493 - root - INFO - Processing email 7: Subject: 182942…
+2025-03-18 15:15:44,493 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 15:15:44,494 - llm.gemini_api - INFO - Sending Gemini API request 164dd093
+2025-03-18 15:15:44,495 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 15:15:45,533 - llm.gemini_api - INFO - Received response for request 164dd093
+2025-03-18 15:15:45,534 - root - INFO - Generated summary for email 7
+2025-03-18 15:15:45,535 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:46,536 - root - INFO - Processing email 8: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 15:15:46,536 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 15:15:46,537 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 15:15:46,537 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 15:15:46,538 - llm.gemini_api - INFO - Sending Gemini API request 164dd114
+2025-03-18 15:15:48,384 - llm.gemini_api - INFO - Received response for request 164dd114
+2025-03-18 15:15:48,384 - root - INFO - Generated summary for email 8
+2025-03-18 15:15:48,385 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:49,386 - root - INFO - Processing email 9: Subject: Introducing v0 integrations…
+2025-03-18 15:15:49,387 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 15:15:49,388 - llm.gemini_api - INFO - Sending Gemini API request 164dd0db
+2025-03-18 15:15:49,388 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 15:15:51,313 - llm.gemini_api - INFO - Received response for request 164dd0db
+2025-03-18 15:15:51,316 - root - INFO - Generated summary for email 9
+2025-03-18 15:15:51,316 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:52,317 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 15:15:52,321 - llm.gemini_api - INFO - Sending Gemini API request 164c012f
+2025-03-18 15:15:52,322 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 15:15:53,068 - llm.gemini_api - INFO - Received response for request 164c012f
+2025-03-18 15:15:53,069 - root - INFO - Generated summary for email 10
+2025-03-18 15:15:53,069 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:15:53,941 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:19:24,972 - root - INFO - Logger initialized with level INFO
+2025-03-18 15:19:35,218 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:19:35,219 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:19:35,220 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:19:35,226 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 15:19:36,032 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 15:19:36,373 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 15:19:36,711 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 15:19:37,095 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 15:19:37,435 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 15:19:37,762 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 15:19:38,099 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 15:19:38,409 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 15:19:38,734 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 15:19:39,074 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 15:19:39,392 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 15:19:39,392 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 15:19:39,393 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 15:19:39,394 - llm.gemini_api - INFO - Sending Gemini API request 29debbb5
+2025-03-18 15:19:39,399 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 15:19:39,401 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 15:19:39,403 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 15:19:41,593 - llm.gemini_api - INFO - Received response for request 29debbb5
+2025-03-18 15:19:41,594 - root - INFO - Generated summary for email 1
+2025-03-18 15:19:41,597 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:19:42,595 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 15:19:42,595 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 15:19:42,595 - llm.gemini_api - INFO - Sending Gemini API request 29dd5b5b
+2025-03-18 15:19:42,596 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 15:19:43,416 - llm.gemini_api - INFO - Received response for request 29dd5b5b
+2025-03-18 15:19:43,417 - root - INFO - Generated summary for email 2
+2025-03-18 15:19:43,417 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:19:44,419 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 15:19:44,419 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 15:19:44,420 - llm.gemini_api - INFO - Sending Gemini API request 29df4680
+2025-03-18 15:19:44,421 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 15:19:45,376 - llm.gemini_api - INFO - Received response for request 29df4680
+2025-03-18 15:19:45,376 - root - INFO - Generated summary for email 3
+2025-03-18 15:19:45,376 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:19:46,378 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 15:19:46,379 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 15:19:46,381 - llm.gemini_api - INFO - Sending Gemini API request 29df468c
+2025-03-18 15:19:46,384 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 15:19:47,980 - llm.gemini_api - INFO - Received response for request 29df468c
+2025-03-18 15:19:47,981 - root - INFO - Generated summary for email 4
+2025-03-18 15:19:47,981 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:19:48,982 - root - INFO - Processing email 5: Subject: Your JetBrains Educational Pac…
+2025-03-18 15:19:48,984 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 15:19:48,984 - llm.gemini_api - INFO - Sending Gemini API request 29deb8ab
+2025-03-18 15:19:48,985 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 15:19:49,885 - llm.gemini_api - INFO - Received response for request 29deb8ab
+2025-03-18 15:19:49,887 - root - INFO - Generated summary for email 5
+2025-03-18 15:19:49,887 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:19:50,888 - root - INFO - Processing email 6: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 15:19:50,889 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 15:19:50,889 - llm.gemini_api - INFO - Sending Gemini API request 29df464c
+2025-03-18 15:19:50,890 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 15:19:51,721 - llm.gemini_api - INFO - Received response for request 29df464c
+2025-03-18 15:19:51,722 - root - INFO - Generated summary for email 6
+2025-03-18 15:19:51,722 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:19:52,723 - root - INFO - Processing email 7: Subject: 182942…
+2025-03-18 15:19:52,723 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 15:19:52,723 - llm.gemini_api - INFO - Sending Gemini API request 29df4693
+2025-03-18 15:19:52,724 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 15:19:53,781 - llm.gemini_api - INFO - Received response for request 29df4693
+2025-03-18 15:19:53,782 - root - INFO - Generated summary for email 7
+2025-03-18 15:19:53,783 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:19:54,784 - root - INFO - Processing email 8: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 15:19:54,784 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 15:19:54,785 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 15:19:54,785 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 15:19:54,785 - llm.gemini_api - INFO - Sending Gemini API request 29d80e9c
+2025-03-18 15:19:56,869 - llm.gemini_api - INFO - Received response for request 29d80e9c
+2025-03-18 15:19:56,870 - root - INFO - Generated summary for email 8
+2025-03-18 15:19:56,870 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:19:57,871 - root - INFO - Processing email 9: Subject: Introducing v0 integrations…
+2025-03-18 15:19:57,872 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 15:19:57,872 - llm.gemini_api - INFO - Sending Gemini API request 29df468c
+2025-03-18 15:19:57,873 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 15:19:59,612 - llm.gemini_api - INFO - Received response for request 29df468c
+2025-03-18 15:19:59,613 - root - INFO - Generated summary for email 9
+2025-03-18 15:19:59,613 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:20:00,614 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 15:20:00,618 - llm.gemini_api - INFO - Sending Gemini API request 29df4655
+2025-03-18 15:20:00,619 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 15:20:01,350 - llm.gemini_api - INFO - Received response for request 29df4655
+2025-03-18 15:20:01,351 - root - INFO - Generated summary for email 10
+2025-03-18 15:20:01,361 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:20:02,352 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 15:20:02,353 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:27:53,141 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:28:08,478 - root - INFO - Logger initialized with level INFO
+2025-03-18 15:28:21,128 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:28:21,128 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:28:21,130 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:28:21,136 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 15:28:21,967 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 15:28:22,325 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 15:28:22,685 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 15:28:23,047 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 15:28:23,389 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 15:28:23,711 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 15:28:24,046 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 15:28:24,365 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 15:28:24,761 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 15:28:25,145 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 15:28:25,458 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 15:28:25,459 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 15:28:25,460 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 15:28:25,460 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 15:28:25,461 - llm.gemini_api - INFO - Sending Gemini API request 22d50034
+2025-03-18 15:28:25,461 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 15:28:25,463 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 15:28:28,243 - llm.gemini_api - INFO - Received response for request 22d50034
+2025-03-18 15:28:28,244 - root - INFO - Generated summary for email 1
+2025-03-18 15:28:28,257 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:29,245 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 15:28:29,245 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 15:28:29,246 - llm.gemini_api - INFO - Sending Gemini API request 22d39f2b
+2025-03-18 15:28:29,246 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 15:28:30,425 - llm.gemini_api - INFO - Received response for request 22d39f2b
+2025-03-18 15:28:30,426 - root - INFO - Generated summary for email 2
+2025-03-18 15:28:30,426 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:31,428 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 15:28:31,428 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 15:28:31,428 - llm.gemini_api - INFO - Sending Gemini API request 22d58749
+2025-03-18 15:28:31,429 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 15:28:32,979 - llm.gemini_api - INFO - Received response for request 22d58749
+2025-03-18 15:28:32,980 - root - INFO - Generated summary for email 3
+2025-03-18 15:28:32,980 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:33,981 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 15:28:33,981 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 15:28:33,982 - llm.gemini_api - INFO - Sending Gemini API request 22d58760
+2025-03-18 15:28:33,982 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 15:28:36,368 - llm.gemini_api - INFO - Received response for request 22d58760
+2025-03-18 15:28:36,369 - root - INFO - Generated summary for email 4
+2025-03-18 15:28:36,369 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:37,370 - root - INFO - Processing email 5: Subject: Your JetBrains Educational Pac…
+2025-03-18 15:28:37,370 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 15:28:37,370 - llm.gemini_api - INFO - Sending Gemini API request 22d58670
+2025-03-18 15:28:37,371 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 15:28:38,548 - llm.gemini_api - INFO - Received response for request 22d58670
+2025-03-18 15:28:38,549 - root - INFO - Generated summary for email 5
+2025-03-18 15:28:38,549 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:39,551 - root - INFO - Processing email 6: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 15:28:39,551 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 15:28:39,552 - llm.gemini_api - INFO - Sending Gemini API request 22d58280
+2025-03-18 15:28:39,552 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 15:28:40,809 - llm.gemini_api - INFO - Received response for request 22d58280
+2025-03-18 15:28:40,810 - root - INFO - Generated summary for email 6
+2025-03-18 15:28:40,810 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:41,811 - root - INFO - Processing email 7: Subject: 182942…
+2025-03-18 15:28:41,811 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 15:28:41,812 - llm.gemini_api - INFO - Sending Gemini API request 22d58760
+2025-03-18 15:28:41,812 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 15:28:43,474 - llm.gemini_api - INFO - Received response for request 22d58760
+2025-03-18 15:28:43,475 - root - INFO - Generated summary for email 7
+2025-03-18 15:28:43,475 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:44,477 - root - INFO - Processing email 8: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 15:28:44,477 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 15:28:44,478 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 15:28:44,478 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 15:28:44,479 - llm.gemini_api - INFO - Sending Gemini API request 22d587ec
+2025-03-18 15:28:46,949 - llm.gemini_api - INFO - Received response for request 22d587ec
+2025-03-18 15:28:46,950 - root - INFO - Generated summary for email 8
+2025-03-18 15:28:46,950 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:47,951 - root - INFO - Processing email 9: Subject: Introducing v0 integrations…
+2025-03-18 15:28:47,952 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 15:28:47,952 - llm.gemini_api - INFO - Sending Gemini API request 22d587b3
+2025-03-18 15:28:47,953 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 15:28:50,234 - llm.gemini_api - INFO - Received response for request 22d587b3
+2025-03-18 15:28:50,235 - root - INFO - Generated summary for email 9
+2025-03-18 15:28:50,235 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:51,236 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 15:28:51,240 - llm.gemini_api - INFO - Sending Gemini API request 22d58764
+2025-03-18 15:28:51,240 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 15:28:52,379 - llm.gemini_api - INFO - Received response for request 22d58764
+2025-03-18 15:28:52,379 - root - INFO - Generated summary for email 10
+2025-03-18 15:28:52,379 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:28:53,380 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 15:28:53,381 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:36:57,968 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:37:31,544 - root - INFO - Logger initialized with level INFO
+2025-03-18 15:37:42,578 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:37:42,578 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:37:42,579 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:37:43,139 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 15:37:44,000 - email_utils.gmail_api - INFO - Found 10 messages, fetching content...
+2025-03-18 15:37:44,374 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 15:37:44,729 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 15:37:45,060 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 15:37:45,456 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 15:37:45,764 - email_utils.gmail_api - INFO - Fetched message 195a7e639a68911a
+2025-03-18 15:37:46,097 - email_utils.gmail_api - INFO - Fetched message 195a7cbe9525268f
+2025-03-18 15:37:46,411 - email_utils.gmail_api - INFO - Fetched message 195a7a1a1527a884
+2025-03-18 15:37:46,753 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 15:37:47,148 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 15:37:48,145 - email_utils.gmail_api - INFO - Fetched message 195a61d588fd98c3
+2025-03-18 15:37:48,145 - email_utils.gmail_api - INFO - Successfully fetched 10 emails
+2025-03-18 15:37:48,145 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 15:37:48,146 - gui.main_window - INFO - Updated UI status: Found 10 emails. Starting summarization…
+2025-03-18 15:37:48,146 - llm.gemini_api - INFO - Sending Gemini API request 13db760c
+2025-03-18 15:37:48,147 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-18 15:37:48,148 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-18 15:37:51,089 - llm.gemini_api - INFO - Received response for request 13db760c
+2025-03-18 15:37:51,090 - root - INFO - Generated summary for email 1
+2025-03-18 15:37:51,092 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:37:52,091 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 15:37:52,091 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-18 15:37:52,091 - llm.gemini_api - INFO - Sending Gemini API request 13d9939f
+2025-03-18 15:37:52,093 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-18 15:37:53,338 - llm.gemini_api - INFO - Received response for request 13d9939f
+2025-03-18 15:37:53,339 - root - INFO - Generated summary for email 2
+2025-03-18 15:37:53,339 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:37:54,341 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 15:37:54,341 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-18 15:37:54,342 - llm.gemini_api - INFO - Sending Gemini API request 13daeff6
+2025-03-18 15:37:54,342 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-18 15:37:55,897 - llm.gemini_api - INFO - Received response for request 13daeff6
+2025-03-18 15:37:55,898 - root - INFO - Generated summary for email 3
+2025-03-18 15:37:55,898 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:37:56,900 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 15:37:56,900 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-18 15:37:56,901 - llm.gemini_api - INFO - Sending Gemini API request 13dc43f6
+2025-03-18 15:37:56,901 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-18 15:37:58,871 - llm.gemini_api - INFO - Received response for request 13dc43f6
+2025-03-18 15:37:58,872 - root - INFO - Generated summary for email 4
+2025-03-18 15:37:58,872 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:37:59,873 - root - INFO - Processing email 5: Subject: Your JetBrains Educational Pac…
+2025-03-18 15:37:59,873 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-18 15:37:59,873 - llm.gemini_api - INFO - Sending Gemini API request 13daeffd
+2025-03-18 15:37:59,874 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-18 15:38:01,070 - llm.gemini_api - INFO - Received response for request 13daeffd
+2025-03-18 15:38:01,071 - root - INFO - Generated summary for email 5
+2025-03-18 15:38:01,071 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:38:02,071 - root - INFO - Processing email 6: Subject: Deadline Reminder: TCS NQT 202…
+2025-03-18 15:38:02,072 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-18 15:38:02,072 - llm.gemini_api - INFO - Sending Gemini API request 13dc4390
+2025-03-18 15:38:02,073 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-18 15:38:03,457 - llm.gemini_api - INFO - Received response for request 13dc4390
+2025-03-18 15:38:03,458 - root - INFO - Generated summary for email 6
+2025-03-18 15:38:03,458 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:38:04,459 - root - INFO - Processing email 7: Subject: 182942…
+2025-03-18 15:38:04,459 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-18 15:38:04,460 - llm.gemini_api - INFO - Sending Gemini API request 13dc4412
+2025-03-18 15:38:04,461 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-18 15:38:06,046 - llm.gemini_api - INFO - Received response for request 13dc4412
+2025-03-18 15:38:06,048 - root - INFO - Generated summary for email 7
+2025-03-18 15:38:06,048 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:38:07,050 - root - INFO - Processing email 8: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 15:38:07,050 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-18 15:38:07,051 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 15:38:07,051 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-18 15:38:07,051 - llm.gemini_api - INFO - Sending Gemini API request 13dc44c6
+2025-03-18 15:38:09,535 - llm.gemini_api - INFO - Received response for request 13dc44c6
+2025-03-18 15:38:09,536 - root - INFO - Generated summary for email 8
+2025-03-18 15:38:09,536 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:38:10,538 - root - INFO - Processing email 9: Subject: Introducing v0 integrations…
+2025-03-18 15:38:10,538 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-18 15:38:10,538 - llm.gemini_api - INFO - Sending Gemini API request 13dc44a5
+2025-03-18 15:38:10,539 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-18 15:38:13,008 - llm.gemini_api - INFO - Received response for request 13dc44a5
+2025-03-18 15:38:13,008 - root - INFO - Generated summary for email 9
+2025-03-18 15:38:13,009 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:38:14,011 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-18 15:38:14,015 - llm.gemini_api - INFO - Sending Gemini API request 13dc43db
+2025-03-18 15:38:14,016 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-18 15:38:15,486 - llm.gemini_api - INFO - Received response for request 13dc43db
+2025-03-18 15:38:15,486 - root - INFO - Generated summary for email 10
+2025-03-18 15:38:15,487 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:38:16,487 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 15:38:16,487 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:45:11,084 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:45:57,427 - root - INFO - Logger initialized with level INFO
+2025-03-18 15:46:00,960 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:46:00,961 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:46:00,963 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:46:00,968 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 15:46:01,860 - email_utils.gmail_api - INFO - Found 6 unread messages for today, fetching content...
+2025-03-18 15:46:02,180 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 15:46:02,545 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 15:46:02,880 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 15:46:03,296 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 15:46:03,722 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 15:46:04,086 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 15:46:04,088 - email_utils.gmail_api - INFO - Successfully fetched 6 unread emails for today
+2025-03-18 15:46:04,089 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 15:46:04,089 - llm.gemini_api - INFO - Sending Gemini API request 2ea42912
+2025-03-18 15:46:04,092 - gui.main_window - INFO - Updated UI status: Found 6 unread emails today. Starting summarization…
+2025-03-18 15:46:04,093 - gui.main_window - INFO - Updated UI progress: 1/6
+2025-03-18 15:46:04,096 - gui.main_window - INFO - Updated UI status: Processing email 1 of 6…
+2025-03-18 15:46:06,886 - llm.gemini_api - INFO - Received response for request 2ea42912
+2025-03-18 15:46:06,887 - root - INFO - Generated summary for email 1
+2025-03-18 15:46:06,892 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:46:07,889 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 15:46:07,889 - gui.main_window - INFO - Updated UI progress: 2/6
+2025-03-18 15:46:07,890 - llm.gemini_api - INFO - Sending Gemini API request 2ea246db
+2025-03-18 15:46:07,891 - gui.main_window - INFO - Updated UI status: Processing email 2 of 6…
+2025-03-18 15:46:09,137 - llm.gemini_api - INFO - Received response for request 2ea246db
+2025-03-18 15:46:09,138 - root - INFO - Generated summary for email 2
+2025-03-18 15:46:09,138 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:46:10,139 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 15:46:10,140 - gui.main_window - INFO - Updated UI progress: 3/6
+2025-03-18 15:46:10,140 - llm.gemini_api - INFO - Sending Gemini API request 2ea42ffa
+2025-03-18 15:46:10,141 - gui.main_window - INFO - Updated UI status: Processing email 3 of 6…
+2025-03-18 15:46:11,626 - llm.gemini_api - INFO - Received response for request 2ea42ffa
+2025-03-18 15:46:11,627 - root - INFO - Generated summary for email 3
+2025-03-18 15:46:11,627 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:46:12,628 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 15:46:12,628 - gui.main_window - INFO - Updated UI progress: 4/6
+2025-03-18 15:46:12,629 - llm.gemini_api - INFO - Sending Gemini API request 2ea43017
+2025-03-18 15:46:12,630 - gui.main_window - INFO - Updated UI status: Processing email 4 of 6…
+2025-03-18 15:46:14,710 - llm.gemini_api - INFO - Received response for request 2ea43017
+2025-03-18 15:46:14,711 - root - INFO - Generated summary for email 4
+2025-03-18 15:46:14,711 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:46:15,712 - root - INFO - Processing email 5: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 15:46:15,712 - gui.main_window - INFO - Updated UI progress: 5/6
+2025-03-18 15:46:15,713 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 15:46:15,713 - gui.main_window - INFO - Updated UI status: Processing email 5 of 6…
+2025-03-18 15:46:15,714 - llm.gemini_api - INFO - Sending Gemini API request 2ea4f6b8
+2025-03-18 15:46:18,370 - llm.gemini_api - INFO - Received response for request 2ea4f6b8
+2025-03-18 15:46:18,372 - root - INFO - Generated summary for email 5
+2025-03-18 15:46:18,373 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:46:19,374 - root - INFO - Processing email 6: Subject: Introducing v0 integrations…
+2025-03-18 15:46:19,375 - gui.main_window - INFO - Updated UI progress: 6/6
+2025-03-18 15:46:19,376 - llm.gemini_api - INFO - Sending Gemini API request 2ea4f660
+2025-03-18 15:46:19,376 - gui.main_window - INFO - Updated UI status: Processing email 6 of 6…
+2025-03-18 15:46:21,756 - llm.gemini_api - INFO - Received response for request 2ea4f660
+2025-03-18 15:46:21,757 - root - INFO - Generated summary for email 6
+2025-03-18 15:46:21,757 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:46:22,758 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 15:46:22,760 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:46:53,489 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 15:55:41,925 - root - INFO - Logger initialized with level INFO
+2025-03-18 15:55:46,048 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:55:46,048 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:55:46,050 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 15:55:46,059 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 15:55:47,152 - email_utils.gmail_api - INFO - Found 6 unread messages for today, fetching content...
+2025-03-18 15:55:47,505 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 15:55:47,962 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 15:55:48,481 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 15:55:48,829 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 15:55:49,160 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 15:55:49,505 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 15:55:49,505 - email_utils.gmail_api - INFO - Successfully fetched 6 unread emails for today
+2025-03-18 15:55:49,508 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 15:55:49,509 - gui.main_window - INFO - Updated UI status: Found 6 unread emails today. Starting summarization…
+2025-03-18 15:55:49,509 - llm.gemini_api - INFO - Sending Gemini API request 230de4c9
+2025-03-18 15:55:49,510 - gui.main_window - INFO - Updated UI progress: 1/6
+2025-03-18 15:55:49,512 - gui.main_window - INFO - Updated UI status: Processing email 1 of 6…
+2025-03-18 15:55:52,347 - llm.gemini_api - INFO - Received response for request 230de4c9
+2025-03-18 15:55:52,347 - root - INFO - Generated summary for email 1
+2025-03-18 15:55:52,359 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:55:53,350 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 15:55:53,350 - gui.main_window - INFO - Updated UI progress: 2/6
+2025-03-18 15:55:53,350 - llm.gemini_api - INFO - Sending Gemini API request 230c83cf
+2025-03-18 15:55:53,350 - gui.main_window - INFO - Updated UI status: Processing email 2 of 6…
+2025-03-18 15:55:54,549 - llm.gemini_api - INFO - Received response for request 230c83cf
+2025-03-18 15:55:54,549 - root - INFO - Generated summary for email 2
+2025-03-18 15:55:54,549 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:55:55,553 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 15:55:55,553 - gui.main_window - INFO - Updated UI progress: 3/6
+2025-03-18 15:55:55,553 - llm.gemini_api - INFO - Sending Gemini API request 230e6d72
+2025-03-18 15:55:55,553 - gui.main_window - INFO - Updated UI status: Processing email 3 of 6…
+2025-03-18 15:55:56,999 - llm.gemini_api - INFO - Received response for request 230e6d72
+2025-03-18 15:55:57,004 - root - INFO - Generated summary for email 3
+2025-03-18 15:55:57,004 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:55:58,007 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 15:55:58,007 - gui.main_window - INFO - Updated UI progress: 4/6
+2025-03-18 15:55:58,009 - llm.gemini_api - INFO - Sending Gemini API request 230f18f6
+2025-03-18 15:55:58,009 - gui.main_window - INFO - Updated UI status: Processing email 4 of 6…
+2025-03-18 15:56:00,334 - llm.gemini_api - INFO - Received response for request 230f18f6
+2025-03-18 15:56:00,338 - root - INFO - Generated summary for email 4
+2025-03-18 15:56:00,338 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:56:01,341 - root - INFO - Processing email 5: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 15:56:01,341 - gui.main_window - INFO - Updated UI progress: 5/6
+2025-03-18 15:56:01,341 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 15:56:01,344 - gui.main_window - INFO - Updated UI status: Processing email 5 of 6…
+2025-03-18 15:56:01,344 - llm.gemini_api - INFO - Sending Gemini API request 230f1955
+2025-03-18 15:56:04,106 - llm.gemini_api - INFO - Received response for request 230f1955
+2025-03-18 15:56:04,106 - root - INFO - Generated summary for email 5
+2025-03-18 15:56:04,106 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:56:05,110 - root - INFO - Processing email 6: Subject: Introducing v0 integrations…
+2025-03-18 15:56:05,110 - gui.main_window - INFO - Updated UI progress: 6/6
+2025-03-18 15:56:05,110 - llm.gemini_api - INFO - Sending Gemini API request 230f1914
+2025-03-18 15:56:05,110 - gui.main_window - INFO - Updated UI status: Processing email 6 of 6…
+2025-03-18 15:56:07,534 - llm.gemini_api - INFO - Received response for request 230f1914
+2025-03-18 15:56:07,538 - root - INFO - Generated summary for email 6
+2025-03-18 15:56:07,538 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 15:56:08,541 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 15:56:08,543 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:04:13,519 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:09:52,759 - root - INFO - Logger initialized with level INFO
+2025-03-18 17:11:20,766 - root - INFO - Logger initialized with level INFO
+2025-03-18 17:14:01,602 - root - INFO - Logger initialized with level INFO
+2025-03-18 17:14:11,222 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:14:11,225 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:14:11,228 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:14:12,018 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 17:14:13,071 - email_utils.gmail_api - INFO - Found 6 unread messages for today, fetching content...
+2025-03-18 17:14:13,411 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 17:14:13,771 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 17:14:14,162 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 17:14:14,501 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 17:14:14,854 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 17:14:15,225 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 17:14:15,225 - email_utils.gmail_api - INFO - Successfully fetched 6 unread emails for today
+2025-03-18 17:14:15,225 - root - INFO - Processing email 1: Subject: Sort your wardrobe for the sum…
+2025-03-18 17:14:15,225 - gui.main_window - INFO - Updated UI status: Found 6 unread emails today. Starting summarization…
+2025-03-18 17:14:15,225 - llm.gemini_api - INFO - Sending Gemini API request 1f1bf326
+2025-03-18 17:14:15,229 - gui.main_window - INFO - Updated UI progress: 1/6
+2025-03-18 17:14:15,229 - gui.main_window - INFO - Updated UI status: Processing email 1 of 6…
+2025-03-18 17:14:18,025 - llm.gemini_api - INFO - Received response for request 1f1bf326
+2025-03-18 17:14:18,030 - root - INFO - Generated summary for email 1
+2025-03-18 17:14:18,034 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:14:19,034 - root - INFO - Processing email 2: Subject: Funds/Securities Balance…
+2025-03-18 17:14:19,034 - gui.main_window - INFO - Updated UI progress: 2/6
+2025-03-18 17:14:19,034 - llm.gemini_api - INFO - Sending Gemini API request 1f1a0b9f
+2025-03-18 17:14:19,034 - gui.main_window - INFO - Updated UI status: Processing email 2 of 6…
+2025-03-18 17:14:20,369 - llm.gemini_api - INFO - Received response for request 1f1a0b9f
+2025-03-18 17:14:20,369 - root - INFO - Generated summary for email 2
+2025-03-18 17:14:20,369 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:14:21,372 - root - INFO - Processing email 3: Subject: “data science intern”: WebBoos…
+2025-03-18 17:14:21,372 - gui.main_window - INFO - Updated UI progress: 3/6
+2025-03-18 17:14:21,372 - llm.gemini_api - INFO - Sending Gemini API request 1f1ca1c3
+2025-03-18 17:14:21,375 - gui.main_window - INFO - Updated UI status: Processing email 3 of 6…
+2025-03-18 17:14:22,894 - llm.gemini_api - INFO - Received response for request 1f1ca1c3
+2025-03-18 17:14:22,898 - root - INFO - Generated summary for email 3
+2025-03-18 17:14:22,898 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:14:23,900 - root - INFO - Processing email 4: Subject: If Basket Investing is New for…
+2025-03-18 17:14:23,900 - gui.main_window - INFO - Updated UI progress: 4/6
+2025-03-18 17:14:23,902 - llm.gemini_api - INFO - Sending Gemini API request 1f1ca1e6
+2025-03-18 17:14:23,902 - gui.main_window - INFO - Updated UI status: Processing email 4 of 6…
+2025-03-18 17:14:25,978 - llm.gemini_api - INFO - Received response for request 1f1ca1e6
+2025-03-18 17:14:25,983 - root - INFO - Generated summary for email 4
+2025-03-18 17:14:25,983 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:14:26,985 - root - INFO - Processing email 5: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 17:14:26,985 - gui.main_window - INFO - Updated UI progress: 5/6
+2025-03-18 17:14:26,988 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 17:14:26,988 - gui.main_window - INFO - Updated UI status: Processing email 5 of 6…
+2025-03-18 17:14:26,988 - llm.gemini_api - INFO - Sending Gemini API request 1f1ca253
+2025-03-18 17:14:29,519 - llm.gemini_api - INFO - Received response for request 1f1ca253
+2025-03-18 17:14:29,519 - root - INFO - Generated summary for email 5
+2025-03-18 17:14:29,523 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:14:30,524 - root - INFO - Processing email 6: Subject: Introducing v0 integrations…
+2025-03-18 17:14:30,524 - gui.main_window - INFO - Updated UI progress: 6/6
+2025-03-18 17:14:30,524 - llm.gemini_api - INFO - Sending Gemini API request 1f1ca273
+2025-03-18 17:14:30,524 - gui.main_window - INFO - Updated UI status: Processing email 6 of 6…
+2025-03-18 17:14:32,806 - llm.gemini_api - INFO - Received response for request 1f1ca273
+2025-03-18 17:14:32,806 - root - INFO - Generated summary for email 6
+2025-03-18 17:14:32,806 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:14:33,811 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 17:14:33,812 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:21:18,809 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:21:27,925 - root - INFO - Logger initialized with level INFO
+2025-03-18 17:21:36,388 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:21:36,389 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:21:36,390 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:21:36,401 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 17:21:37,451 - email_utils.gmail_api - INFO - Found 7 unread messages for today, fetching content...
+2025-03-18 17:21:37,790 - email_utils.gmail_api - INFO - Fetched message 195a91544987db0b
+2025-03-18 17:21:38,142 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 17:21:38,490 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 17:21:38,875 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 17:21:39,270 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 17:21:39,618 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 17:21:39,988 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 17:21:39,988 - email_utils.gmail_api - INFO - Successfully fetched 7 unread emails for today
+2025-03-18 17:21:39,988 - root - INFO - Processing email 1: Subject: Gemini…
+2025-03-18 17:21:39,992 - llm.gemini_api - INFO - Sending Gemini API request 2293ef1f
+2025-03-18 17:21:39,996 - gui.main_window - INFO - Updated UI status: Found 7 unread emails today. Starting summarization…
+2025-03-18 17:21:39,996 - gui.main_window - INFO - Updated UI progress: 1/7
+2025-03-18 17:21:40,000 - gui.main_window - INFO - Updated UI status: Processing email 1 of 7…
+2025-03-18 17:21:42,796 - llm.gemini_api - INFO - Received response for request 2293ef1f
+2025-03-18 17:21:42,799 - root - INFO - Generated summary for email 1
+2025-03-18 17:21:42,800 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:21:43,802 - root - INFO - Processing email 2: Subject: Sort your wardrobe for the sum…
+2025-03-18 17:21:43,802 - gui.main_window - INFO - Updated UI progress: 2/7
+2025-03-18 17:21:43,803 - llm.gemini_api - INFO - Sending Gemini API request 2293f110
+2025-03-18 17:21:43,803 - gui.main_window - INFO - Updated UI status: Processing email 2 of 7…
+2025-03-18 17:21:45,157 - llm.gemini_api - INFO - Received response for request 2293f110
+2025-03-18 17:21:45,157 - root - INFO - Generated summary for email 2
+2025-03-18 17:21:45,157 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:21:46,160 - root - INFO - Processing email 3: Subject: Funds/Securities Balance…
+2025-03-18 17:21:46,160 - gui.main_window - INFO - Updated UI progress: 3/7
+2025-03-18 17:21:46,160 - llm.gemini_api - INFO - Sending Gemini API request 22928f8f
+2025-03-18 17:21:46,160 - gui.main_window - INFO - Updated UI status: Processing email 3 of 7…
+2025-03-18 17:21:47,318 - llm.gemini_api - INFO - Received response for request 22928f8f
+2025-03-18 17:21:47,322 - root - INFO - Generated summary for email 3
+2025-03-18 17:21:47,322 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:21:48,324 - root - INFO - Processing email 4: Subject: “data science intern”: WebBoos…
+2025-03-18 17:21:48,324 - gui.main_window - INFO - Updated UI progress: 4/7
+2025-03-18 17:21:48,324 - llm.gemini_api - INFO - Sending Gemini API request 229527b0
+2025-03-18 17:21:48,324 - gui.main_window - INFO - Updated UI status: Processing email 4 of 7…
+2025-03-18 17:21:49,860 - llm.gemini_api - INFO - Received response for request 229527b0
+2025-03-18 17:21:49,864 - root - INFO - Generated summary for email 4
+2025-03-18 17:21:49,864 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:21:50,868 - root - INFO - Processing email 5: Subject: If Basket Investing is New for…
+2025-03-18 17:21:50,868 - gui.main_window - INFO - Updated UI progress: 5/7
+2025-03-18 17:21:50,870 - llm.gemini_api - INFO - Sending Gemini API request 229527bc
+2025-03-18 17:21:50,870 - gui.main_window - INFO - Updated UI status: Processing email 5 of 7…
+2025-03-18 17:21:52,933 - llm.gemini_api - INFO - Received response for request 229527bc
+2025-03-18 17:21:52,933 - root - INFO - Generated summary for email 5
+2025-03-18 17:21:52,938 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:21:53,939 - root - INFO - Processing email 6: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 17:21:53,940 - gui.main_window - INFO - Updated UI progress: 6/7
+2025-03-18 17:21:53,940 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 17:21:53,942 - gui.main_window - INFO - Updated UI status: Processing email 6 of 7…
+2025-03-18 17:21:53,944 - llm.gemini_api - INFO - Sending Gemini API request 2295281a
+2025-03-18 17:21:56,386 - llm.gemini_api - INFO - Received response for request 2295281a
+2025-03-18 17:21:56,390 - root - INFO - Generated summary for email 6
+2025-03-18 17:21:56,390 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:21:57,392 - root - INFO - Processing email 7: Subject: Introducing v0 integrations…
+2025-03-18 17:21:57,392 - gui.main_window - INFO - Updated UI progress: 7/7
+2025-03-18 17:21:57,394 - llm.gemini_api - INFO - Sending Gemini API request 229527c2
+2025-03-18 17:21:57,396 - gui.main_window - INFO - Updated UI status: Processing email 7 of 7…
+2025-03-18 17:21:59,819 - llm.gemini_api - INFO - Received response for request 229527c2
+2025-03-18 17:21:59,819 - root - INFO - Generated summary for email 7
+2025-03-18 17:21:59,821 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:22:00,822 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 17:22:00,824 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:38:53,731 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:39:00,077 - root - INFO - Logger initialized with level INFO
+2025-03-18 17:39:34,958 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:40:31,357 - root - INFO - Logger initialized with level INFO
+2025-03-18 17:41:06,214 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:50:35,271 - root - INFO - Logger initialized with level INFO
+2025-03-18 17:50:45,401 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:50:45,402 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:50:45,405 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:50:45,413 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 17:50:46,465 - email_utils.gmail_api - INFO - Found 9 unread messages for today, fetching content...
+2025-03-18 17:50:46,885 - email_utils.gmail_api - INFO - Fetched message 195a91d1af94f5b2
+2025-03-18 17:50:47,229 - email_utils.gmail_api - INFO - Fetched message 195a91c4a9546dfa
+2025-03-18 17:50:47,544 - email_utils.gmail_api - INFO - Fetched message 195a91544987db0b
+2025-03-18 17:50:47,934 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 17:50:48,309 - email_utils.gmail_api - INFO - Fetched message 195a8683bcb315d1
+2025-03-18 17:50:48,697 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 17:50:49,083 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 17:50:49,489 - email_utils.gmail_api - INFO - Fetched message 195a7213cd231f8d
+2025-03-18 17:50:49,828 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 17:50:49,830 - email_utils.gmail_api - INFO - Successfully fetched 9 unread emails for today
+2025-03-18 17:50:49,830 - root - INFO - Processing email 1: Subject: Jobs that match your backgroun…
+2025-03-18 17:50:49,830 - llm.gemini_api - WARNING - Email content too long (87739 chars), truncating
+2025-03-18 17:50:49,830 - llm.gemini_api - INFO - Sending Gemini API request 22bda797
+2025-03-18 17:50:49,842 - gui.main_window - INFO - Updated UI status: Found 9 unread emails today. Starting summarization…
+2025-03-18 17:50:49,842 - gui.main_window - INFO - Updated UI progress: 1/9
+2025-03-18 17:50:49,842 - gui.main_window - INFO - Updated UI status: Processing email 1 of 9…
+2025-03-18 17:50:54,265 - llm.gemini_api - INFO - Received response for request 22bda797
+2025-03-18 17:50:54,269 - root - INFO - Generated summary for email 1
+2025-03-18 17:50:54,274 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:50:55,270 - root - INFO - Processing email 2: Subject: Aditya Vardhan, add Dr. Navin …
+2025-03-18 17:50:55,270 - gui.main_window - INFO - Updated UI progress: 2/9
+2025-03-18 17:50:55,270 - llm.gemini_api - INFO - Sending Gemini API request 22bda7aa
+2025-03-18 17:50:55,273 - gui.main_window - INFO - Updated UI status: Processing email 2 of 9…
+2025-03-18 17:50:56,801 - llm.gemini_api - INFO - Received response for request 22bda7aa
+2025-03-18 17:50:56,805 - root - INFO - Generated summary for email 2
+2025-03-18 17:50:56,805 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:50:57,808 - root - INFO - Processing email 3: Subject: Gemini…
+2025-03-18 17:50:57,808 - gui.main_window - INFO - Updated UI progress: 3/9
+2025-03-18 17:50:57,808 - llm.gemini_api - INFO - Sending Gemini API request 22be6c43
+2025-03-18 17:50:57,811 - gui.main_window - INFO - Updated UI status: Processing email 3 of 9…
+2025-03-18 17:50:59,049 - llm.gemini_api - INFO - Received response for request 22be6c43
+2025-03-18 17:50:59,049 - root - INFO - Generated summary for email 3
+2025-03-18 17:50:59,049 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:51:00,053 - root - INFO - Processing email 4: Subject: Sort your wardrobe for the sum…
+2025-03-18 17:51:00,053 - gui.main_window - INFO - Updated UI progress: 4/9
+2025-03-18 17:51:00,055 - llm.gemini_api - INFO - Sending Gemini API request 22bd9c5e
+2025-03-18 17:51:00,055 - gui.main_window - INFO - Updated UI status: Processing email 4 of 9…
+2025-03-18 17:51:01,207 - llm.gemini_api - INFO - Received response for request 22bd9c5e
+2025-03-18 17:51:01,207 - root - INFO - Generated summary for email 4
+2025-03-18 17:51:01,207 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:51:02,212 - root - INFO - Processing email 5: Subject: Funds/Securities Balance…
+2025-03-18 17:51:02,212 - gui.main_window - INFO - Updated UI progress: 5/9
+2025-03-18 17:51:02,216 - llm.gemini_api - INFO - Sending Gemini API request 22bbbfbf
+2025-03-18 17:51:02,216 - gui.main_window - INFO - Updated UI status: Processing email 5 of 9…
+2025-03-18 17:51:03,496 - llm.gemini_api - INFO - Received response for request 22bbbfbf
+2025-03-18 17:51:03,496 - root - INFO - Generated summary for email 5
+2025-03-18 17:51:03,496 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:51:04,500 - root - INFO - Processing email 6: Subject: “data science intern”: WebBoos…
+2025-03-18 17:51:04,500 - gui.main_window - INFO - Updated UI progress: 6/9
+2025-03-18 17:51:04,500 - llm.gemini_api - INFO - Sending Gemini API request 22bda7ac
+2025-03-18 17:51:04,500 - gui.main_window - INFO - Updated UI status: Processing email 6 of 9…
+2025-03-18 17:51:06,113 - llm.gemini_api - INFO - Received response for request 22bda7ac
+2025-03-18 17:51:06,113 - root - INFO - Generated summary for email 6
+2025-03-18 17:51:06,115 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:51:07,117 - root - INFO - Processing email 7: Subject: If Basket Investing is New for…
+2025-03-18 17:51:07,117 - gui.main_window - INFO - Updated UI progress: 7/9
+2025-03-18 17:51:07,117 - llm.gemini_api - INFO - Sending Gemini API request 22bda7b8
+2025-03-18 17:51:07,119 - gui.main_window - INFO - Updated UI status: Processing email 7 of 9…
+2025-03-18 17:51:09,305 - llm.gemini_api - INFO - Received response for request 22bda7b8
+2025-03-18 17:51:09,307 - root - INFO - Generated summary for email 7
+2025-03-18 17:51:09,307 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:51:10,309 - root - INFO - Processing email 8: Subject: ISRO’s Microprocessor Breakthr…
+2025-03-18 17:51:10,309 - gui.main_window - INFO - Updated UI progress: 8/9
+2025-03-18 17:51:10,309 - llm.gemini_api - WARNING - Email content too long (65863 chars), truncating
+2025-03-18 17:51:10,309 - gui.main_window - INFO - Updated UI status: Processing email 8 of 9…
+2025-03-18 17:51:10,313 - llm.gemini_api - INFO - Sending Gemini API request 22bda692
+2025-03-18 17:51:12,902 - llm.gemini_api - INFO - Received response for request 22bda692
+2025-03-18 17:51:12,906 - root - INFO - Generated summary for email 8
+2025-03-18 17:51:12,906 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:51:13,909 - root - INFO - Processing email 9: Subject: Introducing v0 integrations…
+2025-03-18 17:51:13,909 - gui.main_window - INFO - Updated UI progress: 9/9
+2025-03-18 17:51:13,909 - llm.gemini_api - INFO - Sending Gemini API request 22bda7a4
+2025-03-18 17:51:13,909 - gui.main_window - INFO - Updated UI status: Processing email 9 of 9…
+2025-03-18 17:51:16,392 - llm.gemini_api - INFO - Received response for request 22bda7a4
+2025-03-18 17:51:16,392 - root - INFO - Generated summary for email 9
+2025-03-18 17:51:16,392 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-18 17:51:17,397 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 17:51:17,397 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:51:36,901 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:51:36,901 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:51:36,908 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-18 17:51:36,911 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-18 17:51:37,825 - email_utils.gmail_api - INFO - Found 6 unread messages for today, fetching content...
+2025-03-18 17:51:38,190 - email_utils.gmail_api - INFO - Fetched message 195a91c4a9546dfa
+2025-03-18 17:51:38,512 - email_utils.gmail_api - INFO - Fetched message 195a91544987db0b
+2025-03-18 17:51:38,867 - email_utils.gmail_api - INFO - Fetched message 195a8803b682d517
+2025-03-18 17:51:39,284 - email_utils.gmail_api - INFO - Fetched message 195a8408e915db30
+2025-03-18 17:51:39,621 - email_utils.gmail_api - INFO - Fetched message 195a82d15659820b
+2025-03-18 17:51:39,999 - email_utils.gmail_api - INFO - Fetched message 195a68fde7fc13f6
+2025-03-18 17:51:40,000 - email_utils.gmail_api - INFO - Successfully fetched 6 unread emails for today
+2025-03-18 17:51:40,001 - gui.main_window - INFO - Updated UI status: Found 6 unread emails today. Starting summarization…
+2025-03-18 17:51:40,002 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-18 17:51:40,003 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 17:52:18,124 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-18 22:03:56,851 - root - INFO - Logger initialized with level INFO

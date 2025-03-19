@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our AI Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #6366f1;
+      --bg-light: #f9fafb;
+      --bg-white: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --radius: 0.5rem;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --transition: all 0.2s ease;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: var(--text-primary);
+    }
+    .container {
+      max-width: 900px;
+      padding: 2rem;
+    }
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 2rem;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .agent-card {
+      background-color: var(--bg-white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .agent-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-light);
+    }
+    .agent-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .agent-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .agent-description {
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Our AI Agents</h1>
+    <div class="card-grid">
+      <div class="agent-card" onclick="agentSelected('email')">
+        <i class="agent-icon ri-mail-line"></i>
+        <h2 class="agent-name">Email Summarizer</h2>
+        <p class="agent-description">Summarize your emails with ease and save time.</p>
+      </div>
+      <div class="agent-card" onclick="agentSelected('document')">
+        <i class="agent-icon ri-file-copy-line"></i>
+        <h2 class="agent-name">Document Summary</h2>
+        <p class="agent-description">Quickly extract key information from lengthy documents.</p>
+      </div>
+      <div class="agent-card" onclick="agentSelected('object')">
+        <i class="agent-icon ri-camera-line"></i>
+        <h2 class="agent-name">Object Detection</h2>
+        <p class="agent-description">Automatically detect and label objects in images.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+  <script>
+    function agentSelected(agent) {
+      if (typeof qt !== 'undefined') {
+        new QWebChannel(qt.webChannelTransport, function(channel) {
+          channel.objects.bridge.agentSelected(agent);
+        });
+      } else {
+        alert('QWebChannel is not available. Running outside of the application.');
+      }
+    }
+  </script>
+</body>
+</html>
