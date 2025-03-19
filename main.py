@@ -1,9 +1,10 @@
+# main.py
 import sys
 import logging
 import time
 
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QThread, pyqtSignal  # Ensure these are imported
+from PyQt5.QtCore import QThread, pyqtSignal
 from gui.main_window import MainWindow
 from email_utils.gmail_api import get_gmail_service, fetch_emails
 from email_utils.email_parser import parse_email_content
@@ -99,9 +100,9 @@ class EmailWorker(QThread):
 
 
 def main():
-    if not settings.gemini_api_key:
-        logger.error("GEMINI_API_KEY not set in environment variables.")
-        print("Error: GEMINI_API_KEY not set in environment variables.")
+    if not settings.gemini_api_key and not settings.mistral_api_key:
+        logger.error("Neither GEMINI_API_KEY nor MISTRAL_API_KEY set in environment variables.")
+        print("Error: Neither GEMINI_API_KEY nor MISTRAL_API_KEY set in environment variables.")
         sys.exit(1)
 
     app = QApplication(sys.argv)
@@ -109,7 +110,7 @@ def main():
 
     window.bridge.fetchRequested.connect(window.emit_fetch_emails)
     email_worker = EmailWorker()
-    window.bridge.fetchRequested.connect(email_worker.start)
+    window.fetch_emails_signal.connect(email_worker.start)
     email_worker.summary_ready.connect(window.add_email_summary)
     email_worker.status_update.connect(window.set_status)
     if hasattr(window, "update_progress"):
