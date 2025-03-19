@@ -2194,3 +2194,9 @@ google.api_core.exceptions.ResourceExhausted: 429 Resource has been exhausted (e
 2025-03-18 17:51:40,003 - gui.main_window - INFO - Updated UI status: Cancelled.
 2025-03-18 17:52:18,124 - gui.main_window - INFO - Updated UI status: Cancelled.
 2025-03-18 22:03:56,851 - root - INFO - Logger initialized with level INFO
+2025-03-19 10:21:12,600 - root - INFO - Logger initialized with level INFO
+2025-03-19 10:21:59,634 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 10:22:04,107 - root - INFO - Logger initialized with level INFO
+2025-03-19 10:30:59,968 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 10:56:42,026 - root - INFO - Logger initialized with level INFO
+2025-03-19 10:57:39,791 - gui.main_window - INFO - Updated UI status: Cancelled.

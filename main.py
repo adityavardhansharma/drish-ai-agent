@@ -1,19 +1,14 @@
 import sys
 import logging
-import time  # Import time module
-
-if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8")
-if hasattr(sys.stderr, "reconfigure"):
-    sys.stderr.reconfigure(encoding="utf-8")
+import time
 
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal  # Ensure these are imported
 from gui.main_window import MainWindow
 from email_utils.gmail_api import get_gmail_service, fetch_emails
 from email_utils.email_parser import parse_email_content
-from llm.gemini_api import generate_summary
-from utils.config import GEMINI_API_KEY
+from llm.gemini_api import generate_summary as generate_email_summary
+from utils.config import settings
 from utils.logger import setup_logger
 
 logger = setup_logger()
@@ -22,7 +17,7 @@ logger = setup_logger()
 class EmailWorker(QThread):
     """
     Worker thread for fetching and summarizing emails.
-    Emits summary, status, and progress signals.
+    Emits signals for summary, status, and progress.
     """
     summary_ready = pyqtSignal(str)
     status_update = pyqtSignal(str)
@@ -40,8 +35,7 @@ class EmailWorker(QThread):
                 self.status_update.emit("Error: Could not connect to Gmail API")
                 return
 
-            # Fetch unread emails from today only.
-            emails = fetch_emails(service, max_results=10)
+            emails = fetch_emails(service, max_results=settings.max_emails_to_fetch)
             if not emails:
                 self.status_update.emit("No unread emails found today.")
                 return
@@ -50,14 +44,14 @@ class EmailWorker(QThread):
             self.status_update.emit(
                 f"Found {total_emails} unread emails today. Starting summarization…"
             )
-
             for i, email_data in enumerate(emails):
                 if not self.is_running:
                     break
                 current = i + 1
                 self.progress_update.emit(current, total_emails)
-                self.status_update.emit(f"Processing email {current} of {total_emails}…")
-
+                self.status_update.emit(
+                    f"Processing email {current} of {total_emails}…"
+                )
                 parsed_email = parse_email_content(email_data)
                 if not parsed_email:
                     logger.warning(f"Skipping email {current} due to parsing error")
@@ -77,8 +71,7 @@ class EmailWorker(QThread):
                     f"From: {parsed_email['sender']}\n"
                     f"Body: {parsed_email['body']}"
                 )
-                summary = generate_summary(email_content)
-
+                summary = generate_email_summary(email_content)
                 if summary:
                     formatted_summary = (
                         f"From: {parsed_email['sender']}\n"
@@ -106,7 +99,7 @@ class EmailWorker(QThread):
 
 
 def main():
-    if not GEMINI_API_KEY:
+    if not settings.gemini_api_key:
         logger.error("GEMINI_API_KEY not set in environment variables.")
         print("Error: GEMINI_API_KEY not set in environment variables.")
         sys.exit(1)
@@ -114,7 +107,6 @@ def main():
     app = QApplication(sys.argv)
     window = MainWindow()
 
-    # Connect the Bridge's fetchRequested signal to trigger our worker.
     window.bridge.fetchRequested.connect(window.emit_fetch_emails)
     email_worker = EmailWorker()
     window.bridge.fetchRequested.connect(email_worker.start)
