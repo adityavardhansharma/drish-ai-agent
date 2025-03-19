@@ -1,0 +1,379 @@
+2025-03-19 11:20:00,447 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 11:22:29,163 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 11:24:05,298 - llm.mistral_api - ERROR - Error generating summary: This client is deprecated. To migrate to the new client, please refer to this guide: https://github.com/mistralai/client-python/blob/main/MIGRATION.md. If you need to use this client anyway, pin your version to 0.4.2.
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\mistral_api.py", line 17, in generate_summary
+    client = MistralClient(api_key=settings.mistral_api_key)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\mistralai\client.py", line 14, in __init__
+    raise NotImplementedError(MIGRATION_MESSAGE)
+NotImplementedError: This client is deprecated. To migrate to the new client, please refer to this guide: https://github.com/mistralai/client-python/blob/main/MIGRATION.md. If you need to use this client anyway, pin your version to 0.4.2.
+2025-03-19 11:24:34,429 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 11:38:57,746 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 11:39:02,173 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 11:39:02,174 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 11:39:02,207 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 11:39:03,016 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 11:39:03,016 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 11:39:10,323 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 11:39:10,323 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 11:39:10,327 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 11:39:11,823 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 11:39:15,208 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 11:39:15,208 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 11:39:33,308 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 11:39:33,313 - llm.mistral_api - ERROR - Error generating summary: 'list' object has no attribute 'message'
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\mistral_api.py", line 36, in generate_summary
+    return chat_response.choices.message.content.strip()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'message'
+2025-03-19 11:39:33,319 - gui.main_window - INFO - Displaying document summary
+2025-03-19 11:39:33,319 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 11:39:43,078 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 11:41:04,260 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 11:41:05,754 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 11:41:05,754 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 11:41:05,791 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 11:41:06,501 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 11:41:06,501 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 11:41:13,117 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 11:41:13,117 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 11:41:13,121 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 11:41:14,621 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 11:41:36,272 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 11:41:36,279 - gui.main_window - INFO - Displaying document summary
+2025-03-19 11:41:36,280 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 11:42:25,012 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 11:50:12,763 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 11:50:16,258 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 11:50:16,258 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 11:50:16,290 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 11:50:26,737 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 11:50:26,737 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 11:50:31,644 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 11:50:31,644 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 11:50:31,645 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 11:50:33,173 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 11:50:35,949 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 11:50:35,950 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 11:51:12,293 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 11:51:12,307 - gui.main_window - INFO - Displaying document summary
+2025-03-19 11:51:12,308 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 11:58:26,133 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 11:58:33,301 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 11:58:36,639 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 11:58:36,639 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 11:58:36,844 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 11:58:49,609 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 11:58:49,609 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 11:58:58,650 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 11:58:58,650 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 11:58:58,651 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 11:59:00,151 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 11:59:12,182 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 11:59:12,182 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 11:59:46,883 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 11:59:46,894 - gui.main_window - INFO - Displaying document summary
+2025-03-19 11:59:46,894 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 12:02:08,651 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 12:06:51,282 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 12:06:53,519 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 12:06:53,520 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 12:06:53,672 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 12:09:34,512 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 12:10:07,771 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 12:10:10,554 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 12:10:10,555 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 12:10:10,590 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 12:10:11,479 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 12:10:11,480 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 12:10:18,905 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 12:10:18,905 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 12:10:18,907 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 12:10:20,458 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 12:10:23,475 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 12:10:23,475 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 12:10:59,290 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 12:10:59,310 - gui.main_window - INFO - Displaying document summary
+2025-03-19 12:10:59,311 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 12:11:15,623 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 12:17:37,079 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 12:17:39,684 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 12:17:39,684 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 12:17:40,319 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 12:17:41,396 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 12:17:41,396 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 12:17:46,652 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 12:17:46,652 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 12:17:46,655 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 12:17:48,154 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 12:17:50,735 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 12:17:50,735 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 12:18:36,229 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 12:18:36,239 - gui.main_window - INFO - Displaying document summary
+2025-03-19 12:18:36,239 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 12:33:52,650 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 12:37:29,741 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 12:37:37,120 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 12:37:37,121 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 12:37:43,756 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 12:37:46,572 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 12:37:46,572 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 12:37:46,573 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 12:37:48,110 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 12:38:26,616 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 12:38:26,634 - gui.main_window - INFO - Displaying document summary
+2025-03-19 12:38:26,634 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 12:38:59,996 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 12:49:00,931 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 12:49:03,835 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 12:49:03,835 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 12:49:03,889 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 12:49:04,800 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 12:49:04,800 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 12:49:14,133 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 12:49:19,352 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 12:49:19,352 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 12:49:19,354 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 12:49:20,938 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 12:50:04,946 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 12:50:04,956 - gui.main_window - INFO - Displaying document summary
+2025-03-19 12:50:04,957 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 12:51:32,238 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 12:51:58,980 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 12:52:00,506 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-19 12:52:00,507 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-19 12:52:00,560 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 12:52:06,551 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-19 12:52:06,552 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-19 12:52:06,553 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-19 12:52:06,554 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-19 12:52:08,501 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-19 12:52:10,289 - email_utils.gmail_api - INFO - Found 9 unread messages for today, fetching content...
+2025-03-19 12:52:11,152 - email_utils.gmail_api - INFO - Fetched message 195ad2cf8e642ebe
+2025-03-19 12:52:11,582 - email_utils.gmail_api - INFO - Fetched message 195ad22fb4de9562
+2025-03-19 12:52:12,011 - email_utils.gmail_api - INFO - Fetched message 195ad15610ed127c
+2025-03-19 12:52:12,359 - email_utils.gmail_api - INFO - Fetched message 195ad08c7003b1fa
+2025-03-19 12:52:12,677 - email_utils.gmail_api - INFO - Fetched message 195acff9f48d3cdd
+2025-03-19 12:52:13,022 - email_utils.gmail_api - INFO - Fetched message 195acf912ef99dde
+2025-03-19 12:52:13,441 - email_utils.gmail_api - INFO - Fetched message 195acb9f13104a41
+2025-03-19 12:52:13,782 - email_utils.gmail_api - INFO - Fetched message 195acb94186de6cf
+2025-03-19 12:52:14,134 - email_utils.gmail_api - INFO - Fetched message 195ac475f3955481
+2025-03-19 12:52:14,135 - email_utils.gmail_api - INFO - Successfully fetched 9 unread emails for today
+2025-03-19 12:52:14,136 - root - INFO - Processing email 1: Subject: Keep building your store for j…
+2025-03-19 12:52:14,136 - gui.main_window - INFO - Updated UI status: Found 9 unread emails today. Starting summarization…
+2025-03-19 12:52:14,136 - llm.gemini_api - WARNING - Email content too long (78095 chars), truncating
+2025-03-19 12:52:14,136 - gui.main_window - INFO - Updated UI progress: 1/9
+2025-03-19 12:52:14,136 - llm.gemini_api - INFO - Sending Gemini API request 1f72b5ff
+2025-03-19 12:52:14,137 - gui.main_window - INFO - Updated UI status: Processing email 1 of 9…
+2025-03-19 12:52:17,812 - llm.gemini_api - INFO - Received response for request 1f72b5ff
+2025-03-19 12:52:17,812 - root - INFO - Generated summary for email 1
+2025-03-19 12:52:17,815 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:18,813 - root - INFO - Processing email 2: Subject: AI-Powered Savings: EOFY Deals…
+2025-03-19 12:52:18,813 - gui.main_window - INFO - Updated UI progress: 2/9
+2025-03-19 12:52:18,813 - llm.gemini_api - WARNING - Email content too long (89803 chars), truncating
+2025-03-19 12:52:18,814 - gui.main_window - INFO - Updated UI status: Processing email 2 of 9…
+2025-03-19 12:52:18,814 - llm.gemini_api - INFO - Sending Gemini API request 1f72b5d9
+2025-03-19 12:52:21,533 - llm.gemini_api - INFO - Received response for request 1f72b5d9
+2025-03-19 12:52:21,536 - root - INFO - Generated summary for email 2
+2025-03-19 12:52:21,536 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:22,537 - root - INFO - Processing email 3: Subject: Enjoy UP TO 60% OFF with adida…
+2025-03-19 12:52:22,538 - gui.main_window - INFO - Updated UI progress: 3/9
+2025-03-19 12:52:22,538 - llm.gemini_api - INFO - Sending Gemini API request 1f725300
+2025-03-19 12:52:22,538 - gui.main_window - INFO - Updated UI status: Processing email 3 of 9…
+2025-03-19 12:52:23,852 - llm.gemini_api - INFO - Received response for request 1f725300
+2025-03-19 12:52:23,853 - root - INFO - Generated summary for email 3
+2025-03-19 12:52:23,853 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:24,854 - root - INFO - Processing email 4: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-19 12:52:24,854 - gui.main_window - INFO - Updated UI progress: 4/9
+2025-03-19 12:52:24,855 - llm.gemini_api - INFO - Sending Gemini API request 1f72b856
+2025-03-19 12:52:24,855 - gui.main_window - INFO - Updated UI status: Processing email 4 of 9…
+2025-03-19 12:52:26,037 - llm.gemini_api - INFO - Received response for request 1f72b856
+2025-03-19 12:52:26,038 - root - INFO - Generated summary for email 4
+2025-03-19 12:52:26,038 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:27,039 - root - INFO - Processing email 5: Subject: Nestlé Internship Program- Nes…
+2025-03-19 12:52:27,040 - gui.main_window - INFO - Updated UI progress: 5/9
+2025-03-19 12:52:27,040 - llm.gemini_api - INFO - Sending Gemini API request 1f72b868
+2025-03-19 12:52:27,040 - gui.main_window - INFO - Updated UI status: Processing email 5 of 9…
+2025-03-19 12:52:28,567 - llm.gemini_api - INFO - Received response for request 1f72b868
+2025-03-19 12:52:28,568 - root - INFO - Generated summary for email 5
+2025-03-19 12:52:28,568 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:29,569 - root - INFO - Processing email 6: Subject: Weekday AI (YC W21) is hiring …
+2025-03-19 12:52:29,569 - gui.main_window - INFO - Updated UI progress: 6/9
+2025-03-19 12:52:29,569 - llm.gemini_api - INFO - Sending Gemini API request 1f72b5e9
+2025-03-19 12:52:29,570 - gui.main_window - INFO - Updated UI status: Processing email 6 of 9…
+2025-03-19 12:52:31,018 - llm.gemini_api - INFO - Received response for request 1f72b5e9
+2025-03-19 12:52:31,018 - root - INFO - Generated summary for email 6
+2025-03-19 12:52:31,018 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:32,019 - root - INFO - Processing email 7: Subject: 3 reasons great developers sti…
+2025-03-19 12:52:32,019 - gui.main_window - INFO - Updated UI progress: 7/9
+2025-03-19 12:52:32,019 - llm.gemini_api - INFO - Sending Gemini API request 1f72b643
+2025-03-19 12:52:32,020 - gui.main_window - INFO - Updated UI status: Processing email 7 of 9…
+2025-03-19 12:52:33,673 - llm.gemini_api - INFO - Received response for request 1f72b643
+2025-03-19 12:52:33,674 - root - INFO - Generated summary for email 7
+2025-03-19 12:52:33,674 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:34,675 - root - INFO - Processing email 8: Subject: adityavardhansharma/drish-ai-a…
+2025-03-19 12:52:34,675 - gui.main_window - INFO - Updated UI progress: 8/9
+2025-03-19 12:52:34,676 - llm.gemini_api - WARNING - Email content too long (61040 chars), truncating
+2025-03-19 12:52:34,676 - gui.main_window - INFO - Updated UI status: Processing email 8 of 9…
+2025-03-19 12:52:34,676 - llm.gemini_api - INFO - Sending Gemini API request 1f72b638
+2025-03-19 12:52:36,813 - llm.gemini_api - INFO - Received response for request 1f72b638
+2025-03-19 12:52:36,813 - root - INFO - Generated summary for email 8
+2025-03-19 12:52:36,814 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:37,815 - root - INFO - Processing email 9: Subject: Advance Tax Collections Up 15%…
+2025-03-19 12:52:37,815 - gui.main_window - INFO - Updated UI progress: 9/9
+2025-03-19 12:52:37,816 - llm.gemini_api - WARNING - Email content too long (65045 chars), truncating
+2025-03-19 12:52:37,816 - gui.main_window - INFO - Updated UI status: Processing email 9 of 9…
+2025-03-19 12:52:37,816 - llm.gemini_api - INFO - Sending Gemini API request 1f72b97e
+2025-03-19 12:52:40,343 - llm.gemini_api - INFO - Received response for request 1f72b97e
+2025-03-19 12:52:40,343 - root - INFO - Generated summary for email 9
+2025-03-19 12:52:40,343 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-19 12:52:41,344 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-19 12:52:41,345 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 12:53:12,932 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 12:53:14,480 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 12:53:19,233 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 12:53:27,323 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 14:03:51,479 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 14:04:01,312 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 14:04:01,312 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 14:04:01,525 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 14:04:04,264 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:04:04,264 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 14:04:12,635 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:04:28,568 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 14:04:28,568 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:04:28,573 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:04:30,407 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 14:05:08,114 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 14:05:08,125 - gui.main_window - INFO - Displaying document summary
+2025-03-19 14:05:08,125 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 14:08:17,643 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:08:17,644 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:08:17,647 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:08:19,723 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:08:19,728 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:08:19,760 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:08:20,396 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:08:20,421 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:08:20,573 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:08:20,619 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 14:08:20,652 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:08:20,677 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:08:20,703 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:08:22,313 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 14:08:23,029 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+2025-03-19 14:08:23,128 - llm.mistral_api - ERROR - Error generating summary: API error occurred: Status 500
+{"object":"error","message":"Service unavailable.","type":"internal_server_error","param":null,"code":"1000"}
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\mistral_api.py", line 41, in generate_summary
+    chat_response = await client.chat.complete_async(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\mistralai\chat.py", line 397, in complete_async
+    raise models.SDKError(
+mistralai.models.sdkerror.SDKError: API error occurred: Status 500
+{"object":"error","message":"Service unavailable.","type":"internal_server_error","param":null,"code":"1000"}
+2025-03-19 14:20:39,200 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 14:20:44,753 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 14:20:44,753 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 14:20:44,848 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 14:20:46,074 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:20:46,074 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 14:20:51,533 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:20:53,358 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 14:20:53,358 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:20:53,362 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:20:56,050 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 14:21:17,033 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 14:21:17,054 - gui.main_window - INFO - Displaying document summary
+2025-03-19 14:21:17,054 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 14:22:31,400 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 14:22:47,203 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 14:22:51,205 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 14:22:51,205 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 14:22:51,301 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 14:22:52,514 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:22:52,514 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 14:23:00,189 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:23:02,179 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 14:23:02,179 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:23:02,179 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:23:04,766 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 14:23:35,384 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 14:23:35,401 - gui.main_window - INFO - Displaying document summary
+2025-03-19 14:23:35,401 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 14:25:43,136 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 14:26:31,000 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 14:26:46,052 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 14:26:46,052 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 14:26:46,154 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 14:26:48,335 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:26:48,335 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 14:26:57,462 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:26:59,983 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 14:26:59,983 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:26:59,993 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:27:02,346 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 14:27:04,786 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-03-19 14:27:04,788 - llm.mistral_api - ERROR - Error generating summary: API error occurred: Status 400
+{"object":"error","message":"Invalid model: mistral-embed","type":"invalid_model","param":null,"code":"1500"}
+Traceback (most recent call last):
+  File "C:\Users\asus\OneDrive\Desktop\agentic\llm\mistral_api.py", line 41, in generate_summary
+    chat_response = await client.chat.complete_async(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\asus\anaconda3\envs\DS_PREP\Lib\site-packages\mistralai\chat.py", line 392, in complete_async
+    raise models.SDKError(
+mistralai.models.sdkerror.SDKError: API error occurred: Status 400
+{"object":"error","message":"Invalid model: mistral-embed","type":"invalid_model","param":null,"code":"1500"}
+2025-03-19 14:27:04,796 - gui.main_window - INFO - Displaying document summary
+2025-03-19 14:27:04,797 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 14:27:30,930 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 14:28:16,064 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 14:28:17,588 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 14:28:17,588 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 14:28:17,686 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 14:28:18,722 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:28:18,722 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 14:28:24,110 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:28:25,697 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 14:28:25,697 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:28:25,776 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:28:28,259 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 14:28:42,241 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 14:28:42,261 - gui.main_window - INFO - Displaying document summary
+2025-03-19 14:28:42,261 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 14:29:35,301 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:29:35,302 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 14:29:35,304 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:29:36,701 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 14:29:52,617 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 14:29:58,833 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 14:29:58,833 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 14:29:58,926 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 14:30:07,711 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:30:07,713 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 14:30:16,884 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/Talent_Trail_Project_Report NEW 1111.pdf
+2025-03-19 14:30:19,262 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 14:30:19,262 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/Talent_Trail_Project_Report NEW 1111.pdf
+2025-03-19 14:30:19,267 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:30:21,085 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 14:30:33,012 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 14:30:33,030 - gui.main_window - INFO - Displaying document summary
+2025-03-19 14:30:33,030 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 14:37:03,370 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 14:37:12,338 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 14:37:20,733 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 14:37:20,737 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 14:37:20,829 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 14:37:22,255 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 14:37:22,256 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 14:37:46,632 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/Talent_Trail_Project_Report NEW 1111.pdf
+2025-03-19 14:37:48,172 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 14:37:48,172 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/Talent_Trail_Project_Report NEW 1111.pdf
+2025-03-19 14:37:48,176 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 14:37:49,948 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 14:38:05,890 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 14:38:05,922 - gui.main_window - INFO - Displaying document summary
+2025-03-19 14:38:05,922 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 14:39:33,366 - gui.main_window - INFO - Updated UI status: Cancelled.
