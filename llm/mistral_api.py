@@ -22,7 +22,7 @@ async def generate_summary(document_content, max_tokens=20000):
         - Preserve important details, statistics, and evidence
         - Maintain the logical flow and structure of the original document
         - Include all relevant names, dates, and specific information
-        - Be thorough while remaining concise
+        - Be thorough while remaining concise but no detail about a point mentioned in summary should be missed
         - Not omit any significant information from the original text
 
         Document content:
