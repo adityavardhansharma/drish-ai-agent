@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document Summarizer</title>
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <!-- Use a specific version of marked.js that doesn't have the .at() issue -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.0/remixicon.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --primary-light: #818cf8;
+        --primary-bg: rgba(99, 102, 241, 0.05);
+        --bg-light: #f9fafb;
+        --bg-white: #ffffff;
+        --text-primary: #111827;
+        --text-secondary: #4b5563;
+        --text-muted: #6b7280;
+        --border: #e5e7eb;
+        --border-light: #f3f4f6;
+        --success: #10b981;
+        --error: #ef4444;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+          0 1px 2px rgba(0, 0, 0, 0.06);
+        --radius: 0.5rem;
+        --radius-lg: 0.75rem;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont,
+          'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: var(--bg-light);
+        color: var(--text-primary);
+        line-height: 1.5;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: var(--bg-white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .app-section {
+        padding: 24px;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .app-section:last-child {
+        border-bottom: none;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .section-header-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 50%;
+        font-size: 14px;
+      }
+
+      .upload-container {
+        background-color: var(--bg-white);
+        border-radius: var(--radius);
+        padding: 16px;
+        border: 1px solid var(--border);
+      }
+
+      .file-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+      }
+
+      .file-details {
+        display: flex;
+        align-items: center;
+      }
+
+      .file-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-bg);
+        color: var(--primary);
+        border-radius: var(--radius);
+        margin-right: 12px;
+        font-size: 20px;
+      }
+
+      .file-name {
+        font-weight: 500;
+        color: var(--text-primary);
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .file-status {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+
+      .button-primary {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: var(--radius);
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: background-color 0.2s;
+      }
+
+      .button-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .button-primary:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .button-outline {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        padding: 6px 12px;
+        border-radius: var(--radius);
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .button-outline:hover {
+        background-color: var(--primary-bg);
+      }
+
+      .generate-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .summary-container {
+        min-height: 300px;
+        background-color: var(--bg-white);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+      }
+
+      .summary-header {
+        padding: 16px;
+        border-bottom: 1px solid var(--border-light);
+        display: flex;
+        align-items: center;
+      }
+
+      .summary-title {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+      }
+
+      .summary-title-icon {
+        margin-right: 8px;
+        color: var(--primary);
+      }
+
+      .summary-content {
+        padding: 24px;
+        min-height: 250px;
+      }
+
+      .summary-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        height: 250px;
+        color: var(--text-muted);
+        text-align: center;
+      }
+
+      .summary-placeholder-icon {
+        width: 64px;
+        height: 64px;
+        opacity: 0.4;
+      }
+
+      .summary-placeholder-title {
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--text-secondary);
+      }
+
+      .summary-placeholder-text {
+        font-size: 14px;
+        max-width: 400px;
+      }
+
+      .summary-text {
+        line-height: 1.6;
+        color: var(--text-secondary);
+      }
+
+      .summary-text h1,
+      .summary-text h2,
+      .summary-text h3 {
+        margin-top: 20px;
+        margin-bottom: 12px;
+        color: var(--text-primary);
+      }
+
+      .summary-text p {
+        margin-bottom: 16px;
+      }
+
+      .summary-text ul,
+      .summary-text ol {
+        margin-bottom: 16px;
+        padding-left: 24px;
+      }
+
+      .summary-text li {
+        margin-bottom: 8px;
+      }
+
+      .summary-text blockquote {
+        border-left: 3px solid var(--primary-light);
+        padding-left: 16px;
+        margin: 16px 0;
+        color: var(--text-secondary);
+      }
+
+      .upload-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        border: 2px dashed var(--primary-light);
+        border-radius: var(--radius);
+        background-color: var(--primary-bg);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .upload-area:hover {
+        background-color: rgba(99, 102, 241, 0.1);
+      }
+
+      .upload-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 16px;
+        color: var(--primary);
+        opacity: 0.7;
+      }
+
+      .upload-text {
+        text-align: center;
+      }
+
+      .upload-title {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+
+      .upload-description {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+      }
+
+      .format-badges {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+        justify-content: center;
+      }
+
+      .format-badge {
+        background-color: white;
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      /* Loading Overlay */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(2px);
+      }
+
+      .loading-container {
+        background-color: white;
+        padding: 32px;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        text-align: center;
+      }
+
+      .loading-spinner {
+        margin: 0 auto 20px;
+        width: 60px;
+        height: 60px;
+        border: 4px solid rgba(99, 102, 241, 0.1);
+        border-left-color: var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .loading-text {
+        font-weight: 500;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+      }
+
+      .progress-bar {
+        height: 6px;
+        background-color: rgba(99, 102, 241, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 8px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background-color: var(--primary);
+        width: 0%;
+        transition: width 0.3s;
+      }
+
+      .progress-text {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Document Upload Section -->
+      <div class="app-section">
+        <div class="section-header">
+          <div class="section-header-icon">↑</div>
+          Document Upload
+        </div>
+
+        <div class="upload-container">
+          <!-- Upload Area (Initial State) -->
+          <div id="uploadArea" class="upload-area">
+            <svg
+              class="upload-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+            <div class="upload-text">
+              <div class="upload-title">
+                Drag & Drop or Click to Upload
+              </div>
+              <div class="upload-description">
+                Upload your document to get started
+              </div>
+              <div class="format-badges">
+                <span class="format-badge">PDF</span>
+                <span class="format-badge">DOCX</span>
+                <span class="format-badge">TXT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- File Info (After Upload) -->
+          <div id="fileInfo" class="file-info hidden">
+            <div class="file-details">
+              <div class="file-icon">
+                <i class="ri-file-text-line"></i>
+              </div>
+              <div>
+                <div id="fileName" class="file-name">Document</div>
+                <div class="file-status">
+                  Ready for summarization
+                </div>
+              </div>
+            </div>
+            <button id="changeButton" class="button-outline">
+              Change
+            </button>
+          </div>
+        </div>
+
+        <!-- Generate Summary Button -->
+        <div
+          id="generateBtnContainer"
+          class="generate-button-container hidden"
+        >
+          <button id="generateSummaryBtn" class="button-primary">
+            <i class="ri-magic-line"></i>
+            Generate Summary
+          </button>
+        </div>
+      </div>
+
+      <!-- Document Summary Section -->
+      <div class="app-section">
+        <div class="section-header">
+          <div class="section-header-icon">📄</div>
+          Document Summary
+        </div>
+
+        <div class="summary-container">
+          <div class="summary-header">
+            <div class="summary-title">
+              <i class="ri-lightbulb-line summary-title-icon"></i>
+              AI-Generated Summary
+            </div>
+          </div>
+
+          <div id="summaryContent" class="summary-content">
+            <!-- Summary Placeholder (Initial State) -->
+            <div id="summaryPlaceholder" class="summary-placeholder">
+              <i class="ri-search-line summary-placeholder-icon"></i>
+              <div class="summary-placeholder-title">
+                No Summary Available
+              </div>
+              <div class="summary-placeholder-text">
+                Upload a document and click "Generate Summary" to see the
+                AI-generated summary here
+              </div>
+            </div>
+
+            <!-- Summary Text (After Generation) -->
+            <div id="summaryText" class="summary-text hidden">
+              <!-- Will be populated with marked.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <div id="loadingText" class="loading-text">
+          Processing document...
+        </div>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <div id="progressText" class="progress-text">
+          Analyzing content...
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Global state variables
+      let bridge = null;
+      let isFileSelected = false;
+      let isGeneratingSummary = false;
+
+      // Initialize when document is ready
+      window.onload = function () {
+        if (
+          typeof QWebChannel !== "undefined" &&
+          typeof qt !== "undefined" &&
+          qt.webChannelTransport
+        ) {
+          console.log("Initializing QWebChannel...");
+          new QWebChannel(qt.webChannelTransport, function (channel) {
+            bridge = channel.objects.bridge;
+            console.log("Bridge connected successfully");
+            setupEventListeners();
+          });
+        } else {
+          console.log("QWebChannel not available, running in test mode");
+          setupEventListeners();
+        }
+      };
+
+      // Set up event listeners
+      function setupEventListeners() {
+        const uploadArea = document.getElementById("uploadArea");
+        uploadArea.addEventListener("click", function () {
+          requestFileUpload();
+        });
+
+        // Drag & drop behavior
+        uploadArea.addEventListener("dragover", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.style.backgroundColor = "rgba(99, 102, 241, 0.15)";
+        });
+        uploadArea.addEventListener("dragleave", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.style.backgroundColor = "";
+        });
+        uploadArea.addEventListener("drop", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.style.backgroundColor = "";
+          requestFileUpload();
+        });
+
+        document
+          .getElementById("changeButton")
+          .addEventListener("click", function () {
+            requestFileUpload();
+          });
+
+        document
+          .getElementById("generateSummaryBtn")
+          .addEventListener("click", function () {
+            if (isFileSelected && !isGeneratingSummary) {
+              requestSummaryGeneration();
+            }
+          });
+      }
+
+      // Request file selection (the Python Bridge handles the dialog)
+      function requestFileUpload() {
+        if (bridge) {
+          console.log("Requesting file selection...");
+          // This call will trigger open_document_dialog() in Python.
+          bridge.requestDocumentSummary();
+        } else {
+          // Test mode
+          setTimeout(function () {
+            setFileName("Sample Document.pdf");
+          }, 500);
+        }
+      }
+
+      // Request summary generation via the bridge
+      function requestSummaryGeneration() {
+        showLoadingOverlay();
+        isGeneratingSummary = true;
+        if (bridge) {
+          console.log("Requesting summary generation...");
+          // This function is defined in the Bridge on the Python side.
+          bridge.generateDocumentSummary();
+        } else {
+          // Test mode
+          simulateProgress();
+          setTimeout(function () {
+            const sampleSummary = `# Software Engineering Fundamentals
+
+## Introduction
+This document provides an overview of key software engineering principles and practices.
+
+## Core Concepts
+- **Requirements Engineering**: Gathering and documenting system requirements
+- **Software Design**: Creating the architecture and detailed design
+- **Implementation**: Coding and unit testing
+- **Testing**: Verification and validation
+
+## Best Practices
+> "Simplicity—the art of maximizing the amount of work not done—is essential." - Agile Manifesto
+
+### Development Methodology
+1. Use version control for all code
+2. Implement continuous integration
+3. Write automated tests
+4. Document code and APIs
+
+## Conclusion
+Following these principles leads to more maintainable and reliable software.`;
+            displayDocumentSummary(sampleSummary);
+          }, 3000);
+        }
+      }
+
+      // Called from Python after file has been selected.
+      function setFileName(name) {
+        console.log("File selected:", name);
+        document.getElementById("fileName").textContent = name;
+        document.getElementById("fileInfo").classList.remove("hidden");
+        document.getElementById("uploadArea").classList.add("hidden");
+        document
+          .getElementById("generateBtnContainer")
+          .classList.remove("hidden");
+        isFileSelected = true;
+        resetSummarySection();
+      }
+
+      // Called from Python to update status messages
+      function updateStatus(message, statusType) {
+        console.log("Status update:", message, statusType);
+        if (statusType === "loading") {
+          document.getElementById("loadingText").textContent = message;
+        } else if (statusType === "success") {
+          document.getElementById("progressFill").style.width = "100%";
+          document.getElementById("loadingText").textContent = message;
+          document.getElementById("progressText").textContent = "Complete!";
+          setTimeout(hideLoadingOverlay, 500);
+        } else if (statusType === "error") {
+          document.getElementById("loadingText").textContent = message;
+          document.getElementById("progressText").textContent = "Error occurred";
+          setTimeout(hideLoadingOverlay, 1500);
+        }
+      }
+
+      // Called from Python when summary is generated.
+      function displayDocumentSummary(summary) {
+        console.log("Summary received, length:", summary.length);
+        try {
+          const htmlSummary = marked.parse(summary);
+          document.getElementById("summaryText").innerHTML = htmlSummary;
+          document.getElementById("summaryPlaceholder").classList.add("hidden");
+          document.getElementById("summaryText").classList.remove("hidden");
+        } catch (error) {
+          console.error("Error parsing markdown:", error);
+          document.getElementById("summaryText").textContent = summary;
+          document.getElementById("summaryPlaceholder").classList.add("hidden");
+          document.getElementById("summaryText").classList.remove("hidden");
+        }
+        isGeneratingSummary = false;
+      }
+
+      function resetSummarySection() {
+        document.getElementById("summaryText").classList.add("hidden");
+        document.getElementById("summaryPlaceholder").classList.remove("hidden");
+      }
+
+      function showLoadingOverlay() {
+        document.getElementById("loadingOverlay").classList.remove("hidden");
+        document.getElementById("progressFill").style.width = "0%";
+        document.getElementById("loadingText").textContent = "Processing document...";
+        document.getElementById("progressText").textContent =
+          "Analyzing content...";
+        document.getElementById("generateSummaryBtn").disabled = true;
+        simulateProgress();
+      }
+
+      function hideLoadingOverlay() {
+        document.getElementById("loadingOverlay").classList.add("hidden");
+        document.getElementById("generateSummaryBtn").disabled = false;
+      }
+
+      function simulateProgress() {
+        const progressSteps = [
+          {
+            percent: 15,
+            text: "Extracting document content...",
+            loading: "Processing document...",
+          },
+          {
+            percent: 35,
+            text: "Analyzing text structure...",
+            loading: "Analyzing document...",
+          },
+          {
+            percent: 55,
+            text: "Identifying key points...",
+            loading: "Identifying key points...",
+          },
+          {
+            percent: 75,
+            text: "Generating summary...",
+            loading: "Generating summary...",
+          },
+          {
+            percent: 90,
+            text: "Finalizing summary...",
+            loading: "Finalizing summary...",
+          },
+        ];
+
+        const progressFill = document.getElementById("progressFill");
+        const progressText = document.getElementById("progressText");
+        const loadingText = document.getElementById("loadingText");
+        let currentStep = 0;
+        if (window.progressInterval) {
+          clearInterval(window.progressInterval);
+        }
+        window.progressInterval = setInterval(function () {
+          if (currentStep < progressSteps.length) {
+            const step = progressSteps[currentStep];
+            progressFill.style.width = `${step.percent}%`;
+            progressText.textContent = step.text;
+            loadingText.textContent = step.loading;
+            currentStep++;
+          } else {
+            let width = parseFloat(progressFill.style.width) || 90;
+            if (width < 95) {
+              width += 0.2;
+              progressFill.style.width = `${width}%`;
+            }
+          }
+        }, 800);
+      }
+    </script>
+  </body>
+</html>
