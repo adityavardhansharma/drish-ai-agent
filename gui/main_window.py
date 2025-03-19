@@ -1,3 +1,4 @@
+# gui/main_window.py
 import os
 import json
 import PyPDF2
@@ -21,6 +22,7 @@ class Bridge(QObject):
     fetchRequested = pyqtSignal()
     agentSelectedSignal = pyqtSignal(str)
     documentSummaryRequested = pyqtSignal()
+    documentQuestionAsked = pyqtSignal(str)
 
     @pyqtSlot()
     def fetchEmails(self):
@@ -45,11 +47,17 @@ class Bridge(QObject):
         # will trigger summary generation.
         self.documentSummaryRequested.emit()
 
+    @pyqtSlot(str)
+    def askDocumentQuestion(self, question):
+        logger.info(f"askDocumentQuestion called from JavaScript with question: {question}")
+        self.documentQuestionAsked.emit(question)
+
 
 class SummaryWorker(QThread):
     """Worker thread for generating document summaries."""
     summary_ready = pyqtSignal(str)
     status_update = pyqtSignal(str)
+    document_content_ready = pyqtSignal(str)
 
     def __init__(self, file_path):
         super().__init__()
@@ -62,6 +70,10 @@ class SummaryWorker(QThread):
             if not document_content:
                 self.status_update.emit("Error: Could not extract text from document.")
                 return
+
+            # Emit the document content for later use in chat
+            self.document_content_ready.emit(document_content)
+
             self.status_update.emit("Generating summary...")
             from llm.mistral_api import generate_summary
             summary = asyncio.run(generate_summary(document_content))
@@ -110,6 +122,43 @@ class SummaryWorker(QThread):
             return None
 
 
+class ChatWorker(QThread):
+    """Worker thread for handling document chat questions."""
+    answer_ready = pyqtSignal(str, str)  # answer, error
+
+    def __init__(self, question, document_content, conversation_history=None):
+        super().__init__()
+        self.question = question
+        self.document_content = document_content
+        self.conversation_history = conversation_history or []
+
+    def run(self):
+        try:
+            from llm.chat_api import chat_with_document, ChatMessage
+
+            # Convert conversation history to ChatMessage objects if they're not already
+            chat_history = []
+            for msg in self.conversation_history:
+                if isinstance(msg, dict):
+                    chat_history.append(ChatMessage(**msg))
+                elif isinstance(msg, ChatMessage):
+                    chat_history.append(msg)
+
+            response = asyncio.run(chat_with_document(
+                self.question,
+                self.document_content,
+                chat_history
+            ))
+
+            if response.error:
+                self.answer_ready.emit("", response.error)
+            else:
+                self.answer_ready.emit(response.answer, "")
+        except Exception as e:
+            logger.error(f"Error during chat: {e}")
+            self.answer_ready.emit("", f"Error: {str(e)}")
+
+
 class MainWindow(QMainWindow):
     fetch_emails_signal = pyqtSignal()
 
@@ -139,11 +188,17 @@ class MainWindow(QMainWindow):
         # Store selected file path for document summarization.
         self.selected_document_path = None
 
+        # Store document content and chat history
+        self.document_content = ""
+        self.chat_history = []
+
         # Connect signals.
         self.bridge.fetchRequested.connect(self.emit_fetch_emails)
         self.bridge.agentSelectedSignal.connect(self.load_agent_ui)
         # The documentSummaryRequested signal is used for both file dialog selection and summary generation.
         self.bridge.documentSummaryRequested.connect(self.handle_document_request)
+        # Connect the new signal for document questions
+        self.bridge.documentQuestionAsked.connect(self.handle_document_question)
 
         logger.info("MainWindow initialized with bridge and web channel")
 
@@ -159,9 +214,9 @@ class MainWindow(QMainWindow):
     def add_email_summary(self, summary):
         try:
             js_code = (
-                "if (typeof addEmailSummary === 'function') { addEmailSummary("
-                + json.dumps(summary)
-                + "); }"
+                    "if (typeof addEmailSummary === 'function') { addEmailSummary("
+                    + json.dumps(summary)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             logger.info("Updated HTML with new email summary.")
@@ -172,9 +227,9 @@ class MainWindow(QMainWindow):
     def set_status(self, message):
         try:
             js_code = (
-                "if (typeof updateStatus === 'function') { updateStatus("
-                + json.dumps(message)
-                + "); }"
+                    "if (typeof updateStatus === 'function') { updateStatus("
+                    + json.dumps(message)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             logger.info("Updated UI status: " + message)
@@ -185,11 +240,11 @@ class MainWindow(QMainWindow):
     def update_progress(self, current, total):
         try:
             js_code = (
-                "if (typeof updateProgress === 'function') { updateProgress("
-                + json.dumps(current)
-                + ", "
-                + json.dumps(total)
-                + "); }"
+                    "if (typeof updateProgress === 'function') { updateProgress("
+                    + json.dumps(current)
+                    + ", "
+                    + json.dumps(total)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             logger.info("Updated UI progress: " + str(current) + "/" + str(total))
@@ -217,6 +272,12 @@ class MainWindow(QMainWindow):
         url = QUrl.fromLocalFile(agent_page_path)
         self.web_view.load(url)
         self.web_view.loadFinished.connect(self.on_page_loaded)
+
+        # Reset document-related state when switching agents
+        if agent != "document":
+            self.selected_document_path = None
+            self.document_content = ""
+            self.chat_history = []
 
     def on_page_loaded(self, success):
         if success:
@@ -250,11 +311,14 @@ class MainWindow(QMainWindow):
             self.selected_document_path = file_path
             file_name = os.path.basename(file_path)
             js_code = (
-                "if (typeof setFileName === 'function') { setFileName("
-                + json.dumps(file_name)
-                + "); }"
+                    "if (typeof setFileName === 'function') { setFileName("
+                    + json.dumps(file_name)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
+
+            # Reset chat history when a new document is selected
+            self.chat_history = []
 
     @pyqtSlot(str)
     def handle_document_summary_request(self, file_path):
@@ -262,15 +326,24 @@ class MainWindow(QMainWindow):
         self.summary_worker = SummaryWorker(file_path)
         self.summary_worker.summary_ready.connect(self.display_document_summary)
         self.summary_worker.status_update.connect(self.update_document_status)
+        self.summary_worker.document_content_ready.connect(self.store_document_content)
         self.summary_worker.start()
+
+    @pyqtSlot(str)
+    def store_document_content(self, content):
+        """Store the document content for use in chat."""
+        logger.info("Storing document content for chat")
+        self.document_content = content
 
     @pyqtSlot(str)
     def display_document_summary(self, summary):
         logger.info("Displaying document summary")
+        # Escape backticks to avoid breaking JavaScript
+        escaped_summary = summary.replace("`", "\\`")
         js_code = (
-            "if (typeof displayDocumentSummary === 'function') { displayDocumentSummary("
-            + json.dumps(summary)
-            + "); }"
+                "if (typeof displayDocumentSummary === 'function') { displayDocumentSummary(`"
+                + escaped_summary
+                + "`); }"
         )
         self.web_view.page().runJavaScript(js_code)
 
@@ -285,10 +358,60 @@ class MainWindow(QMainWindow):
         elif "Error" in status:
             status_type = "error"
         js_code = (
-            "if (typeof updateStatus === 'function') { updateStatus("
-            + json.dumps(status)
-            + ", "
-            + json.dumps(status_type)
-            + "); }"
+                "if (typeof updateStatus === 'function') { updateStatus("
+                + json.dumps(status)
+                + ", "
+                + json.dumps(status_type)
+                + "); }"
         )
+        self.web_view.page().runJavaScript(js_code)
+
+    @pyqtSlot(str)
+    def handle_document_question(self, question):
+        """Handle a question about the document."""
+        logger.info(f"Handling document question: {question}")
+
+        if not self.document_content:
+            logger.error("No document content available for chat")
+            js_code = (
+                    "if (typeof displayChatResponse === 'function') { displayChatResponse('', "
+                    + json.dumps("No document content available. Please generate a summary first.")
+                    + "); }"
+            )
+            self.web_view.page().runJavaScript(js_code)
+            return
+
+        # Create and start the chat worker
+        self.chat_worker = ChatWorker(question, self.document_content, self.chat_history)
+        self.chat_worker.answer_ready.connect(self.display_chat_response)
+        self.chat_worker.start()
+
+        # Add user message to chat history
+        from llm.chat_api import ChatMessage
+        self.chat_history.append(ChatMessage(role="user", content=question))
+
+    @pyqtSlot(str, str)
+    def display_chat_response(self, answer, error):
+        """Display the chat response in the UI."""
+        logger.info("Displaying chat response")
+
+        if error:
+            js_code = (
+                    "if (typeof displayChatResponse === 'function') { displayChatResponse('', "
+                    + json.dumps(error)
+                    + "); }"
+            )
+        else:
+            # Add assistant message to chat history
+            from llm.chat_api import ChatMessage
+            self.chat_history.append(ChatMessage(role="assistant", content=answer))
+
+            # Escape backticks to avoid breaking JavaScript
+            escaped_answer = answer.replace("`", "\\`")
+            js_code = (
+                    "if (typeof displayChatResponse === 'function') { displayChatResponse(`"
+                    + escaped_answer
+                    + "`, ''); }"
+            )
+
         self.web_view.page().runJavaScript(js_code)

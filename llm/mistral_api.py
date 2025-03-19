@@ -1,10 +1,11 @@
+# llm/mistral_api.py
 import logging
 from utils.config import settings
 from mistralai import Mistral
 
 logger = logging.getLogger(__name__)
 
-async def generate_summary(document_content, max_tokens=2000):
+async def generate_summary(document_content, max_tokens=20000):
     """
     Uses the Mistral AI API to generate a detailed, comprehensive summary of the provided document content.
     """
