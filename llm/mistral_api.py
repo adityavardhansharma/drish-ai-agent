@@ -5,7 +5,7 @@ from mistralai import Mistral
 
 logger = logging.getLogger(__name__)
 
-async def generate_summary(document_content, max_tokens=20000):
+async def generate_summary(document_content, max_tokens=35000):
     """
     Uses the Mistral AI API to generate a detailed, comprehensive summary of the provided document content.
     """
