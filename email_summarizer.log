@@ -377,3 +377,1350 @@ mistralai.models.sdkerror.SDKError: API error occurred: Status 400
 2025-03-19 14:38:05,922 - gui.main_window - INFO - Displaying document summary
 2025-03-19 14:38:05,922 - gui.main_window - INFO - Updating document status: Summary complete.
 2025-03-19 14:39:33,366 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 16:49:38,426 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 16:50:13,268 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 16:50:19,974 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 16:50:22,782 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 16:50:22,782 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 16:50:22,854 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 16:50:24,100 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 16:50:24,101 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 16:50:29,671 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 16:50:30,799 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 16:50:30,799 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 16:50:30,801 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 16:50:32,360 - gui.main_window - INFO - Storing document content for chat
+2025-03-19 16:50:32,361 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 16:50:58,028 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 16:50:58,050 - gui.main_window - INFO - Displaying document summary
+2025-03-19 16:50:58,050 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 16:54:02,795 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 17:02:58,787 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 17:03:01,711 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 17:03:01,711 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 17:03:01,773 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 17:03:02,685 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 17:03:02,685 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 17:03:07,190 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:03:08,649 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 17:03:08,649 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:03:08,650 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 17:03:10,284 - gui.main_window - INFO - Storing document content for chat
+2025-03-19 17:03:10,286 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 17:03:27,188 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:03:27,202 - gui.main_window - INFO - Displaying document summary
+2025-03-19 17:03:27,203 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 17:03:41,053 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: what is SDLC
+2025-03-19 17:03:41,053 - gui.main_window - INFO - Handling document question: what is SDLC
+2025-03-19 17:03:49,617 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:03:49,627 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:04:53,483 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: what is Agile
+2025-03-19 17:04:53,483 - gui.main_window - INFO - Handling document question: what is Agile
+2025-03-19 17:04:57,810 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:04:57,818 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:13:07,329 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 17:16:40,087 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 17:16:42,671 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 17:16:42,671 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 17:16:43,161 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 17:16:46,504 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 17:16:46,505 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 17:16:50,505 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:16:52,409 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 17:16:52,409 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:16:52,411 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 17:16:54,013 - gui.main_window - INFO - Storing document content for chat
+2025-03-19 17:16:54,014 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 17:17:07,600 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:17:07,625 - gui.main_window - INFO - Displaying document summary
+2025-03-19 17:17:07,626 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 17:18:15,373 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: what is software crisis
+2025-03-19 17:18:15,373 - gui.main_window - INFO - Handling document question: what is software crisis
+2025-03-19 17:18:19,928 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:18:19,938 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:19:35,478 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 17:19:35,478 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:19:35,480 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 17:19:37,072 - gui.main_window - INFO - Storing document content for chat
+2025-03-19 17:19:37,073 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 17:19:46,007 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:19:46,015 - gui.main_window - INFO - Displaying document summary
+2025-03-19 17:19:46,015 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 17:27:06,041 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 17:33:42,889 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 17:33:47,590 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 17:33:47,591 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 17:33:48,024 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 17:33:49,832 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 17:33:49,832 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 17:33:57,093 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:33:59,351 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 17:33:59,351 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:33:59,352 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 17:34:00,835 - gui.main_window - INFO - Storing document content for chat
+2025-03-19 17:34:00,835 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 17:34:18,047 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:34:18,055 - gui.main_window - INFO - Displaying document summary
+2025-03-19 17:34:18,055 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 17:35:16,574 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: challenges in software developemnt explained
+2025-03-19 17:35:16,574 - gui.main_window - INFO - Handling document question: challenges in software developemnt explained
+2025-03-19 17:35:21,365 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:35:21,374 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:37:27,907 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 17:37:43,478 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 17:37:47,228 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 17:37:47,228 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 17:37:47,794 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 17:37:53,931 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 17:37:53,932 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 17:38:03,296 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:38:04,853 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 17:38:04,853 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:38:04,854 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 17:38:06,368 - gui.main_window - INFO - Storing document content for chat
+2025-03-19 17:38:06,369 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 17:38:28,536 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:38:28,546 - gui.main_window - INFO - Displaying document summary
+2025-03-19 17:38:28,547 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 17:38:40,793 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: what is scrum
+2025-03-19 17:38:40,793 - gui.main_window - INFO - Handling document question: what is scrum
+2025-03-19 17:38:42,939 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:38:42,960 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:38:56,187 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: in detail
+2025-03-19 17:38:56,187 - gui.main_window - INFO - Handling document question: in detail
+2025-03-19 17:39:13,069 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:39:13,087 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:39:34,439 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 17:44:20,231 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 17:44:21,553 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 17:44:21,553 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 17:44:22,042 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 17:45:56,189 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 17:48:38,178 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 17:48:40,497 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 17:48:40,497 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 17:48:40,735 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 17:48:46,838 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-19 17:48:46,838 - gui.main_window - INFO - Opening document file dialog
+2025-03-19 17:48:50,987 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:48:52,911 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-19 17:48:52,911 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-19 17:48:52,912 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-19 17:48:54,437 - gui.main_window - INFO - Storing document content for chat
+2025-03-19 17:48:54,437 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-19 17:49:04,676 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:49:04,685 - gui.main_window - INFO - Displaying document summary
+2025-03-19 17:49:04,686 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-19 17:50:06,143 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: what is software myths
+2025-03-19 17:50:06,143 - gui.main_window - INFO - Handling document question: what is software myths
+2025-03-19 17:50:11,282 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:50:11,305 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:51:43,543 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: what is agile
+2025-03-19 17:51:43,543 - gui.main_window - INFO - Handling document question: what is agile
+2025-03-19 17:51:45,620 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:51:45,635 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:51:51,688 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: explain in detail
+2025-03-19 17:51:51,688 - gui.main_window - INFO - Handling document question: explain in detail
+2025-03-19 17:51:57,796 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-19 17:51:57,816 - gui.main_window - INFO - Displaying chat response
+2025-03-19 17:52:39,409 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-19 17:57:31,491 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-19 17:57:35,320 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-19 17:57:35,320 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-19 17:57:35,561 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-19 17:59:06,485 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 11:27:37,017 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 11:27:39,405 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-20 11:27:39,405 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-20 11:27:40,154 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:29:43,553 - gui.main_window - INFO - requestDocumentSummary called from JavaScript
+2025-03-20 11:29:43,553 - gui.main_window - INFO - Opening document file dialog
+2025-03-20 11:29:49,548 - gui.main_window - INFO - Selected document: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-20 11:29:50,802 - gui.main_window - INFO - generateDocumentSummary called from JavaScript
+2025-03-20 11:29:50,802 - gui.main_window - INFO - Handling document summary request for: C:/Users/asus/OneDrive/Desktop/SE Lectures Notes - Unit 1.pdf
+2025-03-20 11:29:50,804 - gui.main_window - INFO - Updating document status: Extracting text from document...
+2025-03-20 11:29:53,167 - gui.main_window - INFO - Storing document content for chat
+2025-03-20 11:29:53,167 - gui.main_window - INFO - Updating document status: Generating summary...
+2025-03-20 11:30:08,046 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-20 11:30:08,065 - gui.main_window - INFO - Displaying document summary
+2025-03-20 11:30:08,065 - gui.main_window - INFO - Updating document status: Summary complete.
+2025-03-20 11:30:22,788 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: explain software myths
+2025-03-20 11:30:22,788 - gui.main_window - INFO - Handling document question: explain software myths
+2025-03-20 11:30:26,871 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-20 11:30:26,895 - gui.main_window - INFO - Displaying chat response
+2025-03-20 11:31:13,946 - gui.main_window - INFO - askDocumentQuestion called from JavaScript with question: what is perfect software myth
+2025-03-20 11:31:13,946 - gui.main_window - INFO - Handling document question: what is perfect software myth
+2025-03-20 11:31:15,632 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-20 11:31:15,652 - gui.main_window - INFO - Displaying chat response
+2025-03-20 11:32:34,133 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 11:32:43,742 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 11:32:45,256 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 11:32:45,256 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 11:32:45,331 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:32:49,487 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 11:32:49,487 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:32:49,487 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:32:49,487 - email_utils.gmail_api - ERROR - Error loading credentials from token file: Expecting value: line 2 column 1 (char 1)
+2025-03-20 11:32:49,491 - email_utils.gmail_api - ERROR - Error during authentication flow: Expecting value: line 2 column 1 (char 1)
+2025-03-20 11:32:49,498 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:32:49,499 - gui.main_window - INFO - Updated UI status: Error: Could not connect to Gmail API
+2025-03-20 11:32:49,499 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 11:33:21,265 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 11:39:30,638 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 11:39:32,552 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 11:39:32,552 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 11:39:32,573 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:39:33,469 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 11:39:33,470 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:39:33,470 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:39:33,470 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:39:33,471 - email_utils.gmail_api - ERROR - Error loading credentials from token file: Expecting value: line 2 column 1 (char 1)
+2025-03-20 11:39:42,663 - google_auth_oauthlib.flow - INFO - "GET /?state=CaebUFIUsezTp6zO67KMku0Zqkh2dY&code=4/0AQSTgQEuaMfywRU9Eiq0VZx9SVIx01PS6wn4XUw_egq7zxxFPWfym2ls_wdIRWUgwQvMag&scope=https://www.googleapis.com/auth/gmail.readonly HTTP/1.1" 200 65
+2025-03-20 11:39:43,279 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 11:39:44,234 - email_utils.gmail_api - INFO - Found 8 unread messages for today, fetching content...
+2025-03-20 11:39:44,645 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 11:39:45,066 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 11:39:45,499 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 11:39:45,946 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 11:39:46,311 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 11:39:46,788 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 11:39:47,138 - email_utils.gmail_api - INFO - Fetched message 195b154cd544703b
+2025-03-20 11:39:47,486 - email_utils.gmail_api - INFO - Fetched message 195b1465f4949622
+2025-03-20 11:39:47,486 - email_utils.gmail_api - INFO - Successfully fetched 8 unread emails for today
+2025-03-20 11:39:47,487 - root - INFO - Processing email 1: Subject: Google is hiring for 500+ job …
+2025-03-20 11:39:47,487 - llm.gemini_api - INFO - Sending Gemini API request 14ca2310
+2025-03-20 11:39:47,499 - gui.main_window - INFO - Updated UI status: Found 8 unread emails today. Starting summarization…
+2025-03-20 11:39:47,499 - gui.main_window - INFO - Updated UI progress: 1/8
+2025-03-20 11:39:47,500 - gui.main_window - INFO - Updated UI status: Processing email 1 of 8…
+2025-03-20 11:39:50,263 - llm.gemini_api - INFO - Received response for request 14ca2310
+2025-03-20 11:39:50,263 - root - INFO - Generated summary for email 1
+2025-03-20 11:39:50,264 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:39:51,265 - root - INFO - Processing email 2: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 11:39:51,265 - gui.main_window - INFO - Updated UI progress: 2/8
+2025-03-20 11:39:51,267 - llm.gemini_api - INFO - Sending Gemini API request 14ca2374
+2025-03-20 11:39:51,268 - gui.main_window - INFO - Updated UI status: Processing email 2 of 8…
+2025-03-20 11:39:52,572 - llm.gemini_api - INFO - Received response for request 14ca2374
+2025-03-20 11:39:52,572 - root - INFO - Generated summary for email 2
+2025-03-20 11:39:52,573 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:39:53,574 - root - INFO - Processing email 3: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 11:39:53,574 - gui.main_window - INFO - Updated UI progress: 3/8
+2025-03-20 11:39:53,574 - llm.gemini_api - INFO - Sending Gemini API request 14ca2622
+2025-03-20 11:39:53,575 - gui.main_window - INFO - Updated UI status: Processing email 3 of 8…
+2025-03-20 11:39:55,714 - llm.gemini_api - INFO - Received response for request 14ca2622
+2025-03-20 11:39:55,715 - root - INFO - Generated summary for email 3
+2025-03-20 11:39:55,715 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:39:56,716 - root - INFO - Processing email 4: Subject: Why some developers are so exc…
+2025-03-20 11:39:56,716 - gui.main_window - INFO - Updated UI progress: 4/8
+2025-03-20 11:39:56,717 - llm.gemini_api - INFO - Sending Gemini API request 14ca2619
+2025-03-20 11:39:56,717 - gui.main_window - INFO - Updated UI status: Processing email 4 of 8…
+2025-03-20 11:39:58,182 - llm.gemini_api - INFO - Received response for request 14ca2619
+2025-03-20 11:39:58,183 - root - INFO - Generated summary for email 4
+2025-03-20 11:39:58,184 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:39:59,183 - root - INFO - Processing email 5: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 11:39:59,183 - llm.gemini_api - INFO - Sending Gemini API request 14c9555c
+2025-03-20 11:39:59,184 - gui.main_window - INFO - Updated UI progress: 5/8
+2025-03-20 11:39:59,184 - gui.main_window - INFO - Updated UI status: Processing email 5 of 8…
+2025-03-20 11:40:00,442 - llm.gemini_api - INFO - Received response for request 14c9555c
+2025-03-20 11:40:00,443 - root - INFO - Generated summary for email 5
+2025-03-20 11:40:00,443 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:40:01,444 - root - INFO - Processing email 6: Subject: Get ready for 10x Play Points …
+2025-03-20 11:40:01,444 - gui.main_window - INFO - Updated UI progress: 6/8
+2025-03-20 11:40:01,444 - llm.gemini_api - INFO - Sending Gemini API request 14c9ddd4
+2025-03-20 11:40:01,445 - gui.main_window - INFO - Updated UI status: Processing email 6 of 8…
+2025-03-20 11:40:03,048 - llm.gemini_api - INFO - Received response for request 14c9ddd4
+2025-03-20 11:40:03,048 - root - INFO - Generated summary for email 6
+2025-03-20 11:40:03,049 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:40:04,050 - root - INFO - Processing email 7: Subject: LG Electronics’ ₹15K Cr IPO, R…
+2025-03-20 11:40:04,050 - gui.main_window - INFO - Updated UI progress: 7/8
+2025-03-20 11:40:04,051 - llm.gemini_api - WARNING - Email content too long (67136 chars), truncating
+2025-03-20 11:40:04,051 - gui.main_window - INFO - Updated UI status: Processing email 7 of 8…
+2025-03-20 11:40:04,052 - llm.gemini_api - INFO - Sending Gemini API request 14ca2777
+2025-03-20 11:40:06,664 - llm.gemini_api - INFO - Received response for request 14ca2777
+2025-03-20 11:40:06,665 - root - INFO - Generated summary for email 7
+2025-03-20 11:40:06,665 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:40:07,666 - root - INFO - Processing email 8: Subject: Vercel Ship 2025 is coming Jun…
+2025-03-20 11:40:07,668 - gui.main_window - INFO - Updated UI progress: 8/8
+2025-03-20 11:40:07,668 - llm.gemini_api - INFO - Sending Gemini API request 14ca2776
+2025-03-20 11:40:07,668 - gui.main_window - INFO - Updated UI status: Processing email 8 of 8…
+2025-03-20 11:40:10,263 - llm.gemini_api - INFO - Received response for request 14ca2776
+2025-03-20 11:40:10,264 - root - INFO - Generated summary for email 8
+2025-03-20 11:40:10,264 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:40:11,265 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 11:40:11,266 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 11:42:35,525 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 11:42:44,596 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 11:43:15,922 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-20 11:43:15,922 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-20 11:43:16,162 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:21,851 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:22,914 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 11:43:22,915 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 11:43:22,932 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:22,932 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:35,541 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:35,541 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:38,272 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-20 11:43:38,273 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-20 11:43:38,504 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:38,505 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:38,505 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:58,209 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:58,210 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:43:58,210 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:44:02,165 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 11:44:02,165 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 11:44:02,179 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:44:02,179 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:44:02,179 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:44:02,179 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:37,580 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:37,580 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:37,580 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:37,581 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:39,155 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-20 11:47:39,156 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-20 11:47:39,401 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:39,402 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:39,402 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:39,403 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:47:39,403 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:50:37,292 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 11:57:00,532 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 11:57:01,889 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 11:57:01,890 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 11:57:02,106 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 11:57:09,322 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 11:57:09,322 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:57:09,323 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:57:09,323 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 11:57:09,331 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 11:57:10,188 - email_utils.gmail_api - INFO - Found 8 unread messages for today, fetching content...
+2025-03-20 11:57:10,530 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 11:57:10,890 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 11:57:11,618 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 11:57:12,012 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 11:57:12,357 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 11:57:12,691 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 11:57:13,013 - email_utils.gmail_api - INFO - Fetched message 195b154cd544703b
+2025-03-20 11:57:13,467 - email_utils.gmail_api - INFO - Fetched message 195b1465f4949622
+2025-03-20 11:57:13,467 - email_utils.gmail_api - INFO - Successfully fetched 8 unread emails for today
+2025-03-20 11:57:13,467 - root - INFO - Processing email 1: Subject: Google is hiring for 500+ job …
+2025-03-20 11:57:13,468 - llm.gemini_api - INFO - Sending Gemini API request 20c2f930
+2025-03-20 11:57:13,469 - gui.main_window - INFO - Updated UI status: Found 8 unread emails today. Starting summarization…
+2025-03-20 11:57:13,469 - gui.main_window - INFO - Updated UI progress: 1/8
+2025-03-20 11:57:13,470 - gui.main_window - INFO - Updated UI status: Processing email 1 of 8…
+2025-03-20 11:57:16,275 - llm.gemini_api - INFO - Received response for request 20c2f930
+2025-03-20 11:57:16,276 - root - INFO - Generated summary for email 1
+2025-03-20 11:57:16,284 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:57:17,277 - root - INFO - Processing email 2: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 11:57:17,277 - gui.main_window - INFO - Updated UI progress: 2/8
+2025-03-20 11:57:17,278 - llm.gemini_api - INFO - Sending Gemini API request 20c2f9b0
+2025-03-20 11:57:17,278 - gui.main_window - INFO - Updated UI status: Processing email 2 of 8…
+2025-03-20 11:57:18,862 - llm.gemini_api - INFO - Received response for request 20c2f9b0
+2025-03-20 11:57:18,863 - root - INFO - Generated summary for email 2
+2025-03-20 11:57:18,863 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:57:19,864 - root - INFO - Processing email 3: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 11:57:19,864 - llm.gemini_api - INFO - Sending Gemini API request 20c2fc5a
+2025-03-20 11:57:19,867 - gui.main_window - INFO - Updated UI progress: 3/8
+2025-03-20 11:57:19,867 - gui.main_window - INFO - Updated UI status: Processing email 3 of 8…
+2025-03-20 11:57:22,234 - llm.gemini_api - INFO - Received response for request 20c2fc5a
+2025-03-20 11:57:22,235 - root - INFO - Generated summary for email 3
+2025-03-20 11:57:22,235 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:57:23,236 - root - INFO - Processing email 4: Subject: Why some developers are so exc…
+2025-03-20 11:57:23,236 - gui.main_window - INFO - Updated UI progress: 4/8
+2025-03-20 11:57:23,236 - llm.gemini_api - INFO - Sending Gemini API request 20c2fc51
+2025-03-20 11:57:23,237 - gui.main_window - INFO - Updated UI status: Processing email 4 of 8…
+2025-03-20 11:57:24,732 - llm.gemini_api - INFO - Received response for request 20c2fc51
+2025-03-20 11:57:24,732 - root - INFO - Generated summary for email 4
+2025-03-20 11:57:24,733 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:57:25,733 - root - INFO - Processing email 5: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 11:57:25,733 - gui.main_window - INFO - Updated UI progress: 5/8
+2025-03-20 11:57:25,734 - llm.gemini_api - INFO - Sending Gemini API request 20c29f4c
+2025-03-20 11:57:25,734 - gui.main_window - INFO - Updated UI status: Processing email 5 of 8…
+2025-03-20 11:57:26,963 - llm.gemini_api - INFO - Received response for request 20c29f4c
+2025-03-20 11:57:26,964 - root - INFO - Generated summary for email 5
+2025-03-20 11:57:26,965 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:57:27,966 - root - INFO - Processing email 6: Subject: Get ready for 10x Play Points …
+2025-03-20 11:57:27,966 - gui.main_window - INFO - Updated UI progress: 6/8
+2025-03-20 11:57:27,967 - llm.gemini_api - INFO - Sending Gemini API request 20c2934b
+2025-03-20 11:57:27,967 - gui.main_window - INFO - Updated UI status: Processing email 6 of 8…
+2025-03-20 11:57:29,639 - llm.gemini_api - INFO - Received response for request 20c2934b
+2025-03-20 11:57:29,640 - root - INFO - Generated summary for email 6
+2025-03-20 11:57:29,640 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:57:30,642 - root - INFO - Processing email 7: Subject: LG Electronics’ ₹15K Cr IPO, R…
+2025-03-20 11:57:30,643 - gui.main_window - INFO - Updated UI progress: 7/8
+2025-03-20 11:57:30,643 - llm.gemini_api - WARNING - Email content too long (67136 chars), truncating
+2025-03-20 11:57:30,643 - gui.main_window - INFO - Updated UI status: Processing email 7 of 8…
+2025-03-20 11:57:30,644 - llm.gemini_api - INFO - Sending Gemini API request 20c2fcb2
+2025-03-20 11:57:33,239 - llm.gemini_api - INFO - Received response for request 20c2fcb2
+2025-03-20 11:57:33,239 - root - INFO - Generated summary for email 7
+2025-03-20 11:57:33,240 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:57:34,242 - root - INFO - Processing email 8: Subject: Vercel Ship 2025 is coming Jun…
+2025-03-20 11:57:34,242 - gui.main_window - INFO - Updated UI progress: 8/8
+2025-03-20 11:57:34,242 - llm.gemini_api - INFO - Sending Gemini API request 20c2fd48
+2025-03-20 11:57:34,243 - gui.main_window - INFO - Updated UI status: Processing email 8 of 8…
+2025-03-20 11:57:36,687 - llm.gemini_api - INFO - Received response for request 20c2fd48
+2025-03-20 11:57:36,687 - root - INFO - Generated summary for email 8
+2025-03-20 11:57:36,688 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 11:57:37,688 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 11:57:37,689 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:01:42,474 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:01:51,290 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:01:58,432 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:01:58,432 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:01:58,651 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:02:03,089 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:02:05,988 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:02:05,988 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:02:06,121 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:02:06,121 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:02:09,493 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:02:09,494 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:02:10,642 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:02:10,643 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:02:10,766 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:02:10,767 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:02:10,767 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:17:39,818 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:19:11,619 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:19:13,624 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:19:13,624 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:19:14,102 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:21:27,239 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:24:04,622 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:24:07,442 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:24:07,442 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:24:07,698 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:24:19,255 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 12:24:19,255 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 12:24:19,256 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 12:24:19,256 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 12:24:19,263 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 12:24:20,099 - email_utils.gmail_api - INFO - Found 9 unread messages for today, fetching content...
+2025-03-20 12:24:20,417 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 12:24:20,749 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 12:24:21,125 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 12:24:21,527 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 12:24:21,848 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 12:24:22,185 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 12:24:22,499 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 12:24:22,843 - email_utils.gmail_api - INFO - Fetched message 195b154cd544703b
+2025-03-20 12:24:23,167 - email_utils.gmail_api - INFO - Fetched message 195b1465f4949622
+2025-03-20 12:24:23,168 - email_utils.gmail_api - INFO - Successfully fetched 9 unread emails for today
+2025-03-20 12:24:23,168 - root - INFO - Processing email 1: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-20 12:24:23,168 - gui.main_window - INFO - Updated UI status: Found 9 unread emails today. Starting summarization…
+2025-03-20 12:24:23,169 - llm.gemini_api - INFO - Sending Gemini API request 1d1a8ae4
+2025-03-20 12:24:23,169 - gui.main_window - INFO - Updated UI progress: 1/9
+2025-03-20 12:24:23,170 - gui.main_window - INFO - Updated UI status: Processing email 1 of 9…
+2025-03-20 12:24:25,928 - llm.gemini_api - INFO - Received response for request 1d1a8ae4
+2025-03-20 12:24:25,929 - root - INFO - Generated summary for email 1
+2025-03-20 12:24:25,930 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:26,931 - root - INFO - Processing email 2: Subject: Google is hiring for 500+ job …
+2025-03-20 12:24:26,931 - gui.main_window - INFO - Updated UI progress: 2/9
+2025-03-20 12:24:26,931 - llm.gemini_api - INFO - Sending Gemini API request 1d1a8d12
+2025-03-20 12:24:26,931 - gui.main_window - INFO - Updated UI status: Processing email 2 of 9…
+2025-03-20 12:24:28,132 - llm.gemini_api - INFO - Received response for request 1d1a8d12
+2025-03-20 12:24:28,133 - root - INFO - Generated summary for email 2
+2025-03-20 12:24:28,134 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:29,135 - root - INFO - Processing email 3: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 12:24:29,135 - gui.main_window - INFO - Updated UI progress: 3/9
+2025-03-20 12:24:29,135 - llm.gemini_api - INFO - Sending Gemini API request 1d1a8d0f
+2025-03-20 12:24:29,137 - gui.main_window - INFO - Updated UI status: Processing email 3 of 9…
+2025-03-20 12:24:30,481 - llm.gemini_api - INFO - Received response for request 1d1a8d0f
+2025-03-20 12:24:30,483 - root - INFO - Generated summary for email 3
+2025-03-20 12:24:30,483 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:31,485 - root - INFO - Processing email 4: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 12:24:31,485 - gui.main_window - INFO - Updated UI progress: 4/9
+2025-03-20 12:24:31,486 - llm.gemini_api - INFO - Sending Gemini API request 1d1a8d2b
+2025-03-20 12:24:31,486 - gui.main_window - INFO - Updated UI status: Processing email 4 of 9…
+2025-03-20 12:24:33,839 - llm.gemini_api - INFO - Received response for request 1d1a8d2b
+2025-03-20 12:24:33,840 - root - INFO - Generated summary for email 4
+2025-03-20 12:24:33,840 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:34,841 - root - INFO - Processing email 5: Subject: Why some developers are so exc…
+2025-03-20 12:24:34,842 - gui.main_window - INFO - Updated UI progress: 5/9
+2025-03-20 12:24:34,842 - llm.gemini_api - INFO - Sending Gemini API request 1d1a8d1b
+2025-03-20 12:24:34,843 - gui.main_window - INFO - Updated UI status: Processing email 5 of 9…
+2025-03-20 12:24:36,327 - llm.gemini_api - INFO - Received response for request 1d1a8d1b
+2025-03-20 12:24:36,328 - root - INFO - Generated summary for email 5
+2025-03-20 12:24:36,328 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:37,329 - root - INFO - Processing email 6: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 12:24:37,330 - gui.main_window - INFO - Updated UI progress: 6/9
+2025-03-20 12:24:37,330 - llm.gemini_api - INFO - Sending Gemini API request 1d1a88bc
+2025-03-20 12:24:37,330 - gui.main_window - INFO - Updated UI status: Processing email 6 of 9…
+2025-03-20 12:24:38,548 - llm.gemini_api - INFO - Received response for request 1d1a88bc
+2025-03-20 12:24:38,549 - root - INFO - Generated summary for email 6
+2025-03-20 12:24:38,549 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:39,550 - root - INFO - Processing email 7: Subject: Get ready for 10x Play Points …
+2025-03-20 12:24:39,551 - gui.main_window - INFO - Updated UI progress: 7/9
+2025-03-20 12:24:39,551 - llm.gemini_api - INFO - Sending Gemini API request 1d199e50
+2025-03-20 12:24:39,551 - gui.main_window - INFO - Updated UI status: Processing email 7 of 9…
+2025-03-20 12:24:40,983 - llm.gemini_api - INFO - Received response for request 1d199e50
+2025-03-20 12:24:40,984 - root - INFO - Generated summary for email 7
+2025-03-20 12:24:40,984 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:41,986 - root - INFO - Processing email 8: Subject: LG Electronics’ ₹15K Cr IPO, R…
+2025-03-20 12:24:41,986 - gui.main_window - INFO - Updated UI progress: 8/9
+2025-03-20 12:24:41,987 - llm.gemini_api - WARNING - Email content too long (67136 chars), truncating
+2025-03-20 12:24:41,987 - gui.main_window - INFO - Updated UI status: Processing email 8 of 9…
+2025-03-20 12:24:41,987 - llm.gemini_api - INFO - Sending Gemini API request 1d1a8d8b
+2025-03-20 12:24:44,601 - llm.gemini_api - INFO - Received response for request 1d1a8d8b
+2025-03-20 12:24:44,602 - root - INFO - Generated summary for email 8
+2025-03-20 12:24:44,602 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:45,603 - root - INFO - Processing email 9: Subject: Vercel Ship 2025 is coming Jun…
+2025-03-20 12:24:45,604 - gui.main_window - INFO - Updated UI progress: 9/9
+2025-03-20 12:24:45,604 - llm.gemini_api - INFO - Sending Gemini API request 1d1a8e15
+2025-03-20 12:24:45,605 - gui.main_window - INFO - Updated UI status: Processing email 9 of 9…
+2025-03-20 12:24:47,970 - llm.gemini_api - INFO - Received response for request 1d1a8e15
+2025-03-20 12:24:47,971 - root - INFO - Generated summary for email 9
+2025-03-20 12:24:47,971 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 12:24:48,972 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 12:24:48,973 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:26:46,612 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:35:23,862 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:35:27,341 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:35:27,341 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:35:27,566 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:39:52,642 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:40:06,354 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:40:08,782 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:40:08,783 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:40:09,018 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:40:12,588 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:40:22,527 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:40:23,797 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:40:23,797 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:40:24,038 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:40:28,315 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:40:41,395 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:40:42,819 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:40:42,819 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:40:42,838 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:40:44,250 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:40:58,525 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:40:59,663 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:40:59,663 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:40:59,905 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:47:54,232 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:53:06,522 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:53:15,067 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:53:15,067 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:53:15,307 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 12:55:05,698 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 12:56:59,479 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 12:57:00,672 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 12:57:00,672 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 12:57:00,889 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:01:56,671 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:02:04,832 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:02:06,102 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:02:06,103 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:02:06,332 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:02:09,296 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 13:02:09,297 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:02:09,297 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:02:09,297 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:02:09,894 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 13:02:10,741 - email_utils.gmail_api - INFO - Found 10 unread messages for today, fetching content...
+2025-03-20 13:02:11,089 - email_utils.gmail_api - INFO - Fetched message 195b256e2cb2d720
+2025-03-20 13:02:11,426 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 13:02:11,798 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 13:02:12,131 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 13:02:12,555 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 13:02:12,929 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 13:02:13,272 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 13:02:13,615 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 13:02:13,938 - email_utils.gmail_api - INFO - Fetched message 195b154cd544703b
+2025-03-20 13:02:14,267 - email_utils.gmail_api - INFO - Fetched message 195b1465f4949622
+2025-03-20 13:02:14,267 - email_utils.gmail_api - INFO - Successfully fetched 10 unread emails for today
+2025-03-20 13:02:14,268 - root - INFO - Processing email 1: Subject: Use AI to make your first sale…
+2025-03-20 13:02:14,268 - llm.gemini_api - WARNING - Email content too long (79580 chars), truncating
+2025-03-20 13:02:14,269 - llm.gemini_api - INFO - Sending Gemini API request 1bdc268a
+2025-03-20 13:02:14,278 - gui.main_window - INFO - Updated UI status: Found 10 unread emails today. Starting summarization…
+2025-03-20 13:02:14,278 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-20 13:02:14,279 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-20 13:02:18,080 - llm.gemini_api - INFO - Received response for request 1bdc268a
+2025-03-20 13:02:18,081 - root - INFO - Generated summary for email 1
+2025-03-20 13:02:18,081 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:19,082 - root - INFO - Processing email 2: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-20 13:02:19,083 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-20 13:02:19,083 - llm.gemini_api - INFO - Sending Gemini API request 1bdc28ba
+2025-03-20 13:02:19,084 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-20 13:02:20,247 - llm.gemini_api - INFO - Received response for request 1bdc28ba
+2025-03-20 13:02:20,248 - root - INFO - Generated summary for email 2
+2025-03-20 13:02:20,248 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:21,249 - root - INFO - Processing email 3: Subject: Google is hiring for 500+ job …
+2025-03-20 13:02:21,249 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-20 13:02:21,249 - llm.gemini_api - INFO - Sending Gemini API request 1bdc289e
+2025-03-20 13:02:21,250 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-20 13:02:22,552 - llm.gemini_api - INFO - Received response for request 1bdc289e
+2025-03-20 13:02:22,553 - root - INFO - Generated summary for email 3
+2025-03-20 13:02:22,553 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:23,554 - root - INFO - Processing email 4: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 13:02:23,554 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-20 13:02:23,556 - llm.gemini_api - INFO - Sending Gemini API request 1bdc28ba
+2025-03-20 13:02:23,556 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-20 13:02:25,090 - llm.gemini_api - INFO - Received response for request 1bdc28ba
+2025-03-20 13:02:25,090 - root - INFO - Generated summary for email 4
+2025-03-20 13:02:25,091 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:26,091 - root - INFO - Processing email 5: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 13:02:26,092 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-20 13:02:26,092 - llm.gemini_api - INFO - Sending Gemini API request 1bdc25ae
+2025-03-20 13:02:26,092 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-20 13:02:28,418 - llm.gemini_api - INFO - Received response for request 1bdc25ae
+2025-03-20 13:02:28,418 - root - INFO - Generated summary for email 5
+2025-03-20 13:02:28,423 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:29,419 - root - INFO - Processing email 6: Subject: Why some developers are so exc…
+2025-03-20 13:02:29,419 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-20 13:02:29,419 - llm.gemini_api - INFO - Sending Gemini API request 1bdc25c7
+2025-03-20 13:02:29,420 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-20 13:02:30,901 - llm.gemini_api - INFO - Received response for request 1bdc25c7
+2025-03-20 13:02:30,902 - root - INFO - Generated summary for email 6
+2025-03-20 13:02:30,902 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:31,903 - root - INFO - Processing email 7: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 13:02:31,903 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-20 13:02:31,904 - llm.gemini_api - INFO - Sending Gemini API request 1bdc29ec
+2025-03-20 13:02:31,904 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-20 13:02:33,079 - llm.gemini_api - INFO - Received response for request 1bdc29ec
+2025-03-20 13:02:33,080 - root - INFO - Generated summary for email 7
+2025-03-20 13:02:33,080 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:34,081 - root - INFO - Processing email 8: Subject: Get ready for 10x Play Points …
+2025-03-20 13:02:34,082 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-20 13:02:34,082 - llm.gemini_api - INFO - Sending Gemini API request 1bdbc0f6
+2025-03-20 13:02:34,082 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-20 13:02:35,510 - llm.gemini_api - INFO - Received response for request 1bdbc0f6
+2025-03-20 13:02:35,511 - root - INFO - Generated summary for email 8
+2025-03-20 13:02:35,513 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:36,512 - root - INFO - Processing email 9: Subject: LG Electronics’ ₹15K Cr IPO, R…
+2025-03-20 13:02:36,513 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-20 13:02:36,513 - llm.gemini_api - WARNING - Email content too long (67136 chars), truncating
+2025-03-20 13:02:36,513 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-20 13:02:36,514 - llm.gemini_api - INFO - Sending Gemini API request 1bdc2d31
+2025-03-20 13:02:38,993 - llm.gemini_api - INFO - Received response for request 1bdc2d31
+2025-03-20 13:02:38,993 - root - INFO - Generated summary for email 9
+2025-03-20 13:02:38,994 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:39,995 - root - INFO - Processing email 10: Subject: Vercel Ship 2025 is coming Jun…
+2025-03-20 13:02:39,995 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-20 13:02:39,996 - llm.gemini_api - INFO - Sending Gemini API request 1bdc2c74
+2025-03-20 13:02:39,996 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-20 13:02:42,495 - llm.gemini_api - INFO - Received response for request 1bdc2c74
+2025-03-20 13:02:42,496 - root - INFO - Generated summary for email 10
+2025-03-20 13:02:42,505 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:02:43,498 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 13:02:43,498 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:02:50,525 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:22:28,451 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:25:23,048 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:25:23,049 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:25:23,379 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:25:37,022 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:27:04,690 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:27:06,924 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:27:06,924 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:27:07,173 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:27:13,107 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 13:27:13,107 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:27:13,108 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:27:13,110 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:27:13,120 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 13:27:13,954 - email_utils.gmail_api - INFO - Found 10 unread messages for today, fetching content...
+2025-03-20 13:27:14,386 - email_utils.gmail_api - INFO - Fetched message 195b28d4bc8688e2
+2025-03-20 13:27:14,734 - email_utils.gmail_api - INFO - Fetched message 195b256e2cb2d720
+2025-03-20 13:27:15,150 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 13:27:15,468 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 13:27:15,783 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 13:27:16,220 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 13:27:16,561 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 13:27:16,896 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 13:27:17,246 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 13:27:17,570 - email_utils.gmail_api - INFO - Fetched message 195b154cd544703b
+2025-03-20 13:27:17,571 - email_utils.gmail_api - INFO - Successfully fetched 10 unread emails for today
+2025-03-20 13:27:17,572 - root - INFO - Processing email 1: Subject: “data science intern”: WebBoos…
+2025-03-20 13:27:17,572 - gui.main_window - INFO - Updated UI status: Found 10 unread emails today. Starting summarization…
+2025-03-20 13:27:17,572 - llm.gemini_api - INFO - Sending Gemini API request 14edd9f7
+2025-03-20 13:27:17,573 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-20 13:27:17,574 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-20 13:27:20,410 - llm.gemini_api - INFO - Received response for request 14edd9f7
+2025-03-20 13:27:20,410 - root - INFO - Generated summary for email 1
+2025-03-20 13:27:20,410 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:21,411 - root - INFO - Processing email 2: Subject: Use AI to make your first sale…
+2025-03-20 13:27:21,412 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-20 13:27:21,412 - llm.gemini_api - WARNING - Email content too long (79580 chars), truncating
+2025-03-20 13:27:21,412 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-20 13:27:21,413 - llm.gemini_api - INFO - Sending Gemini API request 14ede02f
+2025-03-20 13:27:23,709 - llm.gemini_api - INFO - Received response for request 14ede02f
+2025-03-20 13:27:23,710 - root - INFO - Generated summary for email 2
+2025-03-20 13:27:23,710 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:24,712 - root - INFO - Processing email 3: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-20 13:27:24,712 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-20 13:27:24,712 - llm.gemini_api - INFO - Sending Gemini API request 14eddd97
+2025-03-20 13:27:24,713 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-20 13:27:25,808 - llm.gemini_api - INFO - Received response for request 14eddd97
+2025-03-20 13:27:25,808 - root - INFO - Generated summary for email 3
+2025-03-20 13:27:25,809 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:26,810 - root - INFO - Processing email 4: Subject: Google is hiring for 500+ job …
+2025-03-20 13:27:26,810 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-20 13:27:26,811 - llm.gemini_api - INFO - Sending Gemini API request 14ede063
+2025-03-20 13:27:26,811 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-20 13:27:28,009 - llm.gemini_api - INFO - Received response for request 14ede063
+2025-03-20 13:27:28,009 - root - INFO - Generated summary for email 4
+2025-03-20 13:27:28,021 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:29,011 - root - INFO - Processing email 5: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 13:27:29,011 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-20 13:27:29,012 - llm.gemini_api - INFO - Sending Gemini API request 14ede060
+2025-03-20 13:27:29,013 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-20 13:27:30,349 - llm.gemini_api - INFO - Received response for request 14ede060
+2025-03-20 13:27:30,350 - root - INFO - Generated summary for email 5
+2025-03-20 13:27:30,350 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:31,351 - root - INFO - Processing email 6: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 13:27:31,351 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-20 13:27:31,352 - llm.gemini_api - INFO - Sending Gemini API request 14ede1bf
+2025-03-20 13:27:31,352 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-20 13:27:33,893 - llm.gemini_api - INFO - Received response for request 14ede1bf
+2025-03-20 13:27:33,893 - root - INFO - Generated summary for email 6
+2025-03-20 13:27:33,894 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:34,896 - root - INFO - Processing email 7: Subject: Why some developers are so exc…
+2025-03-20 13:27:34,897 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-20 13:27:34,897 - llm.gemini_api - INFO - Sending Gemini API request 14ede23d
+2025-03-20 13:27:34,897 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-20 13:27:36,339 - llm.gemini_api - INFO - Received response for request 14ede23d
+2025-03-20 13:27:36,339 - root - INFO - Generated summary for email 7
+2025-03-20 13:27:36,339 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:37,341 - root - INFO - Processing email 8: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 13:27:37,341 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-20 13:27:37,342 - llm.gemini_api - INFO - Sending Gemini API request 14eddaeb
+2025-03-20 13:27:37,342 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-20 13:27:38,574 - llm.gemini_api - INFO - Received response for request 14eddaeb
+2025-03-20 13:27:38,575 - root - INFO - Generated summary for email 8
+2025-03-20 13:27:38,575 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:39,576 - root - INFO - Processing email 9: Subject: Get ready for 10x Play Points …
+2025-03-20 13:27:39,576 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-20 13:27:39,576 - llm.gemini_api - INFO - Sending Gemini API request 14ed8158
+2025-03-20 13:27:39,577 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-20 13:27:41,028 - llm.gemini_api - INFO - Received response for request 14ed8158
+2025-03-20 13:27:41,028 - root - INFO - Generated summary for email 9
+2025-03-20 13:27:41,032 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:27:41,058 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:27:53,350 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:27:54,371 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:27:54,371 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:27:54,603 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:27:56,275 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:28:14,534 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:28:22,078 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:28:22,079 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:28:22,291 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:33:00,990 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:33:09,200 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:33:14,272 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:33:14,272 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:33:14,628 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:38:14,684 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:38:23,670 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:38:25,073 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:38:25,073 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:38:25,282 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:38:35,596 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 13:38:35,597 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:38:35,597 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:38:35,597 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:38:35,604 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 13:38:36,431 - email_utils.gmail_api - INFO - Found 10 unread messages for today, fetching content...
+2025-03-20 13:38:36,816 - email_utils.gmail_api - INFO - Fetched message 195b28d4bc8688e2
+2025-03-20 13:38:37,152 - email_utils.gmail_api - INFO - Fetched message 195b256e2cb2d720
+2025-03-20 13:38:37,567 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 13:38:37,879 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 13:38:38,201 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 13:38:38,624 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 13:38:38,941 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 13:38:39,280 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 13:38:39,699 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 13:38:40,027 - email_utils.gmail_api - INFO - Fetched message 195b154cd544703b
+2025-03-20 13:38:40,028 - email_utils.gmail_api - INFO - Successfully fetched 10 unread emails for today
+2025-03-20 13:38:40,029 - root - INFO - Processing email 1: Subject: “data science intern”: WebBoos…
+2025-03-20 13:38:40,029 - llm.gemini_api - INFO - Sending Gemini API request 2129013f
+2025-03-20 13:38:40,041 - gui.main_window - INFO - Updated UI status: Found 10 unread emails today. Starting summarization…
+2025-03-20 13:38:40,041 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-20 13:38:40,042 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-20 13:38:42,821 - llm.gemini_api - INFO - Received response for request 2129013f
+2025-03-20 13:38:42,822 - root - INFO - Generated summary for email 1
+2025-03-20 13:38:42,822 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:38:43,823 - root - INFO - Processing email 2: Subject: Use AI to make your first sale…
+2025-03-20 13:38:43,823 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-20 13:38:43,824 - llm.gemini_api - WARNING - Email content too long (79580 chars), truncating
+2025-03-20 13:38:43,824 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-20 13:38:43,824 - llm.gemini_api - INFO - Sending Gemini API request 2129ab31
+2025-03-20 13:38:46,036 - llm.gemini_api - INFO - Received response for request 2129ab31
+2025-03-20 13:38:46,037 - root - INFO - Generated summary for email 2
+2025-03-20 13:38:46,037 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:38:47,038 - root - INFO - Processing email 3: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-20 13:38:47,038 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-20 13:38:47,038 - llm.gemini_api - INFO - Sending Gemini API request 2128ffbb
+2025-03-20 13:38:47,038 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-20 13:38:48,149 - llm.gemini_api - INFO - Received response for request 2128ffbb
+2025-03-20 13:38:48,150 - root - INFO - Generated summary for email 3
+2025-03-20 13:38:48,150 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:38:49,151 - root - INFO - Processing email 4: Subject: Google is hiring for 500+ job …
+2025-03-20 13:38:49,151 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-20 13:38:49,151 - llm.gemini_api - INFO - Sending Gemini API request 2129013f
+2025-03-20 13:38:49,151 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-20 13:38:50,410 - llm.gemini_api - INFO - Received response for request 2129013f
+2025-03-20 13:38:50,411 - root - INFO - Generated summary for email 4
+2025-03-20 13:38:50,412 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:38:51,413 - root - INFO - Processing email 5: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 13:38:51,413 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-20 13:38:51,414 - llm.gemini_api - INFO - Sending Gemini API request 2129ab27
+2025-03-20 13:38:51,414 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-20 13:38:53,145 - llm.gemini_api - INFO - Received response for request 2129ab27
+2025-03-20 13:38:53,146 - root - INFO - Generated summary for email 5
+2025-03-20 13:38:53,146 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:38:54,147 - root - INFO - Processing email 6: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 13:38:54,147 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-20 13:38:54,147 - llm.gemini_api - INFO - Sending Gemini API request 2128ffdf
+2025-03-20 13:38:54,148 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-20 13:38:56,254 - llm.gemini_api - INFO - Received response for request 2128ffdf
+2025-03-20 13:38:56,256 - root - INFO - Generated summary for email 6
+2025-03-20 13:38:56,257 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:38:57,258 - root - INFO - Processing email 7: Subject: Why some developers are so exc…
+2025-03-20 13:38:57,258 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-20 13:38:57,258 - llm.gemini_api - INFO - Sending Gemini API request 2129ab8a
+2025-03-20 13:38:57,258 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-20 13:38:58,664 - llm.gemini_api - INFO - Received response for request 2129ab8a
+2025-03-20 13:38:58,665 - root - INFO - Generated summary for email 7
+2025-03-20 13:38:58,665 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:38:59,666 - root - INFO - Processing email 8: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 13:38:59,666 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-20 13:38:59,666 - llm.gemini_api - INFO - Sending Gemini API request 2128c2e7
+2025-03-20 13:38:59,667 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-20 13:39:00,849 - llm.gemini_api - INFO - Received response for request 2128c2e7
+2025-03-20 13:39:00,850 - root - INFO - Generated summary for email 8
+2025-03-20 13:39:00,850 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:39:01,851 - root - INFO - Processing email 9: Subject: Get ready for 10x Play Points …
+2025-03-20 13:39:01,851 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-20 13:39:01,852 - llm.gemini_api - INFO - Sending Gemini API request 21286188
+2025-03-20 13:39:01,852 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-20 13:39:03,237 - llm.gemini_api - INFO - Received response for request 21286188
+2025-03-20 13:39:03,237 - root - INFO - Generated summary for email 9
+2025-03-20 13:39:03,238 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:39:04,238 - root - INFO - Processing email 10: Subject: LG Electronics’ ₹15K Cr IPO, R…
+2025-03-20 13:39:04,238 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-20 13:39:04,239 - llm.gemini_api - WARNING - Email content too long (67136 chars), truncating
+2025-03-20 13:39:04,239 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-20 13:39:04,239 - llm.gemini_api - INFO - Sending Gemini API request 2129a9dc
+2025-03-20 13:39:07,297 - llm.gemini_api - INFO - Received response for request 2129a9dc
+2025-03-20 13:39:07,298 - root - INFO - Generated summary for email 10
+2025-03-20 13:39:07,298 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:39:08,299 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 13:39:08,300 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:40:39,550 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:45:07,660 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:45:10,126 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:45:10,127 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:45:10,342 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:45:16,198 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 13:45:16,198 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:45:16,199 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:45:16,199 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:45:16,206 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 13:45:17,025 - email_utils.gmail_api - INFO - Found 10 unread messages for today, fetching content...
+2025-03-20 13:45:17,364 - email_utils.gmail_api - INFO - Fetched message 195b28d4bc8688e2
+2025-03-20 13:45:17,784 - email_utils.gmail_api - INFO - Fetched message 195b256e2cb2d720
+2025-03-20 13:45:18,189 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 13:45:18,508 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 13:45:18,855 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 13:45:19,285 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 13:45:19,608 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 13:45:19,996 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 13:45:20,333 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 13:45:20,669 - email_utils.gmail_api - INFO - Fetched message 195b154cd544703b
+2025-03-20 13:45:20,670 - email_utils.gmail_api - INFO - Successfully fetched 10 unread emails for today
+2025-03-20 13:45:20,671 - gui.main_window - INFO - Updated UI status: Found 10 unread emails today. Starting summarization…
+2025-03-20 13:45:20,671 - root - INFO - Processing email 1: Subject: “data science intern”: WebBoos…
+2025-03-20 13:45:20,671 - llm.gemini_api - INFO - Sending Gemini API request 26550085
+2025-03-20 13:45:20,673 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-20 13:45:20,673 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-20 13:45:23,490 - llm.gemini_api - INFO - Received response for request 26550085
+2025-03-20 13:45:23,490 - root - INFO - Generated summary for email 1
+2025-03-20 13:45:23,491 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:24,491 - root - INFO - Processing email 2: Subject: Use AI to make your first sale…
+2025-03-20 13:45:24,492 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-20 13:45:24,492 - llm.gemini_api - WARNING - Email content too long (79580 chars), truncating
+2025-03-20 13:45:24,493 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-20 13:45:24,493 - llm.gemini_api - INFO - Sending Gemini API request 2655a506
+2025-03-20 13:45:26,681 - llm.gemini_api - INFO - Received response for request 2655a506
+2025-03-20 13:45:26,681 - root - INFO - Generated summary for email 2
+2025-03-20 13:45:26,681 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:27,682 - root - INFO - Processing email 3: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-20 13:45:27,682 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-20 13:45:27,682 - llm.gemini_api - INFO - Sending Gemini API request 2654fa62
+2025-03-20 13:45:27,683 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-20 13:45:28,783 - llm.gemini_api - INFO - Received response for request 2654fa62
+2025-03-20 13:45:28,784 - root - INFO - Generated summary for email 3
+2025-03-20 13:45:28,785 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:29,785 - root - INFO - Processing email 4: Subject: Google is hiring for 500+ job …
+2025-03-20 13:45:29,785 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-20 13:45:29,785 - llm.gemini_api - INFO - Sending Gemini API request 2655a258
+2025-03-20 13:45:29,786 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-20 13:45:31,006 - llm.gemini_api - INFO - Received response for request 2655a258
+2025-03-20 13:45:31,007 - root - INFO - Generated summary for email 4
+2025-03-20 13:45:31,007 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:32,007 - root - INFO - Processing email 5: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 13:45:32,007 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-20 13:45:32,007 - llm.gemini_api - INFO - Sending Gemini API request 2655a231
+2025-03-20 13:45:32,008 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-20 13:45:33,304 - llm.gemini_api - INFO - Received response for request 2655a231
+2025-03-20 13:45:33,304 - root - INFO - Generated summary for email 5
+2025-03-20 13:45:33,305 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:34,306 - root - INFO - Processing email 6: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 13:45:34,306 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-20 13:45:34,307 - llm.gemini_api - INFO - Sending Gemini API request 2654fd92
+2025-03-20 13:45:34,308 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-20 13:45:36,616 - llm.gemini_api - INFO - Received response for request 2654fd92
+2025-03-20 13:45:36,616 - root - INFO - Generated summary for email 6
+2025-03-20 13:45:36,617 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:37,618 - root - INFO - Processing email 7: Subject: Why some developers are so exc…
+2025-03-20 13:45:37,618 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-20 13:45:37,619 - llm.gemini_api - INFO - Sending Gemini API request 2654fd8a
+2025-03-20 13:45:37,619 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-20 13:45:39,066 - llm.gemini_api - INFO - Received response for request 2654fd8a
+2025-03-20 13:45:39,067 - root - INFO - Generated summary for email 7
+2025-03-20 13:45:39,067 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:40,068 - root - INFO - Processing email 8: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 13:45:40,068 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-20 13:45:40,068 - llm.gemini_api - INFO - Sending Gemini API request 2654fcbf
+2025-03-20 13:45:40,070 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-20 13:45:41,196 - llm.gemini_api - INFO - Received response for request 2654fcbf
+2025-03-20 13:45:41,196 - root - INFO - Generated summary for email 8
+2025-03-20 13:45:41,197 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:42,197 - root - INFO - Processing email 9: Subject: Get ready for 10x Play Points …
+2025-03-20 13:45:42,197 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-20 13:45:42,197 - llm.gemini_api - INFO - Sending Gemini API request 265492c8
+2025-03-20 13:45:42,198 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-20 13:45:43,729 - llm.gemini_api - INFO - Received response for request 265492c8
+2025-03-20 13:45:43,730 - root - INFO - Generated summary for email 9
+2025-03-20 13:45:43,730 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:44,731 - root - INFO - Processing email 10: Subject: LG Electronics’ ₹15K Cr IPO, R…
+2025-03-20 13:45:44,731 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-20 13:45:44,731 - llm.gemini_api - WARNING - Email content too long (67136 chars), truncating
+2025-03-20 13:45:44,732 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-20 13:45:44,732 - llm.gemini_api - INFO - Sending Gemini API request 2655a462
+2025-03-20 13:45:47,176 - llm.gemini_api - INFO - Received response for request 2655a462
+2025-03-20 13:45:47,177 - root - INFO - Generated summary for email 10
+2025-03-20 13:45:47,177 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:45:48,178 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 13:45:48,179 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:46:17,993 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:46:18,767 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-20 13:46:18,767 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-20 13:46:19,073 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:46:19,074 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:46:21,758 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:46:21,759 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:03,991 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:47:03,992 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:47:04,192 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:04,193 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:04,193 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:12,448 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:12,449 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:12,449 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:13,249 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-20 13:47:13,250 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-20 13:47:13,420 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:13,421 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:13,422 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:47:13,422 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:36,081 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:36,081 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:36,081 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:36,081 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:38,958 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:38,958 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:38,959 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:38,959 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:40,975 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:40,975 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:40,976 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:40,976 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:42,415 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:50:42,415 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:50:42,525 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:42,525 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:42,525 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:42,525 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:50:42,526 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:53:28,565 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:53:48,598 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 13:53:51,831 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 13:53:51,831 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 13:53:52,034 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 13:53:59,002 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 13:53:59,002 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:53:59,002 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:53:59,003 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 13:53:59,009 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 13:54:00,085 - email_utils.gmail_api - INFO - Found 10 unread messages for today, fetching content...
+2025-03-20 13:54:00,516 - email_utils.gmail_api - INFO - Fetched message 195b28d4bc8688e2
+2025-03-20 13:54:00,950 - email_utils.gmail_api - INFO - Fetched message 195b256e2cb2d720
+2025-03-20 13:54:01,354 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 13:54:01,667 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 13:54:01,994 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 13:54:02,431 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 13:54:02,790 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 13:54:03,168 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 13:54:03,519 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 13:54:03,923 - email_utils.gmail_api - INFO - Fetched message 195b154cd544703b
+2025-03-20 13:54:03,923 - email_utils.gmail_api - INFO - Successfully fetched 10 unread emails for today
+2025-03-20 13:54:03,924 - root - INFO - Processing email 1: Subject: “data science intern”: WebBoos…
+2025-03-20 13:54:03,924 - llm.gemini_api - INFO - Sending Gemini API request 21c7c3aa
+2025-03-20 13:54:03,932 - gui.main_window - INFO - Updated UI status: Found 10 unread emails today. Starting summarization…
+2025-03-20 13:54:03,932 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-20 13:54:03,933 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-20 13:54:06,762 - llm.gemini_api - INFO - Received response for request 21c7c3aa
+2025-03-20 13:54:06,763 - root - INFO - Generated summary for email 1
+2025-03-20 13:54:06,763 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:07,764 - root - INFO - Processing email 2: Subject: Use AI to make your first sale…
+2025-03-20 13:54:07,764 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-20 13:54:07,764 - llm.gemini_api - WARNING - Email content too long (79580 chars), truncating
+2025-03-20 13:54:07,765 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-20 13:54:07,765 - llm.gemini_api - INFO - Sending Gemini API request 21c073fe
+2025-03-20 13:54:09,952 - llm.gemini_api - INFO - Received response for request 21c073fe
+2025-03-20 13:54:09,952 - root - INFO - Generated summary for email 2
+2025-03-20 13:54:09,952 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:10,953 - root - INFO - Processing email 3: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-20 13:54:10,953 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-20 13:54:10,955 - llm.gemini_api - INFO - Sending Gemini API request 21c57b9f
+2025-03-20 13:54:10,955 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-20 13:54:12,069 - llm.gemini_api - INFO - Received response for request 21c57b9f
+2025-03-20 13:54:12,069 - root - INFO - Generated summary for email 3
+2025-03-20 13:54:12,069 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:13,070 - root - INFO - Processing email 4: Subject: Google is hiring for 500+ job …
+2025-03-20 13:54:13,070 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-20 13:54:13,071 - llm.gemini_api - INFO - Sending Gemini API request 21c7c3aa
+2025-03-20 13:54:13,071 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-20 13:54:14,288 - llm.gemini_api - INFO - Received response for request 21c7c3aa
+2025-03-20 13:54:14,289 - root - INFO - Generated summary for email 4
+2025-03-20 13:54:14,289 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:15,289 - root - INFO - Processing email 5: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 13:54:15,289 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-20 13:54:15,290 - llm.gemini_api - INFO - Sending Gemini API request 21c7c09a
+2025-03-20 13:54:15,290 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-20 13:54:16,720 - llm.gemini_api - INFO - Received response for request 21c7c09a
+2025-03-20 13:54:16,721 - root - INFO - Generated summary for email 5
+2025-03-20 13:54:16,721 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:17,722 - root - INFO - Processing email 6: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 13:54:17,723 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-20 13:54:17,723 - llm.gemini_api - INFO - Sending Gemini API request 21c7c810
+2025-03-20 13:54:17,724 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-20 13:54:19,957 - llm.gemini_api - INFO - Received response for request 21c7c810
+2025-03-20 13:54:19,957 - root - INFO - Generated summary for email 6
+2025-03-20 13:54:19,958 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:20,958 - root - INFO - Processing email 7: Subject: Why some developers are so exc…
+2025-03-20 13:54:20,958 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-20 13:54:20,958 - llm.gemini_api - INFO - Sending Gemini API request 21c7c81d
+2025-03-20 13:54:20,959 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-20 13:54:22,552 - llm.gemini_api - INFO - Received response for request 21c7c81d
+2025-03-20 13:54:22,552 - root - INFO - Generated summary for email 7
+2025-03-20 13:54:22,553 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:23,553 - root - INFO - Processing email 8: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 13:54:23,553 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-20 13:54:23,554 - llm.gemini_api - INFO - Sending Gemini API request 21c7c176
+2025-03-20 13:54:23,555 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-20 13:54:24,782 - llm.gemini_api - INFO - Received response for request 21c7c176
+2025-03-20 13:54:24,782 - root - INFO - Generated summary for email 8
+2025-03-20 13:54:24,783 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:25,783 - root - INFO - Processing email 9: Subject: Get ready for 10x Play Points …
+2025-03-20 13:54:25,783 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-20 13:54:25,783 - llm.gemini_api - INFO - Sending Gemini API request 21c752e6
+2025-03-20 13:54:25,784 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-20 13:54:27,204 - llm.gemini_api - INFO - Received response for request 21c752e6
+2025-03-20 13:54:27,205 - root - INFO - Generated summary for email 9
+2025-03-20 13:54:27,207 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:28,207 - root - INFO - Processing email 10: Subject: LG Electronics’ ₹15K Cr IPO, R…
+2025-03-20 13:54:28,207 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-20 13:54:28,208 - llm.gemini_api - WARNING - Email content too long (67136 chars), truncating
+2025-03-20 13:54:28,208 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-20 13:54:28,208 - llm.gemini_api - INFO - Sending Gemini API request 21c0ae9e
+2025-03-20 13:54:30,708 - llm.gemini_api - INFO - Received response for request 21c0ae9e
+2025-03-20 13:54:30,708 - root - INFO - Generated summary for email 10
+2025-03-20 13:54:30,709 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 13:54:31,710 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 13:54:31,711 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 13:54:39,152 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 14:19:52,966 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 14:19:54,533 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 14:19:54,533 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 14:19:54,876 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 14:20:27,865 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 14:20:27,865 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 14:20:27,865 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 14:20:27,869 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 14:20:28,645 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 14:20:29,642 - email_utils.gmail_api - INFO - Found 10 unread messages for today, fetching content...
+2025-03-20 14:20:30,155 - email_utils.gmail_api - INFO - Fetched message 195b2b802683cca3
+2025-03-20 14:20:30,547 - email_utils.gmail_api - INFO - Fetched message 195b28d4bc8688e2
+2025-03-20 14:20:31,080 - email_utils.gmail_api - INFO - Fetched message 195b256e2cb2d720
+2025-03-20 14:20:31,435 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 14:20:31,787 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 14:20:32,125 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 14:20:32,761 - email_utils.gmail_api - INFO - Fetched message 195b1c86c479d444
+2025-03-20 14:20:33,158 - email_utils.gmail_api - INFO - Fetched message 195b1b97b883be28
+2025-03-20 14:20:33,513 - email_utils.gmail_api - INFO - Fetched message 195b1a5c79989c4a
+2025-03-20 14:20:33,858 - email_utils.gmail_api - INFO - Fetched message 195b18efd7397f2b
+2025-03-20 14:20:33,859 - email_utils.gmail_api - INFO - Successfully fetched 10 unread emails for today
+2025-03-20 14:20:33,860 - root - INFO - Processing email 1: Subject: Jobs that match your backgroun…
+2025-03-20 14:20:33,860 - gui.main_window - INFO - Updated UI status: Found 10 unread emails today. Starting summarization…
+2025-03-20 14:20:33,861 - llm.gemini_api - WARNING - Email content too long (88067 chars), truncating
+2025-03-20 14:20:33,862 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-20 14:20:33,862 - llm.gemini_api - INFO - Sending Gemini API request 173fe049
+2025-03-20 14:20:33,863 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-20 14:20:37,931 - llm.gemini_api - INFO - Received response for request 173fe049
+2025-03-20 14:20:37,931 - root - INFO - Generated summary for email 1
+2025-03-20 14:20:37,939 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:38,934 - root - INFO - Processing email 2: Subject: “data science intern”: WebBoos…
+2025-03-20 14:20:38,934 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-20 14:20:38,934 - llm.gemini_api - INFO - Sending Gemini API request 1738add8
+2025-03-20 14:20:38,934 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-20 14:20:40,293 - llm.gemini_api - INFO - Received response for request 1738add8
+2025-03-20 14:20:40,293 - root - INFO - Generated summary for email 2
+2025-03-20 14:20:40,293 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:41,297 - root - INFO - Processing email 3: Subject: Use AI to make your first sale…
+2025-03-20 14:20:41,297 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-20 14:20:41,297 - llm.gemini_api - WARNING - Email content too long (79580 chars), truncating
+2025-03-20 14:20:41,297 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-20 14:20:41,301 - llm.gemini_api - INFO - Sending Gemini API request 173fdd8b
+2025-03-20 14:20:43,575 - llm.gemini_api - INFO - Received response for request 173fdd8b
+2025-03-20 14:20:43,579 - root - INFO - Generated summary for email 3
+2025-03-20 14:20:43,579 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:44,581 - root - INFO - Processing email 4: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-20 14:20:44,581 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-20 14:20:44,583 - llm.gemini_api - INFO - Sending Gemini API request 173fd45f
+2025-03-20 14:20:44,583 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-20 14:20:45,719 - llm.gemini_api - INFO - Received response for request 173fd45f
+2025-03-20 14:20:45,719 - root - INFO - Generated summary for email 4
+2025-03-20 14:20:45,719 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:46,722 - root - INFO - Processing email 5: Subject: Google is hiring for 500+ job …
+2025-03-20 14:20:46,722 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-20 14:20:46,722 - llm.gemini_api - INFO - Sending Gemini API request 173fe1c5
+2025-03-20 14:20:46,724 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-20 14:20:47,922 - llm.gemini_api - INFO - Received response for request 173fe1c5
+2025-03-20 14:20:47,926 - root - INFO - Generated summary for email 5
+2025-03-20 14:20:47,926 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:48,927 - root - INFO - Processing email 6: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 14:20:48,927 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-20 14:20:48,927 - llm.gemini_api - INFO - Sending Gemini API request 1738af0e
+2025-03-20 14:20:48,929 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-20 14:20:50,430 - llm.gemini_api - INFO - Received response for request 1738af0e
+2025-03-20 14:20:50,433 - root - INFO - Generated summary for email 6
+2025-03-20 14:20:50,433 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:51,435 - root - INFO - Processing email 7: Subject: The latest on Gemma 3, Gemini …
+2025-03-20 14:20:51,435 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-20 14:20:51,435 - llm.gemini_api - INFO - Sending Gemini API request 173fde03
+2025-03-20 14:20:51,435 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-20 14:20:53,807 - llm.gemini_api - INFO - Received response for request 173fde03
+2025-03-20 14:20:53,807 - root - INFO - Generated summary for email 7
+2025-03-20 14:20:53,807 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:54,809 - root - INFO - Processing email 8: Subject: Why some developers are so exc…
+2025-03-20 14:20:54,810 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-20 14:20:54,810 - llm.gemini_api - INFO - Sending Gemini API request 173fddfc
+2025-03-20 14:20:54,810 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-20 14:20:56,218 - llm.gemini_api - INFO - Received response for request 173fddfc
+2025-03-20 14:20:56,220 - root - INFO - Generated summary for email 8
+2025-03-20 14:20:56,220 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:57,221 - root - INFO - Processing email 9: Subject: You get UPTO 50% OFF on the be…
+2025-03-20 14:20:57,221 - llm.gemini_api - INFO - Sending Gemini API request 173fd82b
+2025-03-20 14:20:57,221 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-20 14:20:57,225 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-20 14:20:58,409 - llm.gemini_api - INFO - Received response for request 173fd82b
+2025-03-20 14:20:58,409 - root - INFO - Generated summary for email 9
+2025-03-20 14:20:58,409 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:20:59,411 - root - INFO - Processing email 10: Subject: Get ready for 10x Play Points …
+2025-03-20 14:20:59,411 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-20 14:20:59,411 - llm.gemini_api - INFO - Sending Gemini API request 173f6f05
+2025-03-20 14:20:59,411 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-20 14:21:00,842 - llm.gemini_api - INFO - Received response for request 173f6f05
+2025-03-20 14:21:00,842 - root - INFO - Generated summary for email 10
+2025-03-20 14:21:00,847 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 14:21:01,847 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 14:21:01,847 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 15:18:40,479 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 15:19:26,691 - gui.main_window - INFO - agentSelected called from JavaScript with agent: document
+2025-03-20 15:19:26,692 - gui.main_window - INFO - Loading agent UI for: document
+2025-03-20 15:19:26,944 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 15:19:26,944 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 15:19:52,196 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 15:19:52,196 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 15:19:53,093 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 15:19:53,093 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 15:19:53,294 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 15:19:53,294 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 15:19:53,294 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 16:49:33,305 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 16:49:42,079 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 16:49:44,421 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 16:49:44,421 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 16:49:44,760 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 16:49:47,319 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 16:49:47,320 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 16:49:47,320 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 16:49:47,321 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 16:49:47,870 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 16:49:48,713 - email_utils.gmail_api - INFO - Found 10 unread messages for today, fetching content...
+2025-03-20 16:49:49,038 - email_utils.gmail_api - INFO - Fetched message 195b34536630a466
+2025-03-20 16:49:49,386 - email_utils.gmail_api - INFO - Fetched message 195b34051546a51c
+2025-03-20 16:49:49,815 - email_utils.gmail_api - INFO - Fetched message 195b2f248029ff21
+2025-03-20 16:49:50,152 - email_utils.gmail_api - INFO - Fetched message 195b2eba57b3b8ef
+2025-03-20 16:49:50,592 - email_utils.gmail_api - INFO - Fetched message 195b2b802683cca3
+2025-03-20 16:49:51,060 - email_utils.gmail_api - INFO - Fetched message 195b28d4bc8688e2
+2025-03-20 16:49:51,423 - email_utils.gmail_api - INFO - Fetched message 195b256e2cb2d720
+2025-03-20 16:49:51,748 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 16:49:52,074 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 16:49:52,397 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 16:49:52,398 - email_utils.gmail_api - INFO - Successfully fetched 10 unread emails for today
+2025-03-20 16:49:52,398 - root - INFO - Processing email 1: Subject: Aditya Vardhan Sharma, here's …
+2025-03-20 16:49:52,399 - llm.gemini_api - INFO - Sending Gemini API request 257ccac0
+2025-03-20 16:49:52,424 - gui.main_window - INFO - Updated UI status: Found 10 unread emails today. Starting summarization…
+2025-03-20 16:49:52,424 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-20 16:49:52,425 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-20 16:49:55,382 - llm.gemini_api - INFO - Received response for request 257ccac0
+2025-03-20 16:49:55,382 - root - INFO - Generated summary for email 1
+2025-03-20 16:49:55,392 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:49:56,384 - root - INFO - Processing email 2: Subject: Stock SIP Research Recommendat…
+2025-03-20 16:49:56,384 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-20 16:49:56,385 - llm.gemini_api - INFO - Sending Gemini API request 257d74e5
+2025-03-20 16:49:56,385 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-20 16:49:58,722 - llm.gemini_api - INFO - Received response for request 257d74e5
+2025-03-20 16:49:58,723 - root - INFO - Generated summary for email 2
+2025-03-20 16:49:58,723 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:49:59,724 - root - INFO - Processing email 3: Subject: Play the game now!…
+2025-03-20 16:49:59,724 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-20 16:49:59,724 - llm.gemini_api - INFO - Sending Gemini API request 257ccac8
+2025-03-20 16:49:59,724 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-20 16:50:01,108 - llm.gemini_api - INFO - Received response for request 257ccac8
+2025-03-20 16:50:01,109 - root - INFO - Generated summary for email 3
+2025-03-20 16:50:01,109 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:50:02,110 - root - INFO - Processing email 4: Subject: [GitHub] A third-party OAuth a…
+2025-03-20 16:50:02,110 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-20 16:50:02,110 - llm.gemini_api - INFO - Sending Gemini API request 257cc5e7
+2025-03-20 16:50:02,110 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-20 16:50:03,475 - llm.gemini_api - INFO - Received response for request 257cc5e7
+2025-03-20 16:50:03,475 - root - INFO - Generated summary for email 4
+2025-03-20 16:50:03,476 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:50:04,477 - root - INFO - Processing email 5: Subject: Jobs that match your backgroun…
+2025-03-20 16:50:04,478 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-20 16:50:04,478 - llm.gemini_api - WARNING - Email content too long (88067 chars), truncating
+2025-03-20 16:50:04,478 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-20 16:50:04,478 - llm.gemini_api - INFO - Sending Gemini API request 257d74ce
+2025-03-20 16:50:07,296 - llm.gemini_api - INFO - Received response for request 257d74ce
+2025-03-20 16:50:07,296 - root - INFO - Generated summary for email 5
+2025-03-20 16:50:07,297 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:50:08,297 - root - INFO - Processing email 6: Subject: “data science intern”: WebBoos…
+2025-03-20 16:50:08,297 - gui.main_window - INFO - Updated UI progress: 6/10
+2025-03-20 16:50:08,298 - llm.gemini_api - INFO - Sending Gemini API request 257cc75d
+2025-03-20 16:50:08,298 - gui.main_window - INFO - Updated UI status: Processing email 6 of 10…
+2025-03-20 16:50:09,528 - llm.gemini_api - INFO - Received response for request 257cc75d
+2025-03-20 16:50:09,529 - root - INFO - Generated summary for email 6
+2025-03-20 16:50:09,529 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:50:10,530 - root - INFO - Processing email 7: Subject: Use AI to make your first sale…
+2025-03-20 16:50:10,531 - gui.main_window - INFO - Updated UI progress: 7/10
+2025-03-20 16:50:10,531 - llm.gemini_api - WARNING - Email content too long (79580 chars), truncating
+2025-03-20 16:50:10,531 - gui.main_window - INFO - Updated UI status: Processing email 7 of 10…
+2025-03-20 16:50:10,532 - llm.gemini_api - INFO - Sending Gemini API request 257ccb99
+2025-03-20 16:50:12,700 - llm.gemini_api - INFO - Received response for request 257ccb99
+2025-03-20 16:50:12,701 - root - INFO - Generated summary for email 7
+2025-03-20 16:50:12,701 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:50:13,702 - root - INFO - Processing email 8: Subject: 💬 Vijay Khajuria Khajuria comm…
+2025-03-20 16:50:13,702 - gui.main_window - INFO - Updated UI progress: 8/10
+2025-03-20 16:50:13,702 - llm.gemini_api - INFO - Sending Gemini API request 257b0b3c
+2025-03-20 16:50:13,703 - gui.main_window - INFO - Updated UI status: Processing email 8 of 10…
+2025-03-20 16:50:14,962 - llm.gemini_api - INFO - Received response for request 257b0b3c
+2025-03-20 16:50:14,963 - root - INFO - Generated summary for email 8
+2025-03-20 16:50:14,963 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:50:15,965 - root - INFO - Processing email 9: Subject: Google is hiring for 500+ job …
+2025-03-20 16:50:15,965 - gui.main_window - INFO - Updated UI progress: 9/10
+2025-03-20 16:50:15,965 - llm.gemini_api - INFO - Sending Gemini API request 257cce10
+2025-03-20 16:50:15,966 - gui.main_window - INFO - Updated UI status: Processing email 9 of 10…
+2025-03-20 16:50:17,292 - llm.gemini_api - INFO - Received response for request 257cce10
+2025-03-20 16:50:17,293 - root - INFO - Generated summary for email 9
+2025-03-20 16:50:17,293 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:50:18,294 - root - INFO - Processing email 10: Subject: 🤕 Accidents don’t warn but you…
+2025-03-20 16:50:18,294 - gui.main_window - INFO - Updated UI progress: 10/10
+2025-03-20 16:50:18,294 - llm.gemini_api - INFO - Sending Gemini API request 257cc9de
+2025-03-20 16:50:18,295 - gui.main_window - INFO - Updated UI status: Processing email 10 of 10…
+2025-03-20 16:50:19,730 - llm.gemini_api - INFO - Received response for request 257cc9de
+2025-03-20 16:50:19,731 - root - INFO - Generated summary for email 10
+2025-03-20 16:50:19,731 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:50:20,733 - gui.main_window - INFO - Updated UI status: Done!
+2025-03-20 16:50:20,734 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 16:50:59,779 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 16:52:09,360 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 16:52:10,749 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 16:52:10,750 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 16:52:10,952 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 16:52:17,302 - gui.main_window - INFO - fetchEmails called from JavaScript
+2025-03-20 16:52:17,303 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 16:52:17,304 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 16:52:17,305 - gui.main_window - INFO - Updated UI status: Fetching emails…
+2025-03-20 16:52:17,312 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-20 16:52:18,165 - email_utils.gmail_api - INFO - Found 10 unread messages for today, fetching content...
+2025-03-20 16:52:18,536 - email_utils.gmail_api - INFO - Fetched message 195b34536630a466
+2025-03-20 16:52:18,949 - email_utils.gmail_api - INFO - Fetched message 195b34051546a51c
+2025-03-20 16:52:19,409 - email_utils.gmail_api - INFO - Fetched message 195b2f248029ff21
+2025-03-20 16:52:19,724 - email_utils.gmail_api - INFO - Fetched message 195b2eba57b3b8ef
+2025-03-20 16:52:20,107 - email_utils.gmail_api - INFO - Fetched message 195b2b802683cca3
+2025-03-20 16:52:20,567 - email_utils.gmail_api - INFO - Fetched message 195b28d4bc8688e2
+2025-03-20 16:52:20,927 - email_utils.gmail_api - INFO - Fetched message 195b256e2cb2d720
+2025-03-20 16:52:21,281 - email_utils.gmail_api - INFO - Fetched message 195b242d8c36bc56
+2025-03-20 16:52:21,621 - email_utils.gmail_api - INFO - Fetched message 195b2224aa6938d7
+2025-03-20 16:52:21,946 - email_utils.gmail_api - INFO - Fetched message 195b1fd452d8053b
+2025-03-20 16:52:21,947 - email_utils.gmail_api - INFO - Successfully fetched 10 unread emails for today
+2025-03-20 16:52:21,947 - root - INFO - Processing email 1: Subject: Aditya Vardhan Sharma, here's …
+2025-03-20 16:52:21,947 - gui.main_window - INFO - Updated UI status: Found 10 unread emails today. Starting summarization…
+2025-03-20 16:52:21,948 - llm.gemini_api - INFO - Sending Gemini API request 17c21443
+2025-03-20 16:52:21,948 - gui.main_window - INFO - Updated UI progress: 1/10
+2025-03-20 16:52:21,949 - gui.main_window - INFO - Updated UI status: Processing email 1 of 10…
+2025-03-20 16:52:24,724 - llm.gemini_api - INFO - Received response for request 17c21443
+2025-03-20 16:52:24,724 - root - INFO - Generated summary for email 1
+2025-03-20 16:52:24,725 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:52:25,726 - root - INFO - Processing email 2: Subject: Stock SIP Research Recommendat…
+2025-03-20 16:52:25,726 - gui.main_window - INFO - Updated UI progress: 2/10
+2025-03-20 16:52:25,727 - llm.gemini_api - INFO - Sending Gemini API request 17c21889
+2025-03-20 16:52:25,727 - gui.main_window - INFO - Updated UI status: Processing email 2 of 10…
+2025-03-20 16:52:28,036 - llm.gemini_api - INFO - Received response for request 17c21889
+2025-03-20 16:52:28,036 - root - INFO - Generated summary for email 2
+2025-03-20 16:52:28,037 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:52:29,038 - root - INFO - Processing email 3: Subject: Play the game now!…
+2025-03-20 16:52:29,038 - gui.main_window - INFO - Updated UI progress: 3/10
+2025-03-20 16:52:29,039 - llm.gemini_api - INFO - Sending Gemini API request 17c2186e
+2025-03-20 16:52:29,039 - gui.main_window - INFO - Updated UI status: Processing email 3 of 10…
+2025-03-20 16:52:30,365 - llm.gemini_api - INFO - Received response for request 17c2186e
+2025-03-20 16:52:30,366 - root - INFO - Generated summary for email 3
+2025-03-20 16:52:30,366 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:52:31,367 - root - INFO - Processing email 4: Subject: [GitHub] A third-party OAuth a…
+2025-03-20 16:52:31,367 - gui.main_window - INFO - Updated UI progress: 4/10
+2025-03-20 16:52:31,368 - llm.gemini_api - INFO - Sending Gemini API request 17c21105
+2025-03-20 16:52:31,368 - gui.main_window - INFO - Updated UI status: Processing email 4 of 10…
+2025-03-20 16:52:32,990 - llm.gemini_api - INFO - Received response for request 17c21105
+2025-03-20 16:52:32,991 - root - INFO - Generated summary for email 4
+2025-03-20 16:52:32,991 - gui.main_window - INFO - Updated HTML with new email summary.
+2025-03-20 16:52:33,992 - root - INFO - Processing email 5: Subject: Jobs that match your backgroun…
+2025-03-20 16:52:33,993 - gui.main_window - INFO - Updated UI progress: 5/10
+2025-03-20 16:52:33,993 - llm.gemini_api - WARNING - Email content too long (88067 chars), truncating
+2025-03-20 16:52:33,993 - gui.main_window - INFO - Updated UI status: Processing email 5 of 10…
+2025-03-20 16:52:33,994 - llm.gemini_api - INFO - Sending Gemini API request 17c2dff7
+2025-03-20 16:52:35,214 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 16:52:36,616 - llm.gemini_api - INFO - Received response for request 17c2dff7
+2025-03-20 16:52:36,616 - root - INFO - Generated summary for email 5
+2025-03-20 16:53:11,769 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 16:53:14,303 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 16:53:14,303 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 16:53:14,514 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 16:53:19,745 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 16:54:13,372 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 16:54:14,492 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 16:54:14,492 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 16:54:14,712 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 16:54:26,270 - gui.main_window - INFO - Updated UI status: Cancelled.
+2025-03-20 16:54:43,034 - gui.main_window - INFO - MainWindow initialized with bridge and web channel
+2025-03-20 16:54:44,884 - gui.main_window - INFO - agentSelected called from JavaScript with agent: email
+2025-03-20 16:54:44,885 - gui.main_window - INFO - Loading agent UI for: email
+2025-03-20 16:54:45,079 - gui.main_window - INFO - Page loaded successfully, re-establishing web channel
+2025-03-20 16:55:04,152 - gui.main_window - INFO - Updated UI status: Cancelled.
