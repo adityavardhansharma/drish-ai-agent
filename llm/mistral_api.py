@@ -5,7 +5,8 @@ from mistralai import Mistral
 
 logger = logging.getLogger(__name__)
 
-async def generate_summary(document_content, max_tokens=35000):
+
+async def generate_summary(document_content, max_tokens=50000):
     """
     Uses the Mistral AI API to generate a detailed, comprehensive summary of the provided document content.
     """
@@ -40,7 +41,7 @@ async def generate_summary(document_content, max_tokens=35000):
             }
         ]
         chat_response = await client.chat.complete_async(
-            model="ministral-3b-2410",
+            model="mistral-large-latest",
             messages=messages,
             max_tokens=max_tokens,
             temperature=0.2
