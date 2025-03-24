@@ -41,7 +41,7 @@ async def generate_summary(document_content, max_tokens=50000):
             }
         ]
         chat_response = await client.chat.complete_async(
-            model="mistral-large-latest",
+            model="ministral-8b-latest",
             messages=messages,
             max_tokens=max_tokens,
             temperature=0.2
