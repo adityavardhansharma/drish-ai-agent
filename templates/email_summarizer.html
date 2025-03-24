@@ -1,428 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EmailSummarizer Pro</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-   tailwind.config = {
-    theme: {
-     extend: {
-      colors: {
-       primary: {
-        50: '#f0f7ff',
-        100: '#e0eefe',
-        500: '#3b82f6',
-        600: '#2563eb',
-        700: '#1d4ed8',
-       },
-       neutral: {
-        50: '#f9fafb',
-        100: '#f3f4f6',
-        200: '#e5e7eb',
-        300: '#d1d5db',
-        400: '#9ca3af',
-        500: '#6b7280',
-        600: '#4b5563',
-        700: '#374151',
-        800: '#1f2937',
-        900: '#111827',
-       },
-      },
-      fontFamily: {
-       sans: ['Inter', 'sans-serif'],
-      },
-     },
-    },
-   };
-  </script>
-  <link
-   href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-   rel="stylesheet"
-  />
-  <style>
-   /* Glassmorphism utilities */
-   .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-   }
-
-
-   /* Custom scrollbar */
-   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-   }
-
-
-   ::-webkit-scrollbar-track {
-    background: transparent;
-   }
-
-
-   ::-webkit-scrollbar-thumb {
-    background-color: rgba(156, 163, 175, 0.5);
-    border-radius: 3px;
-   }
-
-
-   ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(107, 114, 128, 0.7);
-   }
-
-
-   /* Ensure the page takes full height */
-   html,
-   body {
-    height: 100%;
-    overflow: hidden;
-   }
-
-
-   /* Spinner animation */
-   @keyframes spinner {
-    to {
-     transform: rotate(360deg);
-    }
-   }
-
-
-   .spinner {
-    position: relative;
-    width: 20px;
-    height: 20px;
-   }
-
-
-   .spinner:before {
-    content: '';
-    box-sizing: border-box;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: #fff;
-    border-left-color: #fff;
-    animation: spinner 0.6s linear infinite;
-   }
-
-
-   /* Updated Button Style */
-   button.fetch-emails-button {
-    display: flex;
-    align-items: center;
-    font-family: inherit;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 17px;
-    padding: 0.8em 1.3em 0.8em 0.9em;
-    color: white;
-    background: #ad5389;
-    background: linear-gradient(to right, darkblue,cornflowerblue);
-    border: none;
-    letter-spacing: 0.05em;
-    border-radius: 16px;
-   }
-
-
-   button.fetch-emails-button svg {
-    margin-right: 3px;
-    transform: rotate(30deg);
-    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-   }
-
-
-   button.fetch-emails-button span {
-    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-   }
-
-
-   button.fetch-emails-button:hover svg {
-    transform: translateX(5px) rotate(90deg);
-   }
-
-
-   button.fetch-emails-button:hover span {
-    transform: translateX(7px);
-   }
-  </style>
- </head>
- <body
-  class="bg-gradient-to-br from-blue-50 to-indigo-50 font-sans text-neutral-800"
- >
-  <div class="flex flex-col h-screen">
-   <!-- App Header -->
-   <header class="bg-white shadow-sm z-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="flex justify-between items-center py-4">
-      <div class="flex items-center">
-       <div class="flex-shrink-0 bg-primary-600 text-white p-2 rounded-lg">
-        <svg
-         xmlns="http://www.w3.org/2000/svg"
-         class="h-6 w-6"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor"
-        >
-         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-         />
-        </svg>
-       </div>
-       <h1 class="ml-3 text-xl font-bold text-primary-600">
-        Email Summarizer
-       </h1>
-      </div>
-      <div
-       class="flex items-center space-x-2 text-sm text-neutral-600"
-       id="statusBar"
-      >
-       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4 text-green-500"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-       >
-        <path
-         fill-rule="evenodd"
-         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-         clip-rule="evenodd"
-        />
-       </svg>
-       <span>Ready to summarize emails</span>
-      </div>
-     </div>
-    </div>
-   </header>
-
-
-   <!-- Main content area -->
-   <div class="flex flex-1 overflow-hidden">
-    <!-- Sidebar with email list -->
-    <div
-     class="w-80 flex flex-col border-r border-neutral-200 bg-white/70 backdrop-blur"
-    >
-     <!-- Fetch button header -->
-     <div
-      class="p-4 border-b border-neutral-200 flex justify-between items-center"
-     >
-      <h2 class="font-semibold text-neutral-800">Inbox</h2>
-      <button
-       id="fetchBtn"
-       class="fetch-emails-button"
-      >
-       <svg
-        height="24"
-        width="24"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-       >
-        <path d="M0 0h24v24H0z" fill="none"></path>
-        <path
-         d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
-         fill="currentColor"
-        ></path>
-       </svg>
-       <span id="fetchBtnText">Fetch Mail</span>
-       <span id="fetchSpinner" class="spinner hidden"></span>
-      </button>
-     </div>
-
-
-     <!-- Email list -->
-     <div class="flex-1 overflow-y-auto" id="emailList">
-      <!-- Empty state for email list -->
-      <div
-       id="noEmailsMessage"
-       class="flex flex-col items-center justify-center h-full text-center p-6"
-      >
-       <div
-        class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mb-4"
-       >
-        <svg
-         xmlns="http://www.w3.org/2000/svg"
-         class="h-8 w-8 text-neutral-400"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor"
-        >
-         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-         />
-        </svg>
-       </div>
-       <h3 class="text-neutral-800 font-medium text-lg mb-1">
-        No emails yet
-       </h3>
-       <p class="text-neutral-500 text-sm">
-        Click "Fetch Emails" to load your inbox
-       </p>
-      </div>
-     </div>
-    </div>
-
-
-    <!-- Main content -->
-    <div class="flex-1 overflow-y-auto p-6" id="emailContent">
-     <!-- Empty state for content area -->
-     <div
-      class="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto"
-     >
-      <div
-       class="w-24 h-24 glass rounded-full flex items-center justify-center mb-6"
-      >
-       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-12 w-12 text-neutral-400"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-       >
-        <path
-         stroke-linecap="round"
-         stroke-linejoin="round"
-         stroke-width="2"
-         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-        />
-       </svg>
-      </div>
-      <h2 class="text-xl font-semibold text-neutral-800 mb-2">
-       Select an email
-      </h2>
-      <p class="text-neutral-500">
-       Choose an email from the sidebar to view its AI-generated summary and
-       key points.
-      </p>
-     </div>
-    </div>
-   </div>
-  </div>
-
-
-  <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
-  <script>
-   let bridge;
-   let isLoading = false;
-   let activeEmailCard = null;
-   let emailCount = 0;
-
-
-   // Helper functions for UI manipulation
-   function clearActiveEmailState() {
-    if (activeEmailCard) {
-     activeEmailCard.classList.remove(
-      'bg-primary-50',
-      'border-l-4',
-      'border-primary-500'
-     );
-     activeEmailCard = null;
-    }
-   }
-
-
-   function setActiveEmailCard(card) {
-    clearActiveEmailState();
-    card.classList.add('bg-primary-50', 'border-l-4', 'border-primary-500');
-    activeEmailCard = card;
-   }
-
-
-   window.updateStatus = function (message) {
-    const statusBar = document.getElementById('statusBar');
-    if (statusBar) {
-     statusBar.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-500" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-          </svg>
-          <span>${message}</span>
-        `;
-    }
-   };
-
-
-   window.updateProgress = function (current, total) {
-    window.updateStatus(`Processing email ${current} of ${total}...`);
-   };
-
-
-   function getInitials(name) {
-    return name
-     .split(' ')
-     .map((word) => word.charAt(0))
-     .join('')
-     .toUpperCase()
-     .substring(0, 2);
-   }
-
-
-   function getRandomColor() {
-    const colors = [
-     'bg-blue-100 text-blue-700',
-     'bg-purple-100 text-purple-700',
-     'bg-pink-100 text-pink-700',
-     'bg-amber-100 text-amber-700',
-     'bg-emerald-100 text-emerald-700',
-     'bg-indigo-100 text-indigo-700',
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
-   }
-
-
-   window.addEmailSummary = function (summary) {
-    hideLoadingState();
-    document.getElementById('noEmailsMessage').style.display = 'none';
-    const list = document.getElementById('emailList');
-    if (!list) {
-     console.error("Email list not found.");
-     return;
-    }
-    emailCount++;
-
-
-    const lines = summary.split('\n');
-    let subject = 'No Subject',
-     from = 'Unknown Sender',
-     preview = '',
-     fromEmail = '',
-     date = '';
-
-
-    lines.forEach((line) => {
-     if (line.startsWith('Subject:')) subject = line.substring(8).trim();
-     if (line.startsWith('From:')) {
-      from = line.substring(5).trim();
-      const emailMatch = from.match(/<([^>]+)>/);
-      if (emailMatch) {
-       fromEmail = emailMatch[1];
-       from = from.replace(/<[^>]+>/, '').trim();
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmailSummarizer Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: "#f0f7ff",
+                100: "#e0eefe",
+                500: "#3b82f6",
+                600: "#2563eb",
+                700: "#1d4ed8",
+              },
+              neutral: {
+                50: "#f9fafb",
+                100: "#f3f4f6",
+                200: "#e5e7eb",
+                300: "#d1d5db",
+                400: "#9ca3af",
+                500: "#6b7280",
+                600: "#4b5563",
+                700: "#374151",
+                800: "#1f2937",
+                900: "#111827",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Glassmorphism utility */
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
       }
-     }
-     if (line.startsWith('Date:')) date = line.substring(5).trim();
-     if (line.startsWith('Summary:')) preview = line.substring(8).trim();
-    });
 
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(156, 163, 175, 0.5);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(107, 114, 128, 0.7);
+      }
 
-    // Create email card with avatar
-    const avatarColor = getRandomColor();
-    const initials = getInitials(from);
+      /* Full-height page */
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
 
+      /* Spinner animation */
+      @keyframes spinner {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .spinner {
+        position: relative;
+        width: 20px;
+        height: 20px;
+      }
+      .spinner:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        border-top-color: #fff;
+        border-left-color: #fff;
+        animation: spinner 0.6s linear infinite;
+      }
 
-    const card = document.createElement('div');
-    card.className =
-     'p-4 hover:bg-neutral-50 cursor-pointer border-b border-neutral-100';
-    card.innerHTML = `
+      /* Unified Header */
+      .unified-header {
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .uh-container {
+        max-width: 7xl;
+        margin: 0 auto;
+        padding: 0 1.25rem;
+      }
+      .uh-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+      }
+      .app-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #2563eb;
+        font-weight: 600;
+        font-size: 1.125rem;
+        cursor: pointer;
+      }
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        font-size: 0.875rem;
+        gap: 0.25rem;
+      }
+      .breadcrumb a {
+        color: #2563eb;
+        transition: color 0.2s ease;
+      }
+      .breadcrumb a:hover {
+        color: #1d4ed8;
+      }
+      .breadcrumb span {
+        color: #4b5563;
+        font-weight: 500;
+      }
+      .nav-menu {
+        display: flex;
+        gap: 1rem;
+      }
+      .nav-link {
+        color: #4b5563;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        text-decoration: none;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: #2563eb;
+      }
+      .uh-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-top: 1px solid #e5e7eb;
+      }
+      .page-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1f2937;
+      }
+      .header-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      .status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+      }
+      .status-indicator span.dot {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #10b981;
+      }
+      .fetch-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(to right, #2563eb, #3b82f6);
+        color: #fff;
+        padding: 0.5rem 1.25rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .fetch-button:hover:not(:disabled) {
+        background: linear-gradient(to right, #1d4ed8, #2563eb);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+      }
+      .fetch-button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      /* Sidebar fix – increase width */
+      .sidebar {
+        width: 24rem; /* w-96 */
+      }
+
+      /* Email card styles */
+      .email-card {
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+      .email-card:hover {
+        background-color: #f9fafb;
+      }
+      .email-card.active {
+        background-color: #f0f7ff;
+        border-left: 3px solid #3b82f6;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-50 to-indigo-50 font-sans text-neutral-800"
+  >
+    <div class="flex flex-col h-screen">
+      <!-- Unified Header -->
+      <header class="unified-header">
+        <div class="uh-container mx-auto">
+          <!-- Top Row: Logo, Breadcrumb & Nav Menu -->
+          <div class="uh-top flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <div class="app-logo" onclick="navigateTo('index')">
+                <i class="ri-brain-line"></i>
+                <span>AI Agent Pro</span>
+              </div>
+              <div class="breadcrumb">
+                <a href="#" onclick="navigateTo('index')">Home</a>
+                <span>/</span>
+                <span>Email Summarizer</span>
+              </div>
+            </div>
+            <nav class="nav-menu">
+              <a href="#" onclick="navigateTo('email')" class="nav-link active">Email Summarizer</a>
+              <a href="#" onclick="navigateTo('document')" class="nav-link">Document Summary</a>
+              <a href="#" onclick="navigateTo('object')" class="nav-link">Object Detection</a>
+            </nav>
+          </div>
+          <!-- Bottom Row: Page Title and Action Buttons -->
+          <div class="uh-bottom flex justify-between items-center">
+            <div class="page-title">Email Summarizer</div>
+            <div class="header-actions">
+              <div class="status-indicator" id="statusBar">
+                <span class="dot"></span>
+                <span id="statusBarText">Ready to summarize emails</span>
+              </div>
+              <button id="fetchBtn" class="fetch-button">
+                <i class="ri-refresh-line"></i>
+                <span id="fetchBtnText">Fetch Mail</span>
+                <span id="fetchSpinner" class="spinner hidden"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content area -->
+      <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar with email list -->
+        <div class="sidebar flex flex-col border-r border-neutral-200 bg-white/70 backdrop-blur">
+          <div class="flex-1 overflow-y-auto" id="emailList">
+            <!-- Empty state for email list -->
+            <div
+              id="noEmailsMessage"
+              class="flex flex-col items-center justify-center h-full text-center p-6"
+            >
+              <div
+                class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-8 w-8 text-neutral-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-neutral-800 font-medium text-lg mb-1">
+                No emails yet
+              </h3>
+              <p class="text-neutral-500 text-sm">
+                Click "Fetch Mail" to load your inbox
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main content area (email content) -->
+        <div class="flex-1 overflow-y-auto p-6" id="emailContent">
+          <!-- Empty state for content area -->
+          <div
+            class="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto"
+          >
+            <div
+              class="w-24 h-24 glass rounded-full flex items-center justify-center mb-6"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-12 w-12 text-neutral-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+            </div>
+            <h2 class="text-xl font-semibold text-neutral-800 mb-2">
+              Select an email
+            </h2>
+            <p class="text-neutral-500">
+              Choose an email from the sidebar to view its AI-generated summary
+              and key points.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <script>
+      let bridge;
+      let isLoading = false;
+      let activeEmailCard = null;
+      let emailCount = 0;
+
+      // Helper functions for UI manipulation
+      function clearActiveEmailState() {
+        if (activeEmailCard) {
+          activeEmailCard.classList.remove("active");
+          activeEmailCard = null;
+        }
+      }
+
+      function setActiveEmailCard(card) {
+        clearActiveEmailState();
+        card.classList.add("active");
+        activeEmailCard = card;
+      }
+
+      window.updateStatus = function (message) {
+        const statusBar = document.getElementById("statusBar");
+        if (statusBar) {
+          // Adjust the dot color based on message content
+          let dotColor = "bg-green-500";
+          if (message.toLowerCase().includes("processing")) {
+            dotColor = "bg-blue-500 animate-pulse";
+          } else if (message.toLowerCase().includes("error")) {
+            dotColor = "bg-red-500";
+          }
+          statusBar.innerHTML = `
+          <span class="dot ${dotColor}"></span>
+          <span id="statusBarText">${message}</span>
+          `;
+        }
+      };
+
+      window.updateProgress = function (current, total) {
+        window.updateStatus(`Processing email ${current} of ${total}...`);
+      };
+
+      function getInitials(name) {
+        return name
+          .split(" ")
+          .map((word) => word.charAt(0))
+          .join("")
+          .toUpperCase()
+          .substring(0, 2);
+      }
+
+      function getRandomColor() {
+        const colors = [
+          "bg-blue-100 text-blue-700",
+          "bg-purple-100 text-purple-700",
+          "bg-pink-100 text-pink-700",
+          "bg-amber-100 text-amber-700",
+          "bg-emerald-100 text-emerald-700",
+          "bg-indigo-100 text-indigo-700",
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      window.addEmailSummary = function (summary) {
+        hideLoadingState();
+        document.getElementById("noEmailsMessage").style.display = "none";
+        const list = document.getElementById("emailList");
+        if (!list) {
+          console.error("Email list not found.");
+          return;
+        }
+        emailCount++;
+
+        const lines = summary.split("\n");
+        let subject = "No Subject",
+          from = "Unknown Sender",
+          preview = "",
+          fromEmail = "",
+          date = "";
+
+        lines.forEach((line) => {
+          if (line.startsWith("Subject:"))
+            subject = line.substring(8).trim();
+          if (line.startsWith("From:")) {
+            from = line.substring(5).trim();
+            const emailMatch = from.match(/<([^>]+)>/);
+            if (emailMatch) {
+              fromEmail = emailMatch[1];
+              from = from.replace(/<[^>]+>/, "").trim();
+            }
+          }
+          if (line.startsWith("Date:")) date = line.substring(5).trim();
+          if (line.startsWith("Summary:"))
+            preview = line.substring(8).trim();
+        });
+
+        // Create email card with avatar
+        const avatarColor = getRandomColor();
+        const initials = getInitials(from);
+
+        const card = document.createElement("div");
+        card.className = "email-card";
+        card.innerHTML = `
         <div class="flex space-x-3">
           <div class="flex-shrink-0 w-10 h-10 rounded-full ${avatarColor} flex items-center justify-center font-medium">
             ${initials}
@@ -430,9 +460,7 @@
           <div class="flex-1 min-w-0">
             <div class="flex justify-between items-start mb-1">
               <div class="font-medium text-neutral-900 truncate">${from}</div>
-              <div class="text-xs text-neutral-500 whitespace-nowrap ml-2">${
-               date || 'Today'
-              }</div>
+              <div class="text-xs text-neutral-500 whitespace-nowrap ml-2">${date || "Today"}</div>
             </div>
             <div class="text-sm font-medium mb-1 truncate">${subject}</div>
             <div class="text-xs text-neutral-600 line-clamp-2">${preview}</div>
@@ -440,109 +468,99 @@
         </div>
       `;
 
+        card.onclick = function () {
+          setActiveEmailCard(this);
+          displayEmailContent(
+            summary,
+            from,
+            fromEmail,
+            subject,
+            date,
+            initials,
+            avatarColor
+          );
+        };
 
-    card.onclick = function () {
-     setActiveEmailCard(this);
-     displayEmailContent(
-      summary,
-      from,
-      fromEmail,
-      subject,
-      date,
-      initials,
-      avatarColor
-     );
-    };
+        list.prepend(card);
+      };
 
-
-    list.prepend(card);
-   };
-
-
-   function clearEmailsList() {
-    const emailList = document.getElementById('emailList');
-    if (emailList) {
-     // Keep the no emails message div but hide all other children
-     const noEmailsMessage = document.getElementById('noEmailsMessage');
-     emailList.innerHTML = '';
-     emailList.appendChild(noEmailsMessage);
-     noEmailsMessage.style.display = 'flex';
-     emailCount = 0;
-    }
-    showLoadingState();
-   }
-
-
-   function showLoadingState() {
-    // Show spinner in the fetch button
-    document.getElementById('fetchBtnText').textContent = 'Fetching...';
-    document.getElementById('fetchSpinner').classList.remove('hidden');
-    const fetchButton = document.getElementById('fetchBtn');
-    fetchButton.disabled = true; // Disable the button
-    fetchButton.classList.add('opacity-50', 'cursor-not-allowed'); // Visually indicate disabled state
-   }
-
-
-   function hideLoadingState() {
-    // Hide spinner in the fetch button
-    document.getElementById('fetchBtnText').textContent = 'Launch';
-    document.getElementById('fetchSpinner').classList.add('hidden');
-    const fetchButton = document.getElementById('fetchBtn');
-    fetchButton.disabled = false; // Enable the button
-    fetchButton.classList.remove('opacity-50', 'cursor-not-allowed'); // Remove disabled visual cues
-    isLoading = false;
-   }
-
-
-   function extractKeyPoints(summary) {
-    const lines = summary.split('.');
-    const keyPoints = lines
-     .filter((line) => line.trim().length > 20)
-     .slice(0, 3)
-     .map((line) => line.trim());
-    return keyPoints;
-   }
-
-
-   function displayEmailContent(
-    summary,
-    from,
-    fromEmail,
-    subject,
-    date,
-    initials,
-    avatarColor
-   ) {
-    const contentDiv = document.getElementById('emailContent');
-    if (!contentDiv) {
-     console.error("Email content area not found.");
-     return;
-    }
-
-
-    let summaryText = '';
-    const lines = summary.split('\n');
-    for (let i = 0; i < lines.length; i++) {
-     if (lines[i].startsWith('Summary:')) {
-      summaryText = lines[i].substring(8).trim();
-      for (let j = i + 1; j < lines.length; j++) {
-       if (!lines[j].includes(':')) {
-        summaryText += ' ' + lines[j].trim();
-       } else {
-        break;
-       }
+      function clearEmailsList() {
+        const emailList = document.getElementById("emailList");
+        if (emailList) {
+          // Keep the no emails message div but hide all other children
+          const noEmailsMessage = document.getElementById("noEmailsMessage");
+          emailList.innerHTML = "";
+          emailList.appendChild(noEmailsMessage);
+          noEmailsMessage.style.display = "flex";
+          emailCount = 0;
+        }
+        showLoadingState();
       }
-      break;
-     }
-    }
 
+      function showLoadingState() {
+        // Show spinner in the fetch button
+        document.getElementById("fetchBtnText").textContent = "Fetching...";
+        document.getElementById("fetchSpinner").classList.remove("hidden");
+        const fetchButton = document.getElementById("fetchBtn");
+        fetchButton.disabled = true;
+        fetchButton.classList.add("opacity-50");
+      }
 
-    const keyPoints = extractKeyPoints(summaryText);
+      function hideLoadingState() {
+        // Hide spinner in the fetch button
+        document.getElementById("fetchBtnText").textContent = "Fetch Mail";
+        document.getElementById("fetchSpinner").classList.add("hidden");
+        const fetchButton = document.getElementById("fetchBtn");
+        fetchButton.disabled = false;
+        fetchButton.classList.remove("opacity-50");
+        isLoading = false;
+      }
 
+      function extractKeyPoints(summary) {
+        const lines = summary.split(".");
+        const keyPoints = lines
+          .filter((line) => line.trim().length > 20)
+          .slice(0, 3)
+          .map((line) => line.trim());
+        return keyPoints;
+      }
 
-    contentDiv.innerHTML = `
+      function displayEmailContent(
+        summary,
+        from,
+        fromEmail,
+        subject,
+        date,
+        initials,
+        avatarColor
+      ) {
+        const contentDiv = document.getElementById("emailContent");
+        if (!contentDiv) {
+          console.error("Email content area not found.");
+          return;
+        }
+
+        let summaryText = "";
+        const lines = summary.split("\n");
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].startsWith("Summary:")) {
+            summaryText = lines[i].substring(8).trim();
+            for (let j = i + 1; j < lines.length; j++) {
+              if (!lines[j].includes(":")) {
+                summaryText += " " + lines[j].trim();
+              } else {
+                break;
+              }
+            }
+            break;
+          }
+        }
+
+        const keyPoints = extractKeyPoints(summaryText);
+
+        contentDiv.innerHTML = `
         <div class="max-w-4xl mx-auto">
-          <!-- Email header with improved design -->
+          <!-- Email header -->
           <div class="glass rounded-xl p-6 mb-8 shadow-sm">
             <div class="flex items-start space-x-4">
               <div class="flex-shrink-0 w-12 h-12 rounded-full ${avatarColor} flex items-center justify-center font-medium text-lg">
@@ -555,12 +573,11 @@
                   <span>${from}</span>
                   <span class="mx-1 text-neutral-400">&lt;${fromEmail}&gt;</span>
                   <span class="mx-2 text-neutral-300">•</span>
-                  <span>${date || 'Today'}</span>
+                  <span>${date || "Today"}</span>
                 </div>
               </div>
             </div>
           </div>
-
 
           <!-- Summary section -->
           <div class="mb-8">
@@ -578,7 +595,6 @@
             </div>
           </div>
 
-
           <!-- Key points section -->
           <div>
             <h2 class="text-lg font-semibold text-neutral-800 mb-3 flex items-center">
@@ -589,51 +605,56 @@
             </h2>
             <div class="space-y-3">
               ${keyPoints
-               .map(
-                (point, index) => `
+                .map(
+                  (point, index) => `
                 <div class="glass p-4 rounded-lg shadow-sm flex items-start">
-                  <div class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center mr-3 mt-0.5 font-medium text-sm">${
-                   index + 1
-                  }</div>
+                  <div class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center mr-3 mt-0.5 font-medium text-sm">${index + 1}</div>
                   <div class="text-neutral-700">${point}</div>
                 </div>
               `
-               )
-               .join('')}
+                )
+                .join("")}
             </div>
           </div>
         </div>
       `;
-   }
-
-
-   document.addEventListener('DOMContentLoaded', function () {
-    new QWebChannel(qt.webChannelTransport, function (channel) {
-     bridge = channel.objects.bridge;
-     const fetchBtn = document.getElementById('fetchBtn');
-
-
-     fetchBtn.addEventListener('click', function () {
-      if (!isLoading) {
-       isLoading = true;
-       startFetch();
       }
-     });
-    });
 
+      document.addEventListener("DOMContentLoaded", function () {
+        new QWebChannel(qt.webChannelTransport, function (channel) {
+          bridge = channel.objects.bridge;
+          const fetchBtn = document.getElementById("fetchBtn");
+          fetchBtn.addEventListener("click", function () {
+            if (!isLoading) {
+              isLoading = true;
+              startFetch();
+            }
+          });
+        });
 
-    function startFetch() {
-     clearEmailsList();
-     if (bridge && bridge.fetchEmails) {
-      bridge.fetchEmails();
-     } else {
-      console.error('Bridge not available or fetchEmails function missing.');
-      isLoading = false;
-      updateStatus('Bridge unavailable.');
-      hideLoadingState();
-     }
-    }
-   });
-  </script>
- </body>
+        function startFetch() {
+          clearEmailsList();
+          if (bridge && bridge.fetchEmails) {
+            bridge.fetchEmails();
+          } else {
+            console.error("Bridge not available or fetchEmails function missing.");
+            isLoading = false;
+            updateStatus("Bridge unavailable.");
+            hideLoadingState();
+          }
+        }
+      });
+
+      // Navigation function
+      function navigateTo(page) {
+        if (typeof qt !== "undefined") {
+          new QWebChannel(qt.webChannelTransport, function (channel) {
+            channel.objects.bridge.agentSelected(page);
+          });
+        } else {
+          alert("QWebChannel is not available. Running outside of the application.");
+        }
+      }
+    </script>
+  </body>
 </html>

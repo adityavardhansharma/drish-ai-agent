@@ -81,11 +81,12 @@ class SummaryWorker(QThread):
                 self.status_update.emit("Error: Could not extract text from document.")
                 return
 
-            # Emit the document content for later use in chat
+            # Emit the document content for later use (e.g. chat)
             self.document_content_ready.emit(document_content)
 
             self.status_update.emit("Generating summary…")
             from llm.mistral_api import generate_summary
+            # Generate the summary in one shot (no chapter splitting)
             summary = asyncio.run(generate_summary(document_content))
             self.summary_ready.emit(summary)
             self.status_update.emit("Summary complete.")
@@ -146,7 +147,7 @@ class ChatWorker(QThread):
         try:
             from llm.chat_api import chat_with_document, ChatMessage
 
-            # Convert conversation history to ChatMessage objects if they're not already
+            # Convert conversation history to ChatMessage objects if needed.
             chat_history = []
             for msg in self.conversation_history:
                 if isinstance(msg, dict):
@@ -168,7 +169,7 @@ class ChatWorker(QThread):
 
 
 class ObjectDetectionWorker(QThread):
-    """Worker thread for handling object detection using Gemini API."""
+    """Worker thread for handling object detection using Mistral (if available)."""
     detection_result_ready = pyqtSignal(str)
     status_update = pyqtSignal(str)
 
@@ -179,7 +180,7 @@ class ObjectDetectionWorker(QThread):
     def run(self):
         self.status_update.emit("Analyzing image for object detection…")
         try:
-            from llm.gemini_object_detection import detect_objects
+            from llm.gemini_object_detection import detect_objects  # if you use Gemini for object detection
             result = asyncio.run(detect_objects(self.image_path))
             self.detection_result_ready.emit(result)
             self.status_update.emit("Object detection completed.")
@@ -204,7 +205,7 @@ class MainWindow(QMainWindow):
         self.channel.registerObject("bridge", self.bridge)
         self.web_view.page().setWebChannel(self.channel)
 
-        # First load the landing page (index.html)
+        # Load the landing page (index.html)
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         landing_page = os.path.join(base_dir, "templates", "index.html")
         self.web_view.load(QUrl.fromLocalFile(landing_page))
@@ -214,11 +215,9 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.web_view)
         self.setCentralWidget(central_widget)
 
-        # Store selected file paths for document and object detection.
+        # Store file paths and document content/state.
         self.selected_document_path = None
         self.selected_object_image_path = None
-
-        # Store document content and chat history
         self.document_content = ""
         self.chat_history = []
 
@@ -227,7 +226,6 @@ class MainWindow(QMainWindow):
         self.bridge.agentSelectedSignal.connect(self.load_agent_ui)
         self.bridge.documentSummaryRequested.connect(self.handle_document_request)
         self.bridge.documentQuestionAsked.connect(self.handle_document_question)
-        # Connect new object detection signals
         self.bridge.objectImageSelectionRequested.connect(self.open_object_dialog)
         self.bridge.objectDetectionRequested.connect(self.handle_object_detection)
 
@@ -284,26 +282,14 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot(str)
     def load_agent_ui(self, agent):
-        """
-        Loads the UI for the selected agent.
-        If agent == "document", load document_summary.html;
-        if "email", load email_summarizer.html;
-        if "object", load object_detection.html.
-        """
         logger.info(f"Loading agent UI for: {agent}")
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         if agent == "email":
-            agent_page_path = os.path.join(
-                base_dir, "templates", "email_summarizer.html"
-            )
+            agent_page_path = os.path.join(base_dir, "templates", "email_summarizer.html")
         elif agent == "document":
-            agent_page_path = os.path.join(
-                base_dir, "templates", "document_summary.html"
-            )
+            agent_page_path = os.path.join(base_dir, "templates", "document_summary.html")
         elif agent == "object":
-            agent_page_path = os.path.join(
-                base_dir, "templates", "object_detection.html"
-            )
+            agent_page_path = os.path.join(base_dir, "templates", "object_detection.html")
         else:
             agent_page_path = os.path.join(base_dir, "templates", "index.html")
             logger.warning(f"Unknown agent: {agent}. Loading landing page.")
@@ -311,7 +297,7 @@ class MainWindow(QMainWindow):
         self.web_view.load(url)
         self.web_view.loadFinished.connect(self.on_page_loaded)
 
-        # Reset document-related and object detection state when switching agents
+        # Reset state when switching agents.
         if agent != "document":
             self.selected_document_path = None
             self.document_content = ""
@@ -328,10 +314,6 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def handle_document_request(self):
-        """
-        If no document is selected, open the file dialog.
-        Otherwise, generate the summary for the selected document.
-        """
         if not self.selected_document_path:
             self.open_document_dialog()
         else:
@@ -356,8 +338,6 @@ class MainWindow(QMainWindow):
                 + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
-
-            # Reset chat history when a new document is selected
             self.chat_history = []
 
     @pyqtSlot(str)
@@ -371,14 +351,12 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot(str)
     def store_document_content(self, content):
-        """Store the document content for use in chat."""
         logger.info("Storing document content for chat")
         self.document_content = content
 
     @pyqtSlot(str)
     def display_document_summary(self, summary):
         logger.info("Displaying document summary")
-        # Escape backticks to avoid breaking JavaScript
         escaped_summary = summary.replace("`", "\\`")
         js_code = (
             "if (typeof displayDocumentSummary === 'function') { displayDocumentSummary(`"
@@ -408,9 +386,7 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot(str)
     def handle_document_question(self, question):
-        """Handle a question about the document."""
         logger.info(f"Handling document question: {question}")
-
         if not self.document_content:
             logger.error("No document content available for chat")
             js_code = (
@@ -420,23 +396,17 @@ class MainWindow(QMainWindow):
             )
             self.web_view.page().runJavaScript(js_code)
             return
-
-        # Create and start the chat worker
         self.chat_worker = ChatWorker(
             question, self.document_content, self.chat_history
         )
         self.chat_worker.answer_ready.connect(self.display_chat_response)
         self.chat_worker.start()
-
-        # Add user message to chat history
         from llm.chat_api import ChatMessage
         self.chat_history.append(ChatMessage(role="user", content=question))
 
     @pyqtSlot(str, str)
     def display_chat_response(self, answer, error):
-        """Display the chat response in the UI."""
         logger.info("Displaying chat response")
-
         if error:
             js_code = (
                 "if (typeof displayChatResponse === 'function') { displayChatResponse('', "
@@ -452,10 +422,8 @@ class MainWindow(QMainWindow):
                 + escaped_answer
                 + "`, ''); }"
             )
-
         self.web_view.page().runJavaScript(js_code)
 
-    # New methods for Object Detection
     @pyqtSlot()
     def open_object_dialog(self):
         logger.info("Opening object image file dialog")
@@ -469,7 +437,6 @@ class MainWindow(QMainWindow):
             logger.info(f"Selected image: {file_path}")
             self.selected_object_image_path = file_path
             file_name = os.path.basename(file_path)
-            # Convert the local file path to a file URL.
             file_url = QUrl.fromLocalFile(file_path).toString()
             js_code = (
                 "if (typeof setImageName === 'function') { setImageName("
@@ -491,15 +458,9 @@ class MainWindow(QMainWindow):
             )
             self.web_view.page().runJavaScript(js_code)
             return
-        logger.info(
-            f"Handling object detection for: {self.selected_object_image_path}"
-        )
-        self.object_detection_worker = ObjectDetectionWorker(
-            self.selected_object_image_path
-        )
-        self.object_detection_worker.detection_result_ready.connect(
-            self.display_detection_result
-        )
+        logger.info(f"Handling object detection for: {self.selected_object_image_path}")
+        self.object_detection_worker = ObjectDetectionWorker(self.selected_object_image_path)
+        self.object_detection_worker.detection_result_ready.connect(self.display_detection_result)
         self.object_detection_worker.status_update.connect(self.update_object_status)
         self.object_detection_worker.start()
 
