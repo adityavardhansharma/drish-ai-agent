@@ -230,6 +230,47 @@
         background-color: #f0f7ff;
         border-left: 3px solid #3b82f6;
       }
+
+      /* Toggle switch styles */
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 2.5rem;
+        height: 1.25rem;
+      }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 1.25rem;
+      }
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 0.875rem;
+        width: 0.875rem;
+        left: 0.25rem;
+        bottom: 0.1875rem;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+      }
+      input:checked + .toggle-slider {
+        background-color: #3b82f6;
+      }
+      input:checked + .toggle-slider:before {
+        transform: translateX(1.125rem);
+      }
     </style>
   </head>
   <body
@@ -271,6 +312,13 @@
                 <span id="fetchBtnText">Fetch Mail</span>
                 <span id="fetchSpinner" class="spinner hidden"></span>
               </button>
+              <div class="auto-refresh-toggle flex items-center ml-2">
+                <label for="autoFetchToggle" class="text-sm text-neutral-600 mr-2">Auto-refresh</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="autoFetchToggle" onchange="toggleAutoFetch(this.checked)">
+                  <span class="toggle-slider"></span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -371,16 +419,32 @@
         activeEmailCard = card;
       }
 
-      window.updateStatus = function (message) {
+      window.updateStatus = function (message, statusType) {
         const statusBar = document.getElementById("statusBar");
         if (statusBar) {
-          // Adjust the dot color based on message content
+          // Adjust the dot color based on message content or status type
           let dotColor = "bg-green-500";
-          if (message.toLowerCase().includes("processing")) {
-            dotColor = "bg-blue-500 animate-pulse";
-          } else if (message.toLowerCase().includes("error")) {
-            dotColor = "bg-red-500";
+
+          if (statusType) {
+            // If status type is explicitly provided
+            if (statusType === "loading") {
+              dotColor = "bg-blue-500 animate-pulse";
+            } else if (statusType === "error") {
+              dotColor = "bg-red-500";
+            } else if (statusType === "info") {
+              dotColor = "bg-yellow-500";
+            }
+          } else {
+            // Determine status type from message
+            if (message.toLowerCase().includes("processing") ||
+                message.toLowerCase().includes("fetching") ||
+                message.toLowerCase().includes("loading")) {
+              dotColor = "bg-blue-500 animate-pulse";
+            } else if (message.toLowerCase().includes("error")) {
+              dotColor = "bg-red-500";
+            }
           }
+
           statusBar.innerHTML = `
           <span class="dot ${dotColor}"></span>
           <span id="statusBarText">${message}</span>
@@ -504,6 +568,7 @@
         const fetchButton = document.getElementById("fetchBtn");
         fetchButton.disabled = true;
         fetchButton.classList.add("opacity-50");
+        isLoading = true;
       }
 
       function hideLoadingState() {
@@ -620,6 +685,31 @@
       `;
       }
 
+      // Auto-fetch functionality
+      function toggleAutoFetch(enabled) {
+        console.log("Auto-fetch set to:", enabled);
+        if (bridge && bridge.setAutoFetchStatus) {
+          bridge.setAutoFetchStatus(enabled);
+
+          // Update status message to indicate auto-fetch status
+          if (enabled) {
+            updateStatus("Auto-fetch enabled. Emails will refresh every 15 minutes.", "info");
+          } else {
+            updateStatus("Auto-fetch disabled.");
+          }
+        }
+      }
+
+      function updateAutoFetchStatus(enabled) {
+        const toggle = document.getElementById('autoFetchToggle');
+        if (toggle) {
+          toggle.checked = enabled;
+          if (enabled && !isLoading) {
+            updateStatus("Auto-fetch enabled. Emails will refresh every 15 minutes.", "info");
+          }
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         new QWebChannel(qt.webChannelTransport, function (channel) {
           bridge = channel.objects.bridge;
@@ -639,7 +729,7 @@
           } else {
             console.error("Bridge not available or fetchEmails function missing.");
             isLoading = false;
-            updateStatus("Bridge unavailable.");
+            updateStatus("Bridge unavailable.", "error");
             hideLoadingState();
           }
         }

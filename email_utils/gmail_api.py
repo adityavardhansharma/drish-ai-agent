@@ -5,12 +5,15 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from datetime import date, timedelta  # Import date and timedelta
+from datetime import date, timedelta
 
 logger = logging.getLogger(__name__)
 
-# Gmail read-only scope.
-SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
+# Gmail read-only scope, plus modify scope to mark emails as read.
+SCOPES = [
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.modify",
+]
 
 # Determine paths for credentials and token.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -63,7 +66,7 @@ def get_gmail_service():
         return None
 
 def fetch_emails(service, max_results=10):
-    """Fetches a list of unread emails from the Gmail API for today's date."""
+    """Fetches a list of unread emails from the Gmail API for today's date, and marks them as read."""
     try:
         # Get today's date in "YYYY/MM/DD" format
         today = date.today()
@@ -84,10 +87,10 @@ def fetch_emails(service, max_results=10):
             logger.info("No unread messages found for today.")
             return []
 
-        logger.info(f"Found {len(messages)} unread messages for today, fetching content...")
+        logger.info(f"Found {len(messages)} unread messages for today, fetching content and marking as read...")
         email_contents = []
 
-        # Fetch content for each message
+        # Fetch content for each message and mark as read
         for message in messages:
             try:
                 msg = service.users().messages().get(
@@ -95,12 +98,21 @@ def fetch_emails(service, max_results=10):
                 ).execute()
                 email_contents.append(msg)
                 logger.info(f"Fetched message {message['id']}")
-            except HttpError as error:
-                logger.error(f"Error fetching message {message['id']}: {error}")
-            except Exception as e:
-                logger.error(f"Unexpected error fetching message {message['id']}: {e}")
 
-        logger.info(f"Successfully fetched {len(email_contents)} unread emails for today")
+                # Modify the message to mark it as read (remove the UNREAD label)
+                modified_message = {
+                    "removeLabelIds": ["UNREAD"]
+                }
+                service.users().messages().modify(
+                    userId="me", id=message["id"], body=modified_message
+                ).execute()
+                logger.info(f"Marked message {message['id']} as read")
+            except HttpError as error:
+                logger.error(f"Error fetching/modifying message {message['id']}: {error}")
+            except Exception as e:
+                logger.error(f"Unexpected error fetching/modifying message {message['id']}: {e}")
+
+        logger.info(f"Successfully fetched and marked as read {len(email_contents)} unread emails for today")
         return email_contents
 
     except HttpError as error:

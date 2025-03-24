@@ -1,23 +1,90 @@
-# gui/main_window.py
 import os
 import json
 import PyPDF2
 import docx
 import logging
 import asyncio
+import time
 
 from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QFileDialog
-from PyQt5.QtCore import QUrl, pyqtSlot, pyqtSignal, QObject, QThread
+from PyQt5.QtCore import QUrl, pyqtSlot, pyqtSignal, QObject, QThread, QTimer
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWebChannel import QWebChannel
 
 logger = logging.getLogger(__name__)
 
 
+class FetchEmailsWorker(QThread):
+    """
+    Worker thread for fetching emails (runs in the background to avoid UI blocking).
+    Emits signals for completion, progress updates, status messages, and processed email summaries.
+    """
+    completed = pyqtSignal(bool, str)  # (success, error message)
+    email_found = pyqtSignal(str)
+    progress_update = pyqtSignal(int, int)
+    status_update = pyqtSignal(str)
+
+    def __init__(self, is_auto_fetch=False):
+        super().__init__()
+        self.is_auto_fetch = is_auto_fetch
+
+    def run(self):
+        try:
+            # Updated module names
+            from email_utils.gmail_api import get_gmail_service, fetch_emails
+            from email_utils.email_parser import parse_email_content
+            from llm.gemini_api import generate_summary
+
+            status_prefix = "Auto-fetching" if self.is_auto_fetch else "Fetching"
+            self.status_update.emit(f"{status_prefix} emails...")
+            service = get_gmail_service()
+            if not service:
+                self.completed.emit(False, "Failed to authenticate with Gmail.")
+                return
+
+            self.status_update.emit(f"{status_prefix} unread emails from today...")
+            emails = fetch_emails(service)
+            if not emails:
+                msg = "No new emails found."
+                self.status_update.emit(msg)
+                self.completed.emit(True, msg)
+                return
+
+            total_emails = len(emails)
+            self.status_update.emit(f"Processing {total_emails} emails...")
+
+            for i, email_data in enumerate(emails):
+                try:
+                    self.progress_update.emit(i + 1, total_emails)
+                    parsed_email = parse_email_content(email_data)
+                    if not parsed_email:
+                        logger.error(f"Failed to parse email {i + 1}/{total_emails}")
+                        continue
+
+                    self.status_update.emit(
+                        f"Summarizing email {i + 1}/{total_emails}..."
+                    )
+                    summary = generate_summary(parsed_email["body"])
+                    formatted_summary = (
+                        f"From: {parsed_email['sender']}\n"
+                        f"Subject: {parsed_email['subject']}\n"
+                        f"Summary: {summary}"
+                    )
+                    self.email_found.emit(formatted_summary)
+                except Exception as e:
+                    logger.error(f"Error processing email {i + 1}: {str(e)}")
+
+            self.status_update.emit(f"Completed processing {total_emails} emails")
+            self.completed.emit(True, "")
+        except Exception as e:
+            logger.exception(f"Error in fetch emails worker: {str(e)}")
+            self.completed.emit(False, f"Error: {str(e)}")
+
+
 class Bridge(QObject):
     """
     Exposed to JavaScript via QWebChannel.
-    Contains methods for triggering email, document, and object actions.
+    Contains methods for triggering actions for email, document, and object tasks.
     """
     fetchRequested = pyqtSignal()
     agentSelectedSignal = pyqtSignal(str)
@@ -25,6 +92,7 @@ class Bridge(QObject):
     documentQuestionAsked = pyqtSignal(str)
     objectImageSelectionRequested = pyqtSignal()
     objectDetectionRequested = pyqtSignal()
+    autoFetchStatusChanged = pyqtSignal(bool)
 
     @pyqtSlot()
     def fetchEmails(self):
@@ -51,7 +119,6 @@ class Bridge(QObject):
         logger.info(f"askDocumentQuestion called from JavaScript with question: {question}")
         self.documentQuestionAsked.emit(question)
 
-    # New slots for Object Detection
     @pyqtSlot()
     def selectImageFile(self):
         logger.info("selectImageFile called from JavaScript")
@@ -61,6 +128,11 @@ class Bridge(QObject):
     def detectObjects(self):
         logger.info("detectObjects called from JavaScript")
         self.objectDetectionRequested.emit()
+
+    @pyqtSlot(bool)
+    def setAutoFetchStatus(self, enabled):
+        logger.info(f"setAutoFetchStatus called from JavaScript with status: {enabled}")
+        self.autoFetchStatusChanged.emit(enabled)
 
 
 class SummaryWorker(QThread):
@@ -81,12 +153,9 @@ class SummaryWorker(QThread):
                 self.status_update.emit("Error: Could not extract text from document.")
                 return
 
-            # Emit the document content for later use (e.g. chat)
             self.document_content_ready.emit(document_content)
-
             self.status_update.emit("Generating summary…")
             from llm.mistral_api import generate_summary
-            # Generate the summary in one shot (no chapter splitting)
             summary = asyncio.run(generate_summary(document_content))
             self.summary_ready.emit(summary)
             self.status_update.emit("Summary complete.")
@@ -95,7 +164,6 @@ class SummaryWorker(QThread):
             logger.error(f"Error during document summarization: {e}")
 
     def extract_text_from_file(self, file_path):
-        """Extract text from PDF, DOCX, or plain text files."""
         _, file_extension = os.path.splitext(file_path)
         if file_extension.lower() == '.pdf':
             return self.extract_text_from_pdf(file_path)
@@ -135,7 +203,7 @@ class SummaryWorker(QThread):
 
 class ChatWorker(QThread):
     """Worker thread for handling document chat questions."""
-    answer_ready = pyqtSignal(str, str)  # answer, error
+    answer_ready = pyqtSignal(str, str)  # (answer, error)
 
     def __init__(self, question, document_content, conversation_history=None):
         super().__init__()
@@ -146,19 +214,15 @@ class ChatWorker(QThread):
     def run(self):
         try:
             from llm.chat_api import chat_with_document, ChatMessage
-
-            # Convert conversation history to ChatMessage objects if needed.
             chat_history = []
             for msg in self.conversation_history:
                 if isinstance(msg, dict):
                     chat_history.append(ChatMessage(**msg))
                 elif isinstance(msg, ChatMessage):
                     chat_history.append(msg)
-
             response = asyncio.run(
                 chat_with_document(self.question, self.document_content, chat_history)
             )
-
             if response.error:
                 self.answer_ready.emit("", response.error)
             else:
@@ -169,7 +233,7 @@ class ChatWorker(QThread):
 
 
 class ObjectDetectionWorker(QThread):
-    """Worker thread for handling object detection using Mistral (if available)."""
+    """Worker thread for handling object detection using Gemini (if available)."""
     detection_result_ready = pyqtSignal(str)
     status_update = pyqtSignal(str)
 
@@ -180,7 +244,7 @@ class ObjectDetectionWorker(QThread):
     def run(self):
         self.status_update.emit("Analyzing image for object detection…")
         try:
-            from llm.gemini_object_detection import detect_objects  # if you use Gemini for object detection
+            from llm.gemini_object_detection import detect_objects
             result = asyncio.run(detect_objects(self.image_path))
             self.detection_result_ready.emit(result)
             self.status_update.emit("Object detection completed.")
@@ -198,14 +262,11 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 1200, 800)
 
         self.web_view = QWebEngineView()
-
-        # Set up the web channel.
         self.channel = QWebChannel(self.web_view.page())
         self.bridge = Bridge()
         self.channel.registerObject("bridge", self.bridge)
         self.web_view.page().setWebChannel(self.channel)
 
-        # Load the landing page (index.html)
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         landing_page = os.path.join(base_dir, "templates", "index.html")
         self.web_view.load(QUrl.fromLocalFile(landing_page))
@@ -215,29 +276,112 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.web_view)
         self.setCentralWidget(central_widget)
 
-        # Store file paths and document content/state.
+        # State variables
         self.selected_document_path = None
         self.selected_object_image_path = None
         self.document_content = ""
         self.chat_history = []
 
-        # Connect signals.
-        self.bridge.fetchRequested.connect(self.emit_fetch_emails)
+        # Setup auto-fetch timer (15 minutes = 900,000 milliseconds)
+        self.auto_fetch_timer = QTimer(self)
+        self.auto_fetch_timer.setInterval(900000)
+        self.auto_fetch_timer.timeout.connect(self.auto_fetch_emails)
+        self.auto_fetch_enabled = False
+
+        # Flag to prevent concurrent fetch operations
+        self.fetch_in_progress = False
+
+        # Connect signals from the Bridge to MainWindow actions.
+        self.bridge.fetchRequested.connect(self.manual_fetch_emails)
         self.bridge.agentSelectedSignal.connect(self.load_agent_ui)
         self.bridge.documentSummaryRequested.connect(self.handle_document_request)
         self.bridge.documentQuestionAsked.connect(self.handle_document_question)
         self.bridge.objectImageSelectionRequested.connect(self.open_object_dialog)
         self.bridge.objectDetectionRequested.connect(self.handle_object_detection)
+        self.bridge.autoFetchStatusChanged.connect(self.toggle_auto_fetch)
 
         logger.info("MainWindow initialized with bridge and web channel")
 
-    @pyqtSlot()
-    def emit_fetch_emails(self):
-        self.web_view.page().runJavaScript(
-            "if (typeof clearEmailsList === 'function') { clearEmailsList(); }"
+    @pyqtSlot(bool)
+    def toggle_auto_fetch(self, enabled):
+        """Toggle auto-fetch functionality"""
+        self.auto_fetch_enabled = enabled
+        if enabled and not self.auto_fetch_timer.isActive():
+            logger.info("Auto-fetch enabled, starting timer")
+            self.auto_fetch_timer.start()
+            self.update_auto_fetch_status(True)
+        elif not enabled and self.auto_fetch_timer.isActive():
+            logger.info("Auto-fetch disabled, stopping timer")
+            self.auto_fetch_timer.stop()
+            self.update_auto_fetch_status(False)
+
+    def update_auto_fetch_status(self, enabled):
+        """Update the UI to reflect auto-fetch status."""
+        js_code = (
+            "if (typeof updateAutoFetchStatus === 'function') { updateAutoFetchStatus("
+            + json.dumps(enabled)
+            + "); }"
         )
-        self.set_status("Fetching emails…")
-        self.fetch_emails_signal.emit()
+        self.web_view.page().runJavaScript(js_code)
+
+    @pyqtSlot()
+    def auto_fetch_emails(self):
+        """Automatically fetch emails on timer."""
+        if self.auto_fetch_enabled and not self.fetch_in_progress:
+            logger.info("Auto-fetch timer triggered, fetching emails")
+            self.fetch_emails(is_auto_fetch=True)
+        elif self.fetch_in_progress:
+            logger.info("Skipping auto-fetch as a fetch operation is already in progress")
+
+    @pyqtSlot()
+    def manual_fetch_emails(self):
+        """Handle manual fetch initiated by user clicking the button."""
+        if not self.fetch_in_progress:
+            if not self.auto_fetch_timer.isActive():
+                self.auto_fetch_enabled = True
+                self.auto_fetch_timer.start()
+                logger.info("Started auto-fetch timer after manual fetch")
+                self.update_auto_fetch_status(True)
+            self.fetch_emails(is_auto_fetch=False)
+        else:
+            logger.info("Ignoring fetch request as a fetch operation is already in progress")
+
+    def fetch_emails(self, is_auto_fetch=False):
+        """Common method for both manual and auto fetching of emails."""
+        if self.fetch_in_progress:
+            logger.info("Fetch already in progress, ignoring request")
+            return
+
+        self.fetch_in_progress = True
+
+        if not is_auto_fetch:
+            self.web_view.page().runJavaScript(
+                "if (typeof clearEmailsList === 'function') { clearEmailsList(); }"
+            )
+
+        status_msg = "Auto-fetching emails…" if is_auto_fetch else "Fetching emails…"
+        self.set_status(status_msg)
+
+        self.fetch_worker = FetchEmailsWorker(is_auto_fetch)
+        self.fetch_worker.completed.connect(self.on_fetch_completed)
+        self.fetch_worker.email_found.connect(self.add_email_summary)
+        self.fetch_worker.progress_update.connect(self.update_progress)
+        self.fetch_worker.status_update.connect(self.set_status)
+        self.fetch_worker.start()
+
+    @pyqtSlot(bool, str)
+    def on_fetch_completed(self, success, error_msg):
+        """Handle completion of email fetching."""
+        self.fetch_in_progress = False
+        if not success:
+            self.set_status(f"Error: {error_msg}")
+            logger.error(f"Email fetch failed: {error_msg}")
+        else:
+            self.set_status("Ready" if not error_msg else error_msg)
+            logger.info("Email fetch completed successfully")
+        self.web_view.page().runJavaScript(
+            "if (typeof hideLoadingState === 'function') { hideLoadingState(); }"
+        )
 
     @pyqtSlot(str)
     def add_email_summary(self, summary):
@@ -283,6 +427,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot(str)
     def load_agent_ui(self, agent):
         logger.info(f"Loading agent UI for: {agent}")
+        # When switching away from "email", stop auto-fetch.
+        if agent != "email" and self.auto_fetch_timer.isActive():
+            logger.info("Stopping auto-fetch timer when leaving email agent")
+            self.auto_fetch_timer.stop()
+            self.auto_fetch_enabled = False
+
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         if agent == "email":
             agent_page_path = os.path.join(base_dir, "templates", "email_summarizer.html")
@@ -309,6 +459,9 @@ class MainWindow(QMainWindow):
         if success:
             logger.info("Page loaded successfully, re-establishing web channel")
             self.web_view.page().setWebChannel(self.channel)
+            page_title = self.web_view.page().title()
+            if "Email" in page_title and self.auto_fetch_enabled:
+                self.update_auto_fetch_status(True)
         else:
             logger.error("Page failed to load")
 
@@ -326,7 +479,7 @@ class MainWindow(QMainWindow):
             self,
             "Select Document",
             "",
-            "Documents (*.pdf *.docx *.doc *.txt)",
+            "Documents (*.pdf *.docx *.doc *.txt)"
         )
         if file_path:
             logger.info(f"Selected document: {file_path}")
@@ -431,7 +584,7 @@ class MainWindow(QMainWindow):
             self,
             "Select Image",
             "",
-            "Images (*.png *.jpg *.jpeg *.bmp)",
+            "Images (*.png *.jpg *.jpeg *.bmp)"
         )
         if file_path:
             logger.info(f"Selected image: {file_path}")
