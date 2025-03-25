@@ -2,6 +2,7 @@
 import sys
 import logging
 import time
+import asyncio
 
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread, pyqtSignal
@@ -10,6 +11,7 @@ from gui.main_window import MainWindow
 from email_utils.gmail_api import get_gmail_service, fetch_emails
 from email_utils.email_parser import parse_email_content
 from llm.gemini_api import generate_summary as generate_email_summary
+from llm.mistral_reply_api import generate_email_reply
 from utils.config import settings
 from utils.logger import setup_logger
 
@@ -21,7 +23,8 @@ class EmailWorker(QThread):
     Worker thread for fetching and summarizing emails.
     Emits signals for summary, status, and progress.
     """
-    summary_ready = pyqtSignal(str)
+    # Now emitting five items: summary, reply, message_id, to_email, subject.
+    summary_ready = pyqtSignal(str, str, str, str, str)
     status_update = pyqtSignal(str)
     progress_update = pyqtSignal(int, int)
 
@@ -74,13 +77,23 @@ class EmailWorker(QThread):
                     f"Body: {parsed_email['body']}"
                 )
                 summary = generate_email_summary(email_content)
+                # Generate reply asynchronously using the mistral_reply_api
+                reply = asyncio.run(generate_email_reply(email_content))
+
                 if summary:
                     formatted_summary = (
                         f"From: {parsed_email['sender']}\n"
-                        f"Subject: {parsed_email['subject']}\n\n"
+                        f"Subject: {parsed_email['subject']}\n"
+                        f"Message ID: {parsed_email.get('message_id', 'N/A')}\n\n"
                         f"Summary: {summary}"
                     )
-                    self.summary_ready.emit(formatted_summary)
+                    self.summary_ready.emit(
+                        formatted_summary,
+                        reply,
+                        parsed_email.get('message_id', ''),
+                        parsed_email['sender'],
+                        parsed_email['subject']
+                    )
                     logger.info(f"Generated summary for email {current}")
                 else:
                     logger.warning(
@@ -115,11 +128,13 @@ def main():
     app = QApplication(sys.argv)
     window = MainWindow()
 
-    # Connect the fetchRequested signal to the new manual_fetch_emails method.
+    # Connect the fetchRequested signal from the web channel to the manual_fetch_emails method.
     window.bridge.fetchRequested.connect(window.manual_fetch_emails)
 
+    # Start the email worker when needed (could also be triggered automatically).
     email_worker = EmailWorker()
     window.fetch_emails_signal.connect(email_worker.start)
+    # Using the new summary_ready signal with five parameters.
     email_worker.summary_ready.connect(window.add_email_summary)
     email_worker.status_update.connect(window.set_status)
     if hasattr(window, "update_progress"):
