@@ -18,17 +18,29 @@
               sans: ["Inter", "sans-serif"],
             },
             colors: {
-              blue: {
-                50: "#f0f9ff",
-                100: "#e0f2fe",
-                200: "#bae6fd",
-                300: "#7dd3fc",
-                400: "#38bdf8",
-                500: "#0ea5e9",
-                600: "#0284c7",
+              primary: {
+                50: "#f0f7ff",
+                100: "#e0fefe",
+                200: "#bae0fd",
+                300: "#7dcbfa",
+                400: "#48b0f7",
+                500: "#3b82f6",
+                600: "#2563eb",
                 700: "#0369a1",
                 800: "#075985",
                 900: "#0c4a6e",
+              },
+              neutral: {
+                50: "#f9fafb",
+                100: "#f3f4f6",
+                200: "#e5e7eb",
+                300: "#d1d5db",
+                400: "#9ca3af",
+                500: "#6b7280",
+                600: "#4b5563",
+                700: "#374151",
+                800: "#1f2937",
+                900: "#111827",
               },
             },
           },
@@ -40,26 +52,63 @@
         background-color: #f8fafc;
       }
 
-      /* Animations */
+      /* Header and Tab Navigation */
+      .app-header {
+        background-color: white;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 16px 24px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .app-logo {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 18px;
+        color: #2563eb;
+        margin-bottom: 12px;
+      }
+      .app-logo svg {
+        margin-right: 8px;
+        fill: #3b82f6;
+      }
+      .tab-nav {
+        display: flex;
+        border-bottom: 2px solid #e5e7eb;
+        margin-bottom: 4px;
+      }
+      .tab-item {
+        padding: 10px 20px;
+        cursor: pointer;
+        color: #6b7280;
+        font-weight: 500;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s ease;
+        margin-right: 10px;
+      }
+      .tab-item:hover {
+        color: #3b82f6;
+      }
+      .tab-item.active {
+        color: #3b82f6;
+        border-bottom: 2px solid #3b82f6;
+      }
+
+      /* Page-specific styles */
+      .fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
       }
-
       @keyframes spinner {
         to { transform: rotate(360deg); }
       }
-
-      .fade-in {
-        animation: fadeIn 0.3s ease-out forwards;
-      }
-
       .spinner {
         position: relative;
         width: 20px;
         height: 20px;
       }
-
       .spinner:before {
         content: "";
         box-sizing: border-box;
@@ -80,42 +129,36 @@
         margin: 0 auto;
         padding: 20px;
       }
-
-      /* Card styles */
       .card {
         background: white;
         border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
         margin-bottom: 20px;
         overflow: hidden;
       }
-
       .card-header {
         padding: 16px 24px;
-        background: linear-gradient(to right, #0284c7, #0369a1);
+        background: linear-gradient(to right, #2563eb, #0369a1);
         color: white;
       }
-
       .card-body {
         padding: 24px;
       }
-
       /* Upload area */
       .upload-area {
-        border: 2px dashed rgba(2, 132, 199, 0.3);
+        border: 2px dashed rgba(59, 130, 246, 0.3);
         border-radius: 8px;
         padding: 30px;
         text-align: center;
         cursor: pointer;
         transition: all 0.2s ease;
-        background-color: rgba(2, 132, 199, 0.03);
+        background-color: rgba(59, 130, 246, 0.03);
       }
-
       .upload-area:hover {
-        border-color: rgba(2, 132, 199, 0.6);
-        background-color: rgba(2, 132, 199, 0.05);
+        border-color: rgba(59, 130, 246, 0.6);
+        background-color: rgba(59, 130, 246, 0.05);
       }
-
       /* Image container */
       .img-container {
         background-color: #f1f5f9;
@@ -124,7 +167,6 @@
         justify-content: center;
         padding: 16px;
       }
-
       .img-container img {
         max-width: 100%;
         max-height: 350px;
@@ -132,7 +174,6 @@
         border-radius: 4px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
-
       /* Button styles */
       .btn {
         display: inline-flex;
@@ -144,125 +185,160 @@
         transition: all 0.2s ease;
         cursor: pointer;
       }
-
       .btn-primary {
-        background: linear-gradient(to right, #0284c7, #0369a1);
+        background: linear-gradient(to right, #2563eb, #0369a1);
         color: white;
-        box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
+        box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
       }
-
       .btn-primary:hover:not(:disabled) {
-        box-shadow: 0 4px 8px rgba(2, 132, 199, 0.3);
+        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
         transform: translateY(-1px);
       }
-
       .btn-primary:disabled {
         opacity: 0.6;
         cursor: not-allowed;
       }
-
       /* Detection result styles */
       .detection-item {
         padding: 16px;
         border-radius: 8px;
         margin-bottom: 12px;
-        background-color: rgba(2, 132, 199, 0.05);
-        border-left: 3px solid #0284c7;
+        background-color: rgba(59, 130, 246, 0.05);
+        border-left: 3px solid #2563eb;
         transition: all 0.2s ease;
       }
-
       .detection-item:hover {
-        background-color: rgba(2, 132, 199, 0.08);
+        background-color: rgba(59, 130, 246, 0.08);
         transform: translateX(2px);
       }
-
       .progress-bar {
         height: 8px;
-        background-color: #e0f2fe;
+        background-color: #bae0fd;
         border-radius: 4px;
         overflow: hidden;
         margin-top: 6px;
       }
-
       .progress-value {
         height: 100%;
-        background: linear-gradient(to right, #38bdf8, #0284c7);
+        background: linear-gradient(to right, #7dd3fc, #2563eb);
         border-radius: 4px;
         transition: width 0.3s ease;
       }
     </style>
   </head>
-  <body>
-    <div class="app-container py-6">
-      <!-- Header -->
-      <header class="mb-8 text-center">
-        <div class="inline-flex mb-3">
-          <div class="bg-blue-600 p-3 rounded-full shadow-md">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-8 w-8 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
-              />
-            </svg>
-          </div>
+  <body class="bg-neutral-100 text-neutral-800">
+    <div class="flex flex-col min-h-screen">
+      <!-- App Header with Navigation -->
+      <header class="app-header">
+        <div class="app-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" class="mr-2">
+            <path d="M12 2L2 7l10 5 10-5z" />
+            <path d="M2 17l10 5 10-5" opacity="0.6" />
+            <path d="M2 12l10 5 10-5" opacity="0.8" />
+          </svg>
+          <span>AI Agent Pro</span>
         </div>
-        <h1 class="text-3xl font-bold text-blue-800 mb-2">Object Detection</h1>
-        <p class="text-gray-600 max-w-md mx-auto">
-          Upload an image and our AI will identify objects using machine learning technology
-        </p>
+        <div class="tab-nav">
+          <div class="tab-item" onclick="navigateTo('email')">Email Summarizer</div>
+          <div class="tab-item" onclick="navigateTo('document')">Document Summary</div>
+          <div class="tab-item active" onclick="navigateTo('object')">Object Detection</div>
+        </div>
       </header>
 
-      <!-- Upload Section -->
-      <div id="uploadSection" class="card">
-        <div class="card-header">
-          <h2 class="text-lg font-semibold">Upload Image</h2>
-        </div>
-        <div class="card-body">
-          <!-- Upload Area -->
-          <div
-            id="uploadArea"
-            class="upload-area"
-            onclick="selectImage()"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-16 w-16 text-blue-400 mx-auto mb-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            <h3 class="text-blue-700 font-medium mb-3">Drag & drop your image here</h3>
-            <p class="text-gray-500 text-sm mb-4">
-              Supported formats: JPG, PNG, JPEG (Max 10MB)
-            </p>
-            <button class="btn btn-primary">
-              Browse Files
-            </button>
+      <!-- Main Content Area -->
+      <div class="app-container flex-1">
+        <!-- Upload Section Card -->
+        <div id="uploadSection" class="card fade-in">
+          <div class="card-header">
+            <h2 class="text-lg font-semibold">Upload Image</h2>
           </div>
+          <div class="card-body">
+            <!-- Upload Area -->
+            <div id="uploadArea" class="upload-area" onclick="selectImage()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-16 w-16 text-primary-400 mx-auto mb-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <h3 class="text-primary-700 font-medium mb-3">
+                Drag & drop your image here
+              </h3>
+              <p class="text-neutral-600 text-sm mb-4">
+                Supported formats: JPG, PNG, JPEG (Max 10MB)
+              </p>
+              <button class="btn btn-primary">Browse Files</button>
+            </div>
 
-          <!-- File Info -->
-          <div id="fileInfo" class="hidden fade-in mt-5">
-            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-100">
-              <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+            <!-- File Info (after selection) -->
+            <div id="fileInfo" class="hidden fade-in mt-5">
+              <div class="flex items-center justify-between p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+                <div class="flex items-center space-x-3">
+                  <div class="w-12 h-12 flex items-center justify-center bg-primary-100 text-primary-600 rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <div id="imageName" class="font-medium text-neutral-800">
+                      image.jpg
+                    </div>
+                    <div class="text-sm text-green-600 flex items-center">
+                      <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                      Ready for detection
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onclick="selectImage()"
+                  class="text-primary-600 hover:text-primary-700 transition px-3 py-1.5 rounded hover:bg-primary-50"
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Preview Section (hidden until an image is selected) -->
+        <div id="imageSection" class="hidden fade-in">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="text-lg font-semibold">Image Preview</h2>
+            </div>
+            <div class="card-body">
+              <div class="img-container mb-6">
+                <img id="uploadedImage" src="#" alt="Uploaded Image" />
+              </div>
+              <div class="flex justify-center">
+                <button
+                  id="detectButton"
+                  onclick="performDetection()"
+                  disabled
+                  class="btn btn-primary"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    class="h-5 w-5 mr-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -271,107 +347,63 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
-                </div>
-                <div>
-                  <div id="imageName" class="font-medium text-gray-800">
-                    image.jpg
-                  </div>
-                  <div class="text-sm text-green-600 flex items-center">
-                    <span
-                      class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"
-                    ></span>
-                    Ready for detection
-                  </div>
-                </div>
+                  Detect Objects
+                  <span id="detectSpinner" class="spinner hidden ml-2"></span>
+                </button>
               </div>
-              <button
-                onclick="selectImage()"
-                class="text-blue-600 hover:text-blue-700 transition px-3 py-1.5 rounded hover:bg-blue-50"
-              >
-                Change
-              </button>
+              <div
+                id="status"
+                class="mt-4 text-center text-sm font-medium text-primary-600 hidden"
+              ></div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Image Preview Section -->
-      <div id="imageSection" class="hidden fade-in">
-        <div class="card">
-          <div class="card-header">
-            <h2 class="text-lg font-semibold">Image Preview</h2>
-          </div>
-          <div class="card-body">
-            <div class="img-container mb-6">
-              <img
-                id="uploadedImage"
-                src="#"
-                alt="Uploaded Image"
-              />
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden fade-in">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="text-lg font-semibold">Detection Results</h2>
             </div>
-            <div class="flex justify-center">
-              <button
-                id="detectButton"
-                onclick="performDetection()"
-                disabled
-                class="btn btn-primary"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+            <div class="card-body">
+              <div id="result" class="bg-neutral-50 rounded-lg p-5 border border-neutral-200"></div>
+              <div class="mt-5 flex justify-end">
+                <button
+                  onclick="selectImage()"
+                  class="flex items-center text-primary-600 hover:text-primary-700 transition px-4 py-2 rounded hover:bg-primary-50"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-                Detect Objects
-                <span id="detectSpinner" class="spinner hidden ml-2"></span>
-              </button>
-            </div>
-            <div
-              id="status"
-              class="mt-4 text-center text-sm font-medium text-blue-600 hidden"
-            ></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Results Section -->
-      <div id="resultsSection" class="hidden fade-in">
-        <div class="card">
-          <div class="card-header">
-            <h2 class="text-lg font-semibold">Detection Results</h2>
-          </div>
-          <div class="card-body">
-            <div id="result" class="bg-gray-50 rounded-lg p-5 border border-gray-100"></div>
-
-            <div class="mt-5 flex justify-end">
-              <button onclick="selectImage()" class="flex items-center text-blue-600 hover:text-blue-700 transition px-4 py-2 rounded hover:bg-blue-50">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Try Another Image
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-1.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                  Try Another Image
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Footer -->
-      <footer class="mt-8 text-center text-gray-500 text-sm">
-        <p>Powered by advanced machine learning technology</p>
-      </footer>
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-neutral-500 text-sm">
+          <p>Powered by advanced machine learning technology</p>
+        </footer>
+      </div>
     </div>
 
+    <!-- QWebChannel -->
     <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
     <script>
       let bridge;
@@ -464,14 +496,10 @@
         const statusEl = document.getElementById("status");
         statusEl.innerText = message;
         statusEl.classList.remove("hidden");
-        statusEl.classList.remove(
-          "text-blue-600",
-          "text-green-600",
-          "text-red-600"
-        );
+        statusEl.classList.remove("text-primary-600", "text-green-600", "text-red-600");
         switch (type) {
           case "loading":
-            statusEl.classList.add("text-blue-600");
+            statusEl.classList.add("text-primary-600");
             break;
           case "success":
             statusEl.classList.add("text-green-600");
@@ -488,38 +516,36 @@
 
         // Parse the markdown content with marked.js
         const htmlContent = marked.parse(result);
-
-        // Process the detection results to add visual elements
         let processedHTML = htmlContent;
 
-        // Check if there are detection items with percentages
+        // If detection items with percentages are found, build a visual list
         if (result.includes("%")) {
-          // Extract objects and their confidence scores
           const detections = [];
-          const lines = result.split('\n');
-          lines.forEach(line => {
-            if (line.trim().startsWith('-') || line.trim().startsWith('*')) {
+          const lines = result.split("\n");
+          lines.forEach((line) => {
+            if (line.trim().startsWith("-") || line.trim().startsWith("*")) {
               const match = line.match(/[*-]\s+(.*?)\s+\((\d+\.\d+)%\)/);
               if (match) {
                 detections.push({
                   name: match[1],
-                  confidence: parseFloat(match[2])
+                  confidence: parseFloat(match[2]),
                 });
               }
             }
           });
 
-          // Create a more visual representation
-          let visualHTML = '<div class="mb-4 font-semibold text-gray-700">Detected Objects</div>';
+          let visualHTML =
+            '<div class="mb-4 font-semibold text-neutral-700">Detected Objects</div>';
           if (detections.length === 0) {
-            visualHTML += '<div class="text-center py-4 text-gray-500">No objects detected in this image</div>';
+            visualHTML +=
+              '<div class="text-center py-4 text-neutral-500">No objects detected in this image</div>';
           } else {
-            detections.forEach(item => {
+            detections.forEach((item) => {
               visualHTML += `
                 <div class="detection-item">
                   <div class="flex justify-between">
-                    <span class="font-medium text-gray-800">${item.name}</span>
-                    <span class="text-blue-600 font-medium">${item.confidence.toFixed(1)}%</span>
+                    <span class="font-medium text-neutral-800">${item.name}</span>
+                    <span class="text-primary-600 font-medium">${item.confidence.toFixed(1)}%</span>
                   </div>
                   <div class="progress-bar">
                     <div class="progress-value" style="width: ${item.confidence}%"></div>
@@ -534,6 +560,21 @@
 
         document.getElementById("result").innerHTML = processedHTML;
         document.getElementById("resultsSection").classList.remove("hidden");
+      }
+
+      // Navigation function (for header tabs)
+      function navigateTo(page) {
+        // In this page, we are on Object Detection.
+        // (You can add logic to redirect if needed.)
+        console.log("Navigated to", page);
+        // Notify PyQt if needed:
+        if (bridge && typeof bridge.agentSelected === "function") {
+          try {
+            bridge.agentSelected(page);
+          } catch (e) {
+            console.log("Error calling bridge.agentSelected:", e);
+          }
+        }
       }
     </script>
   </body>

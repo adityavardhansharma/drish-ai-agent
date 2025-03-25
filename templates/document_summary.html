@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DocSense - Document Analysis</title>
+    <title>AI Agent Pro</title>
     <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -25,8 +25,8 @@
                 200: '#bae0fd',
                 300: '#7dcbfa',
                 400: '#48b0f7',
-                500: '#2197ed',
-                600: '#0f77d9',
+                500: '#3b82f6',
+                600: '#2563eb',
                 700: '#0f60b0',
                 800: '#134f90',
                 900: '#164577',
@@ -174,8 +174,8 @@
 
       /* Highlight for key terms */
       .highlight {
-        background: rgba(33, 151, 237, 0.1);
-        border-bottom: 1px dotted rgba(33, 151, 237, 0.4);
+        background: rgba(59, 130, 246, 0.1);
+        border-bottom: 1px dotted rgba(59, 130, 246, 0.4);
         padding: 0 2px;
       }
 
@@ -197,32 +197,164 @@
         transition: all 0.3s ease;
       }
       .panel-focus:focus-within {
-        box-shadow: 0 0 0 2px rgba(33, 151, 237, 0.2);
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+      }
+
+      /* Tab Navigation styles */
+      .tab-nav {
+        display: flex;
+        border-bottom: 2px solid #e5e7eb;
+        margin-bottom: 16px;
+      }
+      .tab-item {
+        padding: 10px 20px;
+        cursor: pointer;
+        color: #6b7280;
+        font-weight: 500;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s ease;
+        margin-right: 10px;
+      }
+      .tab-item:hover {
+        color: #3b82f6;
+      }
+      .tab-item.active {
+        color: #3b82f6;
+        border-bottom: 2px solid #3b82f6;
+      }
+
+      /* Timer indicator for the email view */
+      .timer-indicator {
+        display: flex;
+        align-items: center;
+        background-color: #eff6ff;
+        padding: 6px 12px;
+        border-radius: 20px;
+        color: #2563eb;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .timer-icon {
+        margin-right: 6px;
+      }
+
+      /* Status indicator dot */
+      .status-indicator {
+        display: flex;
+        align-items: center;
+      }
+
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      .status-dot.success {
+        background-color: #10b981;
+      }
+
+      .status-dot.processing {
+        background-color: #3b82f6;
+      }
+
+      .status-dot.warning {
+        background-color: #f59e0b;
+      }
+
+      .status-dot.error {
+        background-color: #ef4444;
+      }
+
+      .status-text {
+        color: #374151;
+        font-size: 13px;
+      }
+
+      /* Loading spinner */
+      .spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+        margin-right: 8px;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Hide content panels based on active tab */
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: flex;
+      }
+
+      .hidden {
+        display: none;
       }
     </style>
   </head>
-  <body class="bg-white text-neutral-800 min-h-screen overflow-hidden">
+  <body class="bg-neutral-100 text-neutral-800 min-h-screen overflow-hidden">
     <div class="flex flex-col h-screen">
-      <!-- Minimal Header -->
-      <header class="py-4 px-6 border-b border-neutral-200 flex items-center justify-between bg-white">
-        <div class="flex items-center space-x-3">
-          <div class="w-9 h-9 flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg shadow-sm">
-            <i class="ri-file-search-line text-lg"></i>
-          </div>
-          <h1 class="text-xl font-semibold text-primary-700">DocSense</h1>
+      <!-- App Header with Navigation -->
+      <header class="py-4 px-6 border-b border-neutral-200 bg-white shadow-sm">
+        <!-- Logo Area -->
+        <div class="flex items-center font-semibold text-lg text-primary-600 mb-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="mr-2 fill-primary-500">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" />
+            <path d="M2 17L12 22L22 17" fill-opacity="0.6" />
+            <path d="M2 12L12 17L22 12" fill-opacity="0.8" />
+          </svg>
+          <span>AI Agent Pro</span>
         </div>
-        <div class="flex items-center space-x-2">
-          <span id="statusIndicator" class="hidden items-center text-sm text-neutral-500">
-            <span class="inline-block w-2 h-2 mr-2 bg-primary-400 rounded-full animate-pulse"></span>
-            Processing document...
-          </span>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+          <div class="tab-item" onclick="navigateTo('email')">
+            Email Summarizer
+          </div>
+          <div class="tab-item active" onclick="navigateTo('document')">
+            Document Summary
+          </div>
+          <div class="tab-item" onclick="navigateTo('object')">
+            Object Detection
+          </div>
+        </div>
+
+        <!-- Status and Control Bar -->
+        <div class="flex justify-between items-center mt-2">
+          <div class="flex items-center gap-4">
+            <div id="statusIndicator" class="status-indicator">
+              <div class="status-dot success"></div>
+              <div class="status-text">Ready to process documents</div>
+            </div>
+
+            <!-- Timer only shown for email tab -->
+            <div id="timerIndicator" class="timer-indicator hidden">
+              <svg class="timer-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span id="timerText">Auto-fetch in 15:00</span>
+            </div>
+          </div>
         </div>
       </header>
 
       <!-- Main Content Area -->
-      <main class="flex-1 flex overflow-hidden">
+      <!-- Document Tab Content -->
+      <div id="documentTab" class="tab-content active flex-1 flex overflow-hidden p-4">
         <!-- Left Panel: Document Upload & Summary -->
-        <div class="w-1/2 flex flex-col h-full border-r border-neutral-200 panel-focus">
+        <div class="w-1/2 flex flex-col h-full bg-white rounded-lg mr-4 shadow-md">
           <!-- Upload Section -->
           <div class="p-6">
             <!-- Upload Zone (initial state) -->
@@ -304,7 +436,7 @@
         </div>
 
         <!-- Right Panel: Chat -->
-        <div class="w-1/2 flex flex-col h-full panel-focus">
+        <div class="w-1/2 flex flex-col h-full bg-white rounded-lg shadow-md">
           <div class="p-6 border-b border-neutral-200">
             <h2 class="text-lg font-semibold text-neutral-800">Ask Questions About This Document</h2>
             <p class="text-neutral-500 text-sm">Get specific answers based on the document content</p>
@@ -335,7 +467,73 @@
             </div>
           </div>
         </div>
-      </main>
+      </div>
+
+      <!-- Email Tab Content -->
+      <div id="emailTab" class="tab-content hidden flex-1 overflow-hidden p-4">
+        <div class="w-full flex h-full">
+          <!-- Email Sidebar -->
+          <div class="w-1/3 bg-white rounded-lg mr-4 shadow-md overflow-hidden">
+            <div class="p-4 border-b border-neutral-200 flex justify-between items-center">
+              <h2 class="font-semibold text-neutral-800">Inbox</h2>
+              <button id="fetchEmailBtn" class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center">
+                <i class="ri-mail-download-line mr-1"></i>
+                <span>Fetch Mail</span>
+              </button>
+            </div>
+            <div id="emailList" class="overflow-y-auto h-[calc(100%-60px)]">
+              <!-- Sample Email -->
+              <div class="p-3 border-b border-neutral-200 hover:bg-neutral-50 cursor-pointer">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold">JS</div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-center mb-1">
+                      <span class="font-medium text-neutral-800 truncate">John Smith</span>
+                      <span class="text-xs text-neutral-500">10:30 AM</span>
+                    </div>
+                    <div class="text-sm font-medium text-neutral-700 truncate">Weekly Update</div>
+                    <div class="text-xs text-neutral-500 truncate">Project progress and next steps...</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Empty state -->
+              <div id="emailEmptyState" class="h-full flex flex-col items-center justify-center text-center p-8 hidden">
+                <i class="ri-mail-open-line text-4xl text-neutral-300 mb-3"></i>
+                <h4 class="text-lg font-medium text-neutral-400 mb-2">No Emails Yet</h4>
+                <p class="text-sm text-neutral-400 max-w-xs">Click "Fetch Mail" to load your inbox</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email Content -->
+          <div class="w-2/3 bg-white rounded-lg shadow-md overflow-y-auto">
+            <div id="emailContent" class="p-6">
+              <!-- Empty Email State -->
+              <div class="h-full flex flex-col items-center justify-center text-center p-8">
+                <i class="ri-mail-line text-4xl text-neutral-300 mb-3"></i>
+                <h4 class="text-lg font-medium text-neutral-400 mb-2">Select an Email</h4>
+                <p class="text-sm text-neutral-400 max-w-xs">Choose an email from the list to view its summary</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Object Detection Tab Content -->
+      <div id="objectTab" class="tab-content hidden flex-1 overflow-hidden p-4">
+        <div class="w-full h-full bg-white rounded-lg shadow-md flex items-center justify-center">
+          <div class="text-center p-8">
+            <i class="ri-image-line text-6xl text-neutral-300 mb-4"></i>
+            <h2 class="text-xl font-semibold text-neutral-700 mb-2">Object Detection</h2>
+            <p class="text-neutral-500 mb-6 max-w-md">Upload images to detect and analyze objects using computer vision</p>
+            <button class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium shadow-sm transition">
+              <i class="ri-upload-2-line mr-1"></i>
+              Upload Image
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -345,14 +543,12 @@
       let isGeneratingSummary = false;
       let documentContent = ""; // Document content used for chat
       let chatHistory = []; // Array to store chat messages
+      let currentTab = "document"; // Track current active tab
 
       // Initialize when the document is ready
-      window.onload = function () {
-        if (
-          typeof QWebChannel !== "undefined" &&
-          typeof qt !== "undefined" &&
-          qt.webChannelTransport
-        ) {
+      document.addEventListener("DOMContentLoaded", function() {
+        // Establish QWebChannel connection
+        if (typeof QWebChannel !== "undefined" && typeof qt !== "undefined" && qt.webChannelTransport) {
           console.log("Initializing QWebChannel...");
           new QWebChannel(qt.webChannelTransport, function (channel) {
             bridge = channel.objects.bridge;
@@ -363,7 +559,74 @@
           console.log("QWebChannel not available, running in test mode");
           setupEventListeners();
         }
-      };
+      });
+
+      // Navigation function
+      function navigateTo(page) {
+        currentTab = page;
+
+        // Hide all tab contents first
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabContents.forEach(tab => tab.classList.remove('active'));
+        tabContents.forEach(tab => tab.classList.add('hidden'));
+
+        // Show the selected tab content
+        const selectedTab = document.getElementById(page + 'Tab');
+        if (selectedTab) {
+          selectedTab.classList.remove('hidden');
+          selectedTab.classList.add('active');
+        }
+
+        // Update the active tab in the navigation
+        const tabs = document.querySelectorAll('.tab-item');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        tabs.forEach(tab => {
+          if (tab.textContent.trim().toLowerCase().includes(page.toLowerCase())) {
+            tab.classList.add('active');
+          }
+        });
+
+        // Show/hide the timer indicator based on tab
+        const timerIndicator = document.getElementById('timerIndicator');
+        if (timerIndicator) {
+          if (page === 'email') {
+            timerIndicator.classList.remove('hidden');
+          } else {
+            timerIndicator.classList.add('hidden');
+          }
+        }
+
+        // Update status text
+        let statusText = 'Ready';
+        if (page === 'email') statusText = 'Ready to process emails';
+        if (page === 'document') statusText = 'Ready to process documents';
+        if (page === 'object') statusText = 'Ready for object detection';
+        updateStatusIndicator('success', statusText);
+
+        console.log('Navigated to', page);
+
+        // Notify the PyQt application about the tab change
+        if (bridge && typeof bridge.agentSelected === 'function') {
+          try {
+            bridge.agentSelected(page);
+          } catch (e) {
+            console.log("Error calling bridge.agentSelected:", e);
+          }
+        }
+      }
+
+      function updateStatusIndicator(status, message) {
+        const indicator = document.getElementById('statusIndicator');
+        if (!indicator) return;
+
+        const statusClass = status || 'success';
+        const statusMessage = message || 'Ready';
+
+        indicator.innerHTML = `
+          <div class="status-dot ${statusClass}"></div>
+          <div class="status-text">${statusMessage}</div>
+        `;
+      }
 
       // Set up event listeners
       function setupEventListeners() {
@@ -426,17 +689,28 @@
         if (chatSendBtn) {
           chatSendBtn.addEventListener("click", sendChatMessage);
         }
+
+        // Email fetch button
+        const fetchEmailBtn = document.getElementById("fetchEmailBtn");
+        if (fetchEmailBtn) {
+          fetchEmailBtn.addEventListener("click", function() {
+            alert("Email fetch functionality would be implemented here");
+          });
+        }
       }
 
       // Request file selection (handled by Python bridge)
       function requestFileUpload() {
-        if (bridge) {
+        updateStatusIndicator('processing', 'Selecting document...');
+
+        if (bridge && typeof bridge.requestDocumentSummary === 'function') {
           console.log("Requesting file selection...");
           bridge.requestDocumentSummary();
         } else {
           // Test mode
           setTimeout(() => {
-            setFileName("SE Lectures Notes - Unit 1.pdf");
+            setFileName("Sample Document.pdf");
+            updateStatusIndicator('success', 'Document selected');
           }, 500);
         }
       }
@@ -445,50 +719,21 @@
       function requestSummaryGeneration() {
         showGenerationProgress();
         isGeneratingSummary = true;
+        updateStatusIndicator('processing', 'Analyzing document...');
 
-        const statusIndicator = document.getElementById("statusIndicator");
-        if (statusIndicator) {
-          statusIndicator.classList.remove("hidden");
-          statusIndicator.classList.add("flex");
-        }
-
-        if (bridge) {
+        if (bridge && typeof bridge.generateDocumentSummary === 'function') {
           console.log("Requesting summary generation...");
           bridge.generateDocumentSummary();
         } else {
           // Test mode
           simulateProgress();
           setTimeout(() => {
-            const sampleSummary = `# Comprehensive Summary of Software Engineering Lecture Notes
-
-## Unit 1: Software Engineering and Processes
-### Lecture 1: Introduction
-
-* **Welcome and Introduction**: Arsalan Manzoor, Assistant Professor at the Department of Computer Science and Engineering (CSE), MIET Jammu, welcomed students and introduced himself. He also provided feedback about MIET.
-
-* **Discussion on Science, Engineering, and Technology**:
-  * **Science**: Focuses on understanding how things work in the world through observation and experimentation.
-  * **Engineering**: Applies scientific principles to design and build systems, structures, devices, and processes to solve practical problems.
-  * **Technology**: Refers to tools, techniques, and systems developed through engineering to fulfill various tasks, often resulting in innovations that improve efficiency and convenience.
-
-### Lecture 2: Understanding Software
-
-* **Definition of Program**: A computer program is a sequence or set of instructions in a programming language for a computer to execute.
-
-* **Definition of Software**: Software is a set of instructions, data, or programs used to operate computers and execute specific tasks. It includes executable programming code, associated libraries, and documentation.
-
-* **Characteristics of Software**: Intangible, variable, and customizable to meet specific needs.`;
-
-            // Apply highlighting to key terms
-            const processedSummary = sampleSummary.replace(
-              /\*\*(.*?)\*\*/g,
-              '<span class="highlight">$1</span>'
-            );
-
-            displayDocumentSummary(processedSummary);
+            const sampleSummary = `# Document Summary\n\nThis is a brief summary of the document content.`;
+            displayDocumentSummary(sampleSummary);
             documentContent = sampleSummary; // Store content for chat
             hideGenerationProgress();
-          }, 5000);
+            updateStatusIndicator('success', 'Document analyzed');
+          }, 3000);
         }
       }
 
@@ -519,27 +764,18 @@
 
         if (statusType === "loading") {
           updateProgressStage(message);
+          updateStatusIndicator('processing', message);
         } else if (statusType === "success") {
           updateProgressStage("Complete!");
           updateProgressBar(100);
+          updateStatusIndicator('success', message || 'Analysis complete');
 
           setTimeout(hideGenerationProgress, 800);
-
-          const statusIndicator = document.getElementById("statusIndicator");
-          if (statusIndicator) {
-            statusIndicator.classList.add("hidden");
-            statusIndicator.classList.remove("flex");
-          }
         } else if (statusType === "error") {
           updateProgressStage("An error occurred: " + message);
+          updateStatusIndicator('error', message || 'An error occurred');
 
           setTimeout(hideGenerationProgress, 1500);
-
-          const statusIndicator = document.getElementById("statusIndicator");
-          if (statusIndicator) {
-            statusIndicator.classList.add("hidden");
-            statusIndicator.classList.remove("flex");
-          }
         }
       }
 
@@ -586,6 +822,7 @@
           enableChatFeature();
         }
         isGeneratingSummary = false;
+        updateStatusIndicator('success', 'Document analyzed successfully');
       }
 
       function enableChatFeature() {
@@ -862,8 +1099,9 @@
         }
 
         const thinkingMessage = addChatMessage("", "thinking");
+        updateStatusIndicator('processing', 'Processing question...');
 
-        if (bridge) {
+        if (bridge && typeof bridge.askDocumentQuestion === 'function') {
           bridge.askDocumentQuestion(question);
         } else {
           // Test mode - simulate response
@@ -873,19 +1111,11 @@
               thinkingMessage.remove();
             }
 
-            // Sample responses based on questions with Markdown formatting
-            let sampleAnswer = "";
-            if (question.toLowerCase().includes("agile")) {
-              sampleAnswer = "# Agile Development\n\nAgile is a software development approach based on iterative development. It involves breaking tasks into smaller parts and working through a full software development lifecycle in each iteration.\n\n## Key Characteristics\n\n* **Iterative Process**: The project scope and requirements are defined at the beginning of the development process\n* **Well-Defined Iterations**: Plans regarding the number of iterations, duration, and scope of each iteration are clearly defined in advance\n* **Flexible but Structured**: Allows for adaptation while maintaining project management control";
-            } else if (question.toLowerCase().includes("engineering")) {
-              sampleAnswer = "According to the document, **Engineering** applies scientific principles to design and build systems, structures, devices, and processes to solve practical problems.\n\nIt's one of the three key concepts discussed alongside Science and Technology. Engineering serves as the bridge between scientific knowledge and technological implementation.";
-            } else if (question.toLowerCase().includes("software")) {
-              sampleAnswer = "## Definition of Software\n\nThe document defines software as a set of instructions, data, or programs used to operate computers and execute specific tasks. It includes:\n\n* Executable programming code\n* Associated libraries\n* Documentation\n\n### Characteristics of Software\n\n* Intangible\n* Variable\n* Customizable to meet specific needs";
-            } else {
-              sampleAnswer = "Based on the lecture notes, software engineering fundamentals include:\n\n1. Understanding the differences between programs and software\n2. Recognizing the characteristics of software\n3. Applying engineering principles to software development processes\n\nThe document also discusses the relationships between science, engineering, and technology as foundational concepts:\n\n* **Science**: Focus on understanding\n* **Engineering**: Application of principles\n* **Technology**: Implementation of tools and systems";
-            }
+            // Simple test response
+            let sampleAnswer = "Based on the document, I can provide this brief answer.";
 
             addChatMessage(sampleAnswer, "assistant");
+            updateStatusIndicator('success', 'Ready');
 
             // Re-enable input
             chatInput.disabled = false;
@@ -911,8 +1141,10 @@
 
         if (error) {
           addChatMessage("Sorry, I encountered an error: " + error, "assistant");
+          updateStatusIndicator('error', 'Error generating response');
         } else {
           addChatMessage(response, "assistant");
+          updateStatusIndicator('success', 'Response generated');
         }
 
         // Enable chat input

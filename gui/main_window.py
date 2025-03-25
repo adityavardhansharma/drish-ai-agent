@@ -1,15 +1,22 @@
 import os
 import json
-import PyPDF2
-import docx
 import logging
 import asyncio
 import time
 
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QFileDialog
+from PyQt5.QtWidgets import (
+    QMainWindow,
+    QWidget,
+    QVBoxLayout,
+    QFileDialog,
+)
 from PyQt5.QtCore import QUrl, pyqtSlot, pyqtSignal, QObject, QThread, QTimer
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWebChannel import QWebChannel
+
+# Import our Gmail and LLM functionality.
+from email_utils.gmail_api import get_gmail_service, fetch_emails, send_reply
+from email_utils.email_parser import parse_email_content
 
 logger = logging.getLogger(__name__)
 
@@ -30,10 +37,10 @@ class FetchEmailsWorker(QThread):
 
     def run(self):
         try:
-            # Updated module names
             from email_utils.gmail_api import get_gmail_service, fetch_emails
             from email_utils.email_parser import parse_email_content
             from llm.gemini_api import generate_summary
+            from llm.mistral_reply_api import generate_email_reply
 
             status_prefix = "Auto-fetching" if self.is_auto_fetch else "Fetching"
             self.status_update.emit(f"{status_prefix} emails...")
@@ -64,21 +71,99 @@ class FetchEmailsWorker(QThread):
                     self.status_update.emit(
                         f"Summarizing email {i + 1}/{total_emails}..."
                     )
-                    summary = generate_summary(parsed_email["body"])
+                    # Generate summary using Gemini API.
+                    summary = generate_summary(
+                        f"Subject: {parsed_email['subject']}\n"
+                        f"From: {parsed_email['sender']}\n"
+                        f"Body: {parsed_email['body']}"
+                    )
+                    # Generate reply using Mistral API.
+                    reply = asyncio.run(generate_email_reply(
+                        f"Subject: {parsed_email['subject']}\n"
+                        f"From: {parsed_email['sender']}\n"
+                        f"Body: {parsed_email['body']}"
+                    ))
                     formatted_summary = (
                         f"From: {parsed_email['sender']}\n"
                         f"Subject: {parsed_email['subject']}\n"
+                        f"Message ID: {parsed_email.get('message_id', 'N/A')}\n\n"
                         f"Summary: {summary}"
                     )
-                    self.email_found.emit(formatted_summary)
+                    # Build a JSON payload containing summary, generated reply, and email metadata.
+                    email_payload = {
+                        "summary": formatted_summary,
+                        "reply": reply,
+                        "message_id": parsed_email.get("message_id", ""),
+                        "to_email": parsed_email["sender"],
+                        "subject": parsed_email["subject"],
+                    }
+                    self.email_found.emit(json.dumps(email_payload))
+                    logger.info(f"Generated summary for message {parsed_email.get('message_id')}")
                 except Exception as e:
                     logger.error(f"Error processing email {i + 1}: {str(e)}")
-
             self.status_update.emit(f"Completed processing {total_emails} emails")
             self.completed.emit(True, "")
         except Exception as e:
             logger.exception(f"Error in fetch emails worker: {str(e)}")
             self.completed.emit(False, f"Error: {str(e)}")
+
+
+class EmailReplyWorker(QThread):
+    """Worker thread for generating an AI reply for a given email content."""
+    reply_ready = pyqtSignal(str, str)  # (reply_text, error_message)
+    status_update = pyqtSignal(str)
+
+    def __init__(self, email_content):
+        super().__init__()
+        self.email_content = email_content
+
+    def run(self):
+        self.status_update.emit("Generating email reply...")
+        try:
+            from llm.mistral_reply_api import generate_email_reply
+            reply = asyncio.run(generate_email_reply(self.email_content))
+            self.reply_ready.emit(reply, "")
+            self.status_update.emit("Reply generated.")
+        except Exception as e:
+            logger.error(f"Error generating email reply: {e}")
+            self.reply_ready.emit("", f"Error: {str(e)}")
+            self.status_update.emit(f"Error: {str(e)}")
+
+
+class SendEmailWorker(QThread):
+    """Worker thread for sending email replies."""
+    email_sent = pyqtSignal(bool, str)  # (success, message)
+    status_update = pyqtSignal(str)
+
+    def __init__(self, message_id, to_email, subject, message_body):
+        super().__init__()
+        self.message_id = message_id
+        self.to_email = to_email
+        self.subject = subject
+        self.message_body = message_body
+
+    def run(self):
+        self.status_update.emit("Sending email reply...")
+        try:
+            service = get_gmail_service()
+            if not service:
+                self.email_sent.emit(False, "Failed to authenticate with Gmail.")
+                self.status_update.emit("Error: Failed to authenticate with Gmail.")
+                return
+
+            success, response = send_reply(
+                service, self.message_id, self.to_email, self.subject, self.message_body
+            )
+            if success:
+                self.email_sent.emit(True, "Email sent successfully!")
+                self.status_update.emit("Email sent successfully!")
+            else:
+                self.email_sent.emit(False, f"Failed to send email: {response}")
+                self.status_update.emit(f"Error: Failed to send email: {response}")
+        except Exception as e:
+            logger.error(f"Error sending email: {e}")
+            self.email_sent.emit(False, f"Error: {str(e)}")
+            self.status_update.emit(f"Error: {str(e)}")
 
 
 class Bridge(QObject):
@@ -93,6 +178,10 @@ class Bridge(QObject):
     objectImageSelectionRequested = pyqtSignal()
     objectDetectionRequested = pyqtSignal()
     autoFetchStatusChanged = pyqtSignal(bool)
+    generateReplyRequested = pyqtSignal(str, str, str, str)  # (email_content, message_id, to_email, subject)
+    sendEmailReply = pyqtSignal(str)  # (reply_text)
+    # New signal to set the current email from JS
+    setCurrentEmailData = pyqtSignal(str)  # (email_json)
 
     @pyqtSlot()
     def fetchEmails(self):
@@ -134,6 +223,22 @@ class Bridge(QObject):
         logger.info(f"setAutoFetchStatus called from JavaScript with status: {enabled}")
         self.autoFetchStatusChanged.emit(enabled)
 
+    @pyqtSlot(str, str, str, str)
+    def generateReply(self, email_content, message_id, to_email, subject):
+        logger.info(f"generateReply called from JavaScript for email subject: {subject}")
+        self.generateReplyRequested.emit(email_content, message_id, to_email, subject)
+
+    @pyqtSlot(str)
+    def sendReply(self, reply_text):
+        logger.info("sendReply called from JavaScript")
+        self.sendEmailReply.emit(reply_text)
+
+    # NEW: Receive currently selected email data from JavaScript.
+    @pyqtSlot(str)
+    def setCurrentEmail(self, email_json):
+        logger.info(f"setCurrentEmail called with data: {email_json}")
+        self.setCurrentEmailData.emit(email_json)
+
 
 class SummaryWorker(QThread):
     """Worker thread for generating document summaries."""
@@ -164,6 +269,7 @@ class SummaryWorker(QThread):
             logger.error(f"Error during document summarization: {e}")
 
     def extract_text_from_file(self, file_path):
+        import os
         _, file_extension = os.path.splitext(file_path)
         if file_extension.lower() == '.pdf':
             return self.extract_text_from_pdf(file_path)
@@ -178,6 +284,7 @@ class SummaryWorker(QThread):
                 return None
 
     def extract_text_from_pdf(self, pdf_path):
+        import PyPDF2
         try:
             text = ""
             with open(pdf_path, 'rb') as f:
@@ -190,6 +297,7 @@ class SummaryWorker(QThread):
             return None
 
     def extract_text_from_docx(self, docx_path):
+        import docx
         try:
             doc = docx.Document(docx_path)
             text = ""
@@ -281,6 +389,9 @@ class MainWindow(QMainWindow):
         self.selected_object_image_path = None
         self.document_content = ""
         self.chat_history = []
+        # current_email_data stores data for the selected email for reply.
+        # Initially, it is empty.
+        self.current_email_data = {}
 
         # Setup auto-fetch timer (15 minutes = 900,000 milliseconds)
         self.auto_fetch_timer = QTimer(self)
@@ -299,12 +410,25 @@ class MainWindow(QMainWindow):
         self.bridge.objectImageSelectionRequested.connect(self.open_object_dialog)
         self.bridge.objectDetectionRequested.connect(self.handle_object_detection)
         self.bridge.autoFetchStatusChanged.connect(self.toggle_auto_fetch)
+        self.bridge.generateReplyRequested.connect(self.generate_email_reply)
+        self.bridge.sendEmailReply.connect(self.send_email_reply)
+        # NEW: Connect the setCurrentEmailData signal to update current_email_data.
+        self.bridge.setCurrentEmailData.connect(self.update_current_email)
 
         logger.info("MainWindow initialized with bridge and web channel")
 
+    @pyqtSlot(str)
+    def update_current_email(self, email_json):
+        """Update the current email data based on the selection from the JS UI."""
+        try:
+            self.current_email_data = json.loads(email_json)
+            logger.info(f"Current email updated: {self.current_email_data}")
+        except Exception as e:
+            logger.error(f"Error updating current email data: {e}")
+
     @pyqtSlot(bool)
     def toggle_auto_fetch(self, enabled):
-        """Toggle auto-fetch functionality"""
+        """Toggle auto-fetch functionality."""
         self.auto_fetch_enabled = enabled
         if enabled and not self.auto_fetch_timer.isActive():
             logger.info("Auto-fetch enabled, starting timer")
@@ -318,9 +442,9 @@ class MainWindow(QMainWindow):
     def update_auto_fetch_status(self, enabled):
         """Update the UI to reflect auto-fetch status."""
         js_code = (
-            "if (typeof updateAutoFetchStatus === 'function') { updateAutoFetchStatus("
-            + json.dumps(enabled)
-            + "); }"
+                "if (typeof updateAutoFetchStatus === 'function') { updateAutoFetchStatus("
+                + json.dumps(enabled)
+                + "); }"
         )
         self.web_view.page().runJavaScript(js_code)
 
@@ -384,12 +508,30 @@ class MainWindow(QMainWindow):
         )
 
     @pyqtSlot(str)
-    def add_email_summary(self, summary):
+    def add_email_summary(self, email_json):
+        """
+        Expects a JSON string with keys: summary, reply, message_id, to_email, subject.
+        This JSON is passed from the EmailWorker.
+        """
         try:
+            email_data = json.loads(email_json)
+            summary = email_data.get("summary", "")
+            reply = email_data.get("reply", "")
+            message_id = email_data.get("message_id", "")
+            to_email = email_data.get("to_email", "")
+            subject = email_data.get("subject", "")
             js_code = (
-                "if (typeof addEmailSummary === 'function') { addEmailSummary("
-                + json.dumps(summary)
-                + "); }"
+                    "if (typeof addEmailSummary === 'function') { addEmailSummary("
+                    + json.dumps(summary)
+                    + ", "
+                    + json.dumps(reply)
+                    + ", "
+                    + json.dumps(message_id)
+                    + ", "
+                    + json.dumps(to_email)
+                    + ", "
+                    + json.dumps(subject)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             logger.info("Updated HTML with new email summary.")
@@ -400,9 +542,9 @@ class MainWindow(QMainWindow):
     def set_status(self, message):
         try:
             js_code = (
-                "if (typeof updateStatus === 'function') { updateStatus("
-                + json.dumps(message)
-                + "); }"
+                    "if (typeof updateStatus === 'function') { updateStatus("
+                    + json.dumps(message)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             logger.info("Updated UI status: " + message)
@@ -413,11 +555,11 @@ class MainWindow(QMainWindow):
     def update_progress(self, current, total):
         try:
             js_code = (
-                "if (typeof updateProgress === 'function') { updateProgress("
-                + json.dumps(current)
-                + ", "
-                + json.dumps(total)
-                + "); }"
+                    "if (typeof updateProgress === 'function') { updateProgress("
+                    + json.dumps(current)
+                    + ", "
+                    + json.dumps(total)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             logger.info("Updated UI progress: " + str(current) + "/" + str(total))
@@ -427,7 +569,6 @@ class MainWindow(QMainWindow):
     @pyqtSlot(str)
     def load_agent_ui(self, agent):
         logger.info(f"Loading agent UI for: {agent}")
-        # When switching away from "email", stop auto-fetch.
         if agent != "email" and self.auto_fetch_timer.isActive():
             logger.info("Stopping auto-fetch timer when leaving email agent")
             self.auto_fetch_timer.stop()
@@ -447,7 +588,6 @@ class MainWindow(QMainWindow):
         self.web_view.load(url)
         self.web_view.loadFinished.connect(self.on_page_loaded)
 
-        # Reset state when switching agents.
         if agent != "document":
             self.selected_document_path = None
             self.document_content = ""
@@ -486,9 +626,9 @@ class MainWindow(QMainWindow):
             self.selected_document_path = file_path
             file_name = os.path.basename(file_path)
             js_code = (
-                "if (typeof setFileName === 'function') { setFileName("
-                + json.dumps(file_name)
-                + "); }"
+                    "if (typeof setFileName === 'function') { setFileName("
+                    + json.dumps(file_name)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             self.chat_history = []
@@ -512,9 +652,9 @@ class MainWindow(QMainWindow):
         logger.info("Displaying document summary")
         escaped_summary = summary.replace("`", "\\`")
         js_code = (
-            "if (typeof displayDocumentSummary === 'function') { displayDocumentSummary(`"
-            + escaped_summary
-            + "`); }"
+                "if (typeof displayDocumentSummary === 'function') { displayDocumentSummary(`"
+                + escaped_summary
+                + "`); }"
         )
         self.web_view.page().runJavaScript(js_code)
 
@@ -529,11 +669,11 @@ class MainWindow(QMainWindow):
         elif "Error" in status:
             status_type = "error"
         js_code = (
-            "if (typeof updateStatus === 'function') { updateStatus("
-            + json.dumps(status)
-            + ", "
-            + json.dumps(status_type)
-            + "); }"
+                "if (typeof updateStatus === 'function') { updateStatus("
+                + json.dumps(status)
+                + ", "
+                + json.dumps(status_type)
+                + "); }"
         )
         self.web_view.page().runJavaScript(js_code)
 
@@ -543,9 +683,9 @@ class MainWindow(QMainWindow):
         if not self.document_content:
             logger.error("No document content available for chat")
             js_code = (
-                "if (typeof displayChatResponse === 'function') { displayChatResponse('', "
-                + json.dumps("No document content available. Please generate a summary first.")
-                + "); }"
+                    "if (typeof displayChatResponse === 'function') { displayChatResponse('', "
+                    + json.dumps("No document content available. Please generate a summary first.")
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             return
@@ -560,20 +700,20 @@ class MainWindow(QMainWindow):
     @pyqtSlot(str, str)
     def display_chat_response(self, answer, error):
         logger.info("Displaying chat response")
-        if error:
+        if (error):
             js_code = (
-                "if (typeof displayChatResponse === 'function') { displayChatResponse('', "
-                + json.dumps(error)
-                + "); }"
+                    "if (typeof displayChatResponse === 'function') { displayChatResponse('', "
+                    + json.dumps(error)
+                    + "); }"
             )
         else:
             from llm.chat_api import ChatMessage
             self.chat_history.append(ChatMessage(role="assistant", content=answer))
             escaped_answer = answer.replace("`", "\\`")
             js_code = (
-                "if (typeof displayChatResponse === 'function') { displayChatResponse(`"
-                + escaped_answer
-                + "`, ''); }"
+                    "if (typeof displayChatResponse === 'function') { displayChatResponse(`"
+                    + escaped_answer
+                    + "`, ''); }"
             )
         self.web_view.page().runJavaScript(js_code)
 
@@ -592,11 +732,11 @@ class MainWindow(QMainWindow):
             file_name = os.path.basename(file_path)
             file_url = QUrl.fromLocalFile(file_path).toString()
             js_code = (
-                "if (typeof setImageName === 'function') { setImageName("
-                + json.dumps(file_name)
-                + ", "
-                + json.dumps(file_url)
-                + "); }"
+                    "if (typeof setImageName === 'function') { setImageName("
+                    + json.dumps(file_name)
+                    + ", "
+                    + json.dumps(file_url)
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
 
@@ -605,9 +745,9 @@ class MainWindow(QMainWindow):
         if not self.selected_object_image_path:
             logger.error("No image selected for object detection")
             js_code = (
-                "if (typeof displayDetectionResult === 'function') { displayDetectionResult('', "
-                + json.dumps("No image selected. Please select an image first.")
-                + "); }"
+                    "if (typeof displayDetectionResult === 'function') { displayDetectionResult('', "
+                    + json.dumps("No image selected. Please select an image first.")
+                    + "); }"
             )
             self.web_view.page().runJavaScript(js_code)
             return
@@ -628,21 +768,81 @@ class MainWindow(QMainWindow):
         elif "Error" in status:
             status_type = "error"
         js_code = (
-            "if (typeof updateStatus === 'function') { updateStatus("
-            + json.dumps(status)
-            + ", "
-            + json.dumps(status_type)
-            + "); }"
+                "if (typeof updateStatus === 'function') { updateStatus("
+                + json.dumps(status)
+                + ", "
+                + json.dumps(status_type)
+                + "); }"
         )
         self.web_view.page().runJavaScript(js_code)
 
     @pyqtSlot(str)
     def display_detection_result(self, result):
-        logger.info("Displaying object detection result")
-        escaped_result = result.replace("`", "\\`")
+        """Display the object detection result in the web UI."""
         js_code = (
-            "if (typeof displayDetectionResult === 'function') { displayDetectionResult(`"
-            + escaped_result
-            + "`); }"
+                "if (typeof displayDetectionResult === 'function') { displayDetectionResult("
+                + json.dumps(result)
+                + "); }"
+        )
+        self.web_view.page().runJavaScript(js_code)
+
+    # === New Email Reply Methods ===
+    def generate_email_reply(self, email_content, message_id, to_email, subject):
+        """Generate an AI reply for the selected email."""
+        # If no current email is set, use passed parameters.
+        if not self.current_email_data:
+            self.current_email_data = {
+                "message_id": message_id,
+                "to_email": to_email,
+                "subject": subject,
+                "content": email_content,
+            }
+        self.reply_worker = EmailReplyWorker(email_content)
+        self.reply_worker.reply_ready.connect(self.on_reply_generated)
+        self.reply_worker.status_update.connect(self.set_status)
+        self.reply_worker.start()
+
+    @pyqtSlot(str, str)
+    def on_reply_generated(self, reply_text, error):
+        """Handle the generated email reply."""
+        if error:
+            js_code = (
+                    "if (typeof displayReplyError === 'function') { displayReplyError("
+                    + json.dumps(error)
+                    + "); }"
+            )
+        else:
+            js_code = (
+                    "if (typeof displayGeneratedReply === 'function') { displayGeneratedReply("
+                    + json.dumps(reply_text)
+                    + "); }"
+            )
+        self.web_view.page().runJavaScript(js_code)
+
+    @pyqtSlot(str)
+    def send_email_reply(self, reply_text):
+        """Send the email reply using Gmail API."""
+        if not self.current_email_data:
+            self.set_status("Error: No email selected for reply.")
+            return
+        self.send_worker = SendEmailWorker(
+            self.current_email_data["message_id"],
+            self.current_email_data["to_email"],
+            self.current_email_data["subject"],
+            reply_text,
+        )
+        self.send_worker.email_sent.connect(self.on_email_sent)
+        self.send_worker.status_update.connect(self.set_status)
+        self.send_worker.start()
+
+    @pyqtSlot(bool, str)
+    def on_email_sent(self, success, message):
+        """Handle the result of sending the email."""
+        js_code = (
+                "if (typeof updateReplyStatus === 'function') { updateReplyStatus("
+                + json.dumps(success)
+                + ", "
+                + json.dumps(message)
+                + "); }"
         )
         self.web_view.page().runJavaScript(js_code)
