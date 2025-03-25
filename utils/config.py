@@ -1,3 +1,4 @@
+# utils/config.py
 import os
 import logging
 from pydantic_settings import BaseSettings
@@ -11,6 +12,7 @@ if os.path.exists(dotenv_path):
 class Settings(BaseSettings):
     gemini_api_key: str | None = os.environ.get("GEMINI_API_KEY")
     mistral_api_key: str | None = os.environ.get("MISTRAL_API_KEY")
+    mistral_reply_api_key: str | None = os.environ.get("MISTRAL_REPLY_API_KEY")
     max_emails_to_fetch: int = int(os.environ.get("MAX_EMAILS_TO_FETCH", "10"))
     log_level: str = os.environ.get("LOG_LEVEL", "INFO")
     log_file: str = os.environ.get("LOG_FILE", "email_summarizer.log")
@@ -24,3 +26,6 @@ if not settings.gemini_api_key:
 
 if not settings.mistral_api_key:
     logging.warning("MISTRAL_API_KEY environment variable not set")
+
+if not settings.mistral_reply_api_key:
+    logging.warning("MISTRAL_REPLY_API_KEY environment variable not set")
