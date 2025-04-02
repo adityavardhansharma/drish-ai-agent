@@ -28,6 +28,11 @@ from llm.mistral_api import generate_summary as generate_doc_summary
 from llm.chat_api import chat_with_document, ChatMessage
 from llm.gemini_object_detection import detect_objects
 
+# Import leave checker utilities
+from leave_utils.db import create_user, authenticate_user
+from leave_utils.sheets import get_employee_leave_data
+from leave_utils.llm import format_leave_details
+
 # --- Config and Logger Setup ---
 try:
     from utils.config import settings
@@ -242,6 +247,55 @@ async def process_object_detection(image_path):
         return {"success": False, "error": str(e)}
 
 
+# --- Leave Checker Business Logic Functions ---
+def process_leave_signup(title, name, email, password):
+    """Process user signup for leave checker."""
+    try:
+        # Create user in database
+        result = create_user(email, password, name, title)
+        return result
+    except Exception as e:
+        logger.error(f"Error during leave checker signup: {e}")
+        return {"success": False, "error": str(e)}
+
+
+def process_leave_login(email, password):
+    """Process user login for leave checker."""
+    try:
+        # Authenticate user
+        result = authenticate_user(email, password)
+        return result
+    except Exception as e:
+        logger.error(f"Error during leave checker login: {e}")
+        return {"success": False, "error": str(e)}
+
+
+def process_leave_check(employee_name, month):
+    """Check leave details for an employee in a specific month."""
+    try:
+        # Get employee leave data from Google Sheets
+        leave_data = get_employee_leave_data(employee_name, month)
+        
+        if not leave_data["success"]:
+            return leave_data
+            
+        # Format the leave data using the Gemini LLM
+        data = leave_data["data"]
+        formatted_data = format_leave_details(
+            data["employee_name"], 
+            data["header_row"], 
+            data["employee_row"]
+        )
+        
+        return {
+            "success": True,
+            "formattedData": formatted_data
+        }
+    except Exception as e:
+        logger.error(f"Error checking leave details: {e}")
+        return {"success": False, "error": str(e)}
+
+
 # --- Flask App Setup ---
 app = Flask(__name__)
 app.secret_key = getattr(settings, "SECRET_KEY", "dev-secret-key")
@@ -249,7 +303,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
-# --- HTML Routes ---
+# --- Main Routes ---
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -257,225 +311,262 @@ def index():
 
 @app.route("/email")
 def email_agent():
-    session.clear()
     return render_template("email_summarizer.html")
 
 
 @app.route("/document")
 def document_agent():
-    session.pop("chat_history", None)
-    file_name = (
-        os.path.basename(session["selected_doc_path"])
-        if "selected_doc_path" in session and os.path.exists(session["selected_doc_path"])
-        else None
-    )
-    return render_template("document_summary.html", uploaded_file=file_name)
+    document_name = session.get("document_name", "No document loaded")
+    chat_history = session.get("chat_history", [])
+    chat_context = {
+        "document_name": document_name,
+        "has_summary": "document_content" in session and session["document_content"],
+    }
+    return render_template("document_summary.html", **chat_context)
 
 
 @app.route("/object")
 def object_agent():
-    session.pop("document_content", None)
-    session.pop("chat_history", None)
-    file_name = (
-        os.path.basename(session["selected_img_path"])
-        if "selected_img_path" in session and os.path.exists(session["selected_img_path"])
-        else None
-    )
-    return render_template("object_detection.html", uploaded_image=file_name)
+    return render_template("object_detection.html")
 
 
-# --- API Routes ---
+@app.route("/leave")
+def leave_agent():
+    """Render the leave checker agent template."""
+    return render_template("leave_checker.html")
 
-# SSE endpoint: wrap async generator in a synchronous generator.
+
+# --- Email Endpoints ---
 @app.route("/api/emails/fetch", methods=["GET"])
 def api_fetch_emails():
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    async_gen = process_fetch_emails()
-
+    @stream_with_context
     def generate():
+        # Create an event loop to run the async generator
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        async_gen = process_fetch_emails()
+        
         try:
             while True:
+                # Run until we get the next item from the async generator
                 chunk = loop.run_until_complete(async_gen.__anext__())
                 yield f"data: {chunk}\n\n"
         except StopAsyncIteration:
+            # We've reached the end of the generator
             loop.close()
-
+            
     return Response(generate(), mimetype="text/event-stream")
 
 
 @app.route("/api/emails/reply", methods=["POST"])
 def api_send_email():
     data = request.json
-    message_id = data.get("message_id")
-    to_email = data.get("to_email")
-    subject = data.get("subject")
-    body = data.get("reply_text")
-    if not all([message_id, to_email, subject, body]):
-        return jsonify({"success": False, "message": "Missing required fields."}), 400
-    success, msg = asyncio.run(process_send_email(message_id, to_email, subject, body))
-    return jsonify({"success": success, "message": msg})
+    message_id = data.get("message_id", "")
+    to_email = data.get("to_email", "")
+    subject = data.get("subject", "")
+    body = data.get("body", "")
+
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        success, message = loop.run_until_complete(process_send_email(message_id, to_email, subject, body))
+        loop.close()
+        
+        return jsonify({"success": success, "message": message})
+    except Exception as e:
+        logger.exception(f"Error sending email: {e}")
+        return jsonify({"success": False, "message": f"Error sending email: {str(e)}"})
 
 
 @app.route("/api/emails/generate_reply", methods=["POST"])
 def api_generate_reply():
     data = request.json
-    email_content = data.get("email_content")
+    email_content = data.get("email_content", "")
     if not email_content:
-        return jsonify({"success": False, "error": "Missing email content."}), 400
+        return jsonify({"success": False, "error": "Email content is required"})
+
     try:
-        reply = asyncio.run(generate_mistral_reply(email_content))
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        reply = loop.run_until_complete(generate_mistral_reply(email_content))
+        loop.close()
+        
         return jsonify({"success": True, "reply": reply})
     except Exception as e:
-        logger.error(f"Reply generation error: {e}")
-        return jsonify({"success": False, "error": str(e)}), 500
+        logger.exception(f"Error generating reply: {e}")
+        return jsonify({"success": False, "error": f"Error generating reply: {str(e)}"})
 
 
+# --- Document Endpoints ---
 @app.route("/api/documents/upload", methods=["POST"])
 def api_upload_document():
-    if "document" not in request.files:
-        return jsonify({"success": False, "error": "No document file provided."}), 400
-    file = request.files["document"]
+    if "file" not in request.files:
+        return jsonify({"success": False, "error": "No file part"})
+
+    file = request.files["file"]
     if file.filename == "":
-        return jsonify({"success": False, "error": "No selected file."}), 400
-    if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_DOC):
-        filename = secure_filename(file.filename)
-        unique_filename = f"{uuid.uuid4()}_{filename}"
-        save_path = os.path.join(app.config["UPLOAD_FOLDER"], unique_filename)
-        try:
-            file.save(save_path)
-            session["selected_doc_path"] = save_path
-            session.pop("document_content", None)
-            session.pop("chat_history", None)
-            return jsonify({"success": True, "filename": filename})
-        except Exception as e:
-            logger.error(f"Doc upload error: {e}")
-            return jsonify({"success": False, "error": str(e)}), 500
-    return jsonify({"success": False, "error": "File type not allowed."}), 400
+        return jsonify({"success": False, "error": "No selected file"})
+
+    if not file or not allowed_file(file.filename, ALLOWED_EXTENSIONS_DOC):
+        return jsonify({"success": False, "error": "Invalid file type"})
+
+    filename = secure_filename(file.filename)
+    file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+    file.save(file_path)
+
+    # Store document name in session
+    session["document_name"] = filename
+    session["document_path"] = file_path
+
+    return jsonify({"success": True, "filename": filename})
 
 
 @app.route("/api/documents/summarize", methods=["POST"])
-async def api_summarize_document():
-    file_path = session.get("selected_doc_path")
+def api_summarize_document():
+    file_path = session.get("document_path")
     if not file_path or not os.path.exists(file_path):
-        return jsonify({"success": False, "error": "Document not found."}), 400
-
-    try:
-        content = extract_text_from_file(file_path)
-        # Explicitly store the content in session
-        session["document_content"] = content
-        session["chat_history"] = []
-        session.modified = True  # Ensure session is marked as modified
-
-        summary = await generate_doc_summary(content)
-
-        return jsonify({
-            "success": True,
-            "summary": str(summary)
-        })
-    except Exception as e:
-        logger.error(f"Error in document summarization: {e}")
         return jsonify({
             "success": False,
-            "error": str(e)
-        }), 500
+            "error": "No document uploaded or file not found"
+        })
+
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(process_document_summary(file_path))
+        loop.close()
+        
+        return jsonify(result)
+    except ValueError as ve:
+        return jsonify({"success": False, "error": str(ve)})
+    except Exception as e:
+        logger.exception("Error during document summarization")
+        return jsonify({
+            "success": False,
+            "error": f"Summarization failed: {str(e)}"
+        })
 
 
 @app.route("/api/documents/chat", methods=["POST"])
-async def api_chat_document():
-    try:
-        data = request.json
-        question = data.get("question")
+def api_chat_document():
+    data = request.json
+    question = data.get("question", "").strip()
 
-        if not question:
-            return jsonify({
-                "success": False,
-                "error": "No question provided"
-            }), 400
-
-        # Debug logging
-        logger.debug(f"Session contents: {dict(session)}")
-        content = session.get("document_content")
-
-        if not content:
-            logger.error("Document content not found in session")
-            return jsonify({
-                "success": False,
-                "error": "Document content not found. Please try summarizing the document again."
-            }), 400
-
-        result = await process_document_chat(question)
-
-        if isinstance(result, dict):
-            if "error" in result:
-                return jsonify({
-                    "success": False,
-                    "error": result["error"]
-                })
-            elif "answer" in result:
-                return jsonify({
-                    "success": True,
-                    "answer": result["answer"]
-                })
-
+    if not question:
         return jsonify({
-            "success": True,
-            "answer": str(result)
+            "success": False,
+            "error": "Question is required"
         })
-
+    
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(process_document_chat(question))
+        loop.close()
+        
+        return jsonify(result)
     except Exception as e:
-        logger.error(f"Error in chat processing: {e}", exc_info=True)
+        logger.exception(f"Error in chat processing: {e}")
         return jsonify({
             "success": False,
             "error": str(e)
-        }), 500
+        })
 
 
+# --- Object Detection Endpoints ---
 @app.route("/api/objects/upload", methods=["POST"])
 def api_upload_image():
-    if "image" not in request.files:
-        return jsonify({"success": False, "error": "No image file provided."}), 400
-    file = request.files["image"]
+    if "file" not in request.files:
+        return jsonify({"success": False, "error": "No file part"})
+
+    file = request.files["file"]
     if file.filename == "":
-        return jsonify({"success": False, "error": "No selected file."}), 400
-    if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMG):
-        filename = secure_filename(file.filename)
-        unique_filename = f"{uuid.uuid4()}_{filename}"
-        save_path = os.path.join(app.config["UPLOAD_FOLDER"], unique_filename)
-        try:
-            file.save(save_path)
-            session["selected_img_path"] = save_path
-            return jsonify({"success": True, "filename": filename})
-        except Exception as e:
-            logger.error(f"Image upload error: {e}")
-            return jsonify({"success": False, "error": str(e)}), 500
-    return jsonify({"success": False, "error": "File type not allowed."}), 400
+        return jsonify({"success": False, "error": "No selected file"})
+
+    if not file or not allowed_file(file.filename, ALLOWED_EXTENSIONS_IMG):
+        return jsonify({"success": False, "error": "Invalid file type"})
+
+    filename = secure_filename(file.filename)
+    file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+    file.save(file_path)
+
+    return jsonify({"success": True, "filename": filename, "path": file_path})
 
 
 @app.route("/api/objects/detect", methods=["POST"])
 def api_detect_objects():
-    image_path = session.get("selected_img_path")
-    if not image_path or not os.path.exists(image_path):
-        return jsonify({"success": False, "error": "Image not found."}), 400
-    result = asyncio.run(process_object_detection(image_path))
+    data = request.json
+    image_path = os.path.join(app.config["UPLOAD_FOLDER"], data.get("filename", ""))
+    
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(process_object_detection(image_path))
+        loop.close()
+        
+        return jsonify(result)
+    except Exception as e:
+        logger.exception(f"Error detecting objects: {e}")
+        return jsonify({"success": False, "error": f"Error detecting objects: {str(e)}"})
+
+
+# --- Leave Checker Endpoints ---
+@app.route("/api/leave/signup", methods=["POST"])
+def api_leave_signup():
+    data = request.json
+    title = data.get("title", "")
+    name = data.get("name", "")
+    email = data.get("email", "")
+    password = data.get("password", "")
+    
+    # Basic validation
+    if not title or not name or not email or not password:
+        return jsonify({"success": False, "error": "All fields are required"})
+        
+    result = process_leave_signup(title, name, email, password)
+    return jsonify(result)
+
+
+@app.route("/api/leave/login", methods=["POST"])
+def api_leave_login():
+    data = request.json
+    email = data.get("email", "")
+    password = data.get("password", "")
+    
+    # Basic validation
+    if not email or not password:
+        return jsonify({"success": False, "error": "Email and password are required"})
+        
+    result = process_leave_login(email, password)
+    return jsonify(result)
+
+
+@app.route("/api/leave/check", methods=["POST"])
+def api_leave_check():
+    data = request.json
+    employee_name = data.get("employeeName", "")
+    month = data.get("month", "")
+    
+    # Basic validation
+    if not employee_name or not month:
+        return jsonify({"success": False, "error": "Employee name and month are required"})
+        
+    result = process_leave_check(employee_name, month)
     return jsonify(result)
 
 
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
-    safe_filename = secure_filename(filename)
-    if safe_filename != filename:
-        return "Invalid filename", 400
-    try:
-        return send_from_directory(app.config["UPLOAD_FOLDER"], safe_filename, as_attachment=False)
-    except FileNotFoundError:
-        return "File not found", 404
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 
-# --- Main Execution ---
 if __name__ == "__main__":
     host = getattr(settings, "HOST", "0.0.0.0")
-    port = int(getattr(settings, "PORT", 5000))
-    debug_mode = getattr(settings, "DEBUG", True)
-    logger.info(f"Starting Flask server on {host}:{port} (Debug: {debug_mode})")
-    app.run(host=host, port=port, debug=debug_mode)
+    port = getattr(settings, "PORT", 5000)
+    debug = getattr(settings, "DEBUG", False)
+    app.run(host=host, port=port, debug=debug)

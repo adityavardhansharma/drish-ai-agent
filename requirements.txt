@@ -26,3 +26,10 @@ PyPDF2
 
 # Type Hints
 typing-extensions
+
+# Database (for leave checker)
+supabase
+python-jose[cryptography]
+
+# Password hashing
+passlib[bcrypt]

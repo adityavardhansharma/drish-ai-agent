@@ -658,6 +658,7 @@
 
       // Unified file change handler (merges previous handleFileUpload and handleFileSelection)
       function handleFileChange(inputElement) {
+        console.log("handleFileChange called with:", inputElement);
         let file;
         if (inputElement.target) {
           // Called via event listener with event object
@@ -668,34 +669,49 @@
         } else if (Array.isArray(inputElement)) {
           file = inputElement[0];
         }
-        if (!file) return;
+        
+        if (!file) {
+          console.error("No file selected");
+          return;
+        }
+        
+        console.log("Selected file:", file.name, "Type:", file.type, "Size:", file.size);
+        
         // Immediately update the file name and status
         setFileName(file.name);
         updateStatusIndicator("success", "Document selected");
 
         // Create FormData for file upload
         const formData = new FormData();
-        formData.append("document", file);
+        formData.append("file", file);
+        console.log("FormData created with file field name: 'file'");
 
         // Now upload the file
+        console.log("Starting file upload to /api/documents/upload");
         fetch("/api/documents/upload", {
           method: "POST",
           body: formData,
         })
-          .then((response) => response.json())
+          .then((response) => {
+            console.log("Upload response status:", response.status);
+            return response.json();
+          })
           .then((data) => {
+            console.log("Upload response data:", data);
             if (data.success) {
               isFileSelected = true;
               updateStatusIndicator("success", "Document uploaded successfully");
               // Automatically trigger summary generation after upload
+              console.log("File uploaded successfully, triggering summary generation");
               requestSummaryGeneration();
             } else {
+              console.error("Upload failed:", data.error);
               updateStatusIndicator("error", data.error || "Upload failed");
             }
           })
           .catch((error) => {
-            console.error("Upload error:", error);
-            updateStatusIndicator("error", "Upload failed");
+            console.error("Upload request error:", error);
+            updateStatusIndicator("error", "Upload failed: " + error.message);
           });
       }
 
@@ -768,6 +784,7 @@
           return;
         }
 
+        console.log("Starting document summary generation");
         updateStatusIndicator("processing", "Generating summary...");
         showGenerationProgress();
 
@@ -777,8 +794,12 @@
             "Content-Type": "application/json",
           },
         })
-          .then((response) => response.json())
+          .then((response) => {
+            console.log("Summary response status:", response.status);
+            return response.json();
+          })
           .then((data) => {
+            console.log("Summary response data:", data);
             if (data.success) {
               displayDocumentSummary(data.summary);
               updateStatusIndicator("success", "Summary generated");
@@ -790,6 +811,7 @@
                 errorElement.style.display = "none";
               }
             } else {
+              console.error("Summary generation failed:", data.error);
               updateStatusIndicator(
                 "error",
                 data.error || "Failed to generate summary"
@@ -797,8 +819,11 @@
             }
           })
           .catch((error) => {
-            console.error("Summary error:", error);
-            updateStatusIndicator("error", "Failed to generate summary");
+            console.error("Summary request error:", error);
+            updateStatusIndicator("error", "Failed to generate summary: " + error.message);
+          })
+          .finally(() => {
+            hideGenerationProgress();
           });
       }
 

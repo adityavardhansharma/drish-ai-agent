@@ -94,12 +94,17 @@
         <h2 class="agent-name">Object Detection</h2>
         <p class="agent-description">Automatically detect and label objects in images.</p>
       </div>
+      <div class="agent-card" onclick="agentSelected('leave')">
+        <i class="agent-icon ri-calendar-check-line"></i>
+        <h2 class="agent-name">Leave Checker</h2>
+        <p class="agent-description">Check your leave balance and history from spreadsheets.</p>
+      </div>
     </div>
   </div>
 
   <script>
     function agentSelected(agent) {
-      // Redirect to the corresponding Flask route: /email, /document, or /object
+      // Redirect to the corresponding Flask route: /email, /document, /object, or /leave
       window.location.href = "/" + agent;
     }
   </script>
