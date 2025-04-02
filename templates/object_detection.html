@@ -98,11 +98,19 @@
         animation: fadeIn 0.3s ease-out forwards;
       }
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @keyframes spinner {
-        to { transform: rotate(360deg); }
+        to {
+          transform: rotate(360deg);
+        }
       }
       .spinner {
         position: relative;
@@ -253,6 +261,8 @@
             <h2 class="text-lg font-semibold">Upload Image</h2>
           </div>
           <div class="card-body">
+            <!-- Hidden file input -->
+            <input type="file" id="fileInput" class="hidden" accept="image/*" />
             <!-- Upload Area -->
             <div id="uploadArea" class="upload-area" onclick="selectImage()">
               <svg
@@ -319,7 +329,7 @@
           </div>
         </div>
 
-        <!-- Image Preview Section (hidden until an image is selected) -->
+        <!-- Image Preview Section -->
         <div id="imageSection" class="hidden fade-in">
           <div class="card">
             <div class="card-header">
@@ -403,73 +413,74 @@
       </div>
     </div>
 
-    <!-- QWebChannel -->
-    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <!-- Removed QWebChannel Script -->
     <script>
-      let bridge;
       let imageSelected = false;
 
+      // Handle file selection via hidden file input.
       document.addEventListener("DOMContentLoaded", function () {
-        if (
-          typeof QWebChannel !== "undefined" &&
-          typeof qt !== "undefined" &&
-          qt.webChannelTransport
-        ) {
-          new QWebChannel(qt.webChannelTransport, function (channel) {
-            bridge = channel.objects.bridge;
-            console.log("Bridge connected successfully");
-          });
-        } else {
-          console.log("QWebChannel not available, running in test mode");
-          window.bridge = {
-            selectImageFile: function () {
-              setTimeout(() => {
-                setImageName(
-                  "sample-image.jpg",
-                  "https://images.unsplash.com/photo-1518791841217-8f162f1e1131"
-                );
-              }, 1000);
-            },
-            detectObjects: function () {
-              showDetectionInProgress();
-              setTimeout(() => {
-                displayDetectionResult(
-                  "# Detected Objects\n\n- Cat (95.2%)\n- Couch (87.6%)\n- Plant (62.3%)"
-                );
-              }, 2000);
-            },
-          };
-        }
+        const fileInput = document.getElementById("fileInput");
+        fileInput.addEventListener("change", handleFileSelect);
       });
 
       function selectImage() {
-        if (
-          typeof bridge !== "undefined" &&
-          typeof bridge.selectImageFile === "function"
-        ) {
-          bridge.selectImageFile();
-        } else {
-          console.error("Bridge function not available.");
-          if (window.bridge && window.bridge.selectImageFile) {
-            window.bridge.selectImageFile();
-          }
-        }
+        document.getElementById("fileInput").click();
+      }
+
+      function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const formData = new FormData();
+        formData.append("image", file);
+        fetch("/api/objects/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              const imageUrl = URL.createObjectURL(file);
+              setImageName(file.name, imageUrl);
+            } else {
+              alert("Error uploading image: " + data.error);
+            }
+          })
+          .catch((error) => {
+            console.error("Upload error:", error);
+            alert("Upload failed.");
+          });
+      }
+
+      function setImageName(name, imageUrl) {
+        document.getElementById("imageName").innerText = name;
+        const uploadedImage = document.getElementById("uploadedImage");
+        uploadedImage.src = imageUrl;
+        // Hide upload section and show image preview and file info.
+        document.getElementById("uploadSection").classList.add("hidden");
+        document.getElementById("fileInfo").classList.remove("hidden");
+        document.getElementById("imageSection").classList.remove("hidden");
+        document.getElementById("detectButton").disabled = false;
+        imageSelected = true;
       }
 
       function performDetection() {
         if (!imageSelected) return;
         showDetectionInProgress();
-        if (
-          typeof bridge !== "undefined" &&
-          typeof bridge.detectObjects === "function"
-        ) {
-          bridge.detectObjects();
-        } else {
-          console.error("Bridge function not available.");
-          if (window.bridge && window.bridge.detectObjects) {
-            window.bridge.detectObjects();
-          }
-        }
+        fetch("/api/objects/detect", {
+          method: "POST",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              displayDetectionResult(data.result);
+            } else {
+              updateStatus("Detection error: " + data.error, "error");
+            }
+          })
+          .catch((error) => {
+            console.error("Detection error:", error);
+            updateStatus("Detection failed", "error");
+          });
       }
 
       function showDetectionInProgress() {
@@ -478,51 +489,19 @@
         updateStatus("Analyzing image and detecting objects...", "loading");
       }
 
-      function setImageName(name, imageUrl) {
-        document.getElementById("imageName").innerText = name;
-        const uploadedImage = document.getElementById("uploadedImage");
-        uploadedImage.src = imageUrl;
-
-        // Hide the upload section and show image section
-        document.getElementById("uploadSection").classList.add("hidden");
-        document.getElementById("imageSection").classList.remove("hidden");
-
-        // Enable detect button
-        document.getElementById("detectButton").disabled = false;
-        imageSelected = true;
-      }
-
       function updateStatus(message, type) {
         const statusEl = document.getElementById("status");
         statusEl.innerText = message;
         statusEl.classList.remove("hidden");
-        statusEl.classList.remove("text-primary-600", "text-green-600", "text-red-600");
-        switch (type) {
-          case "loading":
-            statusEl.classList.add("text-primary-600");
-            break;
-          case "success":
-            statusEl.classList.add("text-green-600");
-            break;
-          case "error":
-            statusEl.classList.add("text-red-600");
-            break;
-        }
       }
 
       function displayDetectionResult(result) {
         document.getElementById("detectSpinner").classList.add("hidden");
         updateStatus("Detection completed successfully!", "success");
-
-        // Parse the markdown content with marked.js
-        const htmlContent = marked.parse(result);
-        let processedHTML = htmlContent;
-
-        // If detection items with percentages are found, build a visual list
+        let htmlContent = marked.parse(result);
         if (result.includes("%")) {
           const detections = [];
-          const lines = result.split("\n");
-          lines.forEach((line) => {
+          result.split("\n").forEach(line => {
             if (line.trim().startsWith("-") || line.trim().startsWith("*")) {
               const match = line.match(/[*-]\s+(.*?)\s+\((\d+\.\d+)%\)/);
               if (match) {
@@ -533,19 +512,18 @@
               }
             }
           });
-
-          let visualHTML =
-            '<div class="mb-4 font-semibold text-neutral-700">Detected Objects</div>';
+          let visualHTML = '<div class="mb-4 font-semibold text-neutral-700">Detected Objects</div>';
           if (detections.length === 0) {
-            visualHTML +=
-              '<div class="text-center py-4 text-neutral-500">No objects detected in this image</div>';
+            visualHTML += '<div class="text-center py-4 text-neutral-500">No objects detected in this image</div>';
           } else {
             detections.forEach((item) => {
               visualHTML += `
                 <div class="detection-item">
                   <div class="flex justify-between">
                     <span class="font-medium text-neutral-800">${item.name}</span>
-                    <span class="text-primary-600 font-medium">${item.confidence.toFixed(1)}%</span>
+                    <span class="text-primary-600 font-medium">${item.confidence.toFixed(
+                      1
+                    )}%</span>
                   </div>
                   <div class="progress-bar">
                     <div class="progress-value" style="width: ${item.confidence}%"></div>
@@ -554,27 +532,15 @@
               `;
             });
           }
-
-          processedHTML = visualHTML;
+          htmlContent = visualHTML;
         }
-
-        document.getElementById("result").innerHTML = processedHTML;
+        document.getElementById("result").innerHTML = htmlContent;
         document.getElementById("resultsSection").classList.remove("hidden");
       }
 
-      // Navigation function (for header tabs)
       function navigateTo(page) {
-        // In this page, we are on Object Detection.
-        // (You can add logic to redirect if needed.)
-        console.log("Navigated to", page);
-        // Notify PyQt if needed:
-        if (bridge && typeof bridge.agentSelected === "function") {
-          try {
-            bridge.agentSelected(page);
-          } catch (e) {
-            console.log("Error calling bridge.agentSelected:", e);
-          }
-        }
+        // Simply redirect to the corresponding Flask route.
+        window.location.href = "/" + page;
       }
     </script>
   </body>

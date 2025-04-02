@@ -18,6 +18,13 @@ class Settings(BaseSettings):
     log_file: str = os.environ.get("LOG_FILE", "email_summarizer.log")
     app_name: str = "Email Summarizer"
     app_version: str = "1.0.0"
+    
+    # Supabase configuration
+    supabase_url: str | None = os.environ.get("SUPABASE_URL")
+    supabase_key: str | None = os.environ.get("SUPABASE_KEY")
+    
+    # Leave checker configuration
+    leave_sheet_id: str | None = os.environ.get("LEAVE_SHEET_ID")
 
 settings = Settings()
 
@@ -29,3 +36,9 @@ if not settings.mistral_api_key:
 
 if not settings.mistral_reply_api_key:
     logging.warning("MISTRAL_REPLY_API_KEY environment variable not set")
+
+if not settings.supabase_url or not settings.supabase_key:
+    logging.warning("Supabase configuration not set (SUPABASE_URL, SUPABASE_KEY)")
+
+if not settings.leave_sheet_id:
+    logging.warning("LEAVE_SHEET_ID environment variable not set")

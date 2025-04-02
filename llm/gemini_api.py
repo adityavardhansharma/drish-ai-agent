@@ -1,11 +1,11 @@
 import logging
 import google.generativeai as genai
-from utils.config import settings  # Updated import
+from utils.config import settings
 
 logger = logging.getLogger(__name__)
 
 try:
-    genai.configure(api_key=settings.gemini_api_key)  # Updated to use settings
+    genai.configure(api_key=settings.gemini_api_key)
     model = genai.GenerativeModel("gemini-1.5-flash")
 except Exception as e:
     logger.error(f"Error configuring Gemini API: {e}")

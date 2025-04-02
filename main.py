@@ -1,151 +1,572 @@
 #!/usr/bin/env python
+import os
 import sys
+import json
 import logging
-import time
 import asyncio
+import uuid
 
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QThread, pyqtSignal
+from flask import (
+    Flask,
+    request,
+    jsonify,
+    Response,
+    render_template,
+    session,
+    stream_with_context,
+    url_for,
+    send_from_directory,
+)
+from werkzeug.utils import secure_filename
 
-from gui.main_window import MainWindow
-from email_utils.gmail_api import get_gmail_service, fetch_emails
+# Import business-logic functions & API wrappers.
+from email_utils.gmail_api import get_gmail_service, fetch_emails, send_reply
 from email_utils.email_parser import parse_email_content
 from llm.gemini_api import generate_summary as generate_email_summary
-from llm.mistral_reply_api import generate_email_reply
-from utils.config import settings
-from utils.logger import setup_logger
+from llm.mistral_reply_api import generate_email_reply as generate_mistral_reply
+from llm.mistral_api import generate_summary as generate_doc_summary
+from llm.chat_api import chat_with_document, ChatMessage
+from llm.gemini_object_detection import detect_objects
 
-logger = setup_logger()
+# Import leave checker utilities
+from leave_utils.db import create_user, authenticate_user
+from leave_utils.sheets import get_employee_leave_data
+from leave_utils.llm import format_leave_details
+
+# --- Config and Logger Setup ---
+try:
+    from utils.config import settings
+    from utils.logger import setup_logger
+
+    logger = setup_logger()
+except ImportError as e:
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )
+    logger = logging.getLogger(__name__)
+    logger.warning(f"Falling back to basic logging. Details: {e}")
 
 
-class EmailWorker(QThread):
-    """
-    Worker thread for fetching and summarizing emails.
-    Emits signals for summary, status, and progress.
-    """
-    # Now emitting five items: summary, reply, message_id, to_email, subject.
-    summary_ready = pyqtSignal(str, str, str, str, str)
-    status_update = pyqtSignal(str)
-    progress_update = pyqtSignal(int, int)
+    class FallbackSettings:
+        gemini_api_key = os.environ.get("GEMINI_API_KEY")
+        mistral_api_key = os.environ.get("MISTRAL_API_KEY")
+        HOST = os.environ.get("HOST", "0.0.0.0")
+        PORT = int(os.environ.get("PORT", 5000))
+        DEBUG = os.environ.get("FLASK_DEBUG", "1") == "1"
+        SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "dev-secret-key")
 
-    def __init__(self, parent=None):
-        super(EmailWorker, self).__init__(parent)
-        self.is_running = True
 
-    def run(self):
-        self.status_update.emit("Fetching emails…")
+    settings = FallbackSettings()
+
+if not settings.gemini_api_key and not settings.mistral_api_key:
+    logger.error("Neither GEMINI_API_KEY nor MISTRAL_API_KEY set.")
+    print("Error: API keys missing. Set GEMINI_API_KEY or MISTRAL_API_KEY.")
+    sys.exit(1)
+
+UPLOAD_FOLDER = "uploads"
+ALLOWED_EXTENSIONS_DOC = {"pdf", "docx", "doc", "txt"}
+ALLOWED_EXTENSIONS_IMG = {"png", "jpg", "jpeg", "bmp"}
+
+
+def allowed_file(filename, allowed_extensions):
+    return (
+            "." in filename and filename.rsplit(".", 1)[1].lower() in allowed_extensions
+    )
+
+
+def extract_text_from_pdf(pdf_path):
+    import PyPDF2
+    text = ""
+    with open(pdf_path, "rb") as f:
+        pdf_reader = PyPDF2.PdfReader(f)
+        if pdf_reader.is_encrypted:
+            try:
+                pdf_reader.decrypt("")
+            except Exception as de:
+                logger.error(f"Decrypt error for {pdf_path}: {de}")
+                raise ValueError(f"PDF file '{os.path.basename(pdf_path)}' is encrypted.")
+        for page in pdf_reader.pages:
+            page_text = page.extract_text()
+            if page_text:
+                text += page_text + "\n"
+    return text
+
+
+def extract_text_from_docx(docx_path):
+    import docx
+    doc = docx.Document(docx_path)
+    text = ""
+    for para in doc.paragraphs:
+        text += para.text + "\n"
+    return text
+
+
+def extract_text_from_file(file_path):
+    _, file_extension = os.path.splitext(file_path)
+    file_extension = file_extension.lower()
+    if file_extension == ".pdf":
+        return extract_text_from_pdf(file_path)
+    elif file_extension in [".docx", ".doc"]:
+        return extract_text_from_docx(file_path)
+    elif file_extension == ".txt":
         try:
-            service = get_gmail_service()
-            if not service:
-                self.status_update.emit("Error: Could not connect to Gmail API")
-                return
+            with open(file_path, "r", encoding="utf-8") as f:
+                return f.read()
+        except UnicodeDecodeError:
+            with open(file_path, "r", encoding="latin-1") as f:
+                return f.read()
+    else:
+        raise ValueError(f"Unsupported file type: {file_extension}")
 
-            emails = fetch_emails(service, max_results=settings.max_emails_to_fetch)
-            if not emails:
-                self.status_update.emit("No unread emails found today.")
-                return
 
-            total_emails = len(emails)
-            self.status_update.emit(
-                f"Found {total_emails} unread emails today. Starting summarization…"
-            )
-            for i, email_data in enumerate(emails):
-                if not self.is_running:
-                    break
-                current = i + 1
-                self.progress_update.emit(current, total_emails)
-                self.status_update.emit(
-                    f"Processing email {current} of {total_emails}…"
-                )
-                parsed_email = parse_email_content(email_data)
-                if not parsed_email:
-                    logger.warning(f"Skipping email {current} due to parsing error")
-                    continue
+# --- Business Logic Functions ---
 
-                try:
-                    logger.info(
-                        f"Processing email {current}: Subject: {parsed_email['subject'][:30]}…"
-                    )
-                except UnicodeEncodeError:
-                    logger.warning(
-                        f"Skipping logging subject for email {current} due to encoding error."
-                    )
-
-                email_content = (
-                    f"Subject: {parsed_email['subject']}\n"
-                    f"From: {parsed_email['sender']}\n"
-                    f"Body: {parsed_email['body']}"
-                )
-                summary = generate_email_summary(email_content)
-                # Generate reply asynchronously using the mistral_reply_api
-                reply = asyncio.run(generate_email_reply(email_content))
-
-                if summary:
-                    formatted_summary = (
-                        f"From: {parsed_email['sender']}\n"
-                        f"Subject: {parsed_email['subject']}\n"
-                        f"Message ID: {parsed_email.get('message_id', 'N/A')}\n\n"
-                        f"Summary: {summary}"
-                    )
-                    self.summary_ready.emit(
-                        formatted_summary,
-                        reply,
-                        parsed_email.get('message_id', ''),
-                        parsed_email['sender'],
-                        parsed_email['subject']
-                    )
-                    logger.info(f"Generated summary for email {current}")
-                else:
-                    logger.warning(
-                        f"Failed to generate summary for email {current}"
-                    )
-                time.sleep(1)  # Delay to avoid rate limiting
-            self.status_update.emit("Done!")
+async def process_fetch_emails():
+    yield json.dumps({"type": "status", "message": "Authenticating with Gmail..."})
+    service = get_gmail_service()
+    if not service:
+        yield json.dumps({"type": "error", "message": "Failed to authenticate with Gmail."})
+        return
+    yield json.dumps({"type": "status", "message": "Fetching unread emails..."})
+    emails = fetch_emails(service)  # adjust max_results if needed
+    if not emails:
+        yield json.dumps({"type": "status", "message": "No new emails found."})
+        yield json.dumps({"type": "completed", "success": True, "message": "No new emails."})
+        return
+    total = len(emails)
+    yield json.dumps({"type": "status", "message": f"Processing {total} emails..."})
+    yield json.dumps({"type": "progress", "current": 0, "total": total})
+    processed = 0
+    for i, email_data in enumerate(emails):
+        try:
+            yield json.dumps({"type": "status", "message": f"Parsing email {i + 1}/{total}..."})
+            parsed = parse_email_content(email_data)
+            if not parsed:
+                logger.error(f"Email {i + 1}/{total} parse error")
+                continue
+            content = f"Subject: {parsed['subject']}\nFrom: {parsed['sender']}\nBody: {parsed['body']}"
+            yield json.dumps({"type": "status", "message": f"Summarizing email {i + 1}/{total}..."})
+            # Call the Gemini API synchronously (assumed synchronous)
+            summary = generate_email_summary(content)
+            # Call the Mistral API asynchronously and await it
+            reply = await generate_mistral_reply(content)
+            payload = {
+                "summary": f"From: {parsed['sender']}\nSubject: {parsed['subject']}\nMessage ID: {parsed.get('message_id', 'N/A')}\n\nSummary:\n{summary}",
+                "reply": reply,
+                "message_id": parsed.get("message_id", ""),
+                "to_email": parsed["sender"],
+                "subject": parsed["subject"],
+            }
+            yield json.dumps({"type": "email_summary", "data": payload})
+            processed += 1
+            yield json.dumps({"type": "progress", "current": processed, "total": total})
+            logger.info(f"Processed email {i + 1}/{total}")
         except Exception as e:
-            logger.exception("An error occurred during email processing.")
-            self.status_update.emit(f"Error: {str(e)}")
-        finally:
-            self.finished.emit()
-            self.stop()
-
-    def stop(self):
-        self.is_running = False
-        self.status_update.emit("Cancelled.")
-        self.quit()
-        self.wait()
+            logger.error(f"Processing error on email {i + 1}: {e}")
+            yield json.dumps({"type": "error", "message": f"Error processing email {i + 1}: {str(e)}"})
+            yield json.dumps({"type": "progress", "current": processed, "total": total})
+    yield json.dumps({"type": "status", "message": f"Completed processing {processed}/{total} emails."})
+    yield json.dumps({"type": "completed", "success": True, "message": "Email fetch complete."})
 
 
-def main():
-    if not settings.gemini_api_key and not settings.mistral_api_key:
-        logger.error(
-            "Neither GEMINI_API_KEY nor MISTRAL_API_KEY set in environment variables."
+async def process_send_email(message_id, to_email, subject, body):
+    service = get_gmail_service()
+    if not service:
+        return False, "Failed to authenticate with Gmail."
+    reply_subject = subject if subject.lower().startswith("re:") else f"Re: {subject}"
+    success, response = send_reply(service, message_id, to_email, reply_subject, body)
+    if success:
+        return True, "Email sent successfully!"
+    else:
+        return False, f"Failed to send email: {response}"
+
+
+async def process_document_summary(file_path):
+    try:
+        content = extract_text_from_file(file_path)
+        session["document_content"] = content
+        session["chat_history"] = []
+        # Await the async generate_summary function
+        summary = await generate_doc_summary(content)
+        return {"success": True, "summary": summary}
+    except Exception as e:
+        logger.error(f"Document summarization error: {e}")
+        return {"success": False, "error": str(e)}
+
+
+async def process_document_chat(question):
+    try:
+        content = session.get("document_content")
+        if not content:
+            return {
+                "success": False,
+                "error": "No document loaded. Please upload and summarize first."
+            }
+
+        history_serializable = session.get("chat_history", [])
+        chat_history = [ChatMessage(**msg) for msg in history_serializable]
+
+        response = await chat_with_document(question, content, chat_history)
+
+        if response.error:
+            return {
+                "success": False,
+                "error": response.error
+            }
+
+        # Update chat history
+        history_serializable.extend([
+            ChatMessage(role="user", content=question).dict(),
+            ChatMessage(role="assistant", content=response.answer).dict()
+        ])
+        session["chat_history"] = history_serializable
+        session.modified = True
+
+        return {
+            "success": True,
+            "answer": response.answer
+        }
+
+    except Exception as e:
+        logger.error(f"Error in process_document_chat: {e}")
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+
+async def process_object_detection(image_path):
+    if not os.path.exists(image_path):
+        return {"success": False, "error": "Image file not found."}
+    try:
+        result = await detect_objects(image_path)
+        return {"success": True, "result": result}
+    except Exception as e:
+        logger.error(f"Object detection error: {e}")
+        return {"success": False, "error": str(e)}
+
+
+# --- Leave Checker Business Logic Functions ---
+def process_leave_signup(title, name, email, password):
+    """Process user signup for leave checker."""
+    try:
+        # Create user in database
+        result = create_user(email, password, name, title)
+        return result
+    except Exception as e:
+        logger.error(f"Error during leave checker signup: {e}")
+        return {"success": False, "error": str(e)}
+
+
+def process_leave_login(email, password):
+    """Process user login for leave checker."""
+    try:
+        # Authenticate user
+        result = authenticate_user(email, password)
+        return result
+    except Exception as e:
+        logger.error(f"Error during leave checker login: {e}")
+        return {"success": False, "error": str(e)}
+
+
+def process_leave_check(employee_name, month):
+    """Check leave details for an employee in a specific month."""
+    try:
+        # Get employee leave data from Google Sheets
+        leave_data = get_employee_leave_data(employee_name, month)
+        
+        if not leave_data["success"]:
+            return leave_data
+            
+        # Format the leave data using the Gemini LLM
+        data = leave_data["data"]
+        formatted_data = format_leave_details(
+            data["employee_name"], 
+            data["header_row"], 
+            data["employee_row"]
         )
-        print(
-            "Error: Neither GEMINI_API_KEY nor MISTRAL_API_KEY set in environment variables."
-        )
-        sys.exit(1)
+        
+        return {
+            "success": True,
+            "formattedData": formatted_data
+        }
+    except Exception as e:
+        logger.error(f"Error checking leave details: {e}")
+        return {"success": False, "error": str(e)}
 
-    app = QApplication(sys.argv)
-    window = MainWindow()
 
-    # Connect the fetchRequested signal from the web channel to the manual_fetch_emails method.
-    window.bridge.fetchRequested.connect(window.manual_fetch_emails)
+# --- Flask App Setup ---
+app = Flask(__name__)
+app.secret_key = getattr(settings, "SECRET_KEY", "dev-secret-key")
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-    # Start the email worker when needed (could also be triggered automatically).
-    email_worker = EmailWorker()
-    window.fetch_emails_signal.connect(email_worker.start)
-    # Using the new summary_ready signal with five parameters.
-    email_worker.summary_ready.connect(window.add_email_summary)
-    email_worker.status_update.connect(window.set_status)
-    if hasattr(window, "update_progress"):
-        email_worker.progress_update.connect(window.update_progress)
 
-    window.show()
-    exit_code = app.exec_()
-    email_worker.stop()
-    email_worker.wait()
-    sys.exit(exit_code)
+# --- Main Routes ---
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/email")
+def email_agent():
+    return render_template("email_summarizer.html")
+
+
+@app.route("/document")
+def document_agent():
+    document_name = session.get("document_name", "No document loaded")
+    chat_history = session.get("chat_history", [])
+    chat_context = {
+        "document_name": document_name,
+        "has_summary": "document_content" in session and session["document_content"],
+    }
+    return render_template("document_summary.html", **chat_context)
+
+
+@app.route("/object")
+def object_agent():
+    return render_template("object_detection.html")
+
+
+@app.route("/leave")
+def leave_agent():
+    """Render the leave checker agent template."""
+    return render_template("leave_checker.html")
+
+
+# --- Email Endpoints ---
+@app.route("/api/emails/fetch", methods=["GET"])
+def api_fetch_emails():
+    @stream_with_context
+    def generate():
+        # Create an event loop to run the async generator
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        async_gen = process_fetch_emails()
+        
+        try:
+            while True:
+                # Run until we get the next item from the async generator
+                chunk = loop.run_until_complete(async_gen.__anext__())
+                yield f"data: {chunk}\n\n"
+        except StopAsyncIteration:
+            # We've reached the end of the generator
+            loop.close()
+            
+    return Response(generate(), mimetype="text/event-stream")
+
+
+@app.route("/api/emails/reply", methods=["POST"])
+def api_send_email():
+    data = request.json
+    message_id = data.get("message_id", "")
+    to_email = data.get("to_email", "")
+    subject = data.get("subject", "")
+    body = data.get("body", "")
+
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        success, message = loop.run_until_complete(process_send_email(message_id, to_email, subject, body))
+        loop.close()
+        
+        return jsonify({"success": success, "message": message})
+    except Exception as e:
+        logger.exception(f"Error sending email: {e}")
+        return jsonify({"success": False, "message": f"Error sending email: {str(e)}"})
+
+
+@app.route("/api/emails/generate_reply", methods=["POST"])
+def api_generate_reply():
+    data = request.json
+    email_content = data.get("email_content", "")
+    if not email_content:
+        return jsonify({"success": False, "error": "Email content is required"})
+
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        reply = loop.run_until_complete(generate_mistral_reply(email_content))
+        loop.close()
+        
+        return jsonify({"success": True, "reply": reply})
+    except Exception as e:
+        logger.exception(f"Error generating reply: {e}")
+        return jsonify({"success": False, "error": f"Error generating reply: {str(e)}"})
+
+
+# --- Document Endpoints ---
+@app.route("/api/documents/upload", methods=["POST"])
+def api_upload_document():
+    if "file" not in request.files:
+        return jsonify({"success": False, "error": "No file part"})
+
+    file = request.files["file"]
+    if file.filename == "":
+        return jsonify({"success": False, "error": "No selected file"})
+
+    if not file or not allowed_file(file.filename, ALLOWED_EXTENSIONS_DOC):
+        return jsonify({"success": False, "error": "Invalid file type"})
+
+    filename = secure_filename(file.filename)
+    file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+    file.save(file_path)
+
+    # Store document name in session
+    session["document_name"] = filename
+    session["document_path"] = file_path
+
+    return jsonify({"success": True, "filename": filename})
+
+
+@app.route("/api/documents/summarize", methods=["POST"])
+def api_summarize_document():
+    file_path = session.get("document_path")
+    if not file_path or not os.path.exists(file_path):
+        return jsonify({
+            "success": False,
+            "error": "No document uploaded or file not found"
+        })
+
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(process_document_summary(file_path))
+        loop.close()
+        
+        return jsonify(result)
+    except ValueError as ve:
+        return jsonify({"success": False, "error": str(ve)})
+    except Exception as e:
+        logger.exception("Error during document summarization")
+        return jsonify({
+            "success": False,
+            "error": f"Summarization failed: {str(e)}"
+        })
+
+
+@app.route("/api/documents/chat", methods=["POST"])
+def api_chat_document():
+    data = request.json
+    question = data.get("question", "").strip()
+
+    if not question:
+        return jsonify({
+            "success": False,
+            "error": "Question is required"
+        })
+    
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(process_document_chat(question))
+        loop.close()
+        
+        return jsonify(result)
+    except Exception as e:
+        logger.exception(f"Error in chat processing: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        })
+
+
+# --- Object Detection Endpoints ---
+@app.route("/api/objects/upload", methods=["POST"])
+def api_upload_image():
+    if "file" not in request.files:
+        return jsonify({"success": False, "error": "No file part"})
+
+    file = request.files["file"]
+    if file.filename == "":
+        return jsonify({"success": False, "error": "No selected file"})
+
+    if not file or not allowed_file(file.filename, ALLOWED_EXTENSIONS_IMG):
+        return jsonify({"success": False, "error": "Invalid file type"})
+
+    filename = secure_filename(file.filename)
+    file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+    file.save(file_path)
+
+    return jsonify({"success": True, "filename": filename, "path": file_path})
+
+
+@app.route("/api/objects/detect", methods=["POST"])
+def api_detect_objects():
+    data = request.json
+    image_path = os.path.join(app.config["UPLOAD_FOLDER"], data.get("filename", ""))
+    
+    try:
+        # Create a new event loop and run the async function in it
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(process_object_detection(image_path))
+        loop.close()
+        
+        return jsonify(result)
+    except Exception as e:
+        logger.exception(f"Error detecting objects: {e}")
+        return jsonify({"success": False, "error": f"Error detecting objects: {str(e)}"})
+
+
+# --- Leave Checker Endpoints ---
+@app.route("/api/leave/signup", methods=["POST"])
+def api_leave_signup():
+    data = request.json
+    title = data.get("title", "")
+    name = data.get("name", "")
+    email = data.get("email", "")
+    password = data.get("password", "")
+    
+    # Basic validation
+    if not title or not name or not email or not password:
+        return jsonify({"success": False, "error": "All fields are required"})
+        
+    result = process_leave_signup(title, name, email, password)
+    return jsonify(result)
+
+
+@app.route("/api/leave/login", methods=["POST"])
+def api_leave_login():
+    data = request.json
+    email = data.get("email", "")
+    password = data.get("password", "")
+    
+    # Basic validation
+    if not email or not password:
+        return jsonify({"success": False, "error": "Email and password are required"})
+        
+    result = process_leave_login(email, password)
+    return jsonify(result)
+
+
+@app.route("/api/leave/check", methods=["POST"])
+def api_leave_check():
+    data = request.json
+    employee_name = data.get("employeeName", "")
+    month = data.get("month", "")
+    
+    # Basic validation
+    if not employee_name or not month:
+        return jsonify({"success": False, "error": "Employee name and month are required"})
+        
+    result = process_leave_check(employee_name, month)
+    return jsonify(result)
+
+
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 
 if __name__ == "__main__":
-    main()
+    host = getattr(settings, "HOST", "0.0.0.0")
+    port = getattr(settings, "PORT", 5000)
+    debug = getattr(settings, "DEBUG", False)
+    app.run(host=host, port=port, debug=debug)

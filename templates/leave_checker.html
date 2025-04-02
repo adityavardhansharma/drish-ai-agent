@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Checker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #6366f1;
+      --bg-light: #f9fafb;
+      --bg-white: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --error: #ef4444;
+      --success: #10b981;
+      --radius: 0.5rem;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --transition: all 0.2s ease;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      color: var(--text-primary);
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .card {
+      background-color: var(--bg-white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn:hover {
+      background-color: var(--primary-light);
+    }
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+    .error-message {
+      color: var(--error);
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+    .success-message {
+      color: var(--success);
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 1.5rem;
+    }
+    .tab {
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .tab.active {
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .form {
+      display: none;
+    }
+    .form.active {
+      display: block;
+    }
+    .loading {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0;
+    }
+    .loading-spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin-right: 0.5rem;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .results {
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary);
+      text-decoration: none;
+      margin-bottom: 1rem;
+    }
+    .back-btn i {
+      margin-right: 0.5rem;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-btn"><i class="ri-arrow-left-line"></i>Back to Agents</a>
+    
+    <div class="card">
+      <h1 class="title">Leave Checker</h1>
+      
+      <!-- Auth Section (Login/Signup) -->
+      <div id="auth-section">
+        <div class="tabs">
+          <div class="tab active" data-tab="login">Login</div>
+          <div class="tab" data-tab="signup">Sign Up</div>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="login-form" class="form active">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required placeholder="Your password">
+          </div>
+          <button type="submit" class="btn btn-block">Login</button>
+          <div id="login-error" class="error-message"></div>
+        </form>
+        
+        <!-- Signup Form -->
+        <form id="signup-form" class="form">
+          <div class="form-group">
+            <label for="signup-title">Title</label>
+            <select id="signup-title" required>
+              <option value="">Select your title</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Mrs.">Mrs.</option>
+              <option value="Ms.">Ms.</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" required placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" required placeholder="Choose a password">
+          </div>
+          <button type="submit" class="btn btn-block">Sign Up</button>
+          <div id="signup-error" class="error-message"></div>
+          <div id="signup-success" class="success-message"></div>
+        </form>
+      </div>
+      
+      <!-- Leave Checker Section -->
+      <div id="leave-checker-section" class="hidden">
+        <h2 class="subtitle">Check Your Leave Balance</h2>
+        <form id="leave-check-form">
+          <div class="form-group">
+            <label for="month-input">Sheet Name</label>
+            <input type="text" id="month-input" required placeholder="Enter sheet name (e.g. June 2020, July 2023)">
+          </div>
+          <button type="submit" class="btn btn-block">Fetch Leave Details</button>
+        </form>
+        
+        <div id="loading" class="loading">
+          <div class="loading-spinner"></div>
+          <span>Loading your leave details...</span>
+        </div>
+        
+        <div id="leave-results" class="results"></div>
+        <div id="leave-error" class="error-message"></div>
+        
+        <button id="logout-btn" class="btn btn-block" style="margin-top: 2rem; background-color: #6b7280;">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const authSection = document.getElementById('auth-section');
+    const leaveCheckerSection = document.getElementById('leave-checker-section');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const leaveCheckForm = document.getElementById('leave-check-form');
+    const loginError = document.getElementById('login-error');
+    const signupError = document.getElementById('signup-error');
+    const signupSuccess = document.getElementById('signup-success');
+    const leaveError = document.getElementById('leave-error');
+    const leaveResults = document.getElementById('leave-results');
+    const loading = document.getElementById('loading');
+    const logoutBtn = document.getElementById('logout-btn');
+    const tabs = document.querySelectorAll('.tab');
+    const forms = document.querySelectorAll('.form');
+
+    // Check if user is logged in
+    function checkAuth() {
+      const userData = localStorage.getItem('leaveCheckerUser');
+      if (userData) {
+        // User is logged in
+        authSection.classList.add('hidden');
+        leaveCheckerSection.classList.remove('hidden');
+      } else {
+        // User is not logged in
+        authSection.classList.remove('hidden');
+        leaveCheckerSection.classList.add('hidden');
+      }
+    }
+
+    // Tab switching
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        tabs.forEach(t => t.classList.remove('active'));
+        // Add active class to clicked tab
+        tab.classList.add('active');
+        
+        // Show the corresponding form
+        const tabName = tab.getAttribute('data-tab');
+        forms.forEach(form => {
+          form.classList.remove('active');
+          if (form.id === `${tabName}-form`) {
+            form.classList.add('active');
+          }
+        });
+        
+        // Clear error messages when switching tabs
+        loginError.textContent = '';
+        signupError.textContent = '';
+        signupSuccess.textContent = '';
+      });
+    });
+
+    // Login form submission
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      
+      loginError.textContent = '';
+      
+      try {
+        const response = await fetch('/api/leave/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Store user data in localStorage
+          localStorage.setItem('leaveCheckerUser', JSON.stringify({
+            id: data.data.id,
+            email: data.data.email,
+            fullName: data.data.full_name
+          }));
+          
+          // Switch to leave checker section
+          checkAuth();
+        } else {
+          loginError.textContent = data.error || 'Login failed. Please try again.';
+        }
+      } catch (error) {
+        loginError.textContent = 'An error occurred. Please try again.';
+        console.error('Login error:', error);
+      }
+    });
+
+    // Signup form submission
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const title = document.getElementById('signup-title').value;
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      
+      signupError.textContent = '';
+      signupSuccess.textContent = '';
+      
+      if (!title || !name || !email || !password) {
+        signupError.textContent = 'All fields are required';
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/leave/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ title, name, email, password }),
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          signupSuccess.textContent = 'Registration successful! You can now log in.';
+          signupForm.reset();
+          
+          // Switch to login tab after successful signup
+          setTimeout(() => {
+            tabs[0].click();
+          }, 1500);
+        } else {
+          signupError.textContent = data.error || 'Registration failed. Please try again.';
+        }
+      } catch (error) {
+        signupError.textContent = 'An error occurred. Please try again.';
+        console.error('Signup error:', error);
+      }
+    });
+
+    // Leave check form submission
+    leaveCheckForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const month = document.getElementById('month-input').value;
+      
+      // Get user data from localStorage
+      const userData = JSON.parse(localStorage.getItem('leaveCheckerUser'));
+      
+      if (!userData || !userData.fullName) {
+        leaveError.textContent = 'User information not found. Please log in again.';
+        return;
+      }
+      
+      leaveError.textContent = '';
+      leaveResults.textContent = '';
+      loading.style.display = 'flex';
+      
+      try {
+        const response = await fetch('/api/leave/check', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ month, employeeName: userData.fullName }),
+        });
+        
+        const data = await response.json();
+        
+        loading.style.display = 'none';
+        
+        if (data.success) {
+          leaveResults.innerHTML = data.formattedData;
+        } else {
+          leaveError.textContent = data.error || 'Failed to fetch leave data. Please try again.';
+        }
+      } catch (error) {
+        loading.style.display = 'none';
+        leaveError.textContent = 'An error occurred. Please try again.';
+        console.error('Leave check error:', error);
+      }
+    });
+
+    // Logout button
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('leaveCheckerUser');
+      checkAuth();
+    });
+
+    // Check authentication status on page load
+    checkAuth();
+  </script>
+</body>
+</html> 
