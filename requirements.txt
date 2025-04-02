@@ -20,6 +20,7 @@ pydantic-settings
 # Async Support
 aiohttp
 asgiref
+aiofiles
 
 # PDF Processing
 PyPDF2
@@ -33,3 +34,7 @@ python-jose[cryptography]
 
 # Password hashing
 passlib[bcrypt]
+
+# Additional packages for Electron integration
+watchdog
+psutil
