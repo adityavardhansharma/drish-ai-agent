@@ -5,6 +5,33 @@ import json
 import logging
 import asyncio
 import uuid
+import aiofiles
+import aiohttp
+import base64
+import re
+import shutil
+from io import BytesIO
+from pathlib import Path
+from dotenv import load_dotenv
+from functools import wraps
+from datetime import datetime
+
+# Check if running in Electron
+ELECTRON_APP = os.environ.get("ELECTRON_APP", "0") == "1"
+
+# Adjust paths if running in Electron
+if ELECTRON_APP and getattr(sys, 'frozen', False):
+    # Running as bundled executable
+    application_path = os.path.dirname(sys.executable)
+    os.chdir(application_path)
+    # Ensure paths are resolved relative to the bundled executable
+    if not os.path.exists("uploads"):
+        os.makedirs("uploads", exist_ok=True)
+elif ELECTRON_APP:
+    # Running in development with Electron
+    # Use the path relative to this script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
 
 from flask import (
     Flask,
@@ -16,6 +43,7 @@ from flask import (
     stream_with_context,
     url_for,
     send_from_directory,
+    abort
 )
 from werkzeug.utils import secure_filename
 
@@ -51,9 +79,9 @@ except ImportError as e:
     class FallbackSettings:
         gemini_api_key = os.environ.get("GEMINI_API_KEY")
         mistral_api_key = os.environ.get("MISTRAL_API_KEY")
-        HOST = os.environ.get("HOST", "0.0.0.0")
+        HOST = os.environ.get("HOST", "127.0.0.1")
         PORT = int(os.environ.get("PORT", 5000))
-        DEBUG = os.environ.get("FLASK_DEBUG", "1") == "1"
+        DEBUG = os.environ.get("FLASK_DEBUG", "0") == "1"
         SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "dev-secret-key")
 
 
@@ -565,8 +593,14 @@ def uploaded_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 
+# Register a route to serve electron_bridge.js as a static file
+@app.route('/static/electron_bridge.js')
+def serve_electron_bridge():
+    return send_from_directory('templates', 'electron_bridge.js')
+
+
 if __name__ == "__main__":
-    host = getattr(settings, "HOST", "0.0.0.0")
+    host = getattr(settings, "HOST", "127.0.0.1")
     port = getattr(settings, "PORT", 5000)
     debug = getattr(settings, "DEBUG", False)
     app.run(host=host, port=port, debug=debug)

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>AI Agent Pro</title>
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -69,6 +69,10 @@
       };
     </script>
     <style>
+      html {
+        font-size: 16px;
+      }
+      
       ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
@@ -85,34 +89,36 @@
       }
 
       .markdown h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-weight: 600;
         margin-top: 1.5rem;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
         color: #111827;
       }
       .markdown h2 {
-        font-size: 1.25rem;
+        font-size: 1.75rem;
         font-weight: 600;
         margin-top: 1.25rem;
-        margin-bottom: 0.625rem;
+        margin-bottom: 0.875rem;
         color: #1f2937;
       }
       .markdown h3 {
-        font-size: 1.125rem;
+        font-size: 1.5rem;
         font-weight: 600;
         margin-top: 1rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         color: #374151;
       }
       .markdown p {
-        margin-bottom: 0.75rem;
-        line-height: 1.6;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        line-height: 1.7;
       }
       .markdown ul,
       .markdown ol {
-        margin-bottom: 0.75rem;
-        padding-left: 1.5rem;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        padding-left: 2rem;
       }
       .markdown ul {
         list-style-type: disc;
@@ -121,8 +127,8 @@
         list-style-type: decimal;
       }
       .markdown li {
-        margin-bottom: 0.375rem;
-        line-height: 1.5;
+        margin-bottom: 0.5rem;
+        line-height: 1.7;
       }
       .markdown strong,
       .markdown b {
@@ -208,20 +214,40 @@
         margin-bottom: 16px;
       }
       .tab-item {
+        position: relative;
         padding: 10px 20px;
         cursor: pointer;
         color: #6b7280;
         font-weight: 500;
+        font-size: 1.1rem;
         border-bottom: 2px solid transparent;
         transition: color 0.2s ease;
         margin-right: 10px;
       }
       .tab-item:hover {
-        color: #3b82f6;
+        color: var(--primary);
       }
       .tab-item.active {
-        color: #3b82f6;
-        border-bottom: 2px solid #3b82f6;
+        color: var(--primary);
+      }
+      .tab-item.active::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary);
+        transform-origin: bottom;
+        animation: slideIn 0.3s ease forwards;
+      }
+      @keyframes slideIn {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
       }
 
       .timer-indicator {
@@ -272,6 +298,73 @@
         font-size: 13px;
       }
 
+      .app-header {
+        background-color: white;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 16px 24px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+      
+      .app-logo {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: var(--primary);
+        margin-bottom: 12px;
+        transition: all 0.2s ease;
+      }
+      
+      .app-logo:hover {
+        transform: translateY(-1px);
+      }
+      
+      .app-logo svg {
+        margin-right: 8px;
+        fill: var(--primary);
+      }
+      
+      .app-header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .nav-buttons {
+        display: flex;
+        background-color: rgba(59, 130, 246, 0.1);
+        border-radius: 6px;
+        margin-left: 0.75rem;
+      }
+      
+      .nav-button {
+        background-color: transparent;
+        color: var(--primary);
+        border: none;
+        border-radius: 6px;
+        padding: 0.5rem;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .nav-button:hover {
+        background-color: rgba(59, 130, 246, 0.2);
+      }
+      
+      .electron-only {
+        display: none;
+      }
+      
+      .electron-app .electron-only {
+        display: flex;
+      }
+      
       .spinner {
         display: inline-block;
         width: 16px;
@@ -300,348 +393,372 @@
       .hidden {
         display: none;
       }
+
+      /* Main Content Styles */
+      .main-content {
+        flex: 1;
+        display: flex;
+        padding: 1rem;
+        width: 100%;
+        height: calc(100vh - 120px); /* Adjust to account for header + tabs */
+        overflow: hidden;
+      }
+
+      /* Split Panel Layout */
+      .panel-left {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-right: 1rem;
+      }
+
+      .panel-right {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+      }
+
+      .panel {
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .panel-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .panel-content {
+        flex: 1;
+        padding: 1.5rem;
+        height: calc(100vh - 180px);
+        overflow-y: auto;
+      }
+
+      .upload-area {
+        cursor: pointer;
+        border: 2px dashed #e5e7eb;
+        border-radius: 0.75rem;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.2s ease;
+        background: #f9fafb;
+        margin-bottom: 1rem; /* Reduce margin to allow more space for content */
+      }
+
+      .upload-area:hover {
+        border-color: #3b82f6;
+        background: #f0f7ff;
+      }
+
+      .chat-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 180px); /* Adjust for header height */
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        height: calc(100vh - 240px); /* Adjust to account for header + input area */
+      }
+
+      .chat-input-container {
+        padding: 1rem;
+        border-top: 1px solid #e5e7eb;
+        background: #f9fafb;
+      }
+
+      .content-wrapper {
+        width: 100%;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .card {
+        background-color: var(--bg-white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 2rem;
+        margin-bottom: 0; /* Remove bottom margin */
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .title {
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 0; /* Remove bottom margin */
+      }
+
+      .subtitle {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0; /* Remove bottom margin */
+        color: var(--text-primary);
+      }
+
+      /* Form Styles */
+      .form-group {
+        margin-bottom: 1.25rem; /* Reduce bottom margin */
+      }
+
+      /* Results Section */
+      .results-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 0; /* Remove top margin */
+      }
+
+      .results {
+        white-space: pre-wrap;
+        line-height: 1.6;
+        background-color: #f8fafc;
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        font-family: monospace;
+        flex: 1;
+        min-height: 200px; /* Set minimum height */
+        max-height: calc(100vh - 400px); /* Set maximum height */
+        overflow-y: auto; /* Add scroll if content exceeds max height */
+      }
+
+      /* Loading State */
+      .loading {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 1rem 0;
+        color: var(--text-secondary);
+        min-height: 100px; /* Set minimum height for loading state */
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .main-content {
+          padding: 1rem;
+        }
+
+        .card {
+          padding: 1.5rem;
+        }
+
+        .title {
+          font-size: 1.75rem;
+        }
+
+        .results {
+          min-height: 150px;
+          max-height: calc(100vh - 350px);
+        }
+      }
+
+      #summaryContainer {
+        height: auto;
+        overflow: visible;
+      }
+
+      #summaryText {
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+
+      /* Make buttons and inputs larger */
+      button, input, textarea {
+        font-size: 1.1rem !important;
+      }
+      
+      /* Make panel headers more prominent */
+      .panel-header h2 {
+        font-size: 1.5rem !important;
+      }
+      
+      .panel-header p {
+        font-size: 1.1rem !important;
+      }
     </style>
   </head>
   <body class="bg-neutral-100 text-neutral-800 min-h-screen overflow-hidden">
-    <div class="flex flex-col h-screen">
-      <header class="py-4 px-6 border-b border-neutral-200 bg-white shadow-sm">
-        <div class="flex items-center font-semibold text-lg text-primary-600 mb-4">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            class="mr-2 fill-primary-500"
-          >
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" />
-            <path d="M2 17L12 22L22 17" fill-opacity="0.6" />
-            <path d="M2 12L12 17L22 12" fill-opacity="0.8" />
-          </svg>
-          <span>AI Agent Pro</span>
-        </div>
-
-        <div class="tab-nav">
-          <div class="tab-item" onclick="navigateTo('email')">
-            Email Summarizer
+    <div class="min-h-screen flex flex-col">
+      <!-- App Header with Navigation -->
+      <header class="app-header">
+        <div class="app-header-left">
+          <div class="app-logo flex items-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" class="mr-2">
+              <path d="M12 2L2 7l10 5 10-5z" />
+              <path d="M2 17l10 5 10-5" opacity="0.6" />
+              <path d="M2 12l10 5 10-5" opacity="0.8" />
+            </svg>
+            <span class="app-title">AI Agent Pro</span>
           </div>
-          <div class="tab-item active" onclick="navigateTo('document')">
-            Document Summary
-          </div>
-          <div class="tab-item" onclick="navigateTo('object')">
-            Object Detection
-          </div>
-        </div>
-
-        <div class="flex justify-between items-center mt-2">
-          <div class="flex items-center gap-4">
-            <div id="statusIndicator" class="status-indicator">
-              <div class="status-dot success"></div>
-              <div class="status-text">Ready to process documents</div>
-            </div>
-
-            <div id="timerIndicator" class="timer-indicator hidden">
-              <svg
-                class="timer-icon"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-              <span id="timerText">Auto-fetch in 15:00</span>
-            </div>
+          <div class="nav-buttons electron-only">
+            <button id="nav-back" class="nav-button" title="Back">
+              <i class="ri-arrow-left-line"></i>
+            </button>
+            <button id="nav-forward" class="nav-button" title="Forward">
+              <i class="ri-arrow-right-line"></i>
+            </button>
           </div>
         </div>
       </header>
 
-      <div
-        id="documentTab"
-        class="tab-content active flex-1 flex overflow-hidden p-4"
-      >
-        <div class="w-1/2 flex flex-col h-full bg-white rounded-lg mr-4 shadow-md">
-          <div class="p-6">
-            <div
-              id="uploadArea"
-              class="cursor-pointer border-2 border-dashed border-primary-200 bg-primary-50 rounded-xl p-8 text-center transition hover:bg-primary-100 hover:border-primary-300 relative overflow-hidden"
-            >
-              <div class="relative z-10">
-                <i class="ri-upload-cloud-line text-4xl text-primary-500 mb-3"></i>
-                <h3 class="text-lg font-medium mb-2">Drop your document here</h3>
-                <p class="text-neutral-600 mb-3 max-w-md mx-auto text-sm">
-                  Upload PDF, DOCX, or TXT files for AI-powered analysis
-                </p>
-                <!--
-                  We removed the old onchange handler and now call handleFileChange.
-                  -->
-                <input
-                  type="file"
-                  id="fileInput"
-                  class="hidden"
-                  accept=".pdf,.docx,.txt"
-                  onchange="handleFileChange(this)"
-                />
-                <button
-                  onclick="document.getElementById('fileInput').click()"
-                  class="px-4 py-2 bg-white border border-primary-300 text-primary-700 rounded-lg text-sm font-medium shadow-sm hover:bg-primary-50 transition"
-                >
-                  Select File
-                </button>
-              </div>
-              <div
-                class="absolute -bottom-16 -right-16 w-32 h-32 bg-primary-100 rounded-full opacity-50"
-              ></div>
-              <div
-                class="absolute -top-8 -left-8 w-16 h-16 bg-primary-200 rounded-full opacity-30"
-              ></div>
-            </div>
-
-            <div id="fileInfo" class="hidden animate-fade-in">
-              <div
-                class="flex items-center justify-between p-4 bg-neutral-50 rounded-lg border border-neutral-200 mb-4"
-              >
-                <div class="flex items-center space-x-3">
-                  <div
-                    class="w-10 h-10 flex items-center justify-center bg-primary-100 text-primary-700 rounded"
-                  >
-                    <i class="ri-file-text-line text-xl"></i>
-                  </div>
-                  <div>
-                    <div id="fileName" class="font-medium text-neutral-800">
-                      Document.pdf
-                    </div>
-                    <div class="text-sm text-neutral-500 flex items-center">
-                      <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
-                      Ready for analysis
-                    </div>
-                  </div>
-                </div>
-                <button
-                  id="changeButton"
-                  onclick="document.getElementById('fileInput').click()"
-                  class="text-neutral-500 hover:text-primary-600 transition"
-                >
-                  <i class="ri-refresh-line text-lg"></i>
-                </button>
-              </div>
-
-              <button
-                id="generateSummaryBtn"
-                class="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-sm transition flex items-center justify-center space-x-2"
-                onclick="requestSummaryGeneration()"
-              >
-                <i class="ri-magic-line"></i>
-                <span>Generate Analysis</span>
-              </button>
-            </div>
-          </div>
-
-          <div id="summaryContainer" class="flex-1 overflow-auto px-6 pb-6">
-            <div
-              id="summaryPlaceholder"
-              class="h-full flex flex-col items-center justify-center text-center p-8"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png"
-                alt="Document"
-                class="w-20 h-20 opacity-10 mb-4"
-              />
-              <h4 class="text-lg font-medium text-neutral-400 mb-2">
-                No Document Analyzed
-              </h4>
-              <p class="text-sm text-neutral-400 max-w-xs">
-                Upload a document and generate an analysis to see AI-extracted
-                insights here
-              </p>
-            </div>
-
-            <div id="summaryContent" class="hidden animate-fade-in">
-              <div
-                id="generationProgress"
-                class="hidden mb-6 bg-primary-50 rounded-lg p-4 border border-primary-100"
-              >
-                <div class="flex justify-between items-center mb-2">
-                  <div class="text-sm font-medium text-primary-800">
-                    Analyzing document
-                  </div>
-                  <div id="progressPercent" class="text-xs font-medium text-primary-700">
-                    0%
-                  </div>
-                </div>
-                <div class="h-1.5 w-full bg-primary-100 rounded-full overflow-hidden">
-                  <div
-                    id="progressBar"
-                    class="h-full bg-primary-500 rounded-full w-0 transition-all duration-300"
-                  ></div>
-                </div>
-                <div id="progressStage" class="text-xs text-primary-600 mt-2">
-                  Extracting document content...
-                </div>
-              </div>
-
-              <div class="mb-4">
-                <h2 class="text-lg font-semibold text-neutral-800">
-                  Document Analysis
-                </h2>
-                <p class="text-neutral-500 text-sm">
-                  AI-generated insights and key points
-                </p>
-              </div>
-
-              <div id="summaryText" class="markdown text-neutral-700"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="w-1/2 flex flex-col h-full bg-white rounded-lg shadow-md">
-          <div class="p-6 border-b border-neutral-200">
-            <h2 class="text-lg font-semibold text-neutral-800">
-              Ask Questions About This Document
-            </h2>
-            <p class="text-neutral-500 text-sm">
-              Get specific answers based on the document content
-            </p>
-          </div>
-
-          <div id="chatMessages" class="flex-1 overflow-auto px-6 py-4 space-y-4">
-            <div
-              id="chatPlaceholder"
-              class="h-full flex flex-col items-center justify-center text-center p-8"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png"
-                alt="Chat"
-                class="w-20 h-20 opacity-10 mb-4"
-              />
-              <h4 class="text-lg font-medium text-neutral-400 mb-2">
-                No Conversation Yet
-              </h4>
-              <p class="text-sm text-neutral-400 max-w-xs">
-                After analyzing your document, you can ask questions about its
-                content
-              </p>
-            </div>
-          </div>
-
-          <div class="p-4 border-t border-neutral-200 bg-neutral-50">
-            <div class="relative">
-              <textarea
-                id="chatInput"
-                class="w-full min-h-[48px] max-h-[120px] py-3 px-4 pr-12 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 text-sm resize-none disabled:bg-neutral-50 disabled:text-neutral-400"
-                placeholder="Ask a question about the document..."
-                rows="1"
-                disabled
-              ></textarea>
-              <button
-                id="chatSendBtn"
-                class="absolute right-2 bottom-2 w-9 h-9 flex items-center justify-center bg-primary-600 text-white rounded-full hover:bg-primary-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition"
-                disabled
-                onclick="sendChatMessage()"
-              >
-                <i class="ri-send-plane-fill text-sm"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="emailTab" class="tab-content hidden flex-1 overflow-hidden p-4">
-        <div class="w-full flex h-full">
-          <div class="w-1/3 bg-white rounded-lg mr-4 shadow-md overflow-hidden">
-            <div class="p-4 border-b border-neutral-200 flex justify-between items-center">
-              <h2 class="font-semibold text-neutral-800">Inbox</h2>
-              <button
-                id="fetchEmailBtn"
-                class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center"
-                onclick="fetchEmail()"
-              >
-                <i class="ri-mail-download-line mr-1"></i>
-                <span>Fetch Mail</span>
-              </button>
-            </div>
-            <div id="emailList" class="overflow-y-auto h-[calc(100%-60px)]">
-              <div class="p-3 border-b border-neutral-200 hover:bg-neutral-50 cursor-pointer">
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold"
-                  >
-                    JS
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-center mb-1">
-                      <span class="font-medium text-neutral-800 truncate">John Smith</span>
-                      <span class="text-xs text-neutral-500">10:30 AM</span>
-                    </div>
-                    <div class="text-sm font-medium text-neutral-700 truncate">
-                      Weekly Update
-                    </div>
-                    <div class="text-xs text-neutral-500 truncate">
-                      Project progress and next steps...
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                id="emailEmptyState"
-                class="h-full flex flex-col items-center justify-center text-center p-8 hidden"
-              >
-                <i class="ri-mail-open-line text-4xl text-neutral-300 mb-3"></i>
-                <h4 class="text-lg font-medium text-neutral-400 mb-2">
-                  No Emails Yet
-                </h4>
-                <p class="text-sm text-neutral-400 max-w-xs">
-                  Click "Fetch Mail" to load your inbox
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-2/3 bg-white rounded-lg shadow-md overflow-y-auto">
-            <div id="emailContent" class="p-6">
-              <div
-                class="h-full flex flex-col items-center justify-center text-center p-8"
-              >
-                <i class="ri-mail-line text-4xl text-neutral-300 mb-3"></i>
-                <h4 class="text-lg font-medium text-neutral-400 mb-2">
-                  Select an Email
-                </h4>
-                <p class="text-sm text-neutral-400 max-w-xs">
-                  Choose an email from the list to view its summary
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        id="objectTab"
-        class="tab-content hidden flex-1 overflow-hidden p-4"
-      >
-        <div
-          class="w-full h-full bg-white rounded-lg shadow-md flex items-center justify-center"
-        >
-          <div class="text-center p-8">
-            <i class="ri-image-line text-6xl text-neutral-300 mb-4"></i>
-            <h2 class="text-xl font-semibold text-neutral-700 mb-2">
+      <!-- Tab Navigation Bar -->
+      <nav class="tab-navigation">
+        <div class="container">
+          <div class="tab-nav">
+            <a href="/email" class="tab-item">
+              Email Summarizer
+            </a>
+            <a href="/document" class="tab-item active">
+              Document Summary
+            </a>
+            <a href="/object" class="tab-item">
               Object Detection
-            </h2>
-            <p class="text-neutral-500 mb-6 max-w-md">
-              Upload images to detect and analyze objects using computer vision
-            </p>
-            <button
-              class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium shadow-sm transition"
-              onclick="uploadImage()"
+            </a>
+            <a href="/leave" class="tab-item">
+              Leave Checker
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Status Indicators -->
+      <div class="flex justify-between items-center px-6 py-2 bg-gray-50 border-b border-gray-200">
+        <div class="flex items-center gap-4">
+          <div id="statusIndicator" class="status-indicator">
+            <div class="status-dot success"></div>
+            <div class="status-text">Ready to process documents</div>
+          </div>
+
+          <div id="timerIndicator" class="timer-indicator hidden">
+            <svg
+              class="timer-icon"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             >
-              <i class="ri-upload-2-line mr-1"></i>
-              Upload Image
-            </button>
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span id="timerText">Auto-fetch in 15:00</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="documentTab" class="tab-content active">
+        <div class="main-content">
+          <div class="panel-left">
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="text-lg font-semibold text-neutral-800">Upload Document</h2>
+                <p class="text-neutral-500 text-sm">Upload your document for AI-powered analysis</p>
+              </div>
+              <div class="panel-content">
+                <div id="uploadArea" class="upload-area" onclick="document.getElementById('fileInput').click()">
+                  <i class="ri-upload-cloud-line text-4xl text-primary-500 mb-3"></i>
+                  <h3 class="text-lg font-medium mb-2">Drop your document here</h3>
+                  <p class="text-neutral-600 mb-3">Upload PDF, DOCX, or TXT files</p>
+                  <input type="file" id="fileInput" class="hidden" accept=".pdf,.docx,.txt" onchange="handleFileChange(this)" />
+                  <button class="px-4 py-2 bg-white border border-primary-300 text-primary-700 rounded-lg text-sm font-medium shadow-sm hover:bg-primary-50 transition">
+                    Select File
+                  </button>
+                </div>
+
+                <div id="fileInfo" class="hidden">
+                  <div class="flex items-center justify-between p-4 bg-neutral-50 rounded-lg border border-neutral-200 mb-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-10 h-10 flex items-center justify-center bg-primary-100 text-primary-700 rounded">
+                        <i class="ri-file-text-line text-xl"></i>
+                      </div>
+                      <div>
+                        <div id="fileName" class="font-medium text-neutral-800">Document.pdf</div>
+                        <div class="text-sm text-neutral-500 flex items-center">
+                          <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                          Ready for analysis
+                        </div>
+                      </div>
+                    </div>
+                    <button id="changeButton" onclick="document.getElementById('fileInput').click()" class="text-neutral-500 hover:text-primary-600 transition">
+                      <i class="ri-refresh-line text-lg"></i>
+                    </button>
+                  </div>
+
+                  <button id="generateSummaryBtn" class="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-sm transition flex items-center justify-center space-x-2" onclick="requestSummaryGeneration()">
+                    <i class="ri-magic-line"></i>
+                    <span>Generate Analysis</span>
+                  </button>
+                </div>
+
+                <div id="summaryContainer">
+                  <div id="summaryPlaceholder" class="text-center text-neutral-400">
+                    <i class="ri-file-text-line text-4xl mb-2"></i>
+                    <h4 class="font-medium mb-1">No Document Analyzed</h4>
+                    <p class="text-sm">Upload a document to see the analysis</p>
+                  </div>
+                  <div id="summaryContent" class="hidden">
+                    <div id="generationProgress" class="hidden mb-4 bg-primary-50 rounded-lg p-4">
+                      <div class="flex justify-between items-center mb-2">
+                        <div class="text-sm font-medium text-primary-800">Analyzing document</div>
+                        <div id="progressPercent" class="text-xs font-medium text-primary-700">0%</div>
+                      </div>
+                      <div class="h-1.5 w-full bg-primary-100 rounded-full overflow-hidden">
+                        <div id="progressBar" class="h-full bg-primary-500 rounded-full w-0 transition-all duration-300"></div>
+                      </div>
+                      <div id="progressStage" class="text-xs text-primary-600 mt-2">Initializing...</div>
+                    </div>
+                    <div id="summaryText" class="markdown text-neutral-700"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-right">
+            <div class="panel">
+              <div class="panel-header">
+                <h2 class="text-lg font-semibold text-neutral-800">Ask Questions</h2>
+                <p class="text-neutral-500 text-sm">Get specific answers about the document</p>
+              </div>
+              <div class="chat-container">
+                <div id="chatMessages" class="chat-messages">
+                  <div id="chatPlaceholder" class="text-center text-neutral-400 mt-8">
+                    <i class="ri-message-3-line text-4xl mb-2"></i>
+                    <h4 class="font-medium mb-1">No Conversation Yet</h4>
+                    <p class="text-sm">Upload and analyze a document to start asking questions</p>
+                  </div>
+                </div>
+                <div class="chat-input-container">
+                  <div class="relative">
+                    <textarea id="chatInput" class="w-full min-h-[48px] max-h-[120px] py-3 px-4 pr-12 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 text-sm resize-none disabled:bg-neutral-50 disabled:text-neutral-400" placeholder="Ask a question about the document..." rows="1" disabled></textarea>
+                    <button id="chatSendBtn" class="absolute right-2 bottom-2 w-9 h-9 flex items-center justify-center bg-primary-600 text-white rounded-full hover:bg-primary-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition" disabled onclick="sendChatMessage()">
+                      <i class="ri-send-plane-fill text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -653,8 +770,70 @@
       let isGeneratingSummary = false;
       let documentContent = '';
       let chatHistory = [];
-      let currentTab = 'document';
-      let file;
+      
+      // Document is loaded by default
+      document.addEventListener('DOMContentLoaded', function() {
+        // Set initial state
+        updateStatusIndicator('success', 'Ready to process documents');
+        
+        // Check if running in Electron
+        if (window.electron) {
+          document.body.classList.add('electron');
+          console.log('Running in Electron environment');
+          
+          // Setup navigation buttons
+          const backButton = document.getElementById('nav-back');
+          const forwardButton = document.getElementById('nav-forward');
+          
+          if (backButton && forwardButton) {
+            backButton.addEventListener('click', function() {
+              console.log('Back button clicked');
+              if (window.electron && window.electron.navigateInApp) {
+                window.electron.navigateInApp('back');
+              } else {
+                console.error('Navigation function not available');
+              }
+            });
+            
+            forwardButton.addEventListener('click', function() {
+              console.log('Forward button clicked');
+              if (window.electron && window.electron.navigateInApp) {
+                window.electron.navigateInApp('forward');
+              } else {
+                console.error('Navigation function not available');
+              }
+            });
+            
+            console.log('Navigation buttons setup complete');
+          } else {
+            console.error('Navigation buttons not found');
+          }
+        } else {
+          console.log("Not running in Electron environment");
+        }
+
+        // Tab navigation functionality
+        const documentTab = document.getElementById("documentTab");
+        const settingsTab = document.getElementById("settingsTab");
+        const documentTabBtn = document.getElementById("documentTabBtn");
+        const settingsTabBtn = document.getElementById("settingsTabBtn");
+
+        if (documentTabBtn && settingsTabBtn) {
+          documentTabBtn.addEventListener("click", function() {
+            documentTab.classList.add("active");
+            settingsTab.classList.remove("active");
+            documentTabBtn.classList.add("active");
+            settingsTabBtn.classList.remove("active");
+          });
+
+          settingsTabBtn.addEventListener("click", function() {
+            settingsTab.classList.add("active");
+            documentTab.classList.remove("active");
+            settingsTabBtn.classList.add("active");
+            documentTabBtn.classList.remove("active");
+          });
+        }
+      });
 
       // Unified file change handler (merges previous handleFileUpload and handleFileSelection)
       function handleFileChange(inputElement) {
@@ -716,37 +895,8 @@
       }
 
       function navigateTo(page) {
-        currentTab = page;
-        const tabContents = document.querySelectorAll(".tab-content");
-        tabContents.forEach((tab) => tab.classList.remove("active"));
-        tabContents.forEach((tab) => tab.classList.add("hidden"));
-        const selectedTab = document.getElementById(page + "Tab");
-        if (selectedTab) {
-          selectedTab.classList.remove("hidden");
-          selectedTab.classList.add("active");
-        }
-        const tabs = document.querySelectorAll(".tab-item");
-        tabs.forEach((tab) => tab.classList.remove("active"));
-        tabs.forEach((tab) => {
-          if (
-            tab.textContent.trim().toLowerCase().includes(page.toLowerCase())
-          ) {
-            tab.classList.add("active");
-          }
-        });
-        const timerIndicator = document.getElementById("timerIndicator");
-        if (timerIndicator) {
-          if (page === "email") {
-            timerIndicator.classList.remove("hidden");
-          } else {
-            timerIndicator.classList.add("hidden");
-          }
-        }
-        let statusText = "Ready";
-        if (page === "email") statusText = "Ready to process emails";
-        if (page === "document") statusText = "Ready to process documents";
-        if (page === "object") statusText = "Ready for object detection";
-        updateStatusIndicator("success", statusText);
+        // Redirect to the corresponding Flask route
+        window.location.href = "/" + page;
       }
 
       function updateStatusIndicator(status, message) {
@@ -1185,5 +1335,8 @@
         alert("Image upload functionality would be implemented here");
       }
     </script>
+    
+    <!-- Include the Electron bridge script -->
+    <script src="{{ url_for('static', filename='electron_bridge.js') }}"></script>
   </body>
 </html>
