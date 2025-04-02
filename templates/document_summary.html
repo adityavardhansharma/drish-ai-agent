@@ -4,67 +4,71 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Agent Pro</title>
-    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+    />
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+              sans: ["Inter", "sans-serif"],
             },
             colors: {
               primary: {
-                50: '#f0f7ff',
-                100: '#e0eefe',
-                200: '#bae0fd',
-                300: '#7dcbfa',
-                400: '#48b0f7',
-                500: '#3b82f6',
-                600: '#2563eb',
-                700: '#0f60b0',
-                800: '#134f90',
-                900: '#164577',
+                50: "#f0f7ff",
+                100: "#e0eefe",
+                200: "#bae0fd",
+                300: "#7dcbfa",
+                400: "#48b0f7",
+                500: "#3b82f6",
+                600: "#2563eb",
+                700: "#0f60b0",
+                800: "#134f90",
+                900: "#164577",
               },
               neutral: {
-                50: '#f9fafb',
-                100: '#f3f4f6',
-                200: '#e5e7eb',
-                300: '#d1d5db',
-                400: '#9ca3af',
-                500: '#6b7280',
-                600: '#4b5563',
-                700: '#374151',
-                800: '#1f2937',
-                900: '#111827',
-              }
+                50: "#f9fafb",
+                100: "#f3f4f6",
+                200: "#e5e7eb",
+                300: "#d1d5db",
+                400: "#9ca3af",
+                500: "#6b7280",
+                600: "#4b5563",
+                700: "#374151",
+                800: "#1f2937",
+                900: "#111827",
+              },
             },
             animation: {
-              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'fade-in': 'fadeIn 0.3s ease-in-out',
-              'slide-up': 'slideUp 0.4s ease-out',
+              "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "fade-in": "fadeIn 0.3s ease-in-out",
+              "slide-up": "slideUp 0.4s ease-out",
             },
             keyframes: {
               fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
               },
               slideUp: {
-                '0%': { transform: 'translateY(10px)', opacity: '0' },
-                '100%': { transform: 'translateY(0)', opacity: '1' },
-              }
-            }
-          }
-        }
-      }
+                "0%": { transform: "translateY(10px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+            },
+          },
+        },
+      };
     </script>
     <style>
-      /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
@@ -80,7 +84,6 @@
         background: #9ca3af;
       }
 
-      /* Markdown styles for better typography */
       .markdown h1 {
         font-size: 1.5rem;
         font-weight: 600;
@@ -106,7 +109,8 @@
         margin-bottom: 0.75rem;
         line-height: 1.6;
       }
-      .markdown ul, .markdown ol {
+      .markdown ul,
+      .markdown ol {
         margin-bottom: 0.75rem;
         padding-left: 1.5rem;
       }
@@ -120,11 +124,13 @@
         margin-bottom: 0.375rem;
         line-height: 1.5;
       }
-      .markdown strong, .markdown b {
+      .markdown strong,
+      .markdown b {
         font-weight: 600;
         color: #111827;
       }
-      .markdown em, .markdown i {
+      .markdown em,
+      .markdown i {
         font-style: italic;
       }
       .markdown blockquote {
@@ -149,7 +155,6 @@
         margin-bottom: 0.75rem;
       }
 
-      /* Typing indicator animation */
       .typing-indicator span {
         opacity: 0.5;
         animation: typing 1.5s infinite;
@@ -164,7 +169,8 @@
         animation-delay: 0.6s;
       }
       @keyframes typing {
-        0%, 100% {
+        0%,
+        100% {
           opacity: 0.2;
         }
         50% {
@@ -172,14 +178,12 @@
         }
       }
 
-      /* Highlight for key terms */
       .highlight {
         background: rgba(59, 130, 246, 0.1);
         border-bottom: 1px dotted rgba(59, 130, 246, 0.4);
         padding: 0 2px;
       }
 
-      /* Hover effect for chat bubbles */
       .chat-bubble {
         transition: transform 0.2s ease;
       }
@@ -187,12 +191,10 @@
         transform: translateY(-2px);
       }
 
-      /* Slide transitions */
       .slide-transition {
         transition: all 0.3s ease-in-out;
       }
 
-      /* Focus effect for active panel */
       .panel-focus {
         transition: all 0.3s ease;
       }
@@ -200,7 +202,6 @@
         box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
       }
 
-      /* Tab Navigation styles */
       .tab-nav {
         display: flex;
         border-bottom: 2px solid #e5e7eb;
@@ -223,7 +224,6 @@
         border-bottom: 2px solid #3b82f6;
       }
 
-      /* Timer indicator for the email view */
       .timer-indicator {
         display: flex;
         align-items: center;
@@ -239,7 +239,6 @@
         margin-right: 6px;
       }
 
-      /* Status indicator dot */
       .status-indicator {
         display: flex;
         align-items: center;
@@ -273,12 +272,11 @@
         font-size: 13px;
       }
 
-      /* Loading spinner */
       .spinner {
         display: inline-block;
         width: 16px;
         height: 16px;
-        border: 2px solid rgba(255,255,255,0.3);
+        border: 2px solid rgba(255, 255, 255, 0.3);
         border-radius: 50%;
         border-top-color: white;
         animation: spin 1s linear infinite;
@@ -286,10 +284,11 @@
       }
 
       @keyframes spin {
-        to { transform: rotate(360deg); }
+        to {
+          transform: rotate(360deg);
+        }
       }
 
-      /* Hide content panels based on active tab */
       .tab-content {
         display: none;
       }
@@ -305,11 +304,15 @@
   </head>
   <body class="bg-neutral-100 text-neutral-800 min-h-screen overflow-hidden">
     <div class="flex flex-col h-screen">
-      <!-- App Header with Navigation -->
       <header class="py-4 px-6 border-b border-neutral-200 bg-white shadow-sm">
-        <!-- Logo Area -->
         <div class="flex items-center font-semibold text-lg text-primary-600 mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="mr-2 fill-primary-500">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            class="mr-2 fill-primary-500"
+          >
             <path d="M12 2L2 7L12 12L22 7L12 2Z" />
             <path d="M2 17L12 22L22 17" fill-opacity="0.6" />
             <path d="M2 12L12 17L22 12" fill-opacity="0.8" />
@@ -317,7 +320,6 @@
           <span>AI Agent Pro</span>
         </div>
 
-        <!-- Tab Navigation -->
         <div class="tab-nav">
           <div class="tab-item" onclick="navigateTo('email')">
             Email Summarizer
@@ -330,7 +332,6 @@
           </div>
         </div>
 
-        <!-- Status and Control Bar -->
         <div class="flex justify-between items-center mt-2">
           <div class="flex items-center gap-4">
             <div id="statusIndicator" class="status-indicator">
@@ -338,9 +339,18 @@
               <div class="status-text">Ready to process documents</div>
             </div>
 
-            <!-- Timer only shown for email tab -->
             <div id="timerIndicator" class="timer-indicator hidden">
-              <svg class="timer-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="timer-icon"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
@@ -350,106 +360,172 @@
         </div>
       </header>
 
-      <!-- Main Content Area -->
-      <!-- Document Tab Content -->
-      <div id="documentTab" class="tab-content active flex-1 flex overflow-hidden p-4">
-        <!-- Left Panel: Document Upload & Summary -->
+      <div
+        id="documentTab"
+        class="tab-content active flex-1 flex overflow-hidden p-4"
+      >
         <div class="w-1/2 flex flex-col h-full bg-white rounded-lg mr-4 shadow-md">
-          <!-- Upload Section -->
           <div class="p-6">
-            <!-- Upload Zone (initial state) -->
-            <div id="uploadArea" class="cursor-pointer border-2 border-dashed border-primary-200 bg-primary-50 rounded-xl p-8 text-center transition hover:bg-primary-100 hover:border-primary-300 relative overflow-hidden">
+            <div
+              id="uploadArea"
+              class="cursor-pointer border-2 border-dashed border-primary-200 bg-primary-50 rounded-xl p-8 text-center transition hover:bg-primary-100 hover:border-primary-300 relative overflow-hidden"
+            >
               <div class="relative z-10">
                 <i class="ri-upload-cloud-line text-4xl text-primary-500 mb-3"></i>
                 <h3 class="text-lg font-medium mb-2">Drop your document here</h3>
-                <p class="text-neutral-600 mb-3 max-w-md mx-auto text-sm">Upload PDF, DOCX, or TXT files for AI-powered analysis</p>
-                <button class="px-4 py-2 bg-white border border-primary-300 text-primary-700 rounded-lg text-sm font-medium shadow-sm hover:bg-primary-50 transition">
+                <p class="text-neutral-600 mb-3 max-w-md mx-auto text-sm">
+                  Upload PDF, DOCX, or TXT files for AI-powered analysis
+                </p>
+                <!--
+                  We removed the old onchange handler and now call handleFileChange.
+                  -->
+                <input
+                  type="file"
+                  id="fileInput"
+                  class="hidden"
+                  accept=".pdf,.docx,.txt"
+                  onchange="handleFileChange(this)"
+                />
+                <button
+                  onclick="document.getElementById('fileInput').click()"
+                  class="px-4 py-2 bg-white border border-primary-300 text-primary-700 rounded-lg text-sm font-medium shadow-sm hover:bg-primary-50 transition"
+                >
                   Select File
                 </button>
               </div>
-              <!-- Decorative element -->
-              <div class="absolute -bottom-16 -right-16 w-32 h-32 bg-primary-100 rounded-full opacity-50"></div>
-              <div class="absolute -top-8 -left-8 w-16 h-16 bg-primary-200 rounded-full opacity-30"></div>
+              <div
+                class="absolute -bottom-16 -right-16 w-32 h-32 bg-primary-100 rounded-full opacity-50"
+              ></div>
+              <div
+                class="absolute -top-8 -left-8 w-16 h-16 bg-primary-200 rounded-full opacity-30"
+              ></div>
             </div>
 
-            <!-- File Info (after upload) -->
             <div id="fileInfo" class="hidden animate-fade-in">
-              <div class="flex items-center justify-between p-4 bg-neutral-50 rounded-lg border border-neutral-200 mb-4">
+              <div
+                class="flex items-center justify-between p-4 bg-neutral-50 rounded-lg border border-neutral-200 mb-4"
+              >
                 <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 flex items-center justify-center bg-primary-100 text-primary-700 rounded">
+                  <div
+                    class="w-10 h-10 flex items-center justify-center bg-primary-100 text-primary-700 rounded"
+                  >
                     <i class="ri-file-text-line text-xl"></i>
                   </div>
                   <div>
-                    <div id="fileName" class="font-medium text-neutral-800">Document.pdf</div>
+                    <div id="fileName" class="font-medium text-neutral-800">
+                      Document.pdf
+                    </div>
                     <div class="text-sm text-neutral-500 flex items-center">
                       <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
                       Ready for analysis
                     </div>
                   </div>
                 </div>
-                <button id="changeButton" class="text-neutral-500 hover:text-primary-600 transition">
+                <button
+                  id="changeButton"
+                  onclick="document.getElementById('fileInput').click()"
+                  class="text-neutral-500 hover:text-primary-600 transition"
+                >
                   <i class="ri-refresh-line text-lg"></i>
                 </button>
               </div>
 
-              <!-- Generate Button -->
-              <button id="generateSummaryBtn" class="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-sm transition flex items-center justify-center space-x-2">
+              <button
+                id="generateSummaryBtn"
+                class="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-sm transition flex items-center justify-center space-x-2"
+                onclick="requestSummaryGeneration()"
+              >
                 <i class="ri-magic-line"></i>
                 <span>Generate Analysis</span>
               </button>
             </div>
           </div>
 
-          <!-- Summary Container -->
           <div id="summaryContainer" class="flex-1 overflow-auto px-6 pb-6">
-            <div id="summaryPlaceholder" class="h-full flex flex-col items-center justify-center text-center p-8">
-              <img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" alt="Document" class="w-20 h-20 opacity-10 mb-4">
-              <h4 class="text-lg font-medium text-neutral-400 mb-2">No Document Analyzed</h4>
-              <p class="text-sm text-neutral-400 max-w-xs">Upload a document and generate an analysis to see AI-extracted insights here</p>
+            <div
+              id="summaryPlaceholder"
+              class="h-full flex flex-col items-center justify-center text-center p-8"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png"
+                alt="Document"
+                class="w-20 h-20 opacity-10 mb-4"
+              />
+              <h4 class="text-lg font-medium text-neutral-400 mb-2">
+                No Document Analyzed
+              </h4>
+              <p class="text-sm text-neutral-400 max-w-xs">
+                Upload a document and generate an analysis to see AI-extracted
+                insights here
+              </p>
             </div>
 
             <div id="summaryContent" class="hidden animate-fade-in">
-              <!-- Generation Progress Indicator -->
-              <div id="generationProgress" class="hidden mb-6 bg-primary-50 rounded-lg p-4 border border-primary-100">
+              <div
+                id="generationProgress"
+                class="hidden mb-6 bg-primary-50 rounded-lg p-4 border border-primary-100"
+              >
                 <div class="flex justify-between items-center mb-2">
-                  <div class="text-sm font-medium text-primary-800">Analyzing document</div>
-                  <div id="progressPercent" class="text-xs font-medium text-primary-700">0%</div>
+                  <div class="text-sm font-medium text-primary-800">
+                    Analyzing document
+                  </div>
+                  <div id="progressPercent" class="text-xs font-medium text-primary-700">
+                    0%
+                  </div>
                 </div>
                 <div class="h-1.5 w-full bg-primary-100 rounded-full overflow-hidden">
-                  <div id="progressBar" class="h-full bg-primary-500 rounded-full w-0 transition-all duration-300"></div>
+                  <div
+                    id="progressBar"
+                    class="h-full bg-primary-500 rounded-full w-0 transition-all duration-300"
+                  ></div>
                 </div>
-                <div id="progressStage" class="text-xs text-primary-600 mt-2">Extracting document content...</div>
+                <div id="progressStage" class="text-xs text-primary-600 mt-2">
+                  Extracting document content...
+                </div>
               </div>
 
-              <!-- Summary Title -->
               <div class="mb-4">
-                <h2 class="text-lg font-semibold text-neutral-800">Document Analysis</h2>
-                <p class="text-neutral-500 text-sm">AI-generated insights and key points</p>
+                <h2 class="text-lg font-semibold text-neutral-800">
+                  Document Analysis
+                </h2>
+                <p class="text-neutral-500 text-sm">
+                  AI-generated insights and key points
+                </p>
               </div>
 
-              <!-- Summary Text -->
-              <div id="summaryText" class="markdown text-neutral-700">
-                <!-- Content will be populated by JS -->
-              </div>
+              <div id="summaryText" class="markdown text-neutral-700"></div>
             </div>
           </div>
         </div>
 
-        <!-- Right Panel: Chat -->
         <div class="w-1/2 flex flex-col h-full bg-white rounded-lg shadow-md">
           <div class="p-6 border-b border-neutral-200">
-            <h2 class="text-lg font-semibold text-neutral-800">Ask Questions About This Document</h2>
-            <p class="text-neutral-500 text-sm">Get specific answers based on the document content</p>
+            <h2 class="text-lg font-semibold text-neutral-800">
+              Ask Questions About This Document
+            </h2>
+            <p class="text-neutral-500 text-sm">
+              Get specific answers based on the document content
+            </p>
           </div>
 
           <div id="chatMessages" class="flex-1 overflow-auto px-6 py-4 space-y-4">
-            <!-- Chat Placeholder -->
-            <div id="chatPlaceholder" class="h-full flex flex-col items-center justify-center text-center p-8">
-              <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Chat" class="w-20 h-20 opacity-10 mb-4">
-              <h4 class="text-lg font-medium text-neutral-400 mb-2">No Conversation Yet</h4>
-              <p class="text-sm text-neutral-400 max-w-xs">After analyzing your document, you can ask questions about its content</p>
+            <div
+              id="chatPlaceholder"
+              class="h-full flex flex-col items-center justify-center text-center p-8"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png"
+                alt="Chat"
+                class="w-20 h-20 opacity-10 mb-4"
+              />
+              <h4 class="text-lg font-medium text-neutral-400 mb-2">
+                No Conversation Yet
+              </h4>
+              <p class="text-sm text-neutral-400 max-w-xs">
+                After analyzing your document, you can ask questions about its
+                content
+              </p>
             </div>
-            <!-- Messages will be added here by JS -->
           </div>
 
           <div class="p-4 border-t border-neutral-200 bg-neutral-50">
@@ -461,7 +537,12 @@
                 rows="1"
                 disabled
               ></textarea>
-              <button id="chatSendBtn" class="absolute right-2 bottom-2 w-9 h-9 flex items-center justify-center bg-primary-600 text-white rounded-full hover:bg-primary-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition" disabled>
+              <button
+                id="chatSendBtn"
+                class="absolute right-2 bottom-2 w-9 h-9 flex items-center justify-center bg-primary-600 text-white rounded-full hover:bg-primary-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition"
+                disabled
+                onclick="sendChatMessage()"
+              >
                 <i class="ri-send-plane-fill text-sm"></i>
               </button>
             </div>
@@ -469,65 +550,95 @@
         </div>
       </div>
 
-      <!-- Email Tab Content -->
       <div id="emailTab" class="tab-content hidden flex-1 overflow-hidden p-4">
         <div class="w-full flex h-full">
-          <!-- Email Sidebar -->
           <div class="w-1/3 bg-white rounded-lg mr-4 shadow-md overflow-hidden">
             <div class="p-4 border-b border-neutral-200 flex justify-between items-center">
               <h2 class="font-semibold text-neutral-800">Inbox</h2>
-              <button id="fetchEmailBtn" class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center">
+              <button
+                id="fetchEmailBtn"
+                class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center"
+                onclick="fetchEmail()"
+              >
                 <i class="ri-mail-download-line mr-1"></i>
                 <span>Fetch Mail</span>
               </button>
             </div>
             <div id="emailList" class="overflow-y-auto h-[calc(100%-60px)]">
-              <!-- Sample Email -->
               <div class="p-3 border-b border-neutral-200 hover:bg-neutral-50 cursor-pointer">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold">JS</div>
+                  <div
+                    class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold"
+                  >
+                    JS
+                  </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex justify-between items-center mb-1">
                       <span class="font-medium text-neutral-800 truncate">John Smith</span>
                       <span class="text-xs text-neutral-500">10:30 AM</span>
                     </div>
-                    <div class="text-sm font-medium text-neutral-700 truncate">Weekly Update</div>
-                    <div class="text-xs text-neutral-500 truncate">Project progress and next steps...</div>
+                    <div class="text-sm font-medium text-neutral-700 truncate">
+                      Weekly Update
+                    </div>
+                    <div class="text-xs text-neutral-500 truncate">
+                      Project progress and next steps...
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <!-- Empty state -->
-              <div id="emailEmptyState" class="h-full flex flex-col items-center justify-center text-center p-8 hidden">
+              <div
+                id="emailEmptyState"
+                class="h-full flex flex-col items-center justify-center text-center p-8 hidden"
+              >
                 <i class="ri-mail-open-line text-4xl text-neutral-300 mb-3"></i>
-                <h4 class="text-lg font-medium text-neutral-400 mb-2">No Emails Yet</h4>
-                <p class="text-sm text-neutral-400 max-w-xs">Click "Fetch Mail" to load your inbox</p>
+                <h4 class="text-lg font-medium text-neutral-400 mb-2">
+                  No Emails Yet
+                </h4>
+                <p class="text-sm text-neutral-400 max-w-xs">
+                  Click "Fetch Mail" to load your inbox
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- Email Content -->
           <div class="w-2/3 bg-white rounded-lg shadow-md overflow-y-auto">
             <div id="emailContent" class="p-6">
-              <!-- Empty Email State -->
-              <div class="h-full flex flex-col items-center justify-center text-center p-8">
+              <div
+                class="h-full flex flex-col items-center justify-center text-center p-8"
+              >
                 <i class="ri-mail-line text-4xl text-neutral-300 mb-3"></i>
-                <h4 class="text-lg font-medium text-neutral-400 mb-2">Select an Email</h4>
-                <p class="text-sm text-neutral-400 max-w-xs">Choose an email from the list to view its summary</p>
+                <h4 class="text-lg font-medium text-neutral-400 mb-2">
+                  Select an Email
+                </h4>
+                <p class="text-sm text-neutral-400 max-w-xs">
+                  Choose an email from the list to view its summary
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Object Detection Tab Content -->
-      <div id="objectTab" class="tab-content hidden flex-1 overflow-hidden p-4">
-        <div class="w-full h-full bg-white rounded-lg shadow-md flex items-center justify-center">
+      <div
+        id="objectTab"
+        class="tab-content hidden flex-1 overflow-hidden p-4"
+      >
+        <div
+          class="w-full h-full bg-white rounded-lg shadow-md flex items-center justify-center"
+        >
           <div class="text-center p-8">
             <i class="ri-image-line text-6xl text-neutral-300 mb-4"></i>
-            <h2 class="text-xl font-semibold text-neutral-700 mb-2">Object Detection</h2>
-            <p class="text-neutral-500 mb-6 max-w-md">Upload images to detect and analyze objects using computer vision</p>
-            <button class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium shadow-sm transition">
+            <h2 class="text-xl font-semibold text-neutral-700 mb-2">
+              Object Detection
+            </h2>
+            <p class="text-neutral-500 mb-6 max-w-md">
+              Upload images to detect and analyze objects using computer vision
+            </p>
+            <button
+              class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium shadow-sm transition"
+              onclick="uploadImage()"
+            >
               <i class="ri-upload-2-line mr-1"></i>
               Upload Image
             </button>
@@ -537,209 +648,103 @@
     </div>
 
     <script>
-      // Global state variables
-      let bridge = null;
+      // Global flags
       let isFileSelected = false;
       let isGeneratingSummary = false;
-      let documentContent = ""; // Document content used for chat
-      let chatHistory = []; // Array to store chat messages
-      let currentTab = "document"; // Track current active tab
+      let documentContent = '';
+      let chatHistory = [];
+      let currentTab = 'document';
+      let file;
 
-      // Initialize when the document is ready
-      document.addEventListener("DOMContentLoaded", function() {
-        // Establish QWebChannel connection
-        if (typeof QWebChannel !== "undefined" && typeof qt !== "undefined" && qt.webChannelTransport) {
-          console.log("Initializing QWebChannel...");
-          new QWebChannel(qt.webChannelTransport, function (channel) {
-            bridge = channel.objects.bridge;
-            console.log("Bridge connected successfully");
-            setupEventListeners();
-          });
-        } else {
-          console.log("QWebChannel not available, running in test mode");
-          setupEventListeners();
+      // Unified file change handler (merges previous handleFileUpload and handleFileSelection)
+      function handleFileChange(inputElement) {
+        let file;
+        if (inputElement.target) {
+          // Called via event listener with event object
+          file = inputElement.target.files[0];
+        } else if (inputElement.files) {
+          // Called directly with the element (from inline onchange)
+          file = inputElement.files[0];
+        } else if (Array.isArray(inputElement)) {
+          file = inputElement[0];
         }
-      });
+        if (!file) return;
+        // Immediately update the file name and status
+        setFileName(file.name);
+        updateStatusIndicator("success", "Document selected");
 
-      // Navigation function
+        // Create FormData for file upload
+        const formData = new FormData();
+        formData.append("document", file);
+
+        // Now upload the file
+        fetch("/api/documents/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              isFileSelected = true;
+              updateStatusIndicator("success", "Document uploaded successfully");
+              // Automatically trigger summary generation after upload
+              requestSummaryGeneration();
+            } else {
+              updateStatusIndicator("error", data.error || "Upload failed");
+            }
+          })
+          .catch((error) => {
+            console.error("Upload error:", error);
+            updateStatusIndicator("error", "Upload failed");
+          });
+      }
+
       function navigateTo(page) {
         currentTab = page;
-
-        // Hide all tab contents first
-        const tabContents = document.querySelectorAll('.tab-content');
-        tabContents.forEach(tab => tab.classList.remove('active'));
-        tabContents.forEach(tab => tab.classList.add('hidden'));
-
-        // Show the selected tab content
-        const selectedTab = document.getElementById(page + 'Tab');
+        const tabContents = document.querySelectorAll(".tab-content");
+        tabContents.forEach((tab) => tab.classList.remove("active"));
+        tabContents.forEach((tab) => tab.classList.add("hidden"));
+        const selectedTab = document.getElementById(page + "Tab");
         if (selectedTab) {
-          selectedTab.classList.remove('hidden');
-          selectedTab.classList.add('active');
+          selectedTab.classList.remove("hidden");
+          selectedTab.classList.add("active");
         }
-
-        // Update the active tab in the navigation
-        const tabs = document.querySelectorAll('.tab-item');
-        tabs.forEach(tab => tab.classList.remove('active'));
-        tabs.forEach(tab => {
-          if (tab.textContent.trim().toLowerCase().includes(page.toLowerCase())) {
-            tab.classList.add('active');
+        const tabs = document.querySelectorAll(".tab-item");
+        tabs.forEach((tab) => tab.classList.remove("active"));
+        tabs.forEach((tab) => {
+          if (
+            tab.textContent.trim().toLowerCase().includes(page.toLowerCase())
+          ) {
+            tab.classList.add("active");
           }
         });
-
-        // Show/hide the timer indicator based on tab
-        const timerIndicator = document.getElementById('timerIndicator');
+        const timerIndicator = document.getElementById("timerIndicator");
         if (timerIndicator) {
-          if (page === 'email') {
-            timerIndicator.classList.remove('hidden');
+          if (page === "email") {
+            timerIndicator.classList.remove("hidden");
           } else {
-            timerIndicator.classList.add('hidden');
+            timerIndicator.classList.add("hidden");
           }
         }
-
-        // Update status text
-        let statusText = 'Ready';
-        if (page === 'email') statusText = 'Ready to process emails';
-        if (page === 'document') statusText = 'Ready to process documents';
-        if (page === 'object') statusText = 'Ready for object detection';
-        updateStatusIndicator('success', statusText);
-
-        console.log('Navigated to', page);
-
-        // Notify the PyQt application about the tab change
-        if (bridge && typeof bridge.agentSelected === 'function') {
-          try {
-            bridge.agentSelected(page);
-          } catch (e) {
-            console.log("Error calling bridge.agentSelected:", e);
-          }
-        }
+        let statusText = "Ready";
+        if (page === "email") statusText = "Ready to process emails";
+        if (page === "document") statusText = "Ready to process documents";
+        if (page === "object") statusText = "Ready for object detection";
+        updateStatusIndicator("success", statusText);
       }
 
       function updateStatusIndicator(status, message) {
-        const indicator = document.getElementById('statusIndicator');
+        const indicator = document.getElementById("statusIndicator");
         if (!indicator) return;
-
-        const statusClass = status || 'success';
-        const statusMessage = message || 'Ready';
-
+        const statusClass = status || "success";
+        const statusMessage = message || "Ready";
         indicator.innerHTML = `
           <div class="status-dot ${statusClass}"></div>
           <div class="status-text">${statusMessage}</div>
         `;
       }
 
-      // Set up event listeners
-      function setupEventListeners() {
-        const uploadArea = document.getElementById("uploadArea");
-        if (uploadArea) {
-          uploadArea.addEventListener("click", requestFileUpload);
-          uploadArea.addEventListener("dragover", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.classList.add("bg-primary-100", "border-primary-300");
-          });
-          uploadArea.addEventListener("dragleave", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.classList.remove("bg-primary-100", "border-primary-300");
-          });
-          uploadArea.addEventListener("drop", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.classList.remove("bg-primary-100", "border-primary-300");
-            requestFileUpload();
-          });
-        }
-
-        const changeButton = document.getElementById("changeButton");
-        if (changeButton) {
-          changeButton.addEventListener("click", requestFileUpload);
-        }
-
-        const generateSummaryBtn = document.getElementById("generateSummaryBtn");
-        if (generateSummaryBtn) {
-          generateSummaryBtn.addEventListener("click", function () {
-            if (isFileSelected && !isGeneratingSummary) {
-              requestSummaryGeneration();
-            }
-          });
-        }
-
-        // Chat input handling
-        const chatInput = document.getElementById("chatInput");
-        const chatSendBtn = document.getElementById("chatSendBtn");
-        if (chatInput) {
-          chatInput.addEventListener("input", function () {
-            if (chatSendBtn) {
-              chatSendBtn.disabled = !this.value.trim();
-            }
-            // Auto-resize textarea
-            this.style.height = "auto";
-            this.style.height = Math.min(this.scrollHeight, 120) + "px";
-          });
-          chatInput.addEventListener("keydown", function (e) {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              if (chatSendBtn && !chatSendBtn.disabled) {
-                sendChatMessage();
-              }
-            }
-          });
-        }
-        if (chatSendBtn) {
-          chatSendBtn.addEventListener("click", sendChatMessage);
-        }
-
-        // Email fetch button
-        const fetchEmailBtn = document.getElementById("fetchEmailBtn");
-        if (fetchEmailBtn) {
-          fetchEmailBtn.addEventListener("click", function() {
-            alert("Email fetch functionality would be implemented here");
-          });
-        }
-      }
-
-      // Request file selection (handled by Python bridge)
-      function requestFileUpload() {
-        updateStatusIndicator('processing', 'Selecting document...');
-
-        if (bridge && typeof bridge.requestDocumentSummary === 'function') {
-          console.log("Requesting file selection...");
-          bridge.requestDocumentSummary();
-        } else {
-          // Test mode
-          setTimeout(() => {
-            setFileName("Sample Document.pdf");
-            updateStatusIndicator('success', 'Document selected');
-          }, 500);
-        }
-      }
-
-      // Request summary generation via the bridge
-      function requestSummaryGeneration() {
-        showGenerationProgress();
-        isGeneratingSummary = true;
-        updateStatusIndicator('processing', 'Analyzing document...');
-
-        if (bridge && typeof bridge.generateDocumentSummary === 'function') {
-          console.log("Requesting summary generation...");
-          bridge.generateDocumentSummary();
-        } else {
-          // Test mode
-          simulateProgress();
-          setTimeout(() => {
-            const sampleSummary = `# Document Summary\n\nThis is a brief summary of the document content.`;
-            displayDocumentSummary(sampleSummary);
-            documentContent = sampleSummary; // Store content for chat
-            hideGenerationProgress();
-            updateStatusIndicator('success', 'Document analyzed');
-          }, 3000);
-        }
-      }
-
-      // Called from Python after file selection
       function setFileName(name) {
-        console.log("File selected:", name);
         const fileNameEl = document.getElementById("fileName");
         if (fileNameEl) {
           fileNameEl.textContent = name;
@@ -752,94 +757,102 @@
         if (uploadArea) {
           uploadArea.classList.add("hidden");
         }
-
         isFileSelected = true;
         resetSummarySection();
         resetChatSection();
       }
 
-      // Called from Python to update status messages
-      function updateStatus(message, statusType) {
-        console.log("Status update:", message, statusType);
-
-        if (statusType === "loading") {
-          updateProgressStage(message);
-          updateStatusIndicator('processing', message);
-        } else if (statusType === "success") {
-          updateProgressStage("Complete!");
-          updateProgressBar(100);
-          updateStatusIndicator('success', message || 'Analysis complete');
-
-          setTimeout(hideGenerationProgress, 800);
-        } else if (statusType === "error") {
-          updateProgressStage("An error occurred: " + message);
-          updateStatusIndicator('error', message || 'An error occurred');
-
-          setTimeout(hideGenerationProgress, 1500);
+      function requestSummaryGeneration() {
+        if (!isFileSelected) {
+          updateStatusIndicator("error", "Please upload a document first");
+          return;
         }
+
+        updateStatusIndicator("processing", "Generating summary...");
+        showGenerationProgress();
+
+        fetch("/api/documents/summarize", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              displayDocumentSummary(data.summary);
+              updateStatusIndicator("success", "Summary generated");
+              // Enable chat feature after successful summary generation
+              enableChatFeature();
+              // Clear any existing error states
+              const errorElement = document.getElementById("chatError");
+              if (errorElement) {
+                errorElement.style.display = "none";
+              }
+            } else {
+              updateStatusIndicator(
+                "error",
+                data.error || "Failed to generate summary"
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Summary error:", error);
+            updateStatusIndicator("error", "Failed to generate summary");
+          });
       }
 
-      // Called from Python when summary is generated
       function displayDocumentSummary(summary) {
-        console.log("Summary received, length:", summary.length);
         try {
           const htmlSummary = marked.parse(summary);
           const summaryText = document.getElementById("summaryText");
           if (summaryText) {
             summaryText.innerHTML = htmlSummary;
           }
-
           const summaryPlaceholder = document.getElementById("summaryPlaceholder");
           if (summaryPlaceholder) {
             summaryPlaceholder.classList.add("hidden");
           }
-
           const summaryContent = document.getElementById("summaryContent");
           if (summaryContent) {
             summaryContent.classList.remove("hidden");
           }
-
-          documentContent = summary;
+          // Ensure chat feature is enabled
           enableChatFeature();
+          isGeneratingSummary = false;
+          updateStatusIndicator("success", "Document analyzed successfully");
         } catch (error) {
           console.error("Error parsing markdown:", error);
-          const summaryText = document.getElementById("summaryText");
-          if (summaryText) {
-            summaryText.textContent = summary;
-          }
-
-          const summaryPlaceholder = document.getElementById("summaryPlaceholder");
-          if (summaryPlaceholder) {
-            summaryPlaceholder.classList.add("hidden");
-          }
-
-          const summaryContent = document.getElementById("summaryContent");
-          if (summaryContent) {
-            summaryContent.classList.remove("hidden");
-          }
-
-          documentContent = summary;
-          enableChatFeature();
+          updateStatusIndicator("error", "Error displaying summary");
         }
-        isGeneratingSummary = false;
-        updateStatusIndicator('success', 'Document analyzed successfully');
       }
 
       function enableChatFeature() {
-        // Clear chat placeholder
+        const chatInput = document.getElementById("chatInput");
+        const chatSendBtn = document.getElementById("chatSendBtn");
         const chatPlaceholder = document.getElementById("chatPlaceholder");
+
         if (chatPlaceholder) {
           chatPlaceholder.classList.add("hidden");
         }
 
-        // Add initial assistant message
-        addChatMessage("I've analyzed your document. Ask me anything about it, and I'll provide specific answers based on its content.", "assistant");
-
-        // Enable chat input
-        const chatInput = document.getElementById("chatInput");
         if (chatInput) {
           chatInput.disabled = false;
+          chatInput.placeholder =
+            "Ask a question about the document...";
           chatInput.focus();
+        }
+
+        if (chatSendBtn) {
+          chatSendBtn.disabled = false;
+        }
+
+        // Add initial assistant message if no chat exists
+        if (!chatHistory.length) {
+          addChatMessage(
+            "I've analyzed your document. Ask me anything about it, and I'll provide specific answers based on its content.",
+            "assistant"
+          );
         }
       }
 
@@ -848,17 +861,14 @@
         if (summaryText) {
           summaryText.innerHTML = "";
         }
-
         const summaryPlaceholder = document.getElementById("summaryPlaceholder");
         if (summaryPlaceholder) {
           summaryPlaceholder.classList.remove("hidden");
         }
-
         const summaryContent = document.getElementById("summaryContent");
         if (summaryContent) {
           summaryContent.classList.add("hidden");
         }
-
         const generationProgress = document.getElementById("generationProgress");
         if (generationProgress) {
           generationProgress.classList.add("hidden");
@@ -868,59 +878,47 @@
       function resetChatSection() {
         const chatMessages = document.getElementById("chatMessages");
         if (chatMessages) {
-          // Clear all messages
           while (chatMessages.firstChild) {
             chatMessages.removeChild(chatMessages.firstChild);
           }
-
-          // Add placeholder back
           const chatPlaceholder = document.getElementById("chatPlaceholder");
           if (chatPlaceholder) {
             chatPlaceholder.classList.remove("hidden");
             chatMessages.appendChild(chatPlaceholder);
           }
         }
-
         const chatInput = document.getElementById("chatInput");
         if (chatInput) {
           chatInput.value = "";
           chatInput.style.height = "auto";
           chatInput.disabled = true;
         }
-
         const chatSendBtn = document.getElementById("chatSendBtn");
         if (chatSendBtn) {
           chatSendBtn.disabled = true;
         }
-
         chatHistory = [];
       }
 
-      // Progress handling
       function showGenerationProgress() {
         const generationProgress = document.getElementById("generationProgress");
         if (generationProgress) {
           generationProgress.classList.remove("hidden");
         }
-
         const summaryPlaceholder = document.getElementById("summaryPlaceholder");
         if (summaryPlaceholder) {
           summaryPlaceholder.classList.add("hidden");
         }
-
         const summaryContent = document.getElementById("summaryContent");
         if (summaryContent) {
           summaryContent.classList.remove("hidden");
         }
-
         updateProgressBar(0);
         updateProgressStage("Initializing document analysis...");
-
         const generateSummaryBtn = document.getElementById("generateSummaryBtn");
         if (generateSummaryBtn) {
           generateSummaryBtn.disabled = true;
         }
-
         simulateProgress();
       }
 
@@ -929,12 +927,10 @@
         if (generationProgress) {
           generationProgress.classList.add("hidden");
         }
-
         const generateSummaryBtn = document.getElementById("generateSummaryBtn");
         if (generateSummaryBtn) {
           generateSummaryBtn.disabled = false;
         }
-
         if (window.progressInterval) {
           clearInterval(window.progressInterval);
         }
@@ -943,11 +939,9 @@
       function updateProgressBar(percent) {
         const progressBar = document.getElementById("progressBar");
         const progressPercent = document.getElementById("progressPercent");
-
         if (progressBar) {
           progressBar.style.width = percent + "%";
         }
-
         if (progressPercent) {
           progressPercent.textContent = Math.round(percent) + "%";
         }
@@ -964,27 +958,27 @@
         const progressSteps = [
           {
             percent: 15,
-            text: "Extracting document content..."
+            text: "Extracting document content...",
           },
           {
             percent: 30,
-            text: "Analyzing document structure..."
+            text: "Analyzing document structure...",
           },
           {
             percent: 45,
-            text: "Identifying key concepts and topics..."
+            text: "Identifying key concepts and topics...",
           },
           {
             percent: 60,
-            text: "Building knowledge graph from content..."
+            text: "Building knowledge graph from content...",
           },
           {
             percent: 75,
-            text: "Generating comprehensive summary..."
+            text: "Generating comprehensive summary...",
           },
           {
             percent: 90,
-            text: "Finalizing analysis and formatting..."
+            text: "Finalizing analysis and formatting...",
           },
         ];
 
@@ -1000,7 +994,9 @@
             updateProgressStage(step.text);
             currentStep++;
           } else {
-            let width = parseFloat(document.getElementById("progressBar").style.width) || 90;
+            let width =
+              parseFloat(document.getElementById("progressBar").style.width) ||
+              90;
             if (width < 95) {
               width += 0.2;
               updateProgressBar(width);
@@ -1009,73 +1005,57 @@
         }, 800);
       }
 
-      // Chat functionality
       function addChatMessage(content, role) {
         const chatMessages = document.getElementById("chatMessages");
         if (!chatMessages) return;
 
-        const chatPlaceholder = document.getElementById("chatPlaceholder");
-        if (chatPlaceholder && !chatPlaceholder.classList.contains("hidden")) {
-          chatPlaceholder.classList.add("hidden");
-        }
-
         const messageDiv = document.createElement("div");
-        messageDiv.classList.add("animate-slide-up", "max-w-[90%]");
+        messageDiv.classList.add(
+          "animate-slide-up",
+          "max-w-[90%]",
+          "mb-4"
+        );
 
-        if (role === "user") {
-          messageDiv.classList.add("ml-auto");
-
-          const innerDiv = document.createElement("div");
-          innerDiv.classList.add("chat-bubble", "bg-primary-600", "text-white", "rounded-2xl", "rounded-tr-sm", "px-4", "py-3", "inline-block", "shadow-sm");
-          innerDiv.textContent = content;
-
-          messageDiv.appendChild(innerDiv);
-        } else if (role === "assistant") {
-          messageDiv.classList.add("mr-auto");
-
-          const innerDiv = document.createElement("div");
-          innerDiv.classList.add("chat-bubble", "bg-neutral-100", "rounded-2xl", "rounded-tl-sm", "px-4", "py-3", "markdown", "text-neutral-800", "shadow-sm");
-
-          // Replace markdown links with highlighted spans
-          let processedContent = content.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>');
-          innerDiv.innerHTML = marked.parse(processedContent);
-
-          messageDiv.appendChild(innerDiv);
-        } else if (role === "thinking") {
-          messageDiv.classList.add("mr-auto");
-
-          const innerDiv = document.createElement("div");
-          innerDiv.classList.add("bg-neutral-100", "rounded-2xl", "rounded-tl-sm", "px-4", "py-3", "text-neutral-600", "shadow-sm");
-
-          const typingIndicator = document.createElement("div");
-          typingIndicator.classList.add("typing-indicator", "flex", "items-center", "space-x-1");
-
-          const textSpan = document.createElement("span");
-          textSpan.textContent = "Thinking";
-
-          const dot1 = document.createElement("span");
-          dot1.textContent = "•";
-          const dot2 = document.createElement("span");
-          dot2.textContent = "•";
-          const dot3 = document.createElement("span");
-          dot3.textContent = "•";
-
-          typingIndicator.appendChild(textSpan);
-          typingIndicator.appendChild(dot1);
-          typingIndicator.appendChild(dot2);
-          typingIndicator.appendChild(dot3);
-
-          innerDiv.appendChild(typingIndicator);
-          messageDiv.appendChild(innerDiv);
+        let messageContent;
+        switch (role) {
+          case "user":
+            messageDiv.classList.add("ml-auto");
+            messageContent = `
+                    <div class="chat-bubble bg-primary-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 inline-block shadow-sm">
+                        ${content}
+                    </div>`;
+            break;
+          case "assistant":
+            messageDiv.classList.add("mr-auto");
+            messageContent = `
+                    <div class="chat-bubble bg-neutral-100 rounded-2xl rounded-tl-sm px-4 py-3 markdown text-neutral-800 shadow-sm">
+                        ${marked.parse(content)}
+                    </div>`;
+            break;
+          case "assistant-error":
+            messageDiv.classList.add("mr-auto");
+            messageContent = `
+                    <div class="chat-bubble bg-red-50 rounded-2xl rounded-tl-sm px-4 py-3 text-red-600 shadow-sm">
+                        ${content}
+                    </div>`;
+            break;
+          case "thinking":
+            messageDiv.classList.add("mr-auto");
+            messageContent = `
+                    <div class="bg-neutral-100 rounded-2xl rounded-tl-sm px-4 py-3 text-neutral-600 shadow-sm">
+                        <div class="typing-indicator flex items-center space-x-1">
+                            <span>Thinking</span>
+                            <span>•</span>
+                            <span>•</span>
+                            <span>•</span>
+                        </div>
+                    </div>`;
+            break;
         }
 
+        messageDiv.innerHTML = messageContent;
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
-
-        if (role !== "thinking") {
-          chatHistory.push({ role: role, content: content });
-        }
-
         return messageDiv;
       }
 
@@ -1089,8 +1069,6 @@
         addChatMessage(question, "user");
         chatInput.value = "";
         chatInput.style.height = "auto";
-
-        // Disable input while waiting for response
         chatInput.disabled = true;
 
         const chatSendBtn = document.getElementById("chatSendBtn");
@@ -1099,38 +1077,55 @@
         }
 
         const thinkingMessage = addChatMessage("", "thinking");
-        updateStatusIndicator('processing', 'Processing question...');
+        updateStatusIndicator("processing", "Processing question...");
 
-        if (bridge && typeof bridge.askDocumentQuestion === 'function') {
-          bridge.askDocumentQuestion(question);
-        } else {
-          // Test mode - simulate response
-          setTimeout(() => {
-            // Remove thinking message
+        fetch("/api/documents/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            question: question,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
             if (thinkingMessage) {
               thinkingMessage.remove();
             }
 
-            // Simple test response
-            let sampleAnswer = "Based on the document, I can provide this brief answer.";
-
-            addChatMessage(sampleAnswer, "assistant");
-            updateStatusIndicator('success', 'Ready');
-
-            // Re-enable input
+            if (data.success && data.answer) {
+              displayChatResponse(data.answer);
+              updateStatusIndicator("success", "Response generated");
+            } else {
+              const errorMessage =
+                data.error ||
+                "An error occurred while generating the response";
+              displayChatResponse(errorMessage, true);
+              updateStatusIndicator("error", "Error generating response");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            if (thinkingMessage) {
+              thinkingMessage.remove();
+            }
+            displayChatResponse(
+              "An error occurred while processing your request",
+              true
+            );
+            updateStatusIndicator("error", "Error generating response");
+          })
+          .finally(() => {
             chatInput.disabled = false;
             chatInput.focus();
-
             if (chatSendBtn) {
               chatSendBtn.disabled = false;
             }
-          }, 2000);
-        }
+          });
       }
 
-      // Called from Python when chat response is received
-      function displayChatResponse(response, error) {
-        // Remove any thinking messages
+      function displayChatResponse(response, isError = false) {
         const thinkingMessages = document.querySelectorAll(".typing-indicator");
         thinkingMessages.forEach((msg) => {
           const parentMessage = msg.closest(".animate-slide-up");
@@ -1139,15 +1134,12 @@
           }
         });
 
-        if (error) {
-          addChatMessage("Sorry, I encountered an error: " + error, "assistant");
-          updateStatusIndicator('error', 'Error generating response');
+        if (isError) {
+          addChatMessage(`Error: ${response}`, "assistant-error");
         } else {
           addChatMessage(response, "assistant");
-          updateStatusIndicator('success', 'Response generated');
         }
 
-        // Enable chat input
         const chatInput = document.getElementById("chatInput");
         if (chatInput) {
           chatInput.disabled = false;
@@ -1158,6 +1150,14 @@
         if (chatSendBtn) {
           chatSendBtn.disabled = false;
         }
+      }
+
+      function fetchEmail() {
+        alert("Email fetch functionality would be implemented here");
+      }
+
+      function uploadImage() {
+        alert("Image upload functionality would be implemented here");
       }
     </script>
   </body>

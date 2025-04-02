@@ -1,6 +1,28 @@
-PyQt5==5.15.9
-google-api-python-client==2.97.0
-google-auth-httplib2==0.1.0
-google-auth-oauthlib==1.0.0
-google-generativeai==0.3.1
-python-dotenv==1.0.0
+# Web Framework and Utils
+Flask>=2.0.0
+flask-cors>=3.0.0
+werkzeug>=2.0.0
+
+# Google API Related
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+google-generativeai
+
+# AI/LLM Related
+mistralai
+
+# Configuration and Utils
+python-dotenv
+pydantic
+pydantic-settings
+
+# Async Support
+aiohttp
+asgiref
+
+# PDF Processing
+PyPDF2
+
+# Type Hints
+typing-extensions

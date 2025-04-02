@@ -1,4 +1,3 @@
-# llm/gemini_object_detection.py
 import os
 import asyncio
 import aiohttp
@@ -10,7 +9,6 @@ from utils.config import settings
 
 logger = logging.getLogger(__name__)
 
-# Build the API URL using the API key from settings
 API_URL = (
     f"https://generativelanguage.googleapis.com/v1beta/models/"
     f"gemini-1.5-flash-002:generateContent?key={settings.gemini_api_key}"

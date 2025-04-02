@@ -97,16 +97,10 @@
     </div>
   </div>
 
-  <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
   <script>
     function agentSelected(agent) {
-      if (typeof qt !== 'undefined') {
-        new QWebChannel(qt.webChannelTransport, function(channel) {
-          channel.objects.bridge.agentSelected(agent);
-        });
-      } else {
-        alert('QWebChannel is not available. Running outside of the application.');
-      }
+      // Redirect to the corresponding Flask route: /email, /document, or /object
+      window.location.href = "/" + agent;
     }
   </script>
 </body>
