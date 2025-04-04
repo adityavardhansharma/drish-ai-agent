@@ -400,25 +400,17 @@
         display: flex;
         padding: 1rem;
         width: 100%;
-        height: calc(100vh - 120px); /* Adjust to account for header + tabs */
+        height: calc(100vh - 64px); /* Adjust based on header height */
         overflow: hidden;
       }
 
       /* Split Panel Layout */
-      .panel-left {
+      .panel-left, .panel-right {
         width: 50%;
         height: 100%;
         display: flex;
         flex-direction: column;
-        padding-right: 1rem;
-      }
-
-      .panel-right {
-        width: 50%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding-left: 1rem;
+        padding: 0 0.5rem;
       }
 
       .panel {
@@ -428,29 +420,32 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
       }
 
       .panel-header {
-        padding: 1.5rem;
+        padding: 1rem;
         border-bottom: 1px solid #e5e7eb;
+        flex-shrink: 0;
       }
 
       .panel-content {
         flex: 1;
-        padding: 1.5rem;
-        height: calc(100vh - 180px);
+        padding: 1rem;
         overflow-y: auto;
+        min-height: 0;
       }
 
       .upload-area {
         cursor: pointer;
         border: 2px dashed #e5e7eb;
         border-radius: 0.75rem;
-        padding: 2rem;
+        padding: 1.5rem;
         text-align: center;
         transition: all 0.2s ease;
         background: #f9fafb;
-        margin-bottom: 1rem; /* Reduce margin to allow more space for content */
+        margin-bottom: 1rem;
+        flex-shrink: 0;
       }
 
       .upload-area:hover {
@@ -462,20 +457,21 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        height: calc(100vh - 180px); /* Adjust for header height */
+        min-height: 0;
       }
 
       .chat-messages {
         flex: 1;
         overflow-y: auto;
         padding: 1rem;
-        height: calc(100vh - 240px); /* Adjust to account for header + input area */
+        min-height: 0;
       }
 
       .chat-input-container {
         padding: 1rem;
         border-top: 1px solid #e5e7eb;
         background: #f9fafb;
+        flex-shrink: 0;
       }
 
       .content-wrapper {
@@ -524,6 +520,8 @@
         flex-direction: column;
         gap: 1rem;
         margin-top: 0; /* Remove top margin */
+        overflow-y: auto;
+        min-height: 0;
       }
 
       .results {
@@ -533,10 +531,8 @@
         padding: 1.5rem;
         border-radius: var(--radius);
         font-family: monospace;
-        flex: 1;
-        min-height: 200px; /* Set minimum height */
-        max-height: calc(100vh - 400px); /* Set maximum height */
-        overflow-y: auto; /* Add scroll if content exceeds max height */
+        overflow-y: auto;
+        min-height: 0;
       }
 
       /* Loading State */
@@ -598,46 +594,130 @@
   <body class="bg-neutral-100 text-neutral-800 min-h-screen overflow-hidden">
     <div class="min-h-screen flex flex-col">
       <!-- App Header with Navigation -->
-      <header class="app-header">
-        <div class="app-header-left">
-          <div class="app-logo flex items-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" class="mr-2">
-              <path d="M12 2L2 7l10 5 10-5z" />
-              <path d="M2 17l10 5 10-5" opacity="0.6" />
-              <path d="M2 12l10 5 10-5" opacity="0.8" />
-            </svg>
-            <span class="app-title">AI Agent Pro</span>
-          </div>
-          <div class="nav-buttons electron-only">
-            <button id="nav-back" class="nav-button" title="Back">
-              <i class="ri-arrow-left-line"></i>
-            </button>
-            <button id="nav-forward" class="nav-button" title="Forward">
-              <i class="ri-arrow-right-line"></i>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <!-- Tab Navigation Bar -->
-      <nav class="tab-navigation">
-        <div class="container">
-          <div class="tab-nav">
-            <a href="/email" class="tab-item">
-              Email Summarizer
-            </a>
-            <a href="/document" class="tab-item active">
-              Document Summary
-            </a>
-            <a href="/object" class="tab-item">
-              Object Detection
-            </a>
-            <a href="/leave" class="tab-item">
-              Leave Checker
-            </a>
-          </div>
-        </div>
+      <!-- Common Header Component -->
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
+    <!-- Left: Logo & Desktop Navigation -->
+    <div class="flex items-center space-x-4">
+      <a href="/" class="flex items-center">
+        <!-- Logo SVG -->
+        <svg
+          class="h-8 w-8 text-blue-600"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 2L2 7l10 5 10-5z" />
+          <path d="M2 17l10 5 10-5" fill-opacity="0.6" />
+          <path d="M2 12l10 5 10-5" fill-opacity="0.8" />
+        </svg>
+        <span class="ml-2 text-2xl font-bold text-blue-600">
+          AI Agent Pro
+        </span>
+      </a>
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex space-x-6 ml-6">
+        <a
+          href="/email"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Email Summarizer</a
+        >
+        <a
+          href="/document"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Document Summary</a
+        >
+        <a
+          href="/object"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Object Detection</a
+        >
+        <a
+          href="/leave"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Leave Checker</a
+        >
       </nav>
+    </div>
+
+    <!-- Right: Optional Electron Navigation & Mobile Menu Button -->
+    <div class="flex items-center space-x-4">
+      <!-- Electron Navigation (only shown when available) -->
+      <div class="hidden sm:flex space-x-2 electron-only">
+        <button
+          id="nav-back"
+          class="p-2 hover:bg-blue-50 rounded-full"
+          title="Back"
+        >
+          <i class="ri-arrow-left-line text-xl text-blue-600"></i>
+        </button>
+        <button
+          id="nav-forward"
+          class="p-2 hover:bg-blue-50 rounded-full"
+          title="Forward"
+        >
+          <i class="ri-arrow-right-line text-xl text-blue-600"></i>
+        </button>
+      </div>
+      <!-- Mobile Menu Toggle -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden p-2 hover:bg-blue-50 rounded-full focus:outline-none"
+      >
+        <svg
+          class="h-6 w-6 text-gray-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Menu -->
+<div id="mobile-menu" class="md:hidden hidden">
+  <nav class="px-6 pb-4 space-y-3">
+    <a
+      href="/email"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Email Summarizer</a
+    >
+    <a
+      href="/document"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Document Summary</a
+    >
+    <a
+      href="/object"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Object Detection</a
+    >
+    <a
+      href="/leave"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Leave Checker</a
+    >
+  </nav>
+</div>
+
+<script>
+  // Mobile menu toggle functionality
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
 
       <!-- Status Indicators -->
       <div class="flex justify-between items-center px-6 py-2 bg-gray-50 border-b border-gray-200">

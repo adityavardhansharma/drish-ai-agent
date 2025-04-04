@@ -594,9 +594,9 @@ def uploaded_file(filename):
 
 
 # Register a route to serve electron_bridge.js as a static file
-@app.route('/static/electron_bridge.js')
-def serve_electron_bridge():
-    return send_from_directory('templates', 'electron_bridge.js')
+# @app.route('/static/electron_bridge.js')
+# def serve_electron_bridge():
+#     return send_from_directory('templates', 'electron_bridge.js')
 
 
 if __name__ == "__main__":
