@@ -11,6 +11,15 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+  href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+/>
+
     <style>
       :root {
         --primary: #3b82f6;
@@ -156,13 +165,13 @@
         position: relative;
         z-index: 10;
       }
-      
+
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1rem;
       }
-      
+
       .tab-nav {
         display: flex;
         overflow-x: auto;
@@ -171,11 +180,11 @@
         border-bottom: 2px solid var(--gray-200);
         margin-bottom: 0;
       }
-      
+
       .tab-nav::-webkit-scrollbar {
         display: none;
       }
-      
+
       .tab-item {
         padding: 1rem 1.5rem;
         white-space: nowrap;
@@ -185,15 +194,15 @@
         text-decoration: none;
         transition: color var(--transition-fast);
       }
-      
+
       .tab-item:hover {
         color: var(--primary);
       }
-      
+
       .tab-item.active {
         color: var(--primary);
       }
-      
+
       .tab-item.active::after {
         content: '';
         position: absolute;
@@ -289,7 +298,7 @@
         border: none;
         border-radius: 4px;
         padding: 8px 16px;
-        font-size: 0.9rem;
+        font-size: 1.05rem;
         font-weight: 500;
         cursor: pointer;
         transition: background-color 0.2s, transform 0.1s;
@@ -303,13 +312,7 @@
         transform: translateY(1px);
       }
 
-      #demo-btn {
-        background-color: var(--secondary);
-      }
-
-      #demo-btn:hover {
-        background-color: var(--secondary-dark);
-      }
+      /* Removed demo button styling */
 
       .spinner {
         display: none;
@@ -524,7 +527,6 @@
         max-width: 240px;
       }
 
-      /* Updated email-content: set as a flex child so that its header stays fixed and content scrolls */
       .email-content {
         flex: 1;
         overflow-y: auto;
@@ -541,8 +543,7 @@
         margin-bottom: 24px;
         border-left: 4px solid var(--primary);
         box-shadow: var(--shadow-sm);
-        transition: transform var(--transition-normal),
-          box-shadow var(--transition-normal);
+        transition: transform var(--transition-normal), box-shadow var(--transition-normal);
       }
 
       .email-sender {
@@ -609,8 +610,7 @@
         box-shadow: var(--shadow-sm);
         line-height: 1.6;
         color: var(--gray-800);
-        transition: transform var(--transition-normal),
-          box-shadow var(--transition-normal);
+        transition: transform var(--transition-normal), box-shadow var(--transition-normal);
         overflow-wrap: break-word;
         font-size: 1.15rem;
       }
@@ -704,8 +704,7 @@
         border: 1px solid var(--primary-light);
         border-top: 4px solid var(--primary);
         box-shadow: var(--shadow-md);
-        transition: transform var(--transition-normal),
-          box-shadow var(--transition-normal);
+        transition: transform var(--transition-normal), box-shadow var(--transition-normal);
       }
 
       .reply-box:hover {
@@ -723,8 +722,7 @@
         border: 1px solid var(--gray-300);
         border-radius: var(--border-radius);
         resize: none;
-        transition: border-color var(--transition-fast),
-          box-shadow var(--transition-fast);
+        transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
       }
 
       .textarea:focus {
@@ -779,86 +777,162 @@
         animation: slideInRight 0.5s ease forwards;
       }
 
-      /* Add this section for additional zoom adjustments */
       .summary-content {
         font-size: 1.15rem;
         line-height: 1.6;
       }
-      
+
       .email-list-item__subject {
         font-size: 1.1rem !important;
       }
-      
+
       .email-list-item__preview {
         font-size: 1.05rem !important;
       }
-      
+
       .email-view__subject {
         font-size: 1.4rem !important;
         font-weight: 600;
       }
-      
+
       .email-view__content {
         font-size: 1.15rem !important;
         line-height: 1.6;
       }
-      
+
       .summary-section__title {
         font-size: 1.3rem !important;
         font-weight: 600;
-      }
-      
-      /* Increase button text size */
-      button, .btn {
-        font-size: 1.05rem !important;
-      }
-      
-      /* Increase header elements */
-      .app-logo {
-        font-size: 1.3rem !important;
-      }
-      
-      .tab-item {
-        font-size: 1.1rem !important;
-        padding: 12px 24px !important;
       }
     </style>
   </head>
   <body>
     <div class="app-container">
       <!-- App Header with Navigation -->
-      <header class="app-header">
-        <div class="app-header-left">
-          <div class="app-logo">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5z" fill="var(--primary)"/>
-              <path d="M2 17l10 5 10-5" fill="var(--primary)" fill-opacity="0.6"/>
-              <path d="M2 12l10 5 10-5" fill="var(--primary)" fill-opacity="0.8"/>
-            </svg>
-            <span>AI Agent Pro</span>
-          </div>
-          <div class="nav-buttons electron-only">
-            <button id="nav-back" class="nav-button" data-action="back" title="Back">
-              <i class="ri-arrow-left-line"></i>
-            </button>
-            <button id="nav-forward" class="nav-button" data-action="forward" title="Forward">
-              <i class="ri-arrow-right-line"></i>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <!-- Tab Navigation Bar -->
-      <nav class="tab-navigation">
-        <div class="container">
-          <div class="tab-nav">
-            <a href="/email" class="tab-item active">Email Summarizer</a>
-            <a href="/document" class="tab-item">Document Summary</a>
-            <a href="/object" class="tab-item">Object Detection</a>
-            <a href="/leave" class="tab-item">Leave Checker</a>
-          </div>
-        </div>
+      <!-- Common Header Component -->
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
+    <!-- Left: Logo & Desktop Navigation -->
+    <div class="flex items-center space-x-4">
+      <a href="/" class="flex items-center">
+        <!-- Logo SVG -->
+        <svg
+          class="h-8 w-8 text-blue-600"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 2L2 7l10 5 10-5z" />
+          <path d="M2 17l10 5 10-5" fill-opacity="0.6" />
+          <path d="M2 12l10 5 10-5" fill-opacity="0.8" />
+        </svg>
+        <span class="ml-2 text-2xl font-bold text-blue-600">
+          AI Agent Pro
+        </span>
+      </a>
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex space-x-6 ml-6">
+        <a
+          href="/email"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Email Summarizer</a
+        >
+        <a
+          href="/document"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Document Summary</a
+        >
+        <a
+          href="/object"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Object Detection</a
+        >
+        <a
+          href="/leave"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Leave Checker</a
+        >
       </nav>
+    </div>
+
+    <!-- Right: Optional Electron Navigation & Mobile Menu Button -->
+    <div class="flex items-center space-x-4">
+      <!-- Electron Navigation (only shown when available) -->
+      <div class="hidden sm:flex space-x-2 electron-only">
+        <button
+          id="nav-back"
+          class="p-2 hover:bg-blue-50 rounded-full"
+          title="Back"
+        >
+          <i class="ri-arrow-left-line text-xl text-blue-600"></i>
+        </button>
+        <button
+          id="nav-forward"
+          class="p-2 hover:bg-blue-50 rounded-full"
+          title="Forward"
+        >
+          <i class="ri-arrow-right-line text-xl text-blue-600"></i>
+        </button>
+      </div>
+      <!-- Mobile Menu Toggle -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden p-2 hover:bg-blue-50 rounded-full focus:outline-none"
+      >
+        <svg
+          class="h-6 w-6 text-gray-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Menu -->
+<div id="mobile-menu" class="md:hidden hidden">
+  <nav class="px-6 pb-4 space-y-3">
+    <a
+      href="/email"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Email Summarizer</a
+    >
+    <a
+      href="/document"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Document Summary</a
+    >
+    <a
+      href="/object"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Object Detection</a
+    >
+    <a
+      href="/leave"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Leave Checker</a
+    >
+  </nav>
+</div>
+
+<script>
+  // Mobile menu toggle functionality
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
 
       <!-- Status bar and controls -->
       <div class="control-bar">
@@ -871,12 +945,10 @@
           </div>
         </div>
         <div class="action-buttons">
-          <button id="demo-btn" class="action-button" title="Load Demo Emails">
-            <span class="button-text">Demo</span>
-          </button>
+          <!-- The Demo button has been removed per requirements -->
           <button id="fetch-btn" class="action-button" title="Fetch New Emails">
             <span class="button-text">Fetch Mail</span>
-            <div class="spinner" id="fetch-spinner"></div>
+            <div class="spinner hidden" id="fetch-spinner"></div>
           </button>
         </div>
       </div>
@@ -939,9 +1011,9 @@
       </div>
     </div>
 
-    <!-- Include the Electron bridge script -->
+    <!-- Include the Electron bridge script if running in Electron -->
     <script src="{{ url_for('static', filename='electron_bridge.js') }}"></script>
-    
+
     <script>
       // Global variables and state
       let isLoading = false;
@@ -951,110 +1023,101 @@
       let currentEmailData = null;
       let activeEmailItem = null;
 
-      // Document is loaded
       document.addEventListener("DOMContentLoaded", function() {
         console.log("DOMContentLoaded event fired");
-        
-        // Check if running in Electron
+
         if (window.electron) {
-          document.body.classList.add('electron');
-          console.log('Running in Electron environment');
+          document.body.classList.add("electron");
+          console.log("Running in Electron environment");
         }
-        
+
         // Set up back and forward navigation buttons
         const backButton = document.querySelector('.nav-button[data-action="back"]');
-        const forwardButton = document.querySelector('.nav-button[data-action="forward"]');
-        
         if (backButton) {
-          backButton.addEventListener('click', function() {
-            console.log('Back button clicked');
-            if (typeof navigateInApp === 'function') {
-              navigateInApp('back');
+          backButton.addEventListener("click", function() {
+            console.log("Back button clicked");
+            if (typeof navigateInApp === "function") {
+              navigateInApp("back");
             } else if (window.electron && window.electron.navigateInApp) {
-              window.electron.navigateInApp('back');
+              window.electron.navigateInApp("back");
             } else {
-              console.error('Navigation function not available');
+              console.error("Navigation function not available");
             }
           });
-        } else {
-          console.warn('Back button not found');
         }
-        
+
+        const forwardButton = document.querySelector('.nav-button[data-action="forward"]');
         if (forwardButton) {
-          forwardButton.addEventListener('click', function() {
-            console.log('Forward button clicked');
-            if (typeof navigateInApp === 'function') {
-              navigateInApp('forward');
+          forwardButton.addEventListener("click", function() {
+            console.log("Forward button clicked");
+            if (typeof navigateInApp === "function") {
+              navigateInApp("forward");
             } else if (window.electron && window.electron.navigateInApp) {
-              window.electron.navigateInApp('forward');
+              window.electron.navigateInApp("forward");
             } else {
-              console.error('Navigation function not available');
+              console.error("Navigation function not available");
             }
           });
-        } else {
-          console.warn('Forward button not found');
         }
 
         // Set active tab based on current URL
         const currentPath = window.location.pathname;
-        const tabItems = document.querySelectorAll('.tab-item');
-        
-        tabItems.forEach(tab => {
-          const href = tab.getAttribute('href');
+        const tabItems = document.querySelectorAll(".tab-item");
+        tabItems.forEach((tab) => {
+          const href = tab.getAttribute("href");
           if (href && currentPath.includes(href.substring(1))) {
-            tab.classList.add('active');
+            tab.classList.add("active");
           } else if (href !== currentPath) {
-            tab.classList.remove('active');
+            tab.classList.remove("active");
           }
         });
 
-        // Initialize the app
+        // Initialize the auto-fetch timer (only on first app load)
         startAutoFetchTimer();
 
-        // Start fetching emails after a short delay
-        setTimeout(() => {
-          startFetch();
-        }, 500);
-
-        // Set up auto fetch every 15 minutes
-        setInterval(function () {
-          if (!isLoading) startFetch();
-        }, 15 * 60 * 1000);
-        
-        // Log initialization to console
         console.log("Email summarizer initialized");
 
-        // Get DOM elements
-        const demoBtn = document.getElementById("demo-btn");
+        // Only one manual fetch button is used now
         const fetchBtn = document.getElementById("fetch-btn");
-        
-        // Set up event listeners
-        if (demoBtn) {
-          demoBtn.addEventListener("click", function() {
-            clearEmailsList();
-            loadDemoEmails();
-            updateStatusIndicator("success", "Demo emails loaded");
-          });
-        }
-        
         if (fetchBtn) {
           fetchBtn.addEventListener("click", startFetch);
         }
       });
 
-      // Helper functions
       function startAutoFetchTimer() {
-        if (timerInterval) clearInterval(timerInterval);
-        timeRemaining = 900; // 15 minutes in seconds
+        if (localStorage.getItem("autoFetchCompleted") === "true") {
+          timeRemaining = 0;
+          updateTimerDisplay();
+          return;
+        }
+        let start = localStorage.getItem("autoFetchStart");
+        if (!start) {
+          start = Date.now();
+          localStorage.setItem("autoFetchStart", start);
+          timeRemaining = 900;
+        } else {
+          start = parseInt(start, 10);
+          const elapsed = Math.floor((Date.now() - start) / 1000);
+          timeRemaining = 900 - elapsed;
+        }
+        if (timeRemaining <= 0) {
+          startFetch();
+          localStorage.setItem("autoFetchCompleted", "true");
+          timeRemaining = 0;
+          updateTimerDisplay();
+          return;
+        }
         updateTimerDisplay();
         timerInterval = setInterval(() => {
-          timeRemaining--;
+          const elapsed = Math.floor((Date.now() - start) / 1000);
+          timeRemaining = 900 - elapsed;
           if (timeRemaining <= 0) {
             clearInterval(timerInterval);
             startFetch();
-          } else {
-            updateTimerDisplay();
+            localStorage.setItem("autoFetchCompleted", "true");
+            timeRemaining = 0;
           }
+          updateTimerDisplay();
         }, 1000);
       }
 
@@ -1077,98 +1140,52 @@
         document.getElementById("fetch-btn").disabled = false;
         updateStatusIndicator(
           emailCount > 0 ? "success" : "warning",
-          emailCount > 0 ? `${emailCount} emails loaded` : "No emails found"
+          emailCount > 0
+            ? `${emailCount} emails loaded`
+            : "No emails found"
         );
         isLoading = false;
-        startAutoFetchTimer();
       }
 
       function updateStatusIndicator(status, message) {
         const indicator = document.getElementById("status-indicator");
         const statusText = document.getElementById("status-text");
         if (!indicator || !statusText) return;
-        
-        // Remove all status classes
-        indicator.classList.remove("ready", "processing", "success", "error", "warning");
-        
-        // Add the appropriate status class
+        indicator.classList.remove(
+          "ready",
+          "processing",
+          "success",
+          "error",
+          "warning"
+        );
         indicator.classList.add(status);
-        
-        // Update the status text
         statusText.textContent = message || "Ready to process emails";
       }
 
-      function clearEmailsList() {
-        const list = document.getElementById("emailList");
-        if (!list) return;
-        
-        // Remove all email items
-        while (list.firstChild) {
-          list.removeChild(list.firstChild);
-        }
-        
-        // Reset the email count
-        emailCount = 0;
-        
-        // Clear the current email data
-        currentEmailData = {};
-        
-        // Reset the active email item
-        activeEmailItem = null;
-        
-        // Show the no emails message
-        const noEmailsMessage = document.getElementById("noEmailsMessage");
-        if (noEmailsMessage) {
-          noEmailsMessage.style.display = "block";
-        }
-        
-        // Reset the email details view
-        const emailDetails = document.getElementById("emailDetails");
-        if (emailDetails) {
-          emailDetails.style.display = "none";
-          emailDetails.innerHTML = "";
-        }
-        
-        // Show the empty state message
-        const emailContent = document.getElementById("emailContent");
-        if (emailContent) {
-          emailContent.style.display = "flex";
-        }
-      }
-
       function addEmailSummary(summary, reply, messageId, toEmail, subject) {
-        // Hide loading state after the first email is added
         hideLoadingState();
-        
         emailCount++;
-        
-        // Log for debugging
         console.log("Adding email summary:", {
           summary_length: summary ? summary.length : 0,
           has_message_id: !!messageId,
           has_to_email: !!toEmail,
-          subject: subject
+          subject: subject,
         });
 
-        // Default values in case they're not provided
         let sub = subject || "No Subject";
         let from = "Unknown";
         let fromEmail = "";
         let preview = "No preview available";
         let date = "Today";
 
-        // Check if the summary is a string
-        if (typeof summary === 'string') {
-          // Extract metadata from the summary
-          const lines = summary.split('\n');
-          
+        if (typeof summary === "string") {
+          const lines = summary.split("\n");
           for (let i = 0; i < Math.min(10, lines.length); i++) {
             const line = lines[i].trim();
             if (line.startsWith("Subject:") && !sub) {
               sub = line.substring(8).trim();
             } else if (line.startsWith("From:")) {
               from = line.substring(5).trim();
-              // Extract email address if present
               const emailMatch = from.match(/<([^>]+)>/);
               if (emailMatch) {
                 fromEmail = emailMatch[1];
@@ -1178,14 +1195,16 @@
               date = line.substring(5).trim();
             } else if (line.startsWith("Preview:")) {
               preview = line.substring(8).trim();
-            } else if (i > 3 && line.length > 10 && !line.includes(":") && !preview) {
-              // If we haven't found a preview and this is a non-metadata line, use it
+            } else if (
+              i > 3 &&
+              line.length > 10 &&
+              !line.includes(":") &&
+              !preview
+            ) {
               preview = line.trim();
               break;
             }
           }
-          
-          // If we still don't have a preview, use the first non-metadata line
           if (preview === "No preview available") {
             for (let i = 0; i < lines.length; i++) {
               const line = lines[i].trim();
@@ -1197,34 +1216,30 @@
           }
         }
 
-        // Generate a random color for the avatar
         const avatarColor = `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`;
-        
-        // Generate initials for the avatar
-        const initials = from.split(' ')
-          .map(name => name ? name[0] : '')
-          .join('')
-          .substring(0, 2)
-          .toUpperCase() || "NA";
+        const initials =
+          from
+            .split(" ")
+            .map((name) => (name ? name[0] : ""))
+            .join("")
+            .substring(0, 2)
+            .toUpperCase() || "NA";
 
-        // Get the list container
         const list = document.getElementById("emailList");
-        
-        // Hide the no emails message
         const noEmailsMessage = document.getElementById("noEmailsMessage");
         if (noEmailsMessage) {
           noEmailsMessage.style.display = "none";
         }
-          
-        const formattedDate = date || "Today";
 
+        const formattedDate = date || "Today";
         const emailItem = document.createElement("div");
         emailItem.className = "email-item animate-fade-in-up";
         emailItem.style.animationDelay = emailCount * 0.05 + "s";
-        // Add a data-id attribute with a unique ID (use messageId if available, otherwise generate one)
-        const emailId = messageId || `email-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+        const emailId =
+          messageId ||
+          `email-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
         emailItem.setAttribute("data-id", emailId);
-        
+
         emailItem.innerHTML = `
           <div style="display: flex; gap: 12px;">
             <div class="email-item-avatar" style="background-color: ${avatarColor}">
@@ -1240,7 +1255,6 @@
             </div>
           </div>`;
 
-        // Store the email data in the currentEmailData object
         if (!currentEmailData) currentEmailData = {};
         currentEmailData[emailId] = {
           summary: summary,
@@ -1252,11 +1266,10 @@
           from_email: fromEmail,
           date: formattedDate,
           initials: initials,
-          avatarColor: avatarColor
+          avatarColor: avatarColor,
         };
 
-        // Add click event listener
-        emailItem.onclick = function() {
+        emailItem.onclick = function () {
           console.log("Email clicked:", sub);
           selectEmail(this, currentEmailData[emailId]);
         };
@@ -1270,73 +1283,57 @@
         }
         activeEmailItem = emailElement;
         emailElement.classList.add("active");
-
-        // Store the email data
         currentEmailData = emailData;
-
-        // Show the email details and hide the empty state
         document.getElementById("emailContent").style.display = "none";
         document.getElementById("emailDetails").style.display = "block";
-
         displayEmailDetails(emailData);
       }
 
       function displayEmailDetails(emailData) {
-        // Get the details container
         const emailDetailsDiv = document.getElementById("emailDetails");
         if (!emailDetailsDiv) {
           console.error("Email details container not found");
           return;
         }
-        
         console.log("Displaying email details for:", emailData.subject);
-        
-        // Parse metadata and summary from the email data
         let from = emailData.from || "";
         let fromEmail = emailData.from_email || "";
         let subject = emailData.subject || "";
         let date = emailData.date || "Today";
         let summaryText = "";
-        
-        // Process the summary content
+
         if (emailData.summary) {
-          const lines = emailData.summary.split('\n');
-          
-          // Try to extract summary text from "Summary:" section if it exists
-          if (lines.some(line => line.trim().startsWith("Summary:"))) {
-            const summaryIdx = lines.findIndex(line => line.trim().startsWith("Summary:"));
+          const lines = emailData.summary.split("\n");
+          if (lines.some((line) => line.trim().startsWith("Summary:"))) {
+            const summaryIdx = lines.findIndex((line) =>
+              line.trim().startsWith("Summary:")
+            );
             summaryText = lines[summaryIdx].replace("Summary:", "").trim();
-            // Include subsequent lines until we hit another section
             for (let i = summaryIdx + 1; i < lines.length; i++) {
               if (lines[i].includes(":") && !lines[i].includes(" ")) break;
               summaryText += "\n" + lines[i];
             }
           } else {
-            // If no explicit summary section, use the entire content
             summaryText = emailData.summary;
           }
         }
-        
-        // If still no summary, use fallback
+
         if (!summaryText) {
           summaryText = "No summary available for this email.";
         }
-        
-        // Extract key points from the summary
+
         const keyPoints = extractKeyPoints(emailData.summary || "");
-        
-        // Generate initials for avatar
-        const initials = from.split(' ')
-          .map(name => name ? name[0] : '')
-          .join('')
-          .substring(0, 2)
-          .toUpperCase() || "NA";
-        
-        // Use the provided avatar color or generate a random one
-        const avatarColor = emailData.avatarColor || 
+        const initials =
+          from
+            .split(" ")
+            .map((name) => (name ? name[0] : ""))
+            .join("")
+            .substring(0, 2)
+            .toUpperCase() || "NA";
+        const avatarColor =
+          emailData.avatarColor ||
           `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`;
-        
-        // Format the HTML for the email details
+
         emailDetailsDiv.innerHTML = `
           <div class="email-header">
             <div class="email-sender">
@@ -1344,13 +1341,12 @@
               <div>
                 <div class="email-subject">${subject}</div>
                 <div class="email-meta">
-                  <div class="from">From: ${from} ${fromEmail ? `<${fromEmail}>` : ''}</div>
+                  <div class="from">From: ${from} ${fromEmail ? `<${fromEmail}>` : ""}</div>
                   <div class="date">${date}</div>
                 </div>
               </div>
             </div>
           </div>
-
           <div class="email-section">
             <div class="section-header">
               <svg class="section-icon" width="18" height="18" viewBox="0 0 24 24"
@@ -1364,7 +1360,6 @@
             </div>
             <div class="summary-content">${summaryText}</div>
           </div>
-
           <div class="email-section">
             <div class="section-header">
               <svg class="section-icon" width="18" height="18" viewBox="0 0 24 24"
@@ -1380,21 +1375,25 @@
               Key Points
             </div>
             <div class="key-points">
-              ${keyPoints.length > 0 ? 
-                keyPoints.map((point, idx) => `
+              ${
+                keyPoints.length > 0
+                  ? keyPoints
+                      .map(
+                        (point, idx) => `
                   <div class="key-point" style="animation-delay: ${idx * 0.1}s">
                     <div class="point-number">${idx + 1}</div>
                     <div>${point}</div>
                   </div>
-                `).join("") : 
-                `<div class="key-point">
-                  <div class="point-number">1</div>
-                  <div>No key points available for this email.</div>
-                </div>`
+                `
+                      )
+                      .join("")
+                  : `<div class="key-point">
+                      <div class="point-number">1</div>
+                      <div>No key points available for this email.</div>
+                    </div>`
               }
             </div>
           </div>
-
           <div class="email-section" id="replySection">
             <div class="section-header">
               <svg class="section-icon" width="18" height="18" viewBox="0 0 24 24"
@@ -1406,11 +1405,23 @@
               Suggested Reply
             </div>
             <div class="reply-box">
-              <textarea id="replyText" class="textarea" placeholder="Type your reply here..."></textarea>
+              <textarea
+                id="replyText"
+                class="textarea"
+                placeholder="Type your reply here..."
+              ></textarea>
               <div class="reply-actions">
                 <div class="reply-info">
-                  <div>To: <span id="replyToAddress">${fromEmail || "Unknown recipient"}</span></div>
-                  <div>Subject: <span id="replySubject">Re: ${subject || "No subject"}</span></div>
+                  <div>
+                    To: <span id="replyToAddress">${
+                      fromEmail || "Unknown recipient"
+                    }</span>
+                  </div>
+                  <div>
+                    Subject: <span id="replySubject">Re: ${
+                      subject || "No subject"
+                    }</span>
+                  </div>
                 </div>
                 <button id="sendReplyBtn" class="action-button" onclick="sendReply()">
                   <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24"
@@ -1425,91 +1436,79 @@
             </div>
           </div>
         `;
-        
-        // Set the AI suggested reply in the textarea
         const replyTextarea = document.getElementById("replyText");
         if (replyTextarea && emailData.reply) {
           replyTextarea.value = emailData.reply;
         }
       }
-      
-      // Function to send a reply to an email
+
       function sendReply() {
-        // Get the reply text and trim whitespace
         const replyTextarea = document.getElementById("replyText");
         if (!replyTextarea) {
           console.error("Reply textarea not found");
           return;
         }
-        
         const replyText = replyTextarea.value.trim();
-        
         console.log("Reply text length:", replyText.length);
-        console.log("Reply text first 50 chars:", replyText.substring(0, 50));
-        
+        console.log(
+          "Reply text first 50 chars:",
+          replyText.substring(0, 50)
+        );
         if (!replyText) {
           alert("Please enter a reply message");
           return;
         }
-
         if (!currentEmailData) {
           console.error("No email selected or missing data");
           updateStatusIndicator("error", "Cannot send reply: No email selected");
           return;
         }
-
-        console.log("Sending reply to:", currentEmailData.from_email || currentEmailData.to_email);
-        
+        console.log(
+          "Sending reply to:",
+          currentEmailData.from_email || currentEmailData.to_email
+        );
         const sendBtn = document.getElementById("sendReplyBtn");
         if (!sendBtn) {
           console.error("Send button not found");
           return;
         }
-        
         const originalBtnText = sendBtn.innerHTML;
-
-        // Update button to show loading state
         sendBtn.innerHTML = `
           <div class="spinner"></div>
           <span>Sending...</span>
         `;
         sendBtn.disabled = true;
-
         updateStatusIndicator("processing", "Sending reply...");
-        
-        // Build request payload
         const payload = {
           body: replyText,
           message_id: currentEmailData.message_id,
           to_email: currentEmailData.from_email || currentEmailData.to_email,
           subject: "Re: " + currentEmailData.subject,
         };
-        
         console.log("Sending payload:", payload);
-
         fetch("/api/emails/reply", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         })
-          .then(response => {
+          .then((response) => {
             console.log("Reply response status:", response.status);
             if (!response.ok) {
               throw new Error(`HTTP error ${response.status}`);
             }
             return response.json();
           })
-          .then(data => {
+          .then((data) => {
             console.log("Reply response data:", data);
             if (data.success) {
               sendBtn.innerHTML = `
-              <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24"
-                fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Sent!</span>
-            `;
+                <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24"
+                  fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Sent!</span>
+              `;
               sendBtn.style.backgroundColor = "var(--success)";
               updateStatusIndicator("success", "Reply sent successfully");
               setTimeout(() => {
@@ -1526,64 +1525,54 @@
               );
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.error("Error sending reply:", error);
             sendBtn.innerHTML = originalBtnText;
             sendBtn.disabled = false;
-            updateStatusIndicator("error", `Failed to send reply: ${error.message}`);
+            updateStatusIndicator(
+              "error",
+              `Failed to send reply: ${error.message}`
+            );
           });
       }
 
       function extractKeyPoints(summary) {
-        // Extract key points from the summary
         const keyPoints = [];
-        
-        // Check for explicit key points section
         const keyPointsMatch = summary.match(/Key Points:(.*?)(?=(\n\n|$))/s);
         if (keyPointsMatch && keyPointsMatch[1]) {
-          // Split by newline and bullet points
           const pointsText = keyPointsMatch[1].trim();
-          const bulletPoints = pointsText.split(/\n+\s*[-•*]\s*/).filter(p => p.trim());
-          
+          const bulletPoints = pointsText
+            .split(/\n+\s*[-•*]\s*/)
+            .filter((p) => p.trim());
           if (bulletPoints.length > 0) {
-            // First element might be empty or contain text before the first bullet
             const firstPoint = bulletPoints[0].trim();
-            if (firstPoint && !firstPoint.startsWith('Key Points:')) {
+            if (firstPoint && !firstPoint.startsWith("Key Points:")) {
               keyPoints.push(firstPoint);
             }
-            
-            // Add the rest of the bullet points
             for (let i = 1; i < bulletPoints.length; i++) {
               if (bulletPoints[i].trim()) {
                 keyPoints.push(bulletPoints[i].trim());
               }
             }
           } else {
-            // If no bullet points are found, try splitting by newlines
-            const lines = pointsText.split('\n').filter(p => p.trim());
+            const lines = pointsText.split("\n").filter((p) => p.trim());
             for (const line of lines) {
               keyPoints.push(line.trim());
             }
           }
         }
-        
-        // If no key points were found, try to generate some from the summary
         if (keyPoints.length === 0) {
           return generateKeyPointsFromSummary(summary);
         }
-        
         return keyPoints;
       }
-      
+
       function generateKeyPointsFromSummary(summaryText) {
-        // Generate key points from the summary text if no explicit key points are found
         const keyPoints = [];
-        
-        // Try to extract the actual summary content from the full text
         let cleanSummary = summaryText;
-        
-        // If the summary contains metadata, try to extract just the summary part
-        const summaryMatch = summaryText.match(/Summary:(.*?)(?=(Key Points:|Body:|$))/s);
+        const summaryMatch = summaryText.match(
+          /Summary:(.*?)(?=(Key Points:|Body:|$))/s
+        );
         if (summaryMatch && summaryMatch[1].trim()) {
           cleanSummary = summaryMatch[1].trim();
         } else if (summaryText.includes("Body:")) {
@@ -1592,106 +1581,93 @@
             cleanSummary = bodyMatch[1].trim();
           }
         }
-        
-        // Split the summary into sentences
-        const sentences = cleanSummary.split(/[.!?]+/).filter(s => s.trim().length > 15);
-        
-        // Use up to 3 sentences as key points
+        const sentences = cleanSummary
+          .split(/[.!?]+/)
+          .filter((s) => s.trim().length > 15);
         for (let i = 0; i < Math.min(3, sentences.length); i++) {
           const sentence = sentences[i].trim();
           if (sentence) {
             keyPoints.push(sentence + ".");
           }
         }
-        
-        // If still no key points, use demo key points
         if (keyPoints.length === 0 && summaryText.length > 50) {
-          // Split the text into chunks of roughly equal length
           const textLength = cleanSummary.length;
           const chunkSize = Math.floor(textLength / 3);
-          
           for (let i = 0; i < 3; i++) {
             const start = i * chunkSize;
             const end = Math.min((i + 1) * chunkSize, textLength);
             const chunk = cleanSummary.substring(start, end).trim();
-            
             if (chunk.length > 0) {
-              // Take first 60 chars and add ellipsis if needed
               let point = chunk.substring(0, 60);
               if (chunk.length > 60) point += "...";
               keyPoints.push(point);
             }
           }
         }
-        
         return keyPoints;
       }
 
       function startFetch() {
         if (isLoading) return;
-        clearEmailsList();
+        // Note: we no longer clear the email list so that old emails remain.
         showLoadingState();
-        
         console.log("Starting email fetch...");
         updateStatusIndicator("processing", "Fetching emails...");
-
-        // Create a new EventSource for SSE
         let evtSource;
         try {
           evtSource = new EventSource("/api/emails/fetch");
         } catch (error) {
           console.error("Error creating EventSource:", error);
-          loadDemoEmails();
           updateStatusIndicator("error", "Connection error");
           hideLoadingState();
           return;
         }
-        
         let emailsReceived = 0;
         let hasConnected = false;
-        
-        // Handle SSE messages
-        evtSource.onmessage = function(event) {
+        evtSource.onmessage = function (event) {
           try {
             hasConnected = true;
             console.log("SSE message received:", event.data);
             const data = JSON.parse(event.data);
-            
             if (data.type === "email_summary") {
               console.log("Email summary received:", data.data.subject);
               emailsReceived++;
-              
               const d = data.data;
-              
-              // Debug the structure of the summary data
               console.log("Summary data structure:", {
                 summary_length: d.summary ? d.summary.length : 0,
-                summary_starts_with: d.summary ? d.summary.substring(0, 30) + "..." : "N/A",
+                summary_starts_with: d.summary
+                  ? d.summary.substring(0, 30) + "..."
+                  : "N/A",
                 has_reply: !!d.reply,
                 reply_length: d.reply ? d.reply.length : 0,
                 message_id: d.message_id,
                 to_email: d.to_email,
-                subject: d.subject
+                subject: d.subject,
               });
-              
-              // Verify the summary has content
               if (!d.summary || d.summary.trim() === "") {
                 console.warn("Empty summary received, using placeholder");
-                d.summary = `From: ${d.from || 'Unknown'}\nSubject: ${d.subject || 'No Subject'}\n\nSummary: No summary available for this email.`;
+                d.summary = `From: ${d.from || "Unknown"}\nSubject: ${
+                  d.subject || "No Subject"
+                }\n\nSummary: No summary available for this email.`;
               }
-              
-              // Process and validate the reply
               let formattedReply = "";
               if (d.reply) {
                 formattedReply = d.reply.trim();
-                console.log("AI reply received, length:", formattedReply.length);
-                console.log("AI reply preview:", formattedReply.substring(0, 50) + "...");
+                console.log(
+                  "AI reply received, length:",
+                  formattedReply.length
+                );
+                console.log(
+                  "AI reply preview:",
+                  formattedReply.substring(0, 50) + "..."
+                );
               } else {
-                formattedReply = "Thank you for your email. I'll get back to you shortly.";
-                console.log("No AI reply received, using default");
+                formattedReply =
+                  "Thank you for your email. I'll get back to you shortly.";
+                console.log(
+                  "No AI reply received, using default"
+                );
               }
-              
-              // Add the email summary with the processed reply
               addEmailSummary(
                 d.summary,
                 formattedReply,
@@ -1699,290 +1675,44 @@
                 d.to_email,
                 d.subject
               );
-            } 
-            else if (data.type === "status") {
+            } else if (data.type === "status") {
               updateStatusIndicator("processing", data.message);
-            } 
-            else if (data.type === "progress") {
-              // Optional: Handle progress messages
+            } else if (data.type === "progress") {
               console.log("Progress:", data.message);
-            } 
-            else if (data.type === "completed") {
+            } else if (data.type === "completed") {
               console.log("Fetch completed:", data.message);
-              
-              // If no emails were received, show demo emails
-              if (emailsReceived === 0) {
-                console.log("No emails received, showing demo content");
-                loadDemoEmails();
-              }
-              
               updateStatusIndicator("success", data.message);
               evtSource.close();
               hideLoadingState();
-            } 
-            else if (data.type === "error") {
+            } else if (data.type === "error") {
               console.error("Fetch error:", data.message);
-              
-              // If error occurred and no emails were received, show demo emails
-              if (emailsReceived === 0) {
-                console.log("Error occurred and no emails received, showing demo content");
-                loadDemoEmails();
-              }
-              
               updateStatusIndicator("error", data.message);
               evtSource.close();
               hideLoadingState();
             }
           } catch (error) {
             console.error("Error processing SSE message:", error);
-            
-            // If error occurred, show demo emails
-            console.log("Error processing message, showing demo content");
-            loadDemoEmails();
-            
             updateStatusIndicator("error", "Error processing data");
             evtSource.close();
             hideLoadingState();
           }
         };
-        
-        // Handle SSE connection errors
-        evtSource.onerror = function(error) {
+
+        evtSource.onerror = function (error) {
           console.error("SSE connection error:", error);
-          
-          // Show demo emails on connection error
-          if (!hasConnected || emailsReceived === 0) {
-            console.log("Connection error, showing demo content");
-            loadDemoEmails();
-          }
-          
           updateStatusIndicator("error", "Connection error");
           evtSource.close();
           hideLoadingState();
         };
-        
-        // If no response after 30 seconds, close connection and show demo emails
+
         setTimeout(() => {
           if (isLoading) {
-            console.log("Fetch timeout - closing connection and showing demo content");
-            loadDemoEmails();
+            console.log("Fetch timeout - closing connection");
             evtSource.close();
             hideLoadingState();
             updateStatusIndicator("warning", "Fetch timed out");
           }
         }, 30000);
-      }
-      
-      // Load demo emails as a fallback
-      function loadDemoEmails() {
-        const demoEmails = [
-          {
-            summary: 
-              "From: John Smith <john.smith@example.com>\n" +
-              "To: you@example.com\n" +
-              "Subject: Quarterly Business Review\n" +
-              "Date: Today, 10:45 AM\n" +
-              "Message ID: msg123\n\n" +
-              "Summary: I'd like to schedule our quarterly business review for next week. Please let me know your availability on Tuesday or Wednesday afternoon. We need to discuss the Q3 results and plan for Q4 initiatives.",
-            reply:
-              "Hi John,\n\nThank you for reaching out about scheduling the quarterly business review. I'm available on Wednesday afternoon from 2-4pm. Would that work for you?\n\nI look forward to discussing our Q3 results and planning our Q4 initiatives.\n\nBest regards,",
-            message_id: "msg123",
-            to_email: "you@example.com",
-            subject: "Quarterly Business Review",
-          },
-          {
-            summary:
-              "From: Sarah Johnson <sarah.j@techcorp.com>\n" +
-              "To: you@example.com\n" +
-              "Subject: Project Deadline Extension\n" +
-              "Date: Yesterday, 4:22 PM\n" +
-              "Message ID: msg456\n\n" +
-              "Summary: Due to unexpected technical challenges with the database migration, we need to request a two-week extension on the project deadline. The team has been working overtime but we've encountered issues with data integrity that require additional testing.",
-            reply:
-              "Hi Sarah,\n\nThank you for letting me know about the challenges with the database migration. I understand these technical issues can be complex.\n\nA two-week extension should be fine. Please send me a revised timeline with the updated milestones so I can update our stakeholders.\n\nLet me know if you need any additional resources to help resolve the data integrity issues.\n\nRegards,",
-            message_id: "msg456",
-            to_email: "you@example.com",
-            subject: "Project Deadline Extension",
-          },
-          {
-            summary:
-              "From: Marketing Team <marketing@company.org>\n" +
-              "To: all-staff@company.org\n" +
-              "Subject: New Brand Guidelines Released\n" +
-              "Date: Monday, 9:00 AM\n" +
-              "Message ID: msg789\n\n" +
-              "Summary: The marketing department has released updated brand guidelines effective immediately. All presentations, documents, and external communications should follow the new color palette, typography, and logo usage rules. Training sessions will be held this Thursday and Friday.",
-            reply:
-              "Hello Marketing Team,\n\nThank you for sharing the updated brand guidelines. I've reviewed the changes and will implement them in my upcoming presentations and documents.\n\nI'd like to attend the training session on Thursday. Could you please confirm the time and location?\n\nBest regards,",
-            message_id: "msg789",
-            to_email: "all-staff@company.org",
-            subject: "New Brand Guidelines Released",
-          },
-        ];
-
-        console.log("Loading demo emails:", demoEmails.length);
-        
-        // Save the current loading state
-        const wasLoading = isLoading;
-        
-        // Make sure we're not in loading state anymore
-        // but don't call hideLoadingState() yet to prevent UI updates
-        isLoading = false;
-        
-        // Process each demo email
-        demoEmails.forEach((email, index) => {
-          // Only call hideLoadingState from addEmailSummary for the first email
-          if (index === 0 && wasLoading) {
-            addEmailSummary(
-              email.summary,
-              email.reply,
-              email.message_id,
-              email.to_email,
-              email.subject
-            );
-          } else {
-            // For subsequent emails, don't call hideLoadingState again
-            addEmailSummaryWithoutStateChange(
-              email.summary,
-              email.reply,
-              email.message_id,
-              email.to_email,
-              email.subject
-            );
-          }
-        });
-        
-        // If we weren't loading or had no emails, call hideLoadingState manually
-        if (!wasLoading || demoEmails.length === 0) {
-          hideLoadingState();
-        }
-      }
-      
-      // Version of addEmailSummary that doesn't change loading state
-      function addEmailSummaryWithoutStateChange(summary, reply, messageId, toEmail, subject) {
-        // Same as addEmailSummary but without hideLoadingState call
-        emailCount++;
-        
-        // Log for debugging
-        console.log("Adding email summary:", {
-          summary_length: summary ? summary.length : 0,
-          has_message_id: !!messageId,
-          has_to_email: !!toEmail,
-          subject: subject
-        });
-
-        // Default values in case they're not provided
-        let sub = subject || "No Subject";
-        let from = "Unknown";
-        let fromEmail = "";
-        let preview = "No preview available";
-        let date = "Today";
-
-        // Check if the summary is a string
-        if (typeof summary === 'string') {
-          // Extract metadata from the summary
-          const lines = summary.split('\n');
-          
-          for (let i = 0; i < Math.min(10, lines.length); i++) {
-            const line = lines[i].trim();
-            if (line.startsWith("Subject:") && !sub) {
-              sub = line.substring(8).trim();
-            } else if (line.startsWith("From:")) {
-              from = line.substring(5).trim();
-              // Extract email address if present
-              const emailMatch = from.match(/<([^>]+)>/);
-              if (emailMatch) {
-                fromEmail = emailMatch[1];
-                from = from.replace(/<.*>/, "").trim();
-              }
-            } else if (line.startsWith("Date:")) {
-              date = line.substring(5).trim();
-            } else if (line.startsWith("Preview:")) {
-              preview = line.substring(8).trim();
-            } else if (i > 3 && line.length > 10 && !line.includes(":") && !preview) {
-              // If we haven't found a preview and this is a non-metadata line, use it
-              preview = line.trim();
-              break;
-            }
-          }
-          
-          // If we still don't have a preview, use the first non-metadata line
-          if (preview === "No preview available") {
-            for (let i = 0; i < lines.length; i++) {
-              const line = lines[i].trim();
-              if (line.length > 10 && !line.includes(":")) {
-                preview = line;
-                break;
-              }
-            }
-          }
-        }
-
-        // Generate a random color for the avatar
-        const avatarColor = `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`;
-        
-        // Generate initials for the avatar
-        const initials = from.split(' ')
-          .map(name => name ? name[0] : '')
-          .join('')
-          .substring(0, 2)
-          .toUpperCase() || "NA";
-
-        // Get the list container
-        const list = document.getElementById("emailList");
-        
-        // Hide the no emails message
-        const noEmailsMessage = document.getElementById("noEmailsMessage");
-        if (noEmailsMessage) {
-          noEmailsMessage.style.display = "none";
-        }
-          
-        const formattedDate = date || "Today";
-
-        const emailItem = document.createElement("div");
-        emailItem.className = "email-item animate-fade-in-up";
-        emailItem.style.animationDelay = emailCount * 0.05 + "s";
-        // Add a data-id attribute with a unique ID (use messageId if available, otherwise generate one)
-        const emailId = messageId || `email-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-        emailItem.setAttribute("data-id", emailId);
-        
-        emailItem.innerHTML = `
-          <div style="display: flex; gap: 12px;">
-            <div class="email-item-avatar" style="background-color: ${avatarColor}">
-              ${initials}
-            </div>
-            <div class="email-item-content">
-              <div class="email-item-header">
-                <div class="email-item-sender">${from}</div>
-                <div class="email-item-time">${formattedDate}</div>
-              </div>
-              <div class="email-item-subject">${sub}</div>
-              <div class="email-item-preview">${preview}</div>
-            </div>
-          </div>`;
-
-        // Store the email data in the currentEmailData object
-        if (!currentEmailData) currentEmailData = {};
-        currentEmailData[emailId] = {
-          summary: summary,
-          reply: reply,
-          message_id: messageId,
-          to_email: toEmail,
-          subject: sub,
-          from: from,
-          from_email: fromEmail,
-          date: formattedDate,
-          initials: initials,
-          avatarColor: avatarColor
-        };
-
-        // Add click event listener
-        emailItem.onclick = function() {
-          console.log("Email clicked:", sub);
-          selectEmail(this, currentEmailData[emailId]);
-        };
-
-        list.insertBefore(emailItem, list.firstChild);
       }
     </script>
   </body>
