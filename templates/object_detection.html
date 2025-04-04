@@ -8,7 +8,15 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+  href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+/>
+
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
     <script>
       tailwind.config = {
@@ -345,46 +353,130 @@
   <body class="bg-neutral-100 text-neutral-800">
     <div class="flex flex-col min-h-screen">
       <!-- App Header with Navigation -->
-      <header class="app-header">
-        <div class="app-header-left">
-          <div class="app-logo flex items-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" class="mr-2">
-              <path d="M12 2L2 7l10 5 10-5z" />
-              <path d="M2 17l10 5 10-5" opacity="0.6" />
-              <path d="M2 12l10 5 10-5" opacity="0.8" />
-            </svg>
-            <span class="app-title">AI Agent Pro</span>
-          </div>
-          <div class="nav-buttons electron-only">
-            <button id="nav-back" class="nav-button" title="Back">
-              <i class="ri-arrow-left-line"></i>
-            </button>
-            <button id="nav-forward" class="nav-button" title="Forward">
-              <i class="ri-arrow-right-line"></i>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <!-- Tab Navigation Bar -->
-      <nav class="tab-navigation">
-        <div class="container">
-          <div class="tab-nav">
-            <a href="/email" class="tab-item">
-              Email Summarizer
-            </a>
-            <a href="/document" class="tab-item">
-              Document Summary
-            </a>
-            <a href="/object" class="tab-item active">
-              Object Detection
-            </a>
-            <a href="/leave" class="tab-item">
-              Leave Checker
-            </a>
-          </div>
-        </div>
+      <!-- Common Header Component -->
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
+    <!-- Left: Logo & Desktop Navigation -->
+    <div class="flex items-center space-x-4">
+      <a href="/" class="flex items-center">
+        <!-- Logo SVG -->
+        <svg
+          class="h-8 w-8 text-blue-600"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 2L2 7l10 5 10-5z" />
+          <path d="M2 17l10 5 10-5" fill-opacity="0.6" />
+          <path d="M2 12l10 5 10-5" fill-opacity="0.8" />
+        </svg>
+        <span class="ml-2 text-2xl font-bold text-blue-600">
+          AI Agent Pro
+        </span>
+      </a>
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex space-x-6 ml-6">
+        <a
+          href="/email"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Email Summarizer</a
+        >
+        <a
+          href="/document"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Document Summary</a
+        >
+        <a
+          href="/object"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Object Detection</a
+        >
+        <a
+          href="/leave"
+          class="text-gray-600 hover:text-blue-600 font-medium"
+          >Leave Checker</a
+        >
       </nav>
+    </div>
+
+    <!-- Right: Optional Electron Navigation & Mobile Menu Button -->
+    <div class="flex items-center space-x-4">
+      <!-- Electron Navigation (only shown when available) -->
+      <div class="hidden sm:flex space-x-2 electron-only">
+        <button
+          id="nav-back"
+          class="p-2 hover:bg-blue-50 rounded-full"
+          title="Back"
+        >
+          <i class="ri-arrow-left-line text-xl text-blue-600"></i>
+        </button>
+        <button
+          id="nav-forward"
+          class="p-2 hover:bg-blue-50 rounded-full"
+          title="Forward"
+        >
+          <i class="ri-arrow-right-line text-xl text-blue-600"></i>
+        </button>
+      </div>
+      <!-- Mobile Menu Toggle -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden p-2 hover:bg-blue-50 rounded-full focus:outline-none"
+      >
+        <svg
+          class="h-6 w-6 text-gray-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Menu -->
+<div id="mobile-menu" class="md:hidden hidden">
+  <nav class="px-6 pb-4 space-y-3">
+    <a
+      href="/email"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Email Summarizer</a
+    >
+    <a
+      href="/document"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Document Summary</a
+    >
+    <a
+      href="/object"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Object Detection</a
+    >
+    <a
+      href="/leave"
+      class="block text-gray-600 hover:text-blue-600 font-medium"
+      >Leave Checker</a
+    >
+  </nav>
+</div>
+
+<script>
+  // Mobile menu toggle functionality
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
 
       <!-- Main Content Area -->
       <div class="app-container flex-1">
