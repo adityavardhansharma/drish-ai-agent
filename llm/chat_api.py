@@ -55,7 +55,7 @@ async def chat_with_document(
         chat_response = await client.chat.complete_async(
             model="ministral-3b-2410",
             messages=messages,
-            max_tokens=1000,
+            max_tokens=2000,
             temperature=0.2
         )
 
