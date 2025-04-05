@@ -10,26 +10,21 @@ def setup_logger():
     logger = logging.getLogger()
     logger.setLevel(getattr(logging, settings.log_level))  # Use settings.log_level
 
-    # Clear existing handlers
     logger.handlers = []
 
-    # Create file handler
     log_dir = os.path.dirname(settings.log_file)  # Use settings.log_file
     if log_dir and not os.path.exists(log_dir):
         os.makedirs(log_dir)
     file_handler = logging.FileHandler(settings.log_file, encoding='utf-8')  # Use settings.log_file
     file_handler.setLevel(getattr(logging, settings.log_level))  # Use settings.log_level
 
-    # Create console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(getattr(logging, settings.log_level))  # Use settings.log_level
 
-    # Create formatter and add it to the handlers
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
     console_handler.setFormatter(formatter)
 
-    # Add the handlers to the logger
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
 
