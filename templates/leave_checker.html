@@ -23,119 +23,140 @@
     />
   </head>
   <body>
-    <!-- App Header with Navigation -->
-    <header class="bg-white shadow">
-      <div class="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
-        <!-- Left: Logo & Desktop Navigation -->
-        <div class="flex items-center space-x-4">
-          <a href="/" class="flex items-center">
-            <!-- Logo SVG -->
-            <svg
-              class="h-8 w-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2L2 7l10 5 10-5z" />
-              <path d="M2 17l10 5 10-5" fill-opacity="0.6" />
-              <path d="M2 12l10 5 10-5" fill-opacity="0.8" />
-            </svg>
-            <span class="ml-2 text-2xl font-bold text-blue-600">
-              AI Agent Pro
-            </span>
+    <!-- NEW STYLISH GRADIENT HEADER -->
+    <header style="
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      padding: 14px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-family: 'Inter', sans-serif;
+    ">
+      <div style="
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      ">
+        <a href="/" style="
+          display: flex;
+          align-items: center;
+          font-weight: 700;
+          font-size: 1.5rem;
+          color: #fff;
+          text-decoration: none;
+        ">
+          <svg fill="currentColor" viewBox="0 0 24 24" style="height: 36px; width: 36px;">
+            <path d="M12 2L2 7l10 5 10-5z"></path>
+            <path d="M2 17l10 5 10-5" fill-opacity="0.6"></path>
+            <path d="M2 12l10 5 10-5" fill-opacity="0.8"></path>
+          </svg>
+          <span style="margin-left: 10px;">AI Agent Pro</span>
+        </a>
+        <nav id="desktop-nav" style="display: flex; gap: 16px;">
+          <a href="/email" style="
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            color: #fff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+            Email Summarizer
           </a>
-          <!-- Desktop Navigation Links -->
-          <nav class="hidden md:flex space-x-6 ml-6">
-            <a
-              href="/email"
-              class="text-gray-600 hover:text-blue-600 font-medium"
-              >Email Summarizer</a
-            >
-            <a
-              href="/document"
-              class="text-gray-600 hover:text-blue-600 font-medium"
-              >Document Summary</a
-            >
-            <a
-              href="/object"
-              class="text-gray-600 hover:text-blue-600 font-medium"
-              >Object Detection</a
-            >
-            <a
-              href="/leave"
-              class="text-gray-600 hover:text-blue-600 font-medium"
-              >Leave Checker</a
-            >
-          </nav>
-        </div>
+          <a href="/document" style="
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            color: #fff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+            Document Summary
+          </a>
+          <a href="/object" style="
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            color: #fff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+            Object Detection
+          </a>
+          <a href="/leave" style="
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            color: #fff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+            Leave Checker
+          </a>
+        </nav>
 
-        <!-- Right: Optional Electron Navigation & Mobile Menu Button -->
-        <div class="flex items-center space-x-4">
-          <!-- Electron Navigation (only shown when available) -->
-          <div class="hidden sm:flex space-x-2 electron-only">
-            <button
-              id="nav-back"
-              class="p-2 hover:bg-blue-50 rounded-full"
-              title="Back"
-            >
-              <i class="ri-arrow-left-line text-xl text-blue-600"></i>
-            </button>
-            <button
-              id="nav-forward"
-              class="p-2 hover:bg-blue-50 rounded-full"
-              title="Forward"
-            >
-              <i class="ri-arrow-right-line text-xl text-blue-600"></i>
-            </button>
-          </div>
-          <!-- Mobile Menu Toggle -->
-          <button
-            id="mobile-menu-button"
-            class="md:hidden p-2 hover:bg-blue-50 rounded-full focus:outline-none"
-          >
-            <svg
-              class="h-6 w-6 text-gray-600"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-        </div>
+        <button id="mobile-menu-button" style="
+          display: none;
+          background: rgba(255,255,255,0.2);
+          border: none;
+          padding: 8px;
+          border-radius: 9999px;
+          cursor: pointer;
+        ">
+          <svg class="h-6 w-6" fill="none" stroke="#fff" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" style="
+        display: none;
+        margin-top: 12px;
+        padding: 12px 20px;
+        background: #2563eb;
+        border-radius: 0 0 12px 12px;
+      ">
+        <nav style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="/email" style="color:#fff;font-weight:500;text-decoration:none;">Email Summarizer</a>
+          <a href="/document" style="color:#fff;font-weight:500;text-decoration:none;">Document Summary</a>
+          <a href="/object" style="color:#fff;font-weight:500;text-decoration:none;">Object Detection</a>
+          <a href="/leave" style="color:#fff;font-weight:500;text-decoration:none;">Leave Checker</a>
+        </nav>
       </div>
     </header>
 
-    <!-- Mobile Navigation Menu -->
-    <div id="mobile-menu" class="md:hidden hidden">
-      <nav class="px-6 pb-4 space-y-3">
-        <a
-          href="/email"
-          class="block text-gray-600 hover:text-blue-600 font-medium"
-          >Email Summarizer</a
-        >
-        <a
-          href="/document"
-          class="block text-gray-600 hover:text-blue-600 font-medium"
-          >Document Summary</a
-        >
-        <a
-          href="/object"
-          class="block text-gray-600 hover:text-blue-600 font-medium"
-          >Object Detection</a
-        >
-        <a
-          href="/leave"
-          class="block text-gray-600 hover:text-blue-600 font-medium"
-          >Leave Checker</a
-        >
-      </nav>
-    </div>
+    <script>
+      function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      }
+      document.getElementById('mobile-menu-button').onclick = toggleMobileMenu;
+
+      function handleResize() {
+        const btn = document.getElementById('mobile-menu-button');
+        const nav = document.getElementById('desktop-nav');
+        if (window.innerWidth < 768) {
+          btn.style.display = 'block';
+          nav.style.display = 'none';
+        } else {
+          btn.style.display = 'none';
+          nav.style.display = 'flex';
+          document.getElementById('mobile-menu').style.display = 'none';
+        }
+      }
+      window.addEventListener('resize', handleResize);
+      window.addEventListener('load', handleResize);
+    </script>
+    <!-- END OF HEADER -->
 
     <main class="main-content">
       <div class="content-wrapper">
