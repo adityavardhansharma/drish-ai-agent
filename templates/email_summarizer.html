@@ -1,218 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Agent Pro - Email Summarizer</title>
-    <!-- External CSS libraries -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
-    />
-    <!-- Custom CSS -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
-    />
-  </head>
-  <body>
-    <div class="app-container">
-      <!-- App Header with Navigation -->
-      <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
-          <!-- Left: Logo & Desktop Navigation -->
-          <div class="flex items-center space-x-4">
-            <a href="/" class="flex items-center">
-              <!-- Logo SVG -->
-              <svg
-                class="h-8 w-8 text-blue-600"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L2 7l10 5 10-5z" />
-                <path d="M2 17l10 5 10-5" fill-opacity="0.6" />
-                <path d="M2 12l10 5 10-5" fill-opacity="0.8" />
-              </svg>
-              <span class="ml-2 text-2xl font-bold text-blue-600">
-                AI Agent Pro
-              </span>
-            </a>
-            <!-- Desktop Navigation Links -->
-            <nav class="hidden md:flex space-x-6 ml-6">
-              <a
-                href="/email"
-                class="text-gray-600 hover:text-blue-600 font-medium"
-                >Email Summarizer</a
-              >
-              <a
-                href="/document"
-                class="text-gray-600 hover:text-blue-600 font-medium"
-                >Document Summary</a
-              >
-              <a
-                href="/object"
-                class="text-gray-600 hover:text-blue-600 font-medium"
-                >Object Detection</a
-              >
-              <a
-                href="/leave"
-                class="text-gray-600 hover:text-blue-600 font-medium"
-                >Leave Checker</a
-              >
-            </nav>
-          </div>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Agent Pro - Email Summarizer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
 
-          <!-- Right: Optional Electron Navigation & Mobile Menu Button -->
-          <div class="flex items-center space-x-4">
-            <div class="hidden sm:flex space-x-2 electron-only">
-              <button
-                id="nav-back"
-                class="p-2 hover:bg-blue-50 rounded-full"
-                title="Back"
-              >
-                <i class="ri-arrow-left-line text-xl text-blue-600"></i>
-              </button>
-              <button
-                id="nav-forward"
-                class="p-2 hover:bg-blue-50 rounded-full"
-                title="Forward"
-              >
-                <i class="ri-arrow-right-line text-xl text-blue-600"></i>
-              </button>
-            </div>
-            <!-- Mobile Menu Toggle -->
-            <button
-              id="mobile-menu-button"
-              class="md:hidden p-2 hover:bg-blue-50 rounded-full focus:outline-none"
-            >
-              <svg
-                class="h-6 w-6 text-gray-600"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </header>
+<!-- Stylish Gradient Header -->
+<header style="
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  padding: 14px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+">
+  <div style="
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  ">
+    <a href="/" style="
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #fff;
+      text-decoration: none;
+    ">
+      <svg fill="currentColor" viewBox="0 0 24 24" style="height: 36px; width: 36px;">
+        <path d="M12 2L2 7l10 5 10-5z"></path>
+        <path d="M2 17l10 5 10-5" fill-opacity="0.6"></path>
+        <path d="M2 12l10 5 10-5" fill-opacity="0.8"></path>
+      </svg>
+      <span style="margin-left: 10px;">AI Agent Pro</span>
+    </a>
 
-      <!-- Mobile Navigation Menu -->
-      <div id="mobile-menu" class="md:hidden hidden">
-        <nav class="px-6 pb-4 space-y-3">
-          <a
-            href="/email"
-            class="block text-gray-600 hover:text-blue-600 font-medium"
-            >Email Summarizer</a
-          >
-          <a
-            href="/document"
-            class="block text-gray-600 hover:text-blue-600 font-medium"
-            >Document Summary</a
-          >
-          <a
-            href="/object"
-            class="block text-gray-600 hover:text-blue-600 font-medium"
-            >Object Detection</a
-          >
-          <a
-            href="/leave"
-            class="block text-gray-600 hover:text-blue-600 font-medium"
-            >Leave Checker</a
-          >
-        </nav>
+    <nav id="desktop-nav" style="display: flex; gap: 16px;">
+      <a href="/email" style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 9999px; color: #fff; font-weight: 500; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">Email Summarizer</a>
+      <a href="/document" style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 9999px; color: #fff; font-weight: 500; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">Document Summary</a>
+      <a href="/object" style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 9999px; color: #fff; font-weight: 500; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">Object Detection</a>
+      <a href="/leave" style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 9999px; color: #fff; font-weight: 500; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">Leave Checker</a>
+    </nav>
+
+    <button id="mobile-menu-button" style="display: none; background: rgba(255,255,255,0.2); border: none; padding: 8px; border-radius: 9999px; cursor: pointer;">
+      <svg class="h-6 w-6" fill="none" stroke="#fff" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" style="display: none; margin-top: 12px; padding: 12px 20px; background: #2563eb; border-radius: 0 0 12px 12px;">
+    <nav style="display: flex; flex-direction: column; gap: 12px;">
+      <a href="/email" style="color:#fff;font-weight:500;text-decoration:none;">Email Summarizer</a>
+      <a href="/document" style="color:#fff;font-weight:500;text-decoration:none;">Document Summary</a>
+      <a href="/object" style="color:#fff;font-weight:500;text-decoration:none;">Object Detection</a>
+      <a href="/leave" style="color:#fff;font-weight:500;text-decoration:none;">Leave Checker</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+document.getElementById('mobile-menu-button').onclick = toggleMobileMenu;
+
+function handleResize() {
+  const btn = document.getElementById('mobile-menu-button');
+  const nav = document.getElementById('desktop-nav');
+  if (window.innerWidth < 768) {
+    btn.style.display = 'block';
+    nav.style.display = 'none';
+  } else {
+    btn.style.display = 'none';
+    nav.style.display = 'flex';
+    document.getElementById('mobile-menu').style.display = 'none';
+  }
+}
+window.addEventListener('resize', handleResize);
+window.addEventListener('load', handleResize);
+</script>
+
+<div class="app-container">
+  <!-- Status Bar and Controls -->
+  <div class="control-bar">
+    <div class="status-group">
+      <div id="status-indicator" class="status-indicator ready">
+        <span id="status-text">Ready to process emails</span>
       </div>
-
-      <!-- Status Bar and Controls -->
-      <div class="control-bar">
-        <div class="status-group">
-          <div id="status-indicator" class="status-indicator ready">
-            <span id="status-text">Ready to process emails</span>
-          </div>
-          <div id="timer-indicator" class="timer-indicator">
-            <span>Auto-fetch in </span><span id="countdown">15:00</span>
-          </div>
-        </div>
-        <div class="action-buttons">
-          <button id="fetch-btn" class="action-button" title="Fetch New Emails">
-            <span class="button-text">Fetch Mail</span>
-            <div class="spinner hidden" id="fetch-spinner"></div>
-          </button>
-        </div>
+      <div id="timer-indicator" class="timer-indicator">
+        <span>Auto-fetch in </span><span id="countdown">15:00</span>
       </div>
+    </div>
+    <div class="action-buttons">
+      <button id="fetch-btn" class="action-button" title="Fetch New Emails">
+        <span class="button-text">Fetch Mail</span>
+        <div class="spinner hidden" id="fetch-spinner"></div>
+      </button>
+    </div>
+  </div>
 
-      <div class="content-container">
-        <div class="sidebar">
-          <div id="emailList" class="email-list">
-            <div id="noEmailsMessage" class="empty-state">
-              <div class="empty-state-icon">
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
-              </div>
-              <div class="empty-state-title">No emails yet</div>
-              <div class="empty-state-description">
-                Click "Fetch Mail" to load your inbox
-              </div>
-            </div>
+  <div class="content-container">
+    <div class="sidebar">
+      <div id="emailList" class="email-list">
+        <div id="noEmailsMessage" class="empty-state">
+          <div class="empty-state-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
           </div>
-        </div>
-        <div class="main-content">
-          <div id="emailContent" class="empty-state">
-            <div class="empty-state-icon">
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
-                ></path>
-                <line x1="4" y1="22" x2="4" y2="15"></line>
-              </svg>
-            </div>
-            <div class="empty-state-title">Select an email</div>
-            <div class="empty-state-description">
-              Choose an email from the list to view its summary
-            </div>
+          <div class="empty-state-title">No emails yet</div>
+          <div class="empty-state-description">
+            Click "Fetch Mail" to load your inbox
           </div>
-          <div id="emailDetails" class="email-content" style="display: none;"></div>
         </div>
       </div>
     </div>
+    <div class="main-content">
+      <div id="emailContent" class="empty-state">
+        <div class="empty-state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+            <line x1="4" y1="22" x2="4" y2="15"></line>
+          </svg>
+        </div>
+        <div class="empty-state-title">Select an email</div>
+        <div class="empty-state-description">
+          Choose an email from the list to view its summary
+        </div>
+      </div>
+      <div id="emailDetails" class="email-content" style="display: none;"></div>
+    </div>
+  </div>
+</div>
 
-    <!-- Include the Electron bridge script (assumed to be in static/js) -->
-    <script src="{{ url_for('static', filename='electron_bridge.js') }}"></script>
-    <!-- Main JavaScript file -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-  </body>
+<script src="{{ url_for('static', filename='electron_bridge.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
 </html>
