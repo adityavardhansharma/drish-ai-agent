@@ -16,6 +16,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
     />
+    <!-- Markdown-it for rendering markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/github.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/lib/highlight.min.js"></script>
     <!-- Custom CSS -->
     <link
       rel="stylesheet"
@@ -160,119 +165,169 @@
 
     <main class="main-content">
       <div class="content-wrapper">
-        <a href="/" class="back-btn"
-          ><i class="ri-arrow-left-line"></i>Back to Agents</a
-        >
+        <a href="/" class="back-btn">
+          <i class="ri-arrow-left-line"></i>Back to Agents
+        </a>
 
-        <div class="card">
-          <h1 class="title">Leave Checker</h1>
+        <div class="app-container">
+          <h1 class="app-title">Leave Checker</h1>
+          <p class="app-description">Track and manage your leave balance with ease</p>
 
           <!-- Auth Section -->
-          <div id="auth-section">
-            <div class="tabs">
-              <button class="tab active" data-tab="login" id="login-tab">
-                Login
+          <div id="auth-section" class="auth-container">
+            <div class="auth-tabs">
+              <button class="auth-tab active" data-tab="login" id="login-tab">
+                <i class="ri-login-circle-line"></i> Login
               </button>
-              <button class="tab" data-tab="signup" id="signup-tab">
-                Sign Up
+              <button class="auth-tab" data-tab="signup" id="signup-tab">
+                <i class="ri-user-add-line"></i> Sign Up
               </button>
             </div>
 
-            <!-- Login Form -->
-            <form id="login-form" class="form active">
-              <div class="form-group">
-                <label for="login-email">Email</label>
-                <input
-                  type="email"
-                  id="login-email"
-                  required
-                  placeholder="you@example.com"
-                />
-              </div>
-              <div class="form-group">
-                <label for="login-password">Password</label>
-                <input
-                  type="password"
-                  id="login-password"
-                  required
-                  placeholder="Your password"
-                />
-              </div>
-              <button type="submit" class="btn">Login</button>
-              <div id="login-error" class="error-message"></div>
-            </form>
+            <div class="auth-forms-container">
+              <!-- Login Form -->
+              <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                  <label for="login-email">Email</label>
+                  <div class="input-with-icon">
+                    <i class="ri-mail-line"></i>
+                    <input
+                      type="email"
+                      id="login-email"
+                      required
+                      placeholder="you@example.com"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="login-password">Password</label>
+                  <div class="input-with-icon">
+                    <i class="ri-lock-line"></i>
+                    <input
+                      type="password"
+                      id="login-password"
+                      required
+                      placeholder="Your password"
+                    />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="ri-login-circle-line"></i> Login
+                </button>
+                <div id="login-error" class="error-message"></div>
+              </form>
 
-            <!-- Signup Form -->
-            <form id="signup-form" class="form">
-              <div class="form-group">
-                <label for="signup-title">Title</label>
-                <select id="signup-title" required>
-                  <option value="">Select your title</option>
-                  <option value="Mr.">Mr.</option>
-                  <option value="Mrs.">Mrs.</option>
-                  <option value="Ms.">Ms.</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="signup-name">Full Name</label>
-                <input
-                  type="text"
-                  id="signup-name"
-                  required
-                  placeholder="Your full name"
-                />
-              </div>
-              <div class="form-group">
-                <label for="signup-email">Email</label>
-                <input
-                  type="email"
-                  id="signup-email"
-                  required
-                  placeholder="you@example.com"
-                />
-              </div>
-              <div class="form-group">
-                <label for="signup-password">Password</label>
-                <input
-                  type="password"
-                  id="signup-password"
-                  required
-                  placeholder="Choose a password"
-                />
-              </div>
-              <button type="submit" class="btn">Sign Up</button>
-              <div id="signup-error" class="error-message"></div>
-              <div id="signup-success" class="success-message"></div>
-            </form>
+              <!-- Signup Form -->
+              <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                  <label for="signup-title">Title</label>
+                  <div class="input-with-icon">
+                    <i class="ri-user-line"></i>
+                    <select id="signup-title" required>
+                      <option value="">Select your title</option>
+                      <option value="Mr.">Mr.</option>
+                      <option value="Mrs.">Mrs.</option>
+                      <option value="Ms.">Ms.</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="signup-name">Full Name</label>
+                  <div class="input-with-icon">
+                    <i class="ri-user-line"></i>
+                    <input
+                      type="text"
+                      id="signup-name"
+                      required
+                      placeholder="Your full name"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="signup-email">Email</label>
+                  <div class="input-with-icon">
+                    <i class="ri-mail-line"></i>
+                    <input
+                      type="email"
+                      id="signup-email"
+                      required
+                      placeholder="you@example.com"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="signup-password">Password</label>
+                  <div class="input-with-icon">
+                    <i class="ri-lock-line"></i>
+                    <input
+                      type="password"
+                      id="signup-password"
+                      required
+                      placeholder="Choose a password"
+                    />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="ri-user-add-line"></i> Sign Up
+                </button>
+                <div id="signup-error" class="error-message"></div>
+                <div id="signup-success" class="success-message"></div>
+              </form>
+            </div>
           </div>
 
           <!-- Leave Checker Section -->
-          <div id="leave-checker-section" class="hidden">
-            <h2 class="subtitle">Check Your Leave Balance</h2>
-            <form id="leave-check-form">
-              <div class="form-group">
-                <label for="month-input">Sheet Name</label>
-                <input
-                  type="text"
-                  id="month-input"
-                  required
-                  placeholder="Enter sheet name (e.g. June 2020, July 2023)"
-                />
-              </div>
-              <button type="submit" class="btn">Fetch Leave Details</button>
-            </form>
+          <div id="leave-checker-section" class="leave-checker-container hidden">
+            <div class="user-welcome">
+              <i class="ri-user-smile-line"></i>
+              <span id="user-greeting">Welcome back!</span>
+            </div>
 
-            <div id="loading" class="loading">
+            <div class="leave-form-container">
+              <h2 class="section-title">Check Your Leave Balance</h2>
+              <p class="section-description">Enter the sheet name to fetch your leave details</p>
+
+              <form id="leave-check-form" class="leave-form">
+                <div class="form-group">
+                  <label for="month-input">Sheet Name</label>
+                  <div class="input-with-icon">
+                    <i class="ri-calendar-line"></i>
+                    <input
+                      type="text"
+                      id="month-input"
+                      required
+                      placeholder="Enter sheet name (e.g. June 2020, July 2023)"
+                    />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="ri-search-line"></i> Fetch Leave Details
+                </button>
+              </form>
+            </div>
+
+            <div id="loading" class="loading-container">
               <div class="loading-spinner"></div>
               <span>Loading your leave details...</span>
             </div>
 
-            <div id="leave-results" class="results"></div>
+            <div id="leave-results-container" class="results-container hidden">
+              <div class="results-header">
+                <h3>Your Leave Details</h3>
+                <button id="copy-results" class="btn-icon" title="Copy to clipboard">
+                  <i class="ri-clipboard-line"></i>
+                </button>
+              </div>
+              <div id="leave-results" class="results-content"></div>
+            </div>
+
             <div id="leave-error" class="error-message"></div>
 
-            <button id="logout-btn" class="btn btn-secondary">
-              Logout
-            </button>
+            <div class="logout-container">
+              <button id="logout-btn" class="btn btn-secondary">
+                <i class="ri-logout-box-line"></i> Logout
+              </button>
+            </div>
           </div>
         </div>
       </div>
