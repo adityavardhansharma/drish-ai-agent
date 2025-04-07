@@ -1,20 +1,21 @@
-// static/js/doc_summary.js
+"use strict";
 
+// When the page loads, attempt to load a previously generated summary and chat history.
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Document Summary page loaded.');
-  // Set initial status
   updateStatusIndicator('success', 'Ready to process documents');
+  loadDocSummaryState();
+  loadChatHistory();
 });
 
 // Mobile menu toggle functionality
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
-
 mobileMenuButton.addEventListener('click', () => {
   mobileMenu.classList.toggle('hidden');
 });
 
-// Global flags
+// Global flags and variables
 let isFileSelected = false;
 let isGeneratingSummary = false;
 let documentContent = '';
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-// Unified file change handler
+// Unified file change handler; triggered when a new file is chosen.
 function handleFileChange(inputElement) {
   console.log('handleFileChange called with:', inputElement);
   let file;
@@ -96,6 +97,9 @@ function handleFileChange(inputElement) {
   console.log('Selected file:', file.name, 'Type:', file.type, 'Size:', file.size);
   setFileName(file.name);
   updateStatusIndicator('success', 'Document selected');
+  // When a new file is chosen, clear the current summary and chat state.
+  resetSummarySection();
+  resetChatSection();
   const formData = new FormData();
   formData.append('file', file);
   console.log("FormData created with file field name: 'file'");
@@ -155,10 +159,9 @@ function setFileName(name) {
     uploadArea.classList.add('hidden');
   }
   isFileSelected = true;
-  resetSummarySection();
-  resetChatSection();
 }
 
+// Trigger summary generation once a file is uploaded.
 function requestSummaryGeneration() {
   if (!isFileSelected) {
     updateStatusIndicator('error', 'Please upload a document first');
@@ -218,6 +221,8 @@ function displayDocumentSummary(summary) {
     }
     isGeneratingSummary = false;
     updateStatusIndicator('success', 'Document analyzed successfully');
+    // Save the generated summary so that it persists (within this session)
+    saveDocSummaryState();
   } catch (error) {
     console.error('Error parsing markdown:', error);
     updateStatusIndicator('error', 'Error displaying summary');
@@ -239,9 +244,9 @@ function enableChatFeature() {
   if (chatSendBtn) {
     chatSendBtn.disabled = false;
   }
-  // Removed duplicate default message insertion.
 }
 
+// Clear summary section (and remove its stored state) when uploading a new file
 function resetSummarySection() {
   const summaryText = document.getElementById('summaryText');
   if (summaryText) {
@@ -259,14 +264,14 @@ function resetSummarySection() {
   if (generationProgress) {
     generationProgress.classList.add('hidden');
   }
+  sessionStorage.removeItem('docSummary');
 }
 
+// Clear chat section (and remove its stored state) when uploading a new file
 function resetChatSection() {
   const chatMessages = document.getElementById('chatMessages');
   if (chatMessages) {
-    while (chatMessages.firstChild) {
-      chatMessages.removeChild(chatMessages.firstChild);
-    }
+    chatMessages.innerHTML = '';
     const chatPlaceholder = document.getElementById('chatPlaceholder');
     if (chatPlaceholder) {
       chatPlaceholder.classList.remove('hidden');
@@ -284,6 +289,7 @@ function resetChatSection() {
     chatSendBtn.disabled = true;
   }
   chatHistory = [];
+  sessionStorage.removeItem('docChatHistory');
 }
 
 function showGenerationProgress() {
@@ -371,6 +377,50 @@ function simulateProgress() {
   }, 800);
 }
 
+/* --- Functions to persist summary and chat state --- */
+function saveDocSummaryState() {
+  const summaryText = document.getElementById('summaryText');
+  if (summaryText) {
+    sessionStorage.setItem('docSummary', summaryText.innerHTML);
+  }
+}
+
+function loadDocSummaryState() {
+  const storedSummary = sessionStorage.getItem('docSummary') || '';
+  if (storedSummary) {
+    const summaryText = document.getElementById('summaryText');
+    if (summaryText) {
+      summaryText.innerHTML = storedSummary;
+    }
+    const summaryContent = document.getElementById('summaryContent');
+    if (summaryContent) {
+      summaryContent.classList.remove('hidden');
+    }
+    const summaryPlaceholder = document.getElementById('summaryPlaceholder');
+    if (summaryPlaceholder) {
+      summaryPlaceholder.classList.add('hidden');
+    }
+  }
+}
+
+function saveChatHistory() {
+  const chatMessages = document.getElementById('chatMessages');
+  if (chatMessages) {
+    sessionStorage.setItem('docChatHistory', chatMessages.innerHTML);
+  }
+}
+
+function loadChatHistory() {
+  const storedChat = sessionStorage.getItem('docChatHistory') || '';
+  if (storedChat) {
+    const chatMessages = document.getElementById('chatMessages');
+    if (chatMessages) {
+      chatMessages.innerHTML = storedChat;
+    }
+  }
+}
+
+// Update chat history in sessionStorage after adding any new message.
 function addChatMessage(content, role) {
   const chatMessages = document.getElementById('chatMessages');
   if (!chatMessages) return;
@@ -415,6 +465,7 @@ function addChatMessage(content, role) {
   messageDiv.innerHTML = messageContent;
   chatMessages.appendChild(messageDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+  saveChatHistory();
   return messageDiv;
 }
 
@@ -475,6 +526,7 @@ function sendChatMessage() {
 }
 
 function displayChatResponse(response, isError = false) {
+  // Remove any lingering "thinking" messages.
   const thinkingMessages = document.querySelectorAll('.typing-indicator');
   thinkingMessages.forEach((msg) => {
     const parentMessage = msg.closest('.animate-slide-up');
@@ -496,12 +548,4 @@ function displayChatResponse(response, isError = false) {
   if (chatSendBtn) {
     chatSendBtn.disabled = false;
   }
-}
-
-function fetchEmail() {
-  alert('Email fetch functionality would be implemented here');
-}
-
-function uploadImage() {
-  alert('Image upload functionality would be implemented here');
 }
