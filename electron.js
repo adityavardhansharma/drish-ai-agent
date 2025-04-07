@@ -1,4 +1,11 @@
-const { app, BrowserWindow, dialog, ipcMain, shell, Menu } = require('electron');
+const {
+  app,
+  BrowserWindow,
+  dialog,
+  ipcMain,
+  shell,
+  Menu
+} = require('electron');
 const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
@@ -6,21 +13,31 @@ const isDev = require('electron-is-dev');
 const waitOn = require('wait-on');
 const kill = require('tree-kill');
 
+// Add auto-launch functionality via the auto-launch package
+const AutoLaunch = require('auto-launch');
+
 let mainWindow;
 let pythonProcess = null;
 const PORT = 5000;
 const URL = `http://localhost:${PORT}`;
+
+// Create an auto launcher instance
+const appAutoLauncher = new AutoLaunch({
+  name: 'AI Agent Pro',
+  path: app.getPath('exe'),
+  isHidden: false
+});
 
 // Get the appropriate path for resources
 function getResourcePath() {
   if (isDev) {
     return __dirname;
   }
-  
+
   if (process.platform === 'win32') {
     return path.join(process.resourcesPath, 'app');
   }
-  
+
   if (app.isPackaged) {
     return path.join(process.resourcesPath, 'app');
   }
@@ -35,10 +52,10 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'static', 'electron_bridge.js'),
+      preload: path.join(__dirname, 'static', 'electron_bridge.js')
     },
     title: 'AI Agent Pro',
-    icon: path.join(__dirname, 'resources', 'icon.png'),
+    icon: path.join(__dirname, 'resources', 'icon.png')
   });
 
   Menu.setApplicationMenu(null);
@@ -46,10 +63,14 @@ function createWindow() {
 
   mainWindow.webContents.on('before-input-event', (event, input) => {
     if (input.control && input.key === '=') {
-      mainWindow.webContents.setZoomFactor(mainWindow.webContents.getZoomFactor() + 0.1);
+      mainWindow.webContents.setZoomFactor(
+        mainWindow.webContents.getZoomFactor() + 0.1
+      );
       event.preventDefault();
     } else if (input.control && input.key === '-') {
-      mainWindow.webContents.setZoomFactor(mainWindow.webContents.getZoomFactor() - 0.1);
+      mainWindow.webContents.setZoomFactor(
+        mainWindow.webContents.getZoomFactor() - 0.1
+      );
       event.preventDefault();
     } else if (input.control && input.key === '0') {
       mainWindow.webContents.setZoomFactor(1.0);
@@ -94,7 +115,7 @@ async function startPythonServer() {
     const env = Object.assign({}, process.env, {
       ELECTRON_APP: '1',
       PYTHONIOENCODING: 'utf-8',
-      PYTHONUNBUFFERED: '1',
+      PYTHONUNBUFFERED: '1'
     });
 
     pythonProcess = spawn(pythonExecutable, [scriptPath], { env });
@@ -112,28 +133,34 @@ async function startPythonServer() {
 
     pythonProcess.on('error', (error) => {
       console.error(`Failed to start Python process: ${error}`);
-      dialog.showErrorBox('Python Error', `Failed to start the Python server: ${error.message}`);
+      dialog.showErrorBox(
+        'Python Error',
+        `Failed to start the Python server: ${error.message}`
+      );
       reject(error);
     });
 
     pythonProcess.on('close', (code) => {
       console.log(`Python process exited with code ${code}`);
       if (code !== 0 && mainWindow) {
-        dialog.showErrorBox('Server Error', `The Python server stopped unexpectedly with code ${code}`);
+        dialog.showErrorBox(
+          'Server Error',
+          `The Python server stopped unexpectedly with code ${code}`
+        );
       }
     });
 
-    waitOn({
-      resources: [URL],
-      timeout: 30000
-    })
+    waitOn({ resources: [URL], timeout: 30000 })
       .then(() => {
         console.log('Flask server is running');
         resolve();
       })
       .catch((err) => {
         console.error('Error waiting for Flask server to start:', err);
-        dialog.showErrorBox('Server Error', `Failed to connect to the Flask server: ${err.message}`);
+        dialog.showErrorBox(
+          'Server Error',
+          `Failed to connect to the Flask server: ${err.message}`
+        );
         reject(err);
       });
   });
@@ -153,9 +180,13 @@ ipcMain.handle('restart-server', async () => {
   }
 });
 
+// Logging from renderer
 ipcMain.on('log', (event, data) => {
   const { level, message, data: logData } = data;
-  console[level in console ? level : 'log'](`[Renderer] ${message}`, logData || '');
+  console[level in console ? level : 'log'](
+    `[Renderer] ${message}`,
+    logData || ''
+  );
 });
 
 ipcMain.handle('show-dialog', async (event, options) => {
@@ -203,26 +234,59 @@ ipcMain.on('navigate', (event, action) => {
   }
 });
 
-// New IPC handlers for desktop memory storage of document content and chat history
+// Data storage using an in-memory store instead of global variables
+const appState = {
+  documentContent: null,
+  chatHistory: null
+};
+
 ipcMain.on('set-document-content', (event, content) => {
-  global.documentContent = content;
+  appState.documentContent = content;
 });
 ipcMain.on('get-document-content', (event) => {
-  event.returnValue = global.documentContent;
+  event.returnValue = appState.documentContent;
 });
 ipcMain.on('set-chat-history', (event, history) => {
-  global.chatHistory = history;
+  appState.chatHistory = history;
 });
 ipcMain.on('get-chat-history', (event) => {
-  event.returnValue = global.chatHistory;
+  event.returnValue = appState.chatHistory;
 });
 
-// Add this near your other IPC handlers
+// Clear session data
 ipcMain.handle('clear-session-data', () => {
   if (mainWindow) {
     mainWindow.webContents.executeJavaScript(`
       sessionStorage.clear();
     `);
+  }
+});
+
+// Auto-start IPC handlers
+ipcMain.handle('get-auto-start-enabled', async () => {
+  try {
+    const isEnabled = await appAutoLauncher.isEnabled();
+    console.log('Auto-start is currently:', isEnabled);
+    return isEnabled;
+  } catch (error) {
+    console.error('Error checking auto-start status:', error);
+    return false;
+  }
+});
+
+ipcMain.handle('set-auto-start-enabled', async (event, enabled) => {
+  try {
+    if (enabled) {
+      await appAutoLauncher.enable();
+      console.log('Auto-start enabled');
+    } else {
+      await appAutoLauncher.disable();
+      console.log('Auto-start disabled');
+    }
+    return true;
+  } catch (error) {
+    console.error('Error setting auto-start:', error);
+    return false;
   }
 });
 
