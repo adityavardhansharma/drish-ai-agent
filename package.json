@@ -1,7 +1,7 @@
 {
   "name": "ai-agent-pro",
   "version": "1.0.0",
-  "description": "An Electron app with Flask backend for AI-powered document analysis and processing",
+  "description": "An Electron app integrating various AI services",
   "main": "electron.js",
   "scripts": {
     "start": "node start.js",
@@ -18,11 +18,19 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^30.0.0",
-    "electron-builder": "^24.13.3"
+    "electron-builder": "^24.13.3",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.0"
   },
   "dependencies": {
+    "@google-cloud/aiplatform": "^4.0.0",
+    "@google-cloud/storage": "^7.0.0",
+    "auto-launch": "^5.0.6",
+    "axios": "^1.0.0",
+    "dotenv": "^16.0.0",
     "electron-is-dev": "^2.0.0",
-    "tree-kill": "^1.2.2",
+    "fluent-ffmpeg": "^2.0.0",    "tree-kill": "^1.2.2",
     "wait-on": "^7.2.0"
   },
   "build": {
@@ -40,6 +48,13 @@
       "!**/{.DS_Store,.git,.gitignore}"
     ],
     "extraResources": [
+      {
+        "from": "resources/bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      },
       {
         "from": ".",
         "to": "app",
@@ -66,4 +81,4 @@
       "category": "Office"
     }
   }
-} 
+}
