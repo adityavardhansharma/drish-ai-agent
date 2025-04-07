@@ -3,6 +3,21 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOMContentLoaded event fired");
 
+  // Initialize markdown-it
+  const md = window.markdownit({
+    html: true,
+    linkify: true,
+    typographer: true,
+    highlight: function (str, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return hljs.highlight(str, { language: lang }).value;
+        } catch (__) {}
+      }
+      return ""; // use external default escaping
+    },
+  });
+
   // Mobile menu toggle functionality
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
@@ -22,7 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Set up back and forward navigation buttons
   const backButton = document.querySelector('.nav-button[data-action="back"]');
-  const forwardButton = document.querySelector('.nav-button[data-action="forward"]');
+  const forwardButton = document.querySelector(
+    '.nav-button[data-action="forward"]'
+  );
 
   if (backButton) {
     debugLog("Back button found, adding event listener");
@@ -104,11 +121,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Set up login/signup tab switching in the auth section
-  const authTabs = document.querySelectorAll(".tab");
+  const authTabs = document.querySelectorAll(".auth-tab");
   debugLog(`Found ${authTabs.length} auth tabs`);
 
   authTabs.forEach((tab) => {
-    debugLog(`Adding click event for auth tab: ${tab.getAttribute("data-tab")}`);
+    debugLog(
+      `Adding click event for auth tab: ${tab.getAttribute("data-tab")}`
+    );
     tab.addEventListener("click", function () {
       const tabName = this.getAttribute("data-tab");
       debugLog(`Auth tab clicked: ${tabName}`);
@@ -120,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
       this.classList.add("active");
 
       // Hide all forms
-      document.querySelectorAll(".form").forEach((form) => {
+      document.querySelectorAll(".auth-form").forEach((form) => {
         form.classList.remove("active");
       });
 
@@ -154,16 +173,27 @@ document.addEventListener("DOMContentLoaded", function () {
   const signupSuccess = document.getElementById("signup-success");
   const leaveError = document.getElementById("leave-error");
   const leaveResults = document.getElementById("leave-results");
+  const leaveResultsContainer = document.getElementById(
+    "leave-results-container"
+  );
   const loading = document.getElementById("loading");
   const logoutBtn = document.getElementById("logout-btn");
+  const userGreeting = document.getElementById("user-greeting");
+  const copyResultsBtn = document.getElementById("copy-results");
 
   // Check if user is logged in
   function checkAuthStatus() {
     const userData = localStorage.getItem("leaveCheckerUser");
     if (userData) {
       // User is logged in
+      const user = JSON.parse(userData);
       authSection.classList.add("hidden");
       leaveCheckerSection.classList.remove("hidden");
+
+      // Update user greeting
+      if (userGreeting && user.fullName) {
+        userGreeting.textContent = `Welcome back, ${user.fullName}!`;
+      }
     } else {
       // User is not logged in
       authSection.classList.remove("hidden");
@@ -181,6 +211,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const password = document.getElementById("login-password").value;
 
     loginError.textContent = "";
+    loginForm.querySelector(".btn").disabled = true;
+    loginForm.querySelector(".btn").innerHTML =
+      '<i class="ri-loader-4-line animate-spin"></i> Logging in...';
 
     try {
       debugLog("Sending login request to /api/leave/login");
@@ -209,12 +242,17 @@ document.addEventListener("DOMContentLoaded", function () {
         // Switch to leave checker section
         checkAuthStatus();
       } else {
-        loginError.textContent =
-          data.error || "Login failed. Please try again.";
+        loginError.innerHTML = `<i class="ri-error-warning-line"></i> ${
+          data.error || "Login failed. Please try again."
+        }`;
       }
     } catch (error) {
       console.error("Login fetch error:", error);
-      loginError.textContent = "An error occurred. Please try again.";
+      loginError.innerHTML = `<i class="ri-error-warning-line"></i> An error occurred. Please try again.`;
+    } finally {
+      loginForm.querySelector(".btn").disabled = false;
+      loginForm.querySelector(".btn").innerHTML =
+        '<i class="ri-login-circle-line"></i> Login';
     }
   });
 
@@ -230,9 +268,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     signupError.textContent = "";
     signupSuccess.textContent = "";
+    signupForm.querySelector(".btn").disabled = true;
+    signupForm.querySelector(".btn").innerHTML =
+      '<i class="ri-loader-4-line animate-spin"></i> Signing up...';
 
     if (!title || !name || !email || !password) {
-      signupError.textContent = "All fields are required";
+      signupError.innerHTML = `<i class="ri-error-warning-line"></i> All fields are required`;
+      signupForm.querySelector(".btn").disabled = false;
+      signupForm.querySelector(".btn").innerHTML =
+        '<i class="ri-user-add-line"></i> Sign Up';
       return;
     }
 
@@ -251,8 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
       debugLog("Signup data: " + JSON.stringify(data));
 
       if (data.success) {
-        signupSuccess.textContent =
-          "Registration successful! You can now log in.";
+        signupSuccess.innerHTML = `<i class="ri-check-line"></i> Registration successful! You can now log in.`;
         signupForm.reset();
 
         // Switch to login tab after successful signup
@@ -260,12 +303,17 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("login-tab").click();
         }, 1500);
       } else {
-        signupError.textContent =
-          data.error || "Registration failed. Please try again.";
+        signupError.innerHTML = `<i class="ri-error-warning-line"></i> ${
+          data.error || "Registration failed. Please try again."
+        }`;
       }
     } catch (error) {
       console.error("Signup fetch error:", error);
-      signupError.textContent = "An error occurred. Please try again.";
+      signupError.innerHTML = `<i class="ri-error-warning-line"></i> An error occurred. Please try again.`;
+    } finally {
+      signupForm.querySelector(".btn").disabled = false;
+      signupForm.querySelector(".btn").innerHTML =
+        '<i class="ri-user-add-line"></i> Sign Up';
     }
   });
 
@@ -281,14 +329,17 @@ document.addEventListener("DOMContentLoaded", function () {
     debugLog("User data for leave check: " + JSON.stringify(userData));
 
     if (!userData || !userData.fullName) {
-      leaveError.textContent =
-        "User information not found. Please log in again.";
+      leaveError.innerHTML = `<i class="ri-error-warning-line"></i> User information not found. Please log in again.`;
       return;
     }
 
     leaveError.textContent = "";
     leaveResults.textContent = "";
+    leaveResultsContainer.classList.add("hidden");
     loading.style.display = "flex";
+    leaveCheckForm.querySelector(".btn").disabled = true;
+    leaveCheckForm.querySelector(".btn").innerHTML =
+      '<i class="ri-loader-4-line animate-spin"></i> Fetching...';
 
     try {
       debugLog("Sending leave check request to /api/leave/check");
@@ -307,22 +358,62 @@ document.addEventListener("DOMContentLoaded", function () {
       loading.style.display = "none";
 
       if (data.success) {
-        leaveResults.innerHTML = data.formattedData;
+        // Render the markdown content
+        leaveResults.innerHTML = md.render(data.formattedData);
+        leaveResultsContainer.classList.remove("hidden");
+
+        // Apply syntax highlighting to any code blocks
+        document.querySelectorAll("pre code").forEach((block) => {
+          hljs.highlightElement(block);
+        });
       } else {
-        leaveError.textContent =
-          data.error || "Failed to fetch leave data. Please try again.";
+        leaveError.innerHTML = `<i class="ri-error-warning-line"></i> ${
+          data.error || "Failed to fetch leave data. Please try again."
+        }`;
       }
     } catch (error) {
       console.error("Leave check fetch error:", error);
       loading.style.display = "none";
-      leaveError.textContent = "An error occurred. Please try again.";
+      leaveError.innerHTML = `<i class="ri-error-warning-line"></i> An error occurred. Please try again.`;
+    } finally {
+      leaveCheckForm.querySelector(".btn").disabled = false;
+      leaveCheckForm.querySelector(".btn").innerHTML =
+        '<i class="ri-search-line"></i> Fetch Leave Details';
     }
   });
+
+  // Copy results to clipboard
+  if (copyResultsBtn) {
+    copyResultsBtn.addEventListener("click", () => {
+      const textToCopy = leaveResults.textContent;
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          copyResultsBtn.innerHTML = '<i class="ri-check-line"></i>';
+          setTimeout(() => {
+            copyResultsBtn.innerHTML = '<i class="ri-clipboard-line"></i>';
+          }, 2000);
+        })
+        .catch((err) => {
+          console.error("Failed to copy text: ", err);
+        });
+    });
+  }
 
   // Logout button action
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("leaveCheckerUser");
     checkAuthStatus();
+    // Reset forms
+    loginForm.reset();
+    signupForm.reset();
+    leaveCheckForm.reset();
+    loginError.textContent = "";
+    signupError.textContent = "";
+    signupSuccess.textContent = "";
+    leaveError.textContent = "";
+    leaveResults.textContent = "";
+    leaveResultsContainer.classList.add("hidden");
   });
 
   // Form validation
