@@ -43,7 +43,8 @@ function startAutoFetchTimer() {
   // Only call initSessionIfNeeded once.
   initSessionIfNeeded();
 
-  // Use sessionStorage to track our global timer so that switching pages preserves the value.
+  // Use sessionStorage to track our global timer so that switching pages
+  // preserves the value.
   if (sessionStorage.getItem("globalTimerStart")) {
     console.log("Existing timer found, syncing...");
     syncTimerFromStorage();
@@ -102,7 +103,7 @@ function startGlobalTimerInterval() {
 
   timerInterval = setInterval(() => {
     // Only run the timer if we're on the email page.
-    if (!window.location.pathname.includes('/email')) {
+    if (!window.location.pathname.includes("/email")) {
       clearInterval(timerInterval);
       return;
     }
@@ -163,7 +164,13 @@ function updateStatusIndicator(status, message) {
   const indicator = document.getElementById("status-indicator");
   const statusText = document.getElementById("status-text");
   if (!indicator || !statusText) return;
-  indicator.classList.remove("ready", "processing", "success", "error", "warning");
+  indicator.classList.remove(
+    "ready",
+    "processing",
+    "success",
+    "error",
+    "warning"
+  );
   indicator.classList.add(status);
   statusText.textContent = message || "Ready to process emails";
 }
@@ -270,7 +277,7 @@ function addEmailSummary(summary, reply, messageId, toEmail, subject) {
   };
 
   saveEmailsToStorage();
-  emailItem.onclick = function () {
+  emailItem.onclick = function() {
     console.log("Email clicked:", sub);
     selectEmail(this, emailsData[emailId]);
   };
@@ -338,7 +345,11 @@ function createEmailListItem(email) {
           <div class="email-item-time">${email.date}</div>
         </div>
         <div class="email-item-subject">${email.subject}</div>
-        <div class="email-item-preview">${email.summary ? email.summary.substring(0, 50) + "..." : "No preview available"}</div>
+        <div class="email-item-preview">${
+          email.summary
+            ? email.summary.substring(0, 50) + "..."
+            : "No preview available"
+        }</div>
       </div>
     </div>`;
   return emailItem;
@@ -370,8 +381,10 @@ function displayEmailDetails(emailData) {
   let summaryText = "";
   if (emailData.summary) {
     const lines = emailData.summary.split("\n");
-    if (lines.some((line) => line.trim().startsWith("Summary:"))) {
-      const summaryIdx = lines.findIndex((line) => line.trim().startsWith("Summary:"));
+    if (lines.some(line => line.trim().startsWith("Summary:"))) {
+      const summaryIdx = lines.findIndex(line =>
+        line.trim().startsWith("Summary:")
+      );
       summaryText = lines[summaryIdx].replace("Summary:", "").trim();
       for (let i = summaryIdx + 1; i < lines.length; i++) {
         if (lines[i].includes(":") && !lines[i].includes(" ")) break;
@@ -388,7 +401,7 @@ function displayEmailDetails(emailData) {
   const initials =
     from
       .split(" ")
-      .map((name) => (name ? name[0] : ""))
+      .map(name => (name ? name[0] : ""))
       .join("")
       .substring(0, 2)
       .toUpperCase() || "NA";
@@ -401,7 +414,9 @@ function displayEmailDetails(emailData) {
         <div>
           <div class="email-subject">${subject}</div>
           <div class="email-meta">
-            <div class="from">From: ${from} ${fromEmail ? `<${fromEmail}>` : ""}</div>
+            <div class="from">From: ${from} ${
+    fromEmail ? `<${fromEmail}>` : ""
+  }</div>
             <div class="date">${date}</div>
           </div>
         </div>
@@ -438,12 +453,14 @@ function displayEmailDetails(emailData) {
         ${
           keyPoints.length > 0
             ? keyPoints
-                .map((point, idx) => `
+                .map(
+                  (point, idx) => `
           <div class="key-point" style="animation-delay: ${idx * 0.1}s">
             <div class="point-number">${idx + 1}</div>
             <div>${point}</div>
           </div>
-        `)
+        `
+                )
                 .join("")
             : `<div class="key-point">
                 <div class="point-number">1</div>
@@ -466,8 +483,12 @@ function displayEmailDetails(emailData) {
         <textarea id="replyText" class="textarea custom-scrollbar" placeholder="Type your reply here..."></textarea>
         <div class="reply-actions">
           <div class="reply-info">
-            <div>To: <span id="replyToAddress">${fromEmail || "Unknown recipient"}</span></div>
-            <div>Subject: <span id="replySubject">Re: ${subject || "No subject"}</span></div>
+            <div>To: <span id="replyToAddress">${
+              fromEmail || "Unknown recipient"
+            }</span></div>
+            <div>Subject: <span id="replySubject">Re: ${
+              subject || "No subject"
+            }</span></div>
           </div>
           <button id="sendReplyBtn" class="action-button" onclick="sendReply()">
             <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24"
@@ -483,7 +504,73 @@ function displayEmailDetails(emailData) {
   `;
   const replyTextarea = document.getElementById("replyText");
   if (replyTextarea && emailData.reply) {
-    replyTextarea.value = emailData.reply;
+    displayEmailReply(emailData);
+  }
+}
+
+function formatEmailReply(reply) {
+  // First remove any HTML tags
+  let cleanReply = reply.replace(/<[^>]*>/g, "");
+
+  // Decode HTML entities
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = cleanReply;
+  cleanReply = tempDiv.textContent;
+
+  // Fix common formatting issues
+  cleanReply = cleanReply
+    // Remove excessive whitespace
+    .replace(/\s+/g, " ")
+    // Ensure proper spacing after periods (but not in abbreviations)
+    .replace(/(?<![A-Z])\.(?!\w)\s*/g, ". ")
+    // Extract subject line if present
+    .replace(/^(Re:.*?)(?:\n|$)/, "")
+    // Format greeting properly
+    .replace(/(Dear\s+[^,]+),?\s*/i, "$1,\n\n")
+    // Format closing properly
+    .replace(
+      /\s*(Best regards|Sincerely|Thanks|Thank you|Regards|Yours truly|Cheers),?\s*/i,
+      "\n\n$1,\n"
+    )
+    // Ensure name is on a new line after closing
+    .replace(/,\s*([A-Za-z]+)$/, ",\n\n$1")
+    // Ensure proper paragraph breaks
+    .replace(/\.\s+([A-Z])/g, ".\n\n$1")
+    // Clean up any excessive line breaks
+    .replace(/\n{3,}/g, "\n\n");
+
+  return cleanReply.trim();
+}
+
+function displayEmailReply(emailData) {
+  const replyTextarea = document.getElementById("replyText");
+  if (replyTextarea && emailData.reply) {
+    // Properly decode HTML content
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = emailData.reply;
+    const decodedText = tempDiv.textContent || tempDiv.innerText;
+
+    // Format the reply text
+    const formattedReply = formatEmailReply(decodedText);
+
+    // Set the value and adjust height
+    replyTextarea.value = formattedReply;
+
+    // Trigger a resize event to adjust height properly
+    setTimeout(() => {
+      replyTextarea.style.height = "auto";
+      replyTextarea.style.height =
+        Math.min(300, replyTextarea.scrollHeight) + "px";
+
+      // Add event listener to auto-resize as user types
+      if (!replyTextarea.dataset.resizeListenerAdded) {
+        replyTextarea.addEventListener("input", function() {
+          this.style.height = "auto";
+          this.style.height = Math.min(300, this.scrollHeight) + "px";
+        });
+        replyTextarea.dataset.resizeListenerAdded = "true";
+      }
+    }, 10);
   }
 }
 
@@ -505,7 +592,10 @@ function sendReply() {
     updateStatusIndicator("error", "Cannot send reply: No email selected");
     return;
   }
-  console.log("Sending reply to:", currentEmailData.from_email || currentEmailData.to_email);
+  console.log(
+    "Sending reply to:",
+    currentEmailData.from_email || currentEmailData.to_email
+  );
   const sendBtn = document.getElementById("sendReplyBtn");
   if (!sendBtn) {
     console.error("Send button not found");
@@ -525,16 +615,16 @@ function sendReply() {
   fetch("/api/emails/reply", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   })
-    .then((response) => {
+    .then(response => {
       console.log("Reply response status:", response.status);
       if (!response.ok) {
         throw new Error(`HTTP error ${response.status}`);
       }
       return response.json();
     })
-    .then((data) => {
+    .then(data => {
       console.log("Reply response data:", data);
       if (data.success) {
         sendBtn.innerHTML = `
@@ -557,7 +647,7 @@ function sendReply() {
         updateStatusIndicator("error", data.message || "Failed to send reply");
       }
     })
-    .catch((error) => {
+    .catch(error => {
       console.error("Error sending reply:", error);
       sendBtn.innerHTML = originalBtnText;
       sendBtn.disabled = false;
@@ -570,7 +660,9 @@ function extractKeyPoints(summary) {
   const keyPointsMatch = summary.match(/Key Points:(.*?)(?=(\n\n|$))/s);
   if (keyPointsMatch && keyPointsMatch[1]) {
     const pointsText = keyPointsMatch[1].trim();
-    const bulletPoints = pointsText.split(/\n+\s*[-•*]\s*/).filter((p) => p.trim());
+    const bulletPoints = pointsText
+      .split(/\n+\s*[-•*]\s*/)
+      .filter(p => p.trim());
     if (bulletPoints.length > 0) {
       const firstPoint = bulletPoints[0].trim();
       if (firstPoint && !firstPoint.startsWith("Key Points:")) {
@@ -582,7 +674,7 @@ function extractKeyPoints(summary) {
         }
       }
     } else {
-      const lines = pointsText.split("\n").filter((p) => p.trim());
+      const lines = pointsText.split("\n").filter(p => p.trim());
       for (const line of lines) {
         keyPoints.push(line.trim());
       }
@@ -606,7 +698,9 @@ function generateKeyPointsFromSummary(summaryText) {
       cleanSummary = bodyMatch[1].trim();
     }
   }
-  const sentences = cleanSummary.split(/[.!?]+/).filter((s) => s.trim().length > 15);
+  const sentences = cleanSummary
+    .split(/[.!?]+/)
+    .filter(s => s.trim().length > 15);
   for (let i = 0; i < Math.min(3, sentences.length); i++) {
     const sentence = sentences[i].trim();
     if (sentence) {
@@ -676,7 +770,13 @@ function handleFetchMessage(event) {
         // If AI provided a reply, use it; otherwise, set a default.
         const d = data.data;
         const formattedReply = d.reply ? d.reply.replace(/\n/g, "<br>") : "";
-        addEmailSummary(d.summary, formattedReply, d.message_id, d.to_email, d.subject);
+        addEmailSummary(
+          d.summary,
+          formattedReply,
+          d.message_id,
+          d.to_email,
+          d.subject
+        );
         break;
       case "status":
         updateStatusIndicator("processing", data.message);
@@ -734,11 +834,14 @@ function reconnectToFetch() {
 function checkPageVisibility() {
   if (document.visibilityState === "visible") {
     console.log("Page became visible");
-    if (window.location.pathname.includes('/email') && sessionStorage.getItem("fetchInProgress") === "true") {
+    if (
+      window.location.pathname.includes("/email") &&
+      sessionStorage.getItem("fetchInProgress") === "true"
+    ) {
       console.log("Reconnecting to fetch after page switch");
       reconnectToFetch();
     }
-    if (window.location.pathname.includes('/email')) {
+    if (window.location.pathname.includes("/email")) {
       syncTimerFromStorage();
       loadEmailsFromStorage();
     }
@@ -756,7 +859,7 @@ function cleanupTimer() {
 // Initialize on page load
 document.addEventListener("DOMContentLoaded", function() {
   // If we're on the email page, load any stored emails.
-  if (window.location.pathname.includes('/email')) {
+  if (window.location.pathname.includes("/email")) {
     loadEmailsFromStorage();
   }
 
@@ -772,18 +875,19 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // When the app is closed, the sessionStorage is automatically cleared.
-// For page unload, we store the emails in sessionStorage so that on a page change they remain.
+// For page unload, we store the emails in sessionStorage so that on a page
+// change they remain.
 window.addEventListener("beforeunload", function() {
-  saveEmailsToStorage();
-
-  // If leaving the email page (but not the whole app), just close the active fetch connection.
+  saveEmailsToStorage()
+    // If leaving the email page (but not the whole app), just close the active
+  // fetch connection.
   if (activeFetchSource) {
     activeFetchSource.close();
     activeFetchSource = null;
   }
 
   // If we're navigating away from the email page, we can clean up our timer.
-  if (!window.location.pathname.includes('/email')) {
+  if (!window.location.pathname.includes("/email")) {
     cleanupTimer();
   }
 });
@@ -796,3 +900,6 @@ if (window.electron) {
     cleanupTimer();
   });
 }
+
+
+
