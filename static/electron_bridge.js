@@ -33,6 +33,10 @@ try {
     restartServer: () => {
       console.log('Requesting server restart');
       return ipcRenderer.invoke('restart-server');
+    },
+    
+    onAppClosing: (callback) => {
+      ipcRenderer.on('app-closing', callback);
     }
   });
   console.log('electron object exposed successfully via contextBridge.');
