@@ -217,6 +217,15 @@ ipcMain.on('get-chat-history', (event) => {
   event.returnValue = global.chatHistory;
 });
 
+// Add this near your other IPC handlers
+ipcMain.handle('clear-session-data', () => {
+  if (mainWindow) {
+    mainWindow.webContents.executeJavaScript(`
+      sessionStorage.clear();
+    `);
+  }
+});
+
 // Start the app
 app.on('ready', async () => {
   try {
@@ -244,6 +253,15 @@ app.on('activate', () => {
 });
 
 app.on('before-quit', () => {
+  if (mainWindow) {
+    mainWindow.webContents.send('app-closing');
+    mainWindow.webContents.executeJavaScript(`
+      sessionStorage.clear();
+      if (window.cleanupTimer) {
+        window.cleanupTimer();
+      }
+    `);
+  }
   if (pythonProcess) {
     kill(pythonProcess.pid);
   }
