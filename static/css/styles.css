@@ -254,38 +254,29 @@ body {
 }
 
 .status-indicator {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  padding: 6px 10px;
+  display: none;
+  padding: 8px 16px;
+  margin-bottom: 16px;
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.status-indicator.ready {
-  color: var(--success);
-  background: rgba(16, 185, 129, 0.1);
+  font-size: 14px;
 }
 
 .status-indicator.processing {
-  color: var(--warning);
-  background: rgba(234, 179, 8, 0.1);
+  display: block;
+  background-color: #e3f2fd;
+  color: #1976d2;
 }
 
 .status-indicator.success {
-  color: var(--success);
-  background: rgba(16, 185, 129, 0.1);
+  display: block;
+  background-color: #e8f5e9;
+  color: #2e7d32;
 }
 
 .status-indicator.error {
-  color: var(--danger);
-  background: rgba(239, 68, 68, 0.1);
-}
-
-.status-indicator.warning {
-  color: var(--warning);
-  background: rgba(234, 179, 8, 0.1);
+  display: block;
+  background-color: #ffebee;
+  color: #c62828;
 }
 
 .timer-indicator {
