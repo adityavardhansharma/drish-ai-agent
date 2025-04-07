@@ -203,13 +203,13 @@
       position: relative;
       z-index: 10;
     }
-    
+
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 1rem;
     }
-    
+
     .tab-nav {
       display: flex;
       overflow-x: auto;
@@ -218,11 +218,11 @@
       border-bottom: none;
       margin-bottom: 0;
     }
-    
+
     .tab-nav::-webkit-scrollbar {
       display: none;
     }
-    
+
     .tab-item {
       padding: 1rem 1.5rem;
       white-space: nowrap;
@@ -235,15 +235,15 @@
       user-select: none;
       cursor: pointer;
     }
-    
+
     .tab-item:hover {
       color: var(--primary);
     }
-    
+
     .tab-item.active {
       color: var(--primary);
     }
-    
+
     .tab-item.active::after {
       content: '';
       position: absolute;
@@ -264,6 +264,30 @@
         transform: scaleX(1);
       }
     }
+
+    /* Auto-start checkbox styling */
+    .autostart-container {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+    }
+
+    .autostart-container label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      color: white;
+      font-size: 14px;
+    }
+
+    .autostart-container input[type="checkbox"] {
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -279,10 +303,16 @@
         <span>AI Agent Pro</span>
       </div>
 
+      <!-- Auto-start checkbox - only visible in Electron -->
+      <div class="autostart-container electron-only">
+        <label for="autostart-checkbox">
+          <input type="checkbox" id="autostart-checkbox">
+          Auto-start on boot
+        </label>
+      </div>
     </div>
     <div class="header-actions">
-
-      </button>
+      <!-- Empty for now -->
     </div>
   </header>
 
@@ -333,11 +363,11 @@
       if (window.electron) {
         document.body.classList.add('electron');
         console.log('Running in Electron environment');
-        
+
         // Setup navigation buttons
         const backButton = document.getElementById('nav-back');
         const forwardButton = document.getElementById('nav-forward');
-        
+
         if (backButton && forwardButton) {
           backButton.addEventListener('click', function() {
             console.log('Back button clicked');
@@ -347,7 +377,7 @@
               console.error('Navigation function not available');
             }
           });
-          
+
           forwardButton.addEventListener('click', function() {
             console.log('Forward button clicked');
             if (window.electron && window.electron.navigateInApp) {
@@ -356,10 +386,47 @@
               console.error('Navigation function not available');
             }
           });
-          
+
           console.log('Navigation buttons setup complete');
         } else {
           console.error('Navigation buttons not found');
+        }
+
+        // Setup auto-start checkbox
+        const autostartCheckbox = document.getElementById('autostart-checkbox');
+        if (autostartCheckbox) {
+          // Get current auto-start status
+          window.electron.getAutoStartEnabled().then(enabled => {
+            autostartCheckbox.checked = enabled;
+          });
+
+          // Add event listener for checkbox changes
+          autostartCheckbox.addEventListener('change', function() {
+            window.electron.setAutoStartEnabled(this.checked)
+              .then(success => {
+                if (success) {
+                  console.log(`Auto-start ${this.checked ? 'enabled' : 'disabled'}`);
+
+                  // Show status message
+                  const statusMessage = document.getElementById('status-message');
+                  const statusText = document.getElementById('status-text');
+                  const statusIcon = statusMessage.querySelector('.status-icon');
+
+                  statusText.textContent = `Auto-start ${this.checked ? 'enabled' : 'disabled'}`;
+                  statusIcon.className = 'status-icon ri-check-line status-success';
+
+                  statusMessage.style.display = 'flex';
+
+                  // Hide status message after 3 seconds
+                  setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                  }, 3000);
+                } else {
+                  console.error('Failed to update auto-start setting');
+                  this.checked = !this.checked; // Revert checkbox state
+                }
+              });
+          });
         }
       }
 
@@ -370,11 +437,11 @@
           try {
             reloadButton.disabled = true;
             const result = await window.electron.restartServer();
-            
+
             const statusMessage = document.getElementById('status-message');
             const statusText = document.getElementById('status-text');
             const statusIcon = statusMessage.querySelector('.status-icon');
-            
+
             if (result && result.success) {
               statusText.textContent = 'Server restarted successfully';
               statusIcon.className = 'status-icon ri-check-line status-success';
@@ -382,15 +449,15 @@
               statusText.textContent = 'Failed to restart server: ' + (result?.error || 'Unknown error');
               statusIcon.className = 'status-icon ri-close-line status-error';
             }
-            
+
             // Show status message
             statusMessage.style.display = 'flex';
-            
+
             // Hide status message after 3 seconds
             setTimeout(() => {
               statusMessage.style.display = 'none';
             }, 3000);
-            
+
             reloadButton.disabled = false;
           } catch (error) {
             console.error('Error restarting server:', error);
