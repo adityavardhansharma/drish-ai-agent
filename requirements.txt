@@ -38,3 +38,8 @@ passlib[bcrypt]
 # Additional packages for Electron integration
 watchdog
 psutil
+
+# Add new dependencies:
+google-cloud-speech
+fuzzywuzzy
+python-Levenshtein
