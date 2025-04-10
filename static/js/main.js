@@ -1,24 +1,16 @@
 "use strict";
 
-// Global variables and state
 let isLoading = false;
-let timeRemaining = 900; // 15 minutes in seconds
+let timeRemaining = 900;
 let timerInterval;
 let emailCount = 0;
 let currentEmailData = null;
 let activeEmailItem = null;
 let emailsData = {};
 let globalTimerStarted = false;
-let activeFetchSource = null; // Track active EventSource
+let activeFetchSource = null;
 
-/* --------------------------
-   Function Declarations
---------------------------- */
 
-/**
- * On first session load, we initialize our session values.
- * We do not call a full sessionStorage.clear(), so that keys set in a previous page are preserved.
- */
 function initSessionIfNeeded() {
   if (!sessionStorage.getItem("appInitialized")) {
     console.log("New session detected - initializing session keys");
@@ -43,8 +35,6 @@ function startAutoFetchTimer() {
   // Only call initSessionIfNeeded once.
   initSessionIfNeeded();
 
-  // Use sessionStorage to track our global timer so that switching pages
-  // preserves the value.
   if (sessionStorage.getItem("globalTimerStart")) {
     console.log("Existing timer found, syncing...");
     syncTimerFromStorage();
@@ -886,13 +876,11 @@ window.addEventListener("beforeunload", function() {
     activeFetchSource = null;
   }
 
-  // If we're navigating away from the email page, we can clean up our timer.
   if (!window.location.pathname.includes("/email")) {
     cleanupTimer();
   }
 });
 
-// Handle app closing in Electron
 if (window.electron) {
   window.electron.onAppClosing(() => {
     completeFetch("info", "Application closing");
@@ -900,6 +888,3 @@ if (window.electron) {
     cleanupTimer();
   });
 }
-
-
-
