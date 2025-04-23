@@ -6,7 +6,14 @@ logger = logging.getLogger(__name__)
 
 async def generate_email_reply(email_content, max_tokens=2000):
     """
-    Uses the Mistral AI API to generate a professional email reply based on the provided email content.
+    Generates a professional and concise email reply using the Mistral AI API.
+    
+    Args:
+        email_content: The content of the email to which a reply should be generated.
+        max_tokens: The maximum number of tokens allowed in the generated reply.
+    
+    Returns:
+        The generated email reply as a string, or an error message if the API key is missing or an exception occurs.
     """
     if not settings.mistral_reply_api_key:
         logger.error("Mistral Reply API key not set in environment variables.")
