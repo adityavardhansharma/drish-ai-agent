@@ -1,11 +1,4 @@
-const {
-  app,
-  BrowserWindow,
-  dialog,
-  ipcMain,
-  shell,
-  Menu
-} = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, shell, Menu } = require('electron');
 const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
@@ -13,38 +6,40 @@ const isDev = require('electron-is-dev');
 const waitOn = require('wait-on');
 const kill = require('tree-kill');
 
-// Add auto-launch functionality via the auto-launch package
-const AutoLaunch = require('auto-launch');
-
 let mainWindow;
 let pythonProcess = null;
 const PORT = 5000;
 const URL = `http://localhost:${PORT}`;
 
-// Create an auto launcher instance
-const appAutoLauncher = new AutoLaunch({
-  name: 'AI Agent Pro',
-  path: app.getPath('exe'),
-  isHidden: false
-});
-
-// Get the appropriate path for resources
+/**
+ * Returns the correct resource directory path based on the current environment and platform.
+ *
+ * In development mode, returns the current directory. In packaged production mode, returns the path to the app's resources directory, accounting for platform differences.
+ *
+ * @returns {string} The absolute path to the application's resource directory.
+ */
 function getResourcePath() {
   if (isDev) {
     return __dirname;
   }
-
+  
   if (process.platform === 'win32') {
     return path.join(process.resourcesPath, 'app');
   }
-
+  
+  // For Mac and Linux
   if (app.isPackaged) {
     return path.join(process.resourcesPath, 'app');
   }
-
+  
   return __dirname;
 }
 
+/**
+ * Creates and configures the main Electron browser window for the application.
+ *
+ * The window loads the Flask backend URL, sets up zoom keyboard shortcuts, disables the default menu bar, and ensures external links open in the system browser. In development mode, DevTools are opened automatically. When the window is closed, the associated Python server process is terminated if running.
+ */
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -52,36 +47,44 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'static', 'electron_bridge.js')
+      preload: path.join(__dirname, 'static', 'electron_bridge.js'),
     },
     title: 'AI Agent Pro',
-    icon: path.join(__dirname, 'resources', 'icon.png')
+    icon: path.join(__dirname, 'resources', 'icon.png'),
   });
 
+  // Remove default zoom factor to fix automatic zoom-out issue
+  // mainWindow.webContents.setZoomFactor(0.9);
+  
+  // Remove default menu bar
   Menu.setApplicationMenu(null);
+
+  // Load the Flask app URL
   mainWindow.loadURL(URL);
 
+  // Add zoom shortcuts
   mainWindow.webContents.on('before-input-event', (event, input) => {
     if (input.control && input.key === '=') {
-      mainWindow.webContents.setZoomFactor(
-        mainWindow.webContents.getZoomFactor() + 0.1
-      );
+      // Ctrl/Cmd + = (zoom in)
+      mainWindow.webContents.setZoomFactor(mainWindow.webContents.getZoomFactor() + 0.1);
       event.preventDefault();
     } else if (input.control && input.key === '-') {
-      mainWindow.webContents.setZoomFactor(
-        mainWindow.webContents.getZoomFactor() - 0.1
-      );
+      // Ctrl/Cmd + - (zoom out)
+      mainWindow.webContents.setZoomFactor(mainWindow.webContents.getZoomFactor() - 0.1);
       event.preventDefault();
     } else if (input.control && input.key === '0') {
-      mainWindow.webContents.setZoomFactor(1.0);
+      // Ctrl/Cmd + 0 (reset zoom)
+      mainWindow.webContents.setZoomFactor(1.0); // Set to 1.0 instead of 0.9
       event.preventDefault();
     }
   });
 
+  // Open DevTools in development mode
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
 
+  // Open links in external browser
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('http') || url.startsWith('https')) {
       shell.openExternal(url);
@@ -90,6 +93,7 @@ function createWindow() {
     return { action: 'allow' };
   });
 
+  // Handle window close
   mainWindow.on('closed', () => {
     mainWindow = null;
     if (pythonProcess) {
@@ -98,39 +102,59 @@ function createWindow() {
   });
 }
 
+/**
+ * Starts the Python Flask backend server as a child process and waits for it to become available.
+ *
+ * @returns {Promise<void>} Resolves when the Flask server is running and accessible; rejects if the server fails to start or cannot be reached.
+ *
+ * @throws {Error} If the Python script is not found or the server fails to start within the timeout period.
+ *
+ * @remark
+ * Displays an error dialog if the Python process fails to start, exits unexpectedly, or if the Flask server cannot be reached.
+ */
 async function startPythonServer() {
   return new Promise((resolve, reject) => {
+    // Get the resource path
     const resourcePath = getResourcePath();
+    
+    // Determine the Python executable path
     const pythonExecutable = process.platform === 'win32' ? 'python' : 'python3';
+    
+    // Path to the main Flask app
     const scriptPath = path.join(resourcePath, 'main.py');
-
+    
+    // Check if the script exists
     if (!fs.existsSync(scriptPath)) {
       const error = new Error(`Python script not found at: ${scriptPath}`);
       console.error(error);
       reject(error);
       return;
     }
-
+    
     console.log(`Starting Python server with script: ${scriptPath}`);
+    
+    // Environment variables for Python process
     const env = Object.assign({}, process.env, {
       ELECTRON_APP: '1',
       PYTHONIOENCODING: 'utf-8',
-      PYTHONUNBUFFERED: '1'
+      PYTHONUNBUFFERED: '1',
     });
-
+    
+    // Spawn the Python process
     pythonProcess = spawn(pythonExecutable, [scriptPath], { env });
-
+    
+    // Handle Python process output
     pythonProcess.stdout.on('data', (data) => {
       console.log(`Python stdout: ${data}`);
       if (data.toString().includes('Running on http')) {
         console.log('Server started successfully');
       }
     });
-
+    
     pythonProcess.stderr.on('data', (data) => {
       console.error(`Python stderr: ${data}`);
     });
-
+    
     pythonProcess.on('error', (error) => {
       console.error(`Failed to start Python process: ${error}`);
       dialog.showErrorBox(
@@ -139,7 +163,7 @@ async function startPythonServer() {
       );
       reject(error);
     });
-
+    
     pythonProcess.on('close', (code) => {
       console.log(`Python process exited with code ${code}`);
       if (code !== 0 && mainWindow) {
@@ -149,8 +173,12 @@ async function startPythonServer() {
         );
       }
     });
-
-    waitOn({ resources: [URL], timeout: 30000 })
+    
+    // Wait for the server to start
+    waitOn({
+      resources: [URL],
+      timeout: 30000 // 30 seconds
+    })
       .then(() => {
         console.log('Flask server is running');
         resolve();
@@ -180,30 +208,30 @@ ipcMain.handle('restart-server', async () => {
   }
 });
 
-// Logging from renderer
+// Handle log messages from renderer
 ipcMain.on('log', (event, data) => {
   const { level, message, data: logData } = data;
-  console[level in console ? level : 'log'](
-    `[Renderer] ${message}`,
-    logData || ''
-  );
+  console[level in console ? level : 'log'](`[Renderer] ${message}`, logData || '');
 });
 
+// Handle show dialog
 ipcMain.handle('show-dialog', async (event, options) => {
   return await dialog.showMessageBox(mainWindow, options);
 });
 
+// Handle opening external links
 ipcMain.on('open-external', async (event, { url }) => {
   if (url.startsWith('http') || url.startsWith('https')) {
     await shell.openExternal(url);
   }
 });
 
+// Handle navigation
 ipcMain.on('navigate', (event, action) => {
   if (!mainWindow) return;
-
+  
   console.log('Navigation action received:', action);
-
+  
   switch (action) {
     case 'back':
       if (mainWindow.webContents.canGoBack()) {
@@ -234,62 +262,6 @@ ipcMain.on('navigate', (event, action) => {
   }
 });
 
-// Data storage using an in-memory store instead of global variables
-const appState = {
-  documentContent: null,
-  chatHistory: null
-};
-
-ipcMain.on('set-document-content', (event, content) => {
-  appState.documentContent = content;
-});
-ipcMain.on('get-document-content', (event) => {
-  event.returnValue = appState.documentContent;
-});
-ipcMain.on('set-chat-history', (event, history) => {
-  appState.chatHistory = history;
-});
-ipcMain.on('get-chat-history', (event) => {
-  event.returnValue = appState.chatHistory;
-});
-
-// Clear session data
-ipcMain.handle('clear-session-data', () => {
-  if (mainWindow) {
-    mainWindow.webContents.executeJavaScript(`
-      sessionStorage.clear();
-    `);
-  }
-});
-
-// Auto-start IPC handlers
-ipcMain.handle('get-auto-start-enabled', async () => {
-  try {
-    const isEnabled = await appAutoLauncher.isEnabled();
-    console.log('Auto-start is currently:', isEnabled);
-    return isEnabled;
-  } catch (error) {
-    console.error('Error checking auto-start status:', error);
-    return false;
-  }
-});
-
-ipcMain.handle('set-auto-start-enabled', async (event, enabled) => {
-  try {
-    if (enabled) {
-      await appAutoLauncher.enable();
-      console.log('Auto-start enabled');
-    } else {
-      await appAutoLauncher.disable();
-      console.log('Auto-start disabled');
-    }
-    return true;
-  } catch (error) {
-    console.error('Error setting auto-start:', error);
-    return false;
-  }
-});
-
 // Start the app
 app.on('ready', async () => {
   try {
@@ -301,6 +273,7 @@ app.on('ready', async () => {
   }
 });
 
+// Quit the app when all windows are closed (except on macOS)
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     if (pythonProcess) {
@@ -310,23 +283,16 @@ app.on('window-all-closed', () => {
   }
 });
 
+// On macOS, recreate the window when dock icon is clicked
 app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
 });
 
+// Clean up Python process on exit
 app.on('before-quit', () => {
-  if (mainWindow) {
-    mainWindow.webContents.send('app-closing');
-    mainWindow.webContents.executeJavaScript(`
-      sessionStorage.clear();
-      if (window.cleanupTimer) {
-        window.cleanupTimer();
-      }
-    `);
-  }
   if (pythonProcess) {
     kill(pythonProcess.pid);
   }
-});
+}); 
