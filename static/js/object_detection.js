@@ -226,7 +226,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Electron-specific initialization – if running in Electron
   if (window.electronAPI) {
     console.log("Object Detection page initialized in Electron");
-    window.electronAPI.send("logToMain", "Object Detection page initialized");
+    window.electronAPI.send("log-message", {
+      level: "info",
+      message: "Object Detection page initialized",
+    });
   }
 });
 

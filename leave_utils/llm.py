@@ -1,31 +1,14 @@
 import logging
-import os
-import google.generativeai as genai
-from typing import List, Optional
+from typing import List
 
-# Get logger
+from llm.openrouter_client import chat_completion_sync
+from utils.config import settings
+
 logger = logging.getLogger(__name__)
-
-# Gemini API configuration
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-GEMINI_MODEL_NAME = "gemini-2.0-flash"
-
-# Initialize Gemini model
-genai_model = None
-if GEMINI_API_KEY:
-    try:
-        genai.configure(api_key=GEMINI_API_KEY)
-        genai_model = genai.GenerativeModel(GEMINI_MODEL_NAME)
-        logger.info(f"Gemini model '{GEMINI_MODEL_NAME}' initialized successfully")
-    except Exception as e:
-        logger.error(f"Failed to initialize Gemini model: {e}")
-        genai_model = None
-else:
-    logger.warning("GEMINI_API_KEY not found. LLM formatting disabled.")
 
 def format_leave_details(employee_name: str, header_row: List[str], employee_row: List[str]) -> str:
     """
-    Format leave details using Gemini model to make the spreadsheet data more readable.
+    Format leave details using the configured OpenRouter model.
     
     Args:
         employee_name: The name of the employee
@@ -35,10 +18,6 @@ def format_leave_details(employee_name: str, header_row: List[str], employee_row
     Returns:
         Formatted leave details as a string
     """
-    if not genai_model:
-        # Fallback formatting if Gemini is not available
-        return _basic_format_leave_details(employee_name, header_row, employee_row)
-    
     try:
         # Convert lists to strings for prompt
         header_str = ", ".join(map(str, header_row))
@@ -97,23 +76,27 @@ def format_leave_details(employee_name: str, header_row: List[str], employee_row
         Generate *only* the output in this specific format.
         """
         
-        # Generate response
-        response = genai_model.generate_content(prompt)
-        
-        if response.parts:
-            formatted_text = "".join(part.text for part in response.parts).strip()
-            logger.info(f"Successfully formatted leave details for {employee_name}")
-            return formatted_text
-        else:
-            logger.warning("Gemini response was empty")
-            return _basic_format_leave_details(employee_name, header_row, employee_row)
+        formatted_text = chat_completion_sync(
+            [
+                {
+                    "role": "system",
+                    "content": "Format spreadsheet leave-balance rows into concise leave summaries.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            model=getattr(settings, "openrouter_leave_model", None),
+            max_tokens=1200,
+            temperature=0.2,
+        )
+        logger.info(f"Successfully formatted leave details for {employee_name}")
+        return formatted_text
     
     except Exception as e:
-        logger.error(f"Error formatting leave details with Gemini: {e}")
+        logger.error(f"Error formatting leave details with OpenRouter: {e}")
         return _basic_format_leave_details(employee_name, header_row, employee_row)
 
 def _basic_format_leave_details(employee_name: str, header_row: List[str], employee_row: List[str]) -> str:
-    """Basic formatting fallback when Gemini is not available."""
+    """Basic formatting fallback when AI formatting is not available."""
     try:
         # Create a simple table format
         result = f"Leave Summary for {employee_name}:\n\n"
@@ -131,4 +114,4 @@ def _basic_format_leave_details(employee_name: str, header_row: List[str], emplo
         return result
     except Exception as e:
         logger.error(f"Error in basic leave details formatting: {e}")
-        return f"Error formatting leave data: {str(e)}" 
+        return f"Error formatting leave data: {str(e)}"

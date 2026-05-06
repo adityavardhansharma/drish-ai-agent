@@ -1,22 +1,16 @@
-# llm/mistral_api.py
 import logging
 from utils.config import settings
-from mistralai import Mistral
+from llm.openrouter_client import chat_completion
 
 logger = logging.getLogger(__name__)
 
 
 async def generate_summary(document_content, max_tokens=50000):
     """
-    Uses the Mistral AI API to generate a detailed, comprehensive summary of the provided document content.
+    Uses OpenRouter to generate a detailed, comprehensive summary of the document content.
     """
-    if not settings.mistral_api_key:
-        logger.error("Mistral AI API key not set in environment variables.")
-        return "Error: Mistral AI API key not set."
-
     try:
-        client = Mistral(api_key=settings.mistral_api_key)
-        prompt = """
+        prompt = f"""
         Create a comprehensive, detailed summary of the following document. 
         Your summary should:
         - Capture all key points, arguments, and conclusions
@@ -27,8 +21,8 @@ async def generate_summary(document_content, max_tokens=50000):
         - Not omit any significant information from the original text
 
         Document content:
-        {content}
-        """.format(content=document_content)
+        {document_content}
+        """
 
         messages = [
             {
@@ -40,13 +34,12 @@ async def generate_summary(document_content, max_tokens=50000):
                 "content": prompt
             }
         ]
-        chat_response = await client.chat.complete_async(
-            model="ministral-8b-latest",
-            messages=messages,
+        return await chat_completion(
+            messages,
+            model=getattr(settings, "openrouter_document_model", None),
             max_tokens=max_tokens,
-            temperature=0.2
+            temperature=0.2,
         )
-        return chat_response.choices[0].message.content.strip()
     except Exception as e:
         logger.exception(f"Error generating summary: {e}")
         return f"Error generating summary: {str(e)}"

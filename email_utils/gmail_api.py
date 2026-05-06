@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.readonly",
     "https://www.googleapis.com/auth/gmail.modify",
+    "https://www.googleapis.com/auth/gmail.send",
 ]
 
 # Determine paths for credentials and token.
@@ -153,7 +154,7 @@ def send_reply(service, original_message_id, to_email, subject, message_body):
         # Create the email message.
         message = MIMEText(message_body)
         message["to"] = to_email
-        message["subject"] = f"Re: {subject}"
+        message["subject"] = subject
 
         # Retrieve the original message to get the threadId.
         original_message = service.users().messages().get(
