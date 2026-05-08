@@ -157,7 +157,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Electron-specific initialization
   if (window.electronAPI) {
     debugLog("Electron API detected, initializing");
-    window.electronAPI.send("logToMain", "Leave Checker page initialized");
+    window.electronAPI.send("log-message", {
+      level: "info",
+      message: "Leave Checker page initialized",
+    });
   } else {
     debugLog("Electron API not found");
   }

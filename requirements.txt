@@ -7,10 +7,6 @@ werkzeug>=2.0.0
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
-google-generativeai
-
-# AI/LLM Related
-mistralai
 
 # Configuration and Utils
 python-dotenv
@@ -24,12 +20,13 @@ aiofiles
 
 # PDF Processing
 PyPDF2
+python-docx
 
 # Type Hints
 typing-extensions
 
 # Database (for leave checker)
-supabase
+convex
 python-jose[cryptography]
 
 # Password hashing

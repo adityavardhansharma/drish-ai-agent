@@ -39,8 +39,8 @@ class FetchEmailsWorker(QThread):
         try:
             from email_utils.gmail_api import get_gmail_service, fetch_emails
             from email_utils.email_parser import parse_email_content
-            from llm.gemini_api import generate_summary
-            from llm.mistral_reply_api import generate_email_reply
+            from llm.email_summary_api import generate_summary
+            from llm.email_reply_api import generate_email_reply
 
             status_prefix = "Auto-fetching" if self.is_auto_fetch else "Fetching"
             self.status_update.emit(f"{status_prefix} emails...")
@@ -120,7 +120,7 @@ class EmailReplyWorker(QThread):
     def run(self):
         self.status_update.emit("Generating email reply...")
         try:
-            from llm.mistral_reply_api import generate_email_reply
+            from llm.email_reply_api import generate_email_reply
             reply = asyncio.run(generate_email_reply(self.email_content))
             self.reply_ready.emit(reply, "")
             self.status_update.emit("Reply generated.")
@@ -260,7 +260,7 @@ class SummaryWorker(QThread):
 
             self.document_content_ready.emit(document_content)
             self.status_update.emit("Generating summary…")
-            from llm.mistral_api import generate_summary
+            from llm.document_summary_api import generate_summary
             summary = asyncio.run(generate_summary(document_content))
             self.summary_ready.emit(summary)
             self.status_update.emit("Summary complete.")
@@ -352,7 +352,7 @@ class ObjectDetectionWorker(QThread):
     def run(self):
         self.status_update.emit("Analyzing image for object detection…")
         try:
-            from llm.gemini_object_detection import detect_objects
+            from llm.object_detection_api import detect_objects
             result = asyncio.run(detect_objects(self.image_path))
             self.detection_result_ready.emit(result)
             self.status_update.emit("Object detection completed.")

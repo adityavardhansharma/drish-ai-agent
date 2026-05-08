@@ -9,7 +9,51 @@ let activeEmailItem = null;
 let emailsData = {};
 let globalTimerStarted = false;
 let activeFetchSource = null;
+let draftSaveTimer = null;
 
+function deterministicAvatarColor(seed) {
+  let hash = 0;
+  const text = seed || "email";
+  for (let i = 0; i < text.length; i++) {
+    hash = (hash * 31 + text.charCodeAt(i)) % 360;
+  }
+  return `hsl(${hash}, 70%, 50%)`;
+}
+
+function initialsForName(name) {
+  return (
+    (name || "NA")
+      .split(" ")
+      .map(part => (part ? part[0] : ""))
+      .join("")
+      .substring(0, 2)
+      .toUpperCase() || "NA"
+  );
+}
+
+function normalizeSavedEmail(record) {
+  const from = record.from_name || record.from_email || "Unknown";
+  const date = record.updated_at || record.generated_at || record.created_at || "Today";
+  const messageId = record.message_id || record.id;
+  return {
+    summary: record.summary || "",
+    reply: record.reply || record.draft_reply || "",
+    message_id: messageId,
+    to_email: record.to_email || record.from_email || "",
+    subject: record.subject || "No Subject",
+    from: from,
+    from_email: record.from_email || "",
+    date: date,
+    initials: initialsForName(from),
+    avatarColor: deterministicAvatarColor(record.from_email || from || messageId),
+    status: record.status || "generated",
+    generated_at: record.generated_at || "",
+    updated_at: record.updated_at || "",
+    sent_at: record.sent_at || "",
+    sent_reply_body: record.sent_reply_body || "",
+    last_error: record.last_error || "",
+  };
+}
 
 function initSessionIfNeeded() {
   if (!sessionStorage.getItem("appInitialized")) {
@@ -319,6 +363,73 @@ function loadEmailsFromStorage() {
   }
 }
 
+function mergeEmailData(email) {
+  const emailId =
+    email.message_id || `email-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  emailsData[emailId] = {
+    ...(emailsData[emailId] || {}),
+    ...email,
+    message_id: email.message_id || emailId,
+  };
+}
+
+function renderEmailList() {
+  const list = document.getElementById("emailList");
+  const noEmailsMessage = document.getElementById("noEmailsMessage");
+  if (!list) return;
+
+  const emailIds = Object.keys(emailsData);
+  if (emailIds.length === 0) {
+    if (noEmailsMessage) {
+      noEmailsMessage.style.display = "block";
+    }
+    return;
+  }
+
+  if (noEmailsMessage) {
+    noEmailsMessage.style.display = "none";
+  }
+
+  list.innerHTML = "";
+  emailIds
+    .sort((a, b) => {
+      const dateA = new Date(emailsData[a].updated_at || emailsData[a].date || 0);
+      const dateB = new Date(emailsData[b].updated_at || emailsData[b].date || 0);
+      return dateB - dateA;
+    })
+    .forEach(emailId => {
+      const email = emailsData[emailId];
+      const emailItem = createEmailListItem(email);
+      emailItem.onclick = function() {
+        selectEmail(this, email);
+      };
+      list.appendChild(emailItem);
+    });
+}
+
+async function loadEmailsFromConvex() {
+  try {
+    const response = await fetch("/api/emails/summaries?limit=100");
+    const data = await response.json();
+    if (!data.success) {
+      console.warn("Saved email load skipped:", data.error);
+      return;
+    }
+
+    data.data.forEach(record => {
+      mergeEmailData(normalizeSavedEmail(record));
+    });
+    emailCount = Object.keys(emailsData).length;
+    saveEmailsToStorage();
+    renderEmailList();
+    if (emailCount > 0) {
+      updateStatusIndicator("success", `${emailCount} saved emails loaded`);
+    }
+  } catch (error) {
+    console.error("Error loading saved emails from Convex:", error);
+  }
+}
+
 // Helper: Create a DOM element for an email list item
 function createEmailListItem(email) {
   const emailItem = document.createElement("div");
@@ -340,6 +451,13 @@ function createEmailListItem(email) {
             ? email.summary.substring(0, 50) + "..."
             : "No preview available"
         }</div>
+        ${
+          email.status === "sent"
+            ? `<div class="email-item-preview">Reply sent</div>`
+            : email.status === "send_failed"
+              ? `<div class="email-item-preview">Reply failed</div>`
+              : ""
+        }
       </div>
     </div>`;
   return emailItem;
@@ -408,6 +526,16 @@ function displayEmailDetails(emailData) {
     fromEmail ? `<${fromEmail}>` : ""
   }</div>
             <div class="date">${date}</div>
+            ${
+              emailData.status === "sent" && emailData.sent_at
+                ? `<div class="date">Reply sent: ${emailData.sent_at}</div>`
+                : ""
+            }
+            ${
+              emailData.status === "send_failed" && emailData.last_error
+                ? `<div class="date">Reply failed: ${emailData.last_error}</div>`
+                : ""
+            }
           </div>
         </div>
       </div>
@@ -560,8 +688,42 @@ function displayEmailReply(emailData) {
         });
         replyTextarea.dataset.resizeListenerAdded = "true";
       }
+      if (!replyTextarea.dataset.draftListenerAdded) {
+        replyTextarea.addEventListener("input", function() {
+          queueDraftSave(this.value);
+        });
+        replyTextarea.dataset.draftListenerAdded = "true";
+      }
     }, 10);
   }
+}
+
+function queueDraftSave(draftText) {
+  if (!currentEmailData || !currentEmailData.message_id) return;
+
+  const messageId = currentEmailData.message_id;
+  currentEmailData.reply = draftText;
+  currentEmailData.status =
+    currentEmailData.status === "sent" ? currentEmailData.status : "draft_updated";
+  mergeEmailData(currentEmailData);
+  saveEmailsToStorage();
+
+  if (draftSaveTimer) {
+    clearTimeout(draftSaveTimer);
+  }
+
+  draftSaveTimer = setTimeout(() => {
+    fetch("/api/emails/draft", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message_id: messageId,
+        draft_reply: draftText,
+      }),
+    }).catch(error => {
+      console.error("Error saving draft reply:", error);
+    });
+  }, 600);
 }
 
 function sendReply() {
@@ -617,6 +779,11 @@ function sendReply() {
     .then(data => {
       console.log("Reply response data:", data);
       if (data.success) {
+        currentEmailData.status = "sent";
+        currentEmailData.sent_reply_body = replyText;
+        currentEmailData.sent_at = new Date().toISOString();
+        mergeEmailData(currentEmailData);
+        saveEmailsToStorage();
         sendBtn.innerHTML = `
           <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24"
             fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -632,6 +799,10 @@ function sendReply() {
           sendBtn.disabled = false;
         }, 2000);
       } else {
+        currentEmailData.status = "send_failed";
+        currentEmailData.last_error = data.message || "Failed to send reply";
+        mergeEmailData(currentEmailData);
+        saveEmailsToStorage();
         sendBtn.innerHTML = originalBtnText;
         sendBtn.disabled = false;
         updateStatusIndicator("error", data.message || "Failed to send reply");
@@ -760,6 +931,10 @@ function handleFetchMessage(event) {
         // If AI provided a reply, use it; otherwise, set a default.
         const d = data.data;
         const formattedReply = d.reply ? d.reply.replace(/\n/g, "<br>") : "";
+        if (d.saved_record) {
+          mergeEmailData(normalizeSavedEmail(d.saved_record));
+          saveEmailsToStorage();
+        }
         addEmailSummary(
           d.summary,
           formattedReply,
@@ -851,6 +1026,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // If we're on the email page, load any stored emails.
   if (window.location.pathname.includes("/email")) {
     loadEmailsFromStorage();
+    loadEmailsFromConvex();
   }
 
   // Start the auto-fetch timer

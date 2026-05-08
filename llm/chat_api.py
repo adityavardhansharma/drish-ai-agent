@@ -3,7 +3,7 @@ import logging
 from typing import List, Optional
 from pydantic import BaseModel, Field
 from utils.config import settings
-from mistralai import Mistral
+from llm.openrouter_client import chat_completion
 
 logger = logging.getLogger(__name__)
 
@@ -21,16 +21,9 @@ async def chat_with_document(
     conversation_history: List[ChatMessage] = None
 ) -> ChatResponse:
     """
-    Uses the Mistral AI API to answer questions about the document content.
+    Uses OpenRouter to answer questions about the document content.
     """
-    if not settings.mistral_api_key:
-        logger.error("Mistral AI API key not set in environment variables.")
-        return ChatResponse(answer="", error="Mistral AI API key not set.")
-
     try:
-        client = Mistral(api_key=settings.mistral_api_key)
-
-        # Initialize with a system message.
         messages = [
             {
                 "role": "system",
@@ -52,14 +45,14 @@ async def chat_with_document(
             )
         })
 
-        chat_response = await client.chat.complete_async(
-            model="ministral-3b-2410",
-            messages=messages,
+        answer = await chat_completion(
+            messages,
+            model=getattr(settings, "openrouter_chat_model", None),
             max_tokens=2000,
-            temperature=0.2
+            temperature=0.2,
         )
 
-        return ChatResponse(answer=chat_response.choices[0].message.content.strip())
+        return ChatResponse(answer=answer)
     except Exception as e:
         logger.exception(f"Error in chat with document: {e}")
         return ChatResponse(answer="", error=f"Error generating answer: {str(e)}")

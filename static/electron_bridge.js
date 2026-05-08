@@ -60,7 +60,7 @@ try {
 try {
   contextBridge.exposeInMainWorld('electronAPI', {
     send: (channel, data) => {
-      const validChannels = ['navigate', 'log-message', 'some-other-channel'];
+      const validChannels = ['navigate', 'log-message', 'logToMain', 'some-other-channel'];
       if (validChannels.includes(channel)) {
         ipcRenderer.send(channel, data);
       } else {

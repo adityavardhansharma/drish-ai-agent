@@ -180,14 +180,21 @@ ipcMain.handle('restart-server', async () => {
   }
 });
 
-// Logging from renderer
-ipcMain.on('log', (event, data) => {
-  const { level, message, data: logData } = data;
-  console[level in console ? level : 'log'](
-    `[Renderer] ${message}`,
-    logData || ''
-  );
-});
+function logRendererMessage(data) {
+  if (typeof data === 'string') {
+    console.log(`[Renderer] ${data}`);
+    return;
+  }
+
+  const { level = 'log', message = '', context, data: logData } = data || {};
+  const logLevel = level in console ? level : 'log';
+  console[logLevel](`[Renderer] ${message}`, context || logData || '');
+}
+
+// Logging from renderer. Keep the old channel for compatibility.
+ipcMain.on('log', (event, data) => logRendererMessage(data));
+ipcMain.on('log-message', (event, data) => logRendererMessage(data));
+ipcMain.on('logToMain', (event, data) => logRendererMessage(data));
 
 ipcMain.handle('show-dialog', async (event, options) => {
   return await dialog.showMessageBox(mainWindow, options);
