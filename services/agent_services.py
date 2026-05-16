@@ -1,19 +1,12 @@
+import asyncio
 import json
 import logging
-import os
 from email.utils import parseaddr
 
 from email_utils.gmail_api import get_gmail_service, fetch_emails, send_reply
 from email_utils.email_parser import parse_email_content
-from leave_utils.db import create_user, authenticate_user
-from leave_utils.llm import format_leave_details
-from leave_utils.sheets import get_employee_leave_data
-from llm.chat_api import ChatMessage, chat_with_document
 from llm.email_summary_api import generate_summary as generate_email_summary
-from llm.object_detection_api import detect_objects
-from llm.document_summary_api import generate_summary as generate_doc_summary
 from llm.email_reply_api import generate_email_reply
-from services.document_store import document_store
 from services.email_artifact_store import (
     list_email_summaries,
     mark_email_reply_failed,
@@ -21,7 +14,6 @@ from services.email_artifact_store import (
     save_email_summary,
     update_email_draft,
 )
-from services.file_extraction import extract_text_from_file
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +62,7 @@ async def process_fetch_emails():
                     "message": f"Summarizing email {i + 1}/{total}...",
                 }
             )
-            summary = generate_email_summary(content)
+            summary = await asyncio.to_thread(generate_email_summary, content)
             reply = await generate_email_reply(content)
             payload = {
                 "summary": (
@@ -138,89 +130,3 @@ def process_list_email_summaries(limit=100):
 
 def process_update_email_draft(message_id, draft_reply):
     return update_email_draft(message_id, draft_reply)
-
-
-async def process_document_summary(session_id, file_path):
-    try:
-        content = extract_text_from_file(file_path)
-        document_store.set_document(session_id, content)
-        summary = await generate_doc_summary(content)
-        return {"success": True, "summary": summary, "document_content": content}
-    except Exception as error:
-        logger.error("Document summarization error: %s", error)
-        return {"success": False, "error": str(error)}
-
-
-async def process_document_chat(session_id, question):
-    try:
-        content = document_store.get_document(session_id)
-        if not content:
-            return {
-                "success": False,
-                "error": "No document loaded. Please upload and summarize first.",
-            }
-
-        chat_history = [
-            ChatMessage(**message)
-            for message in document_store.get_chat_history(session_id)
-        ]
-        response = await chat_with_document(question, content, chat_history)
-        if response.error:
-            return {"success": False, "error": response.error}
-
-        updated_history = document_store.append_chat_turn(
-            session_id,
-            ChatMessage(role="user", content=question).dict(),
-            ChatMessage(role="assistant", content=response.answer).dict(),
-        )
-        return {
-            "success": True,
-            "answer": response.answer,
-            "chat_history": updated_history,
-        }
-    except Exception as error:
-        logger.error("Error in document chat: %s", error)
-        return {"success": False, "error": str(error)}
-
-
-async def process_object_detection(image_path):
-    if not os.path.exists(image_path):
-        return {"success": False, "error": "Image file not found."}
-    try:
-        result = await detect_objects(image_path)
-        return {"success": True, "result": result}
-    except Exception as error:
-        logger.error("Object detection error: %s", error)
-        return {"success": False, "error": str(error)}
-
-
-def process_leave_signup(title, name, email, password):
-    try:
-        return create_user(email, password, name, title)
-    except Exception as error:
-        logger.error("Error during leave checker signup: %s", error)
-        return {"success": False, "error": str(error)}
-
-
-def process_leave_login(email, password):
-    try:
-        return authenticate_user(email, password)
-    except Exception as error:
-        logger.error("Error during leave checker login: %s", error)
-        return {"success": False, "error": str(error)}
-
-
-def process_leave_check(employee_name, month):
-    try:
-        leave_data = get_employee_leave_data(employee_name, month)
-        if not leave_data["success"]:
-            return leave_data
-
-        data = leave_data["data"]
-        formatted_data = format_leave_details(
-            data["employee_name"], data["header_row"], data["employee_row"]
-        )
-        return {"success": True, "formattedData": formatted_data}
-    except Exception as error:
-        logger.error("Error checking leave details: %s", error)
-        return {"success": False, "error": str(error)}

@@ -46,8 +46,6 @@ def create_app():
 
     app = Flask(__name__)
     app.secret_key = getattr(settings, "secret_key", "dev-secret-key")
-    app.config["UPLOAD_FOLDER"] = "uploads"
-    os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
     from routes.api_routes import api_bp
     from routes.page_routes import page_bp

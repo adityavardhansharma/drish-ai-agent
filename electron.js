@@ -241,25 +241,6 @@ ipcMain.on('navigate', (event, action) => {
   }
 });
 
-// Data storage using an in-memory store instead of global variables
-const appState = {
-  documentContent: null,
-  chatHistory: null
-};
-
-ipcMain.on('set-document-content', (event, content) => {
-  appState.documentContent = content;
-});
-ipcMain.on('get-document-content', (event) => {
-  event.returnValue = appState.documentContent;
-});
-ipcMain.on('set-chat-history', (event, history) => {
-  appState.chatHistory = history;
-});
-ipcMain.on('get-chat-history', (event) => {
-  event.returnValue = appState.chatHistory;
-});
-
 // Clear session data
 ipcMain.handle('clear-session-data', () => {
   if (mainWindow) {

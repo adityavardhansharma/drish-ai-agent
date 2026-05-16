@@ -15,22 +15,12 @@ pydantic-settings
 
 # Async Support
 aiohttp
-asgiref
-aiofiles
-
-# PDF Processing
-PyPDF2
-python-docx
 
 # Type Hints
 typing-extensions
 
-# Database (for leave checker)
+# Email persistence
 convex
-python-jose[cryptography]
-
-# Password hashing
-passlib[bcrypt]
 
 # Additional packages for Electron integration
 watchdog

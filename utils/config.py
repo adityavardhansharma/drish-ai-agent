@@ -17,10 +17,6 @@ class Settings(BaseSettings):
     openrouter_api_key: str | None = os.environ.get("OPENROUTER_API_KEY")
     openrouter_model: str = os.environ.get("OPENROUTER_MODEL", "openai/gpt-4o-mini")
     openrouter_email_model: str | None = os.environ.get("OPENROUTER_EMAIL_MODEL")
-    openrouter_document_model: str | None = os.environ.get("OPENROUTER_DOCUMENT_MODEL")
-    openrouter_chat_model: str | None = os.environ.get("OPENROUTER_CHAT_MODEL")
-    openrouter_vision_model: str | None = os.environ.get("OPENROUTER_VISION_MODEL")
-    openrouter_leave_model: str | None = os.environ.get("OPENROUTER_LEAVE_MODEL")
     openrouter_provider_order: str = os.environ.get("OPENROUTER_PROVIDER_ORDER", "")
     openrouter_http_referer: str | None = os.environ.get("OPENROUTER_HTTP_REFERER")
     openrouter_app_title: str = os.environ.get("OPENROUTER_APP_TITLE", "AI Agent Pro")
@@ -34,13 +30,10 @@ class Settings(BaseSettings):
     app_name: str = "AI Agent Pro"
     app_version: str = "1.0.0"
     
-    # Convex configuration for leave-checker users
+    # Convex configuration for email persistence
     convex_url: str | None = os.environ.get("CONVEX_URL")
     convex_app_secret: str | None = os.environ.get("CONVEX_APP_SECRET")
     convex_admin_key: str | None = os.environ.get("CONVEX_ADMIN_KEY")
-    
-    # Leave checker configuration
-    leave_sheet_id: str | None = os.environ.get("LEAVE_SHEET_ID")
 
 settings = Settings()
 
@@ -52,6 +45,3 @@ if not settings.openrouter_api_key:
 
 if not settings.convex_url or not settings.convex_app_secret:
     logging.warning("Convex configuration not set (CONVEX_URL, CONVEX_APP_SECRET)")
-
-if not settings.leave_sheet_id:
-    logging.warning("LEAVE_SHEET_ID environment variable not set")

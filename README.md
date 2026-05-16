@@ -1,17 +1,13 @@
 # AI Agent Pro
 
-Electron desktop app with a Flask backend for:
-
-- Gmail summarization and reply drafting
-- Document upload, summarization, and chat
-- Image analysis with Gemini
-- Leave balance lookup using Convex and Google Sheets
+Electron desktop app with a Flask backend for Gmail summarization, reply
+drafting, and persisted email workflow state.
 
 All AI text and vision calls go through OpenRouter. Configure the provider and
 models in `.env` using the `OPENROUTER_*` variables shown in `.env.example`.
 
-Email summaries, generated draft replies, edited reply drafts, sent reply state,
-and leave-checker users are persisted in Convex.
+Email summaries, generated draft replies, edited reply drafts, and sent reply
+state are persisted in Convex.
 
 ## Setup
 
@@ -36,9 +32,8 @@ and leave-checker users are persisted in Convex.
 4. Add local Google credential files under `secrets/`:
 
    - `secrets/credentials.json` for Gmail OAuth
-   - `secrets/leave-checker-credentials.json` for Google Sheets service account
 
-5. Configure Convex for leave-checker users:
+5. Configure Convex for email persistence:
 
    ```bash
    npm install

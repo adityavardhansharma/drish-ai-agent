@@ -43,51 +43,9 @@
 
     <nav id="desktop-nav" style="display: flex; gap: 16px;">
       <a href="/email" style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 9999px; color: #fff; font-weight: 500; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">Email Summarizer</a>
-      <a href="/document" style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 9999px; color: #fff; font-weight: 500; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">Document Summary</a>
-      <a href="/object" style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 9999px; color: #fff; font-weight: 500; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">Object Detection</a>
-      <a href="/leave" style="background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 9999px; color: #fff; font-weight: 500; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">Leave Checker</a>
-    </nav>
-
-    <button id="mobile-menu-button" style="display: none; background: rgba(255,255,255,0.2); border: none; padding: 8px; border-radius: 9999px; cursor: pointer;">
-      <svg class="h-6 w-6" fill="none" stroke="#fff" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
-  </div>
-
-  <div id="mobile-menu" style="display: none; margin-top: 12px; padding: 12px 20px; background: #2563eb; border-radius: 0 0 12px 12px;">
-    <nav style="display: flex; flex-direction: column; gap: 12px;">
-      <a href="/email" style="color:#fff;font-weight:500;text-decoration:none;">Email Summarizer</a>
-      <a href="/document" style="color:#fff;font-weight:500;text-decoration:none;">Document Summary</a>
-      <a href="/object" style="color:#fff;font-weight:500;text-decoration:none;">Object Detection</a>
-      <a href="/leave" style="color:#fff;font-weight:500;text-decoration:none;">Leave Checker</a>
     </nav>
   </div>
 </header>
-
-<script>
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobile-menu');
-  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-}
-document.getElementById('mobile-menu-button').onclick = toggleMobileMenu;
-
-function handleResize() {
-  const btn = document.getElementById('mobile-menu-button');
-  const nav = document.getElementById('desktop-nav');
-  if (window.innerWidth < 768) {
-    btn.style.display = 'block';
-    nav.style.display = 'none';
-  } else {
-    btn.style.display = 'none';
-    nav.style.display = 'flex';
-    document.getElementById('mobile-menu').style.display = 'none';
-  }
-}
-window.addEventListener('resize', handleResize);
-window.addEventListener('load', handleResize);
-</script>
 
 <div class="app-container">
   <!-- Status Bar and Controls -->

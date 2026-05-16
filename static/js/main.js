@@ -31,6 +31,19 @@ function initialsForName(name) {
   );
 }
 
+function escapeHtml(value) {
+  return String(value || "").replace(/[&<>"']/g, char => {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    return entities[char];
+  });
+}
+
 function normalizeSavedEmail(record) {
   const from = record.from_name || record.from_email || "Unknown";
   const date = record.updated_at || record.generated_at || record.created_at || "Today";
@@ -274,6 +287,11 @@ function addEmailSummary(summary, reply, messageId, toEmail, subject) {
   }
 
   const formattedDate = date || "Today";
+  const safeInitials = escapeHtml(initials);
+  const safeFrom = escapeHtml(from);
+  const safeFormattedDate = escapeHtml(formattedDate);
+  const safeSub = escapeHtml(sub);
+  const safePreview = escapeHtml(preview);
   const emailItem = document.createElement("div");
   emailItem.className = "email-item animate-fade-in-up";
   emailItem.style.animationDelay = emailCount * 0.05 + "s";
@@ -284,15 +302,15 @@ function addEmailSummary(summary, reply, messageId, toEmail, subject) {
   emailItem.innerHTML = `
     <div style="display: flex; gap: 12px;">
       <div class="email-item-avatar" style="background-color: ${avatarColor}">
-        ${initials}
+        ${safeInitials}
       </div>
       <div class="email-item-content">
         <div class="email-item-header">
-          <div class="email-item-sender">${from}</div>
-          <div class="email-item-time">${formattedDate}</div>
+          <div class="email-item-sender">${safeFrom}</div>
+          <div class="email-item-time">${safeFormattedDate}</div>
         </div>
-        <div class="email-item-subject">${sub}</div>
-        <div class="email-item-preview">${preview}</div>
+        <div class="email-item-subject">${safeSub}</div>
+        <div class="email-item-preview">${safePreview}</div>
       </div>
     </div>`;
 
@@ -435,22 +453,25 @@ function createEmailListItem(email) {
   const emailItem = document.createElement("div");
   emailItem.className = "email-item";
   emailItem.setAttribute("data-id", email.message_id || "");
+  const safeInitials = escapeHtml(email.initials);
+  const safeFrom = escapeHtml(email.from);
+  const safeDate = escapeHtml(email.date);
+  const safeSubject = escapeHtml(email.subject);
+  const safePreview = escapeHtml(
+    email.summary ? email.summary.substring(0, 50) + "..." : "No preview available"
+  );
   emailItem.innerHTML = `
     <div style="display: flex; gap: 12px;">
       <div class="email-item-avatar" style="background-color: ${email.avatarColor}">
-        ${email.initials}
+        ${safeInitials}
       </div>
       <div class="email-item-content">
         <div class="email-item-header">
-          <div class="email-item-sender">${email.from}</div>
-          <div class="email-item-time">${email.date}</div>
+          <div class="email-item-sender">${safeFrom}</div>
+          <div class="email-item-time">${safeDate}</div>
         </div>
-        <div class="email-item-subject">${email.subject}</div>
-        <div class="email-item-preview">${
-          email.summary
-            ? email.summary.substring(0, 50) + "..."
-            : "No preview available"
-        }</div>
+        <div class="email-item-subject">${safeSubject}</div>
+        <div class="email-item-preview">${safePreview}</div>
         ${
           email.status === "sent"
             ? `<div class="email-item-preview">Reply sent</div>`
@@ -515,25 +536,33 @@ function displayEmailDetails(emailData) {
       .toUpperCase() || "NA";
   const avatarColor =
     emailData.avatarColor || `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`;
+  const safeInitials = escapeHtml(initials);
+  const safeSubject = escapeHtml(subject);
+  const safeFrom = escapeHtml(from);
+  const safeFromEmail = escapeHtml(fromEmail);
+  const safeDate = escapeHtml(date);
+  const safeSummaryText = escapeHtml(summaryText);
+  const safeSentAt = escapeHtml(emailData.sent_at);
+  const safeLastError = escapeHtml(emailData.last_error);
   emailDetailsDiv.innerHTML = `
     <div class="email-header">
       <div class="email-sender">
-        <div class="avatar" style="background-color: ${avatarColor}">${initials}</div>
+        <div class="avatar" style="background-color: ${avatarColor}">${safeInitials}</div>
         <div>
-          <div class="email-subject">${subject}</div>
+          <div class="email-subject">${safeSubject}</div>
           <div class="email-meta">
-            <div class="from">From: ${from} ${
-    fromEmail ? `<${fromEmail}>` : ""
+            <div class="from">From: ${safeFrom} ${
+    fromEmail ? `&lt;${safeFromEmail}&gt;` : ""
   }</div>
-            <div class="date">${date}</div>
+            <div class="date">${safeDate}</div>
             ${
               emailData.status === "sent" && emailData.sent_at
-                ? `<div class="date">Reply sent: ${emailData.sent_at}</div>`
+                ? `<div class="date">Reply sent: ${safeSentAt}</div>`
                 : ""
             }
             ${
               emailData.status === "send_failed" && emailData.last_error
-                ? `<div class="date">Reply failed: ${emailData.last_error}</div>`
+                ? `<div class="date">Reply failed: ${safeLastError}</div>`
                 : ""
             }
           </div>
@@ -551,7 +580,7 @@ function displayEmailDetails(emailData) {
         </svg>
         Summary
       </div>
-      <div class="summary-content custom-scrollbar">${summaryText}</div>
+      <div class="summary-content custom-scrollbar">${safeSummaryText}</div>
     </div>
     <div class="email-section">
       <div class="section-header">
@@ -575,7 +604,7 @@ function displayEmailDetails(emailData) {
                   (point, idx) => `
           <div class="key-point" style="animation-delay: ${idx * 0.1}s">
             <div class="point-number">${idx + 1}</div>
-            <div>${point}</div>
+            <div>${escapeHtml(point)}</div>
           </div>
         `
                 )
@@ -602,10 +631,10 @@ function displayEmailDetails(emailData) {
         <div class="reply-actions">
           <div class="reply-info">
             <div>To: <span id="replyToAddress">${
-              fromEmail || "Unknown recipient"
+              safeFromEmail || "Unknown recipient"
             }</span></div>
             <div>Subject: <span id="replySubject">Re: ${
-              subject || "No subject"
+              safeSubject || "No subject"
             }</span></div>
           </div>
           <button id="sendReplyBtn" class="action-button" onclick="sendReply()">

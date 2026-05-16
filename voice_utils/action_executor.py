@@ -1,1 +1,0 @@
-# Execute commands and manage UI actions
