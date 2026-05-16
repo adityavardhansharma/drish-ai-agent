@@ -9,17 +9,59 @@ const {
 const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
-const isDev = require('electron-is-dev');
 const waitOn = require('wait-on');
 const kill = require('tree-kill');
 
 // Add auto-launch functionality via the auto-launch package
 const AutoLaunch = require('auto-launch');
 
+if (process.env.ENABLE_GPU !== '1') {
+  app.disableHardwareAcceleration();
+  app.commandLine.appendSwitch('disable-gpu');
+  app.commandLine.appendSwitch('disable-gpu-vsync');
+}
+
 let mainWindow;
-let pythonProcess = null;
-const PORT = 5000;
-const URL = `http://localhost:${PORT}`;
+let backendProcess = null;
+
+function loadEnvFile(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return;
+  }
+
+  const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#') || !trimmed.includes('=')) {
+      continue;
+    }
+
+    const separatorIndex = trimmed.indexOf('=');
+    const key = trimmed.slice(0, separatorIndex).trim();
+    let value = trimmed.slice(separatorIndex + 1).trim();
+    if (!key || Object.prototype.hasOwnProperty.call(process.env, key)) {
+      continue;
+    }
+
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+    process.env[key] = value;
+  }
+}
+
+loadEnvFile(path.join(__dirname, '.env'));
+
+const PORT = process.env.PORT || '5000';
+const HOST = process.env.HOST || '127.0.0.1';
+const BACKEND_URL = `http://${HOST}:${PORT}`;
+const FRONTEND_URL =
+  process.env.NODE_ENV === 'development'
+    ? process.env.FRONTEND_URL || 'http://127.0.0.1:5173'
+    : BACKEND_URL;
 
 // Create an auto launcher instance
 const appAutoLauncher = new AutoLaunch({
@@ -30,7 +72,7 @@ const appAutoLauncher = new AutoLaunch({
 
 // Get the appropriate path for resources
 function getResourcePath() {
-  if (isDev) {
+  if (!app.isPackaged) {
     return __dirname;
   }
 
@@ -59,7 +101,7 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  mainWindow.loadURL(URL);
+  mainWindow.webContents.session.clearCache().then(() => mainWindow.loadURL(FRONTEND_URL));
 
   mainWindow.webContents.on('before-input-event', (event, input) => {
     if (input.control && input.key === '=') {
@@ -78,7 +120,7 @@ function createWindow() {
     }
   });
 
-  if (isDev) {
+  if (process.env.OPEN_DEVTOOLS === '1') {
     mainWindow.webContents.openDevTools();
   }
 
@@ -92,74 +134,76 @@ function createWindow() {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
-    if (pythonProcess) {
-      kill(pythonProcess.pid);
+    if (backendProcess) {
+      kill(backendProcess.pid);
     }
   });
 }
 
-async function startPythonServer() {
+async function startBackendServer() {
   return new Promise((resolve, reject) => {
     const resourcePath = getResourcePath();
-    const pythonExecutable = process.platform === 'win32' ? 'python' : 'python3';
-    const scriptPath = path.join(resourcePath, 'main.py');
+    const tsxPath = path.join(
+      resourcePath,
+      'node_modules',
+      '.bin',
+      process.platform === 'win32' ? 'tsx.cmd' : 'tsx'
+    );
+    const scriptPath = path.join(resourcePath, 'backend', 'server.ts');
 
     if (!fs.existsSync(scriptPath)) {
-      const error = new Error(`Python script not found at: ${scriptPath}`);
+      const error = new Error(`TypeScript backend not found at: ${scriptPath}`);
       console.error(error);
       reject(error);
       return;
     }
 
-    console.log(`Starting Python server with script: ${scriptPath}`);
+    console.log(`Starting TypeScript backend with script: ${scriptPath}`);
     const env = Object.assign({}, process.env, {
-      ELECTRON_APP: '1',
-      PYTHONIOENCODING: 'utf-8',
-      PYTHONUNBUFFERED: '1'
+      ELECTRON_APP: '1'
     });
 
-    pythonProcess = spawn(pythonExecutable, [scriptPath], { env });
+    const command = fs.existsSync(tsxPath) ? tsxPath : 'npx';
+    const args = fs.existsSync(tsxPath) ? [scriptPath] : ['tsx', scriptPath];
+    backendProcess = spawn(command, args, { env, cwd: resourcePath });
 
-    pythonProcess.stdout.on('data', (data) => {
-      console.log(`Python stdout: ${data}`);
-      if (data.toString().includes('Running on http')) {
-        console.log('Server started successfully');
-      }
+    backendProcess.stdout.on('data', (data) => {
+      console.log(`Backend stdout: ${data}`);
     });
 
-    pythonProcess.stderr.on('data', (data) => {
-      console.error(`Python stderr: ${data}`);
+    backendProcess.stderr.on('data', (data) => {
+      console.error(`Backend stderr: ${data}`);
     });
 
-    pythonProcess.on('error', (error) => {
-      console.error(`Failed to start Python process: ${error}`);
+    backendProcess.on('error', (error) => {
+      console.error(`Failed to start backend process: ${error}`);
       dialog.showErrorBox(
-        'Python Error',
-        `Failed to start the Python server: ${error.message}`
+        'Backend Error',
+        `Failed to start the TypeScript backend: ${error.message}`
       );
       reject(error);
     });
 
-    pythonProcess.on('close', (code) => {
-      console.log(`Python process exited with code ${code}`);
+    backendProcess.on('close', (code) => {
+      console.log(`Backend process exited with code ${code}`);
       if (code !== 0 && mainWindow) {
         dialog.showErrorBox(
           'Server Error',
-          `The Python server stopped unexpectedly with code ${code}`
+          `The TypeScript backend stopped unexpectedly with code ${code}`
         );
       }
     });
 
-    waitOn({ resources: [URL], timeout: 30000 })
+    waitOn({ resources: [BACKEND_URL], timeout: 30000 })
       .then(() => {
-        console.log('Flask server is running');
+        console.log('TypeScript backend is running');
         resolve();
       })
       .catch((err) => {
-        console.error('Error waiting for Flask server to start:', err);
+        console.error('Error waiting for backend server to start:', err);
         dialog.showErrorBox(
           'Server Error',
-          `Failed to connect to the Flask server: ${err.message}`
+          `Failed to connect to the TypeScript backend: ${err.message}`
         );
         reject(err);
       });
@@ -168,12 +212,12 @@ async function startPythonServer() {
 
 // IPC handlers
 ipcMain.handle('restart-server', async () => {
-  if (pythonProcess) {
-    kill(pythonProcess.pid);
-    pythonProcess = null;
+  if (backendProcess) {
+    kill(backendProcess.pid);
+    backendProcess = null;
   }
   try {
-    await startPythonServer();
+    await startBackendServer();
     return { success: true, message: 'Server restarted successfully' };
   } catch (err) {
     return { success: false, error: err.message };
@@ -230,7 +274,7 @@ ipcMain.on('navigate', (event, action) => {
       break;
     case 'home':
       console.log('Navigating to home');
-      mainWindow.loadURL(URL);
+      mainWindow.loadURL(FRONTEND_URL);
       break;
     case 'refresh':
       console.log('Refreshing page');
@@ -281,7 +325,7 @@ ipcMain.handle('set-auto-start-enabled', async (event, enabled) => {
 // Start the app
 app.on('ready', async () => {
   try {
-    await startPythonServer();
+    await startBackendServer();
     createWindow();
   } catch (err) {
     console.error('Failed to start application:', err);
@@ -291,8 +335,8 @@ app.on('ready', async () => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    if (pythonProcess) {
-      kill(pythonProcess.pid);
+    if (backendProcess) {
+      kill(backendProcess.pid);
     }
     app.quit();
   }
@@ -314,7 +358,7 @@ app.on('before-quit', () => {
       }
     `);
   }
-  if (pythonProcess) {
-    kill(pythonProcess.pid);
+  if (backendProcess) {
+    kill(backendProcess.pid);
   }
 });
