@@ -90,18 +90,6 @@ try {
   console.error('Error exposing electronAPI:', error);
 }
 
-// --- Expose desktop storage API for document content and chat history ---
-contextBridge.exposeInMainWorld('electronStorage', {
-  setDocumentContent: (content) => {
-    ipcRenderer.send('set-document-content', content);
-  },
-  getDocumentContent: () => ipcRenderer.sendSync('get-document-content'),
-  setChatHistory: (history) => {
-    ipcRenderer.send('set-chat-history', history);
-  },
-  getChatHistory: () => ipcRenderer.sendSync('get-chat-history')
-});
-
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM content loaded, setting up navigation.');
 

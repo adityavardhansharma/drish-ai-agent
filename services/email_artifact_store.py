@@ -15,6 +15,11 @@ def split_sender(sender):
 
 
 def save_email_summary(payload):
+    message_id = payload.get("message_id")
+    if not message_id:
+        logger.warning("Skipping email summary persistence: missing message_id")
+        return None
+
     client = convex_client()
     if not client:
         logger.warning("Skipping email summary persistence: Convex unavailable")
@@ -25,7 +30,7 @@ def save_email_summary(payload):
         return client.mutation(
             "emails:upsertSummary",
             convex_args(
-                messageId=payload.get("message_id", ""),
+                messageId=message_id,
                 toEmail=payload.get("to_email", ""),
                 fromEmail=sender["from_email"],
                 fromName=sender["from_name"],
@@ -57,6 +62,10 @@ def list_email_summaries(limit=100):
 
 
 def mark_email_reply_sent(message_id, sent_reply_body, gmail_response):
+    if not message_id:
+        logger.warning("Skipping sent email persistence: missing message_id")
+        return None
+
     client = convex_client()
     if not client:
         logger.warning("Skipping sent email persistence: Convex unavailable")
@@ -66,7 +75,7 @@ def mark_email_reply_sent(message_id, sent_reply_body, gmail_response):
         return client.mutation(
             "emails:markReplySent",
             convex_args(
-                messageId=message_id or "",
+                messageId=message_id,
                 sentReplyBody=sent_reply_body or "",
                 gmailResponse=str(gmail_response or ""),
             ),
@@ -77,6 +86,9 @@ def mark_email_reply_sent(message_id, sent_reply_body, gmail_response):
 
 
 def update_email_draft(message_id, draft_reply):
+    if not message_id:
+        return {"success": False, "error": "message_id is required"}
+
     client = convex_client()
     if not client:
         return {"success": False, "error": "Convex connection not available"}
@@ -85,7 +97,7 @@ def update_email_draft(message_id, draft_reply):
         record = client.mutation(
             "emails:updateDraftReply",
             convex_args(
-                messageId=message_id or "",
+                messageId=message_id,
                 draftReply=draft_reply or "",
             ),
         )
@@ -96,6 +108,10 @@ def update_email_draft(message_id, draft_reply):
 
 
 def mark_email_reply_failed(message_id, error_message):
+    if not message_id:
+        logger.warning("Skipping failed email persistence: missing message_id")
+        return None
+
     client = convex_client()
     if not client:
         return None
@@ -104,7 +120,7 @@ def mark_email_reply_failed(message_id, error_message):
         return client.mutation(
             "emails:markReplyFailed",
             convex_args(
-                messageId=message_id or "",
+                messageId=message_id,
                 errorMessage=error_message or "",
             ),
         )
