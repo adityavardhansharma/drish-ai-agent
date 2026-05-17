@@ -2,14 +2,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CommandPalette } from './components/CommandPalette';
 import { EmailSummaries } from './pages/EmailSummaries';
-import { Home } from './pages/Home';
 
 function AppContent() {
   return (
-    <div className="h-screen w-screen overflow-hidden bg-background text-foreground flex flex-col font-sans">
+    <div className="flex h-screen w-screen flex-col overflow-hidden bg-background text-foreground">
       <main className="flex-1 overflow-hidden relative">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<EmailSummaries />} />
           <Route path="/emails" element={<EmailSummaries />} />
         </Routes>
       </main>

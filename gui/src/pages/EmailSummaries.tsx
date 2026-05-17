@@ -1,23 +1,20 @@
-import { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+/* eslint-disable @typescript-eslint/no-explicit-any, react-hooks/immutability, react-hooks/set-state-in-effect */
+import { useEffect, useMemo, useState } from 'react';
 import {
+  Archive,
   ArrowLeft,
   CheckCircle2,
-  ChevronRight,
   Clock3,
-  Home,
   Inbox,
   Mail,
   PanelLeftClose,
   PanelLeftOpen,
-  PencilLine,
   RefreshCw,
   Search,
   Send,
-  Sparkles,
-  Zap,
+  SquarePen,
 } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { format } from 'date-fns';
 
@@ -38,6 +35,8 @@ interface EmailSummary {
 
 type ViewMode = 'current' | 'all';
 type MailboxView = 'inbox' | 'drafts';
+
+const EMAIL_CACHE_KEY = 'mailme.emailSummaries';
 
 const safeFormatDate = (dateStr: string, formatStr: string) => {
   if (!dateStr || dateStr === 'Today' || dateStr === 'Unknown') return dateStr || 'Unknown';
@@ -103,15 +102,13 @@ const initialsFor = (name: string) =>
 const priorityClass = (priority: string) => {
   switch (priority?.toLowerCase()) {
     case 'high':
-      return 'border-rose-300 bg-rose-100 text-rose-800';
+      return 'border-[var(--danger)] text-[var(--danger)]';
     case 'medium':
-      return 'border-amber-300 bg-amber-100 text-amber-800';
+      return 'border-[var(--warning)] text-[var(--warning)]';
     default:
-      return 'border-emerald-300 bg-emerald-100 text-emerald-800';
+      return 'border-[var(--success)] text-[var(--success)]';
   }
 };
-
-const EMAIL_CACHE_KEY = 'mailme.emailSummaries';
 
 const readCachedEmails = () => {
   try {
@@ -128,6 +125,7 @@ const writeCachedEmails = (emails: EmailSummary[]) => {
   try {
     localStorage.setItem(EMAIL_CACHE_KEY, JSON.stringify(emails));
   } catch {
+    // Ignore unavailable storage, such as private windows or locked-down webviews.
   }
 };
 
@@ -146,18 +144,15 @@ export function EmailSummaries() {
   const [savingDraft, setSavingDraft] = useState(false);
   const [draftSaveState, setDraftSaveState] = useState<'idle' | 'saved' | 'error'>('idle');
   const [sending, setSending] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
+
   const isDraftsView = mailboxView === 'drafts';
-  const isAllSyncedView = mailboxView === 'inbox' && viewMode === 'all';
   const isCurrentSyncView = mailboxView === 'inbox' && viewMode === 'current';
-  const showReplyAside = isCurrentSyncView;
   const canEditReply = Boolean(selectedEmail) && (isCurrentSyncView || isDraftsView);
+
   const visibleEmails = useMemo(() => {
     const source = mailboxView === 'drafts' ? allEmails : viewMode === 'current' ? currentSyncEmails : allEmails;
-    return mailboxView === 'drafts'
-      ? source.filter(email => Boolean(email.draft_reply?.trim()))
-      : source;
+    return mailboxView === 'drafts' ? source.filter(email => Boolean(email.draft_reply?.trim())) : source;
   }, [allEmails, currentSyncEmails, mailboxView, viewMode]);
 
   const filteredEmails = useMemo(() => {
@@ -198,15 +193,21 @@ export function EmailSummaries() {
     fetchSummaries();
 
     const params = new URLSearchParams(location.search);
+    if (params.get('view') === 'drafts') {
+      setMailboxView('drafts');
+      setViewMode('all');
+    }
+    if (params.get('view') === 'all') {
+      setMailboxView('inbox');
+      setViewMode('all');
+    }
     if (params.get('action') === 'fetch') {
       handleFetchNew();
     }
   }, [location.search]);
 
   useEffect(() => {
-    if (allEmails.length > 0) {
-      writeCachedEmails(allEmails);
-    }
+    if (allEmails.length > 0) writeCachedEmails(allEmails);
   }, [allEmails]);
 
   useEffect(() => {
@@ -223,7 +224,7 @@ export function EmailSummaries() {
   useEffect(() => {
     setDraft(selectedEmail?.draft_reply || selectedEmail?.generated_reply || '');
     setDraftSaveState('idle');
-  }, [selectedEmail?.id]);
+  }, [selectedEmail?.draft_reply, selectedEmail?.generated_reply, selectedEmail?.id]);
 
   const formatTimer = (seconds: number) => {
     const m = Math.floor(seconds / 60);
@@ -248,11 +249,9 @@ export function EmailSummaries() {
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.data)) {
-          const nextEmails: EmailSummary[] = data.data.map(normalizeEmailRecord);
-          setAllEmails(nextEmails);
+          setAllEmails(data.data.map(normalizeEmailRecord));
         } else if (Array.isArray(data)) {
-          const nextEmails: EmailSummary[] = data.map(normalizeEmailRecord);
-          setAllEmails(nextEmails);
+          setAllEmails(data.map(normalizeEmailRecord));
         }
       }
     } catch (error) {
@@ -273,17 +272,17 @@ export function EmailSummaries() {
   const handleSetViewMode = (nextMode: ViewMode) => {
     setMailboxView('inbox');
     setViewMode(nextMode);
+    setQuery('');
     const nextEmails = nextMode === 'current' ? currentSyncEmails : allEmails;
     setSelectedEmail(nextEmails[0] || null);
-    if (nextMode === 'all') {
-      fetchSummaries();
-    }
+    if (nextMode === 'all') fetchSummaries();
   };
 
   const handleShowDrafts = () => {
     const draftEmails = allEmails.filter(email => Boolean(email.draft_reply?.trim()));
     setMailboxView('drafts');
     setViewMode('all');
+    setQuery('');
     setSelectedEmail(draftEmails[0] || null);
     fetchSummaries();
   };
@@ -338,9 +337,7 @@ export function EmailSummaries() {
           body: draft,
         }),
       });
-      if (res.ok) {
-        updateSelectedEmail({ draft_reply: draft, status: 'sent' });
-      }
+      if (res.ok) updateSelectedEmail({ draft_reply: draft, status: 'sent' });
     } catch (error) {
       console.error('Error sending reply', error);
     } finally {
@@ -351,6 +348,7 @@ export function EmailSummaries() {
   const handleFetchNew = async () => {
     try {
       setFetching(true);
+      setMailboxView('inbox');
       setViewMode('current');
       setCurrentSyncEmails([]);
       setSelectedEmail(null);
@@ -385,9 +383,7 @@ export function EmailSummaries() {
             }
           }
         }
-        if (receivedEmails) {
-          return;
-        }
+        if (receivedEmails) return;
       }
     } catch (error) {
       console.error('Failed to fetch new emails', error);
@@ -396,442 +392,285 @@ export function EmailSummaries() {
     }
   };
 
+  const emptyText = isDraftsView
+    ? 'No saved drafts yet.'
+    : viewMode === 'current'
+      ? 'No unread messages in this sync.'
+      : 'No synced emails yet.';
+
   return (
-    <div className="relative h-full overflow-hidden bg-[var(--surface)] text-[var(--ink)]">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-28 top-16 h-72 w-72 rounded-full bg-[var(--brand)]/12 blur-3xl" />
-        <div className="absolute bottom-0 right-20 h-80 w-80 rounded-full bg-[var(--accent)]/10 blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,.06)_1px,transparent_0)] [background-size:28px_28px]" />
-      </div>
-
-      <div
-        className={`relative grid h-full ${
-          showReplyAside
-            ? 'grid-cols-[auto_minmax(320px,410px)_minmax(0,1fr)_minmax(340px,420px)] max-[1180px]:grid-cols-[auto_minmax(300px,380px)_minmax(0,1fr)]'
-            : 'grid-cols-[auto_minmax(320px,410px)_minmax(0,1fr)]'
-        } max-[900px]:grid-cols-1`}
+    <div className="flex h-full overflow-hidden bg-[var(--app-bg)] text-[var(--text)]">
+      <aside
+        className={`hidden shrink-0 border-r border-[var(--border)] bg-[var(--sidebar)] px-3 py-4 text-[var(--sidebar-text)] md:flex md:flex-col ${
+          sidebarCollapsed ? 'w-[68px]' : 'w-[248px]'
+        }`}
       >
-        <aside
-          className={`z-10 flex h-full flex-col border-r border-[var(--line)] bg-[var(--nav)] px-3 py-4 transition-all duration-300 max-[900px]:hidden ${
-            sidebarCollapsed ? 'w-[76px]' : 'w-[244px]'
-          }`}
-        >
-          <div className="mb-8 flex items-center justify-between">
-            <button
-              onClick={() => navigate('/')}
-              className="flex min-w-0 items-center gap-3 rounded-2xl px-2 py-2 text-left transition hover:bg-[var(--hover)]"
-            >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--brand)] text-white shadow-[0_16px_40px_rgba(37,99,235,.22)]">
-                <Mail className="h-5 w-5" />
-              </div>
-              {!sidebarCollapsed && (
-                <div className="min-w-0">
-                  <div className="text-sm font-black">Mailme</div>
-                  <div className="text-xs font-semibold text-[var(--muted-ink)]">Reply workspace</div>
-                </div>
-              )}
-            </button>
-            <button
-              onClick={() => setSidebarCollapsed(value => !value)}
-              className="rounded-xl p-2 text-[var(--muted-ink)] transition hover:bg-[var(--hover)] hover:text-[var(--ink)]"
-            >
-              {sidebarCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
-            </button>
-          </div>
-
-          <nav className="space-y-2">
-            {[
-              { label: 'Home', icon: Home, action: () => navigate('/') },
-              { label: 'Inbox', icon: Inbox, action: () => setMailboxView('inbox'), active: mailboxView === 'inbox' },
-              { label: 'Drafts', icon: PencilLine, action: handleShowDrafts, active: mailboxView === 'drafts' },
-            ].map(item => {
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.label}
-                  onClick={item.action}
-                  className={`flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-sm font-bold transition ${
-                    item.active
-                      ? 'bg-[var(--brand)] text-white shadow-[0_14px_30px_rgba(37,99,235,.22)]'
-                      : 'text-[var(--muted-ink)] hover:bg-[var(--hover)] hover:text-[var(--ink)]'
-                  }`}
-                >
-                  <Icon className="h-5 w-5 shrink-0" />
-                  {!sidebarCollapsed && <span>{item.label}</span>}
-                </button>
-              );
-            })}
-          </nav>
-
-          <div className="mt-auto space-y-3">
+        <div className="mb-6 flex items-center justify-between gap-2">
+          <div className="flex min-w-0 flex-1 items-center gap-3 rounded-md px-2 py-2 text-left">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--sidebar-2)] text-[var(--accent)]">
+              <Mail className="h-5 w-5" />
+            </span>
             {!sidebarCollapsed && (
-              <div className="rounded-3xl border border-[var(--line)] bg-[var(--card)] p-4 shadow-[0_18px_50px_rgba(15,23,42,.06)]">
-                <div className="mb-3 flex items-center gap-2 text-xs font-black uppercase text-[var(--muted-ink)]">
-                  <Zap className="h-4 w-4 text-[var(--brand)]" />
-                  Pulse
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-center">
-                    <div className="rounded-2xl bg-[var(--surface)] p-2">
-                    <div className="text-lg font-black">{stats.current}</div>
-                    <div className="text-[10px] font-bold text-[var(--muted-ink)]">Sync</div>
-                  </div>
-                    <div className="rounded-2xl bg-[var(--surface)] p-2">
-                    <div className="text-lg font-black">{stats.total}</div>
-                    <div className="text-[10px] font-bold text-[var(--muted-ink)]">All</div>
-                  </div>
-                    <div className="rounded-2xl bg-[var(--surface)] p-2">
-                    <div className="text-lg font-black">{stats.drafts}</div>
-                    <div className="text-[10px] font-bold text-[var(--muted-ink)]">Drafts</div>
-                  </div>
-                </div>
-              </div>
+              <span className="min-w-0">
+                <span className="block truncate text-sm font-semibold">Mailme</span>
+                <span className="block truncate text-xs text-[var(--sidebar-muted)]">Email assistant</span>
+              </span>
             )}
+          </div>
+          <button
+            onClick={() => setSidebarCollapsed(value => !value)}
+            className="pressable rounded-md p-2 text-[var(--sidebar-muted)] hover:bg-[var(--hover)] hover:text-[var(--sidebar-text)]"
+            title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {sidebarCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+          </button>
+        </div>
+
+        <nav className="space-y-1">
+          {[
+            { label: 'Current sync', icon: Inbox, action: () => handleSetViewMode('current'), active: isCurrentSyncView, count: stats.current },
+            { label: 'All synced', icon: Archive, action: () => handleSetViewMode('all'), active: mailboxView === 'inbox' && viewMode === 'all', count: stats.total },
+            { label: 'Drafts', icon: SquarePen, action: handleShowDrafts, active: isDraftsView, count: stats.drafts },
+          ].map(item => {
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.label}
+                onClick={item.action}
+                className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm ${
+                  item.active
+                    ? 'nav-item-active bg-[var(--active-soft)] font-semibold text-[var(--sidebar-text)]'
+                    : 'text-[var(--sidebar-muted)] hover:bg-[var(--hover)] hover:text-[var(--sidebar-text)]'
+                }`}
+                title={item.label}
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                {!sidebarCollapsed && (
+                  <>
+                    <span className="min-w-0 flex-1 truncate">{item.label}</span>
+                    {item.count !== null && (
+                      <span className="min-w-7 rounded border border-[var(--border)] bg-[var(--field)] px-2 py-0.5 text-center text-xs text-[var(--sidebar-muted)]">
+                        {item.count}
+                      </span>
+                    )}
+                  </>
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        {!sidebarCollapsed && (
+          <div className="mt-5 border-t border-[var(--border)] pt-4">
+            <div className="mb-2 flex items-center justify-between text-xs text-[var(--sidebar-muted)]">
+              <span>Sent mail</span>
+              <span className="font-semibold text-[var(--sidebar-text)]">{stats.sent}</span>
+            </div>
+            <div className="flex items-center justify-between text-xs text-[var(--sidebar-muted)]">
+              <span>Next sync</span>
+              <span className="font-semibold text-[var(--sidebar-text)]">{formatTimer(timeRemaining)}</span>
+            </div>
+          </div>
+        )}
+
+        <button
+          onClick={handleFetchNew}
+          disabled={fetching}
+          className="pressable mt-auto flex w-full items-center justify-center gap-2 rounded-md bg-[var(--accent)] px-3 py-2 text-sm font-semibold text-[var(--accent-text)] shadow-[0_2px_8px_rgba(0,0,0,.22)] hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
+          title="Sync mail"
+        >
+          <RefreshCw className={`h-4 w-4 ${fetching ? 'animate-spin' : ''}`} />
+          {!sidebarCollapsed && <span>{fetching ? 'Syncing' : `Sync in ${formatTimer(timeRemaining)}`}</span>}
+        </button>
+      </aside>
+
+      <section
+        className={`surface-enter w-full min-w-0 flex-col border-r border-[var(--border)] bg-[var(--list-bg)] md:flex md:w-[390px] md:shrink-0 xl:w-[430px] ${
+          selectedEmail ? 'hidden' : 'flex'
+        }`}
+      >
+        <header className="border-b border-[var(--border)] p-4">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-base font-semibold">{isDraftsView ? 'Drafts' : viewMode === 'all' ? 'All synced' : 'Current sync'}</p>
+              <p className="mt-1 truncate text-sm text-[var(--text-muted)]">
+                {isDraftsView ? `${stats.drafts} saved replies` : `${filteredEmails.length} messages visible`}
+              </p>
+            </div>
             <button
               onClick={handleFetchNew}
               disabled={fetching}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--ink)] px-4 py-3 text-sm font-black text-white shadow-[0_18px_50px_rgba(15,23,42,.18)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+              className="pressable rounded-md border border-[var(--border)] bg-[var(--panel)] p-2 text-[var(--text)] hover:bg-[var(--panel-raised)] disabled:opacity-60"
+              title="Sync mail"
             >
-              <RefreshCw className={`h-4 w-4 ${fetching ? 'animate-spin' : ''}`} />
-              {!sidebarCollapsed && <span>{fetching ? 'Syncing' : `Sync ${formatTimer(timeRemaining)}`}</span>}
+              <RefreshCw className={`h-5 w-5 ${fetching ? 'animate-spin' : ''}`} />
             </button>
           </div>
-        </aside>
 
-        <section className="z-10 flex min-h-0 flex-col border-r border-[var(--line)] bg-[var(--panel)] max-[900px]:h-[42vh] max-[900px]:border-b max-[900px]:border-r-0">
-          <header className="border-b border-[var(--line)] px-5 py-4">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <button
-                onClick={() => navigate('/')}
-                className="hidden rounded-xl p-2 text-[var(--muted-ink)] transition hover:bg-[var(--hover)] max-[900px]:block"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </button>
-              <div>
-                <div className="text-xs font-black uppercase text-[var(--brand)]">
-                  {mailboxView === 'drafts'
-                    ? 'Saved drafts'
-                    : viewMode === 'current'
-                      ? 'Latest unread sync'
-                      : 'Convex archive'}
-                </div>
-                <h1 className="text-2xl font-black">{mailboxView === 'drafts' ? 'Drafts' : 'Inbox'}</h1>
-              </div>
-              <button
-                onClick={handleFetchNew}
-                disabled={fetching}
-                className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-3 text-[var(--ink)] shadow-sm transition hover:bg-white disabled:opacity-60"
-              >
-                <RefreshCw className={`h-5 w-5 ${fetching ? 'animate-spin' : ''}`} />
-              </button>
+          <div className="mb-3 grid grid-cols-2 rounded-md border border-[var(--border)] bg-[var(--app-bg)] p-1">
+            <button
+              onClick={() => handleSetViewMode('current')}
+              className={`rounded px-3 py-2 text-sm font-medium ${isCurrentSyncView ? 'bg-[var(--active)] text-[var(--accent-text)] shadow-[0_1px_4px_rgba(0,0,0,.18)]' : 'text-[var(--text-muted)] hover:bg-[var(--hover)] hover:text-[var(--text)]'}`}
+            >
+              Current
+            </button>
+            <button
+              onClick={() => handleSetViewMode('all')}
+              className={`rounded px-3 py-2 text-sm font-medium ${mailboxView === 'inbox' && viewMode === 'all' ? 'bg-[var(--active)] text-[var(--accent-text)] shadow-[0_1px_4px_rgba(0,0,0,.18)]' : 'text-[var(--text-muted)] hover:bg-[var(--hover)] hover:text-[var(--text)]'}`}
+            >
+              Archive
+            </button>
+          </div>
+
+          <label className="command-surface flex items-center gap-3 rounded-md border border-[var(--border)] bg-[var(--field)] px-3 py-2">
+            <Search className="h-4 w-4 text-[var(--text-muted)]" />
+            <input
+              value={query}
+              onChange={event => setQuery(event.target.value)}
+              placeholder={isDraftsView ? 'Search drafts' : 'Search mail'}
+              className="min-w-0 flex-1 bg-transparent text-sm text-[var(--text)] outline-none placeholder:text-[var(--text-subtle)]"
+            />
+          </label>
+        </header>
+
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          {loading ? (
+            <div className="flex h-48 items-center justify-center">
+              <RefreshCw className="h-6 w-6 animate-spin text-[var(--text-muted)]" />
             </div>
-
-            <div className="mb-3 grid grid-cols-2 rounded-2xl border border-[var(--line)] bg-[var(--card-muted)] p-1">
-              <button
-                onClick={() => handleSetViewMode('current')}
-                className={`rounded-xl px-3 py-2 text-xs font-black transition ${
-                  viewMode === 'current'
-                    ? 'bg-[var(--brand)] text-white shadow-[0_10px_24px_rgba(37,99,235,.20)]'
-                    : 'text-[var(--muted-ink)] hover:bg-[var(--hover)] hover:text-[var(--ink)]'
-                }`}
-              >
-                Current sync
-              </button>
-              <button
-                onClick={() => handleSetViewMode('all')}
-                className={`rounded-xl px-3 py-2 text-xs font-black transition ${
-                  viewMode === 'all'
-                    ? 'bg-[var(--ink)] text-white shadow-[0_10px_24px_rgba(15,23,42,.14)]'
-                    : 'text-[var(--muted-ink)] hover:bg-[var(--hover)] hover:text-[var(--ink)]'
-                }`}
-              >
-                All synced
-              </button>
+          ) : filteredEmails.length === 0 ? (
+            <div className="m-3 rounded-lg border border-dashed border-[var(--border-strong)] bg-[var(--panel)] p-6 text-center">
+              <CheckCircle2 className="mx-auto mb-3 h-8 w-8 text-[var(--accent)]" />
+              <p className="text-sm text-[var(--text-muted)]">{emptyText}</p>
             </div>
-
-            <label className="flex items-center gap-3 rounded-2xl border border-[var(--line)] bg-[var(--card)] px-4 py-3 shadow-inner">
-              <Search className="h-4 w-4 text-[var(--muted-ink)]" />
-              <input
-                value={query}
-                onChange={event => setQuery(event.target.value)}
-                placeholder={mailboxView === 'drafts' ? 'Search saved drafts' : 'Search sender, subject, summary'}
-                className="min-w-0 flex-1 bg-transparent text-sm font-semibold outline-none placeholder:text-[var(--muted-ink)]"
-              />
-            </label>
-          </header>
-
-          <div className="min-h-0 flex-1 overflow-y-auto p-3">
-            {loading ? (
-              <div className="flex h-48 items-center justify-center">
-                <RefreshCw className="h-6 w-6 animate-spin text-[var(--muted-ink)]" />
-              </div>
-            ) : filteredEmails.length === 0 ? (
-              <div className="flex h-56 flex-col items-center justify-center rounded-3xl border border-dashed border-[var(--line)] bg-[var(--card)] text-center">
-                <CheckCircle2 className="mb-3 h-10 w-10 text-[var(--brand)]" />
-                <p className="text-sm font-bold text-[var(--muted-ink)]">
-                  {mailboxView === 'drafts'
-                    ? 'No saved drafts yet.'
-                    : viewMode === 'current'
-                      ? 'No new unread emails in this sync.'
-                      : 'No synced emails yet.'}
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {filteredEmails.map((email, index) => (
-                  <motion.button
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: Math.min(index * 0.035, 0.3) }}
-                    key={email.id}
-                    onClick={() => setSelectedEmail(email)}
-                    className={`group w-full rounded-3xl border p-4 text-left transition ${
-                      selectedEmail?.id === email.id
-                        ? 'border-[var(--brand)] bg-[var(--card)] shadow-[0_18px_50px_rgba(37,99,235,.12)]'
-                        : 'border-transparent bg-[var(--card-muted)] hover:border-[var(--line)] hover:bg-[var(--card)]'
-                    }`}
-                  >
-                    <div className="mb-3 flex items-start gap-3">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-sm font-black text-[var(--brand)]">
-                        {initialsFor(email.sender)}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="truncate text-sm font-black">{email.subject}</div>
-                        <div className="truncate text-xs font-semibold text-[var(--muted-ink)]">{email.sender}</div>
-                      </div>
-                      <ChevronRight className="mt-1 h-4 w-4 text-[var(--muted-ink)] transition group-hover:translate-x-1" />
-                    </div>
-                    <div className="mb-3 line-clamp-2 text-xs font-medium leading-5 text-[var(--soft-ink)]">
+          ) : (
+            <div>
+              {filteredEmails.map(email => (
+                <button
+                  key={email.id}
+                  onClick={() => setSelectedEmail(email)}
+                  className={`pressable row-enter grid w-full grid-cols-[40px_1fr] gap-3 border-b border-[var(--border)] px-4 py-3 text-left hover:bg-[var(--hover)] ${
+                    selectedEmail?.id === email.id ? 'bg-[var(--active-soft)] shadow-[inset_2px_0_0_var(--accent)]' : ''
+                  }`}
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--panel-raised)] text-xs font-semibold text-[var(--text)]">
+                    {initialsFor(email.sender)}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="mb-1 flex items-center justify-between gap-3">
+                      <span className="truncate text-sm font-semibold text-[var(--text)]">{email.subject}</span>
+                      <span className="shrink-0 text-xs text-[var(--text-subtle)]">{safeFormatDate(email.date, 'MMM d')}</span>
+                    </span>
+                    <span className="mb-2 block truncate text-xs text-[var(--text-muted)]">{email.sender}</span>
+                    <span className="line-clamp-2 text-xs leading-5 text-[var(--text-muted)]">
                       {(isDraftsView ? email.draft_reply : email.summary)?.replace(/\s+/g, ' ').slice(0, 180) ||
                         (isDraftsView ? 'Saved draft will appear here.' : 'Generated summary will appear here.')}
-                    </div>
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="flex items-center gap-1 text-[11px] font-bold text-[var(--muted-ink)]">
-                        <Clock3 className="h-3.5 w-3.5" />
-                        {email.date ? safeFormatDate(email.date, 'MMM d, h:mm a') : 'Unknown'}
-                      </span>
-                      <div className="flex items-center gap-2">
-                        {email.draft_reply?.trim() && (
-                          <span className="rounded-full border border-[var(--brand)]/20 bg-[var(--brand-soft)] px-2.5 py-1 text-[10px] font-black uppercase text-[var(--brand)]">
-                            Draft
-                          </span>
-                        )}
-                        <span className={`rounded-full border px-2.5 py-1 text-[10px] font-black uppercase ${priorityClass(email.priority)}`}>
-                          {email.priority || 'Normal'}
-                        </span>
-                      </div>
-                    </div>
-                  </motion.button>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        <main className="z-10 min-h-0 overflow-y-auto px-6 py-5 max-[900px]:h-[58vh]">
-          <AnimatePresence mode="wait">
-            {selectedEmail ? (
-              <motion.article
-                key={selectedEmail.id}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className={`mx-auto flex min-h-full flex-col gap-4 ${showReplyAside ? 'max-w-4xl' : 'max-w-5xl'}`}
-              >
-                <section className="rounded-[1.75rem] border border-[var(--line)] bg-[var(--card)] p-6 shadow-[0_24px_70px_rgba(15,23,42,.08)]">
-                  <div className="mb-5 flex items-start justify-between gap-5">
-                    <div className="min-w-0">
-                      <div className="mb-3 flex flex-wrap items-center gap-2">
-                        <span className="rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-black uppercase text-[var(--brand)]">
-                          {selectedEmail.status || 'generated'}
-                        </span>
-                        <span className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs font-black text-[var(--accent)]">
-                          {safeFormatDate(selectedEmail.date, 'PPP p')}
-                        </span>
-                      </div>
-                      <h2 className="text-balance text-[2rem] font-black leading-tight text-[var(--ink)] max-[1180px]:text-2xl">
-                        {selectedEmail.subject}
-                      </h2>
-                    </div>
-                    <button
-                      onClick={() => setSelectedEmail(null)}
-                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm font-black text-[var(--muted-ink)] transition hover:bg-white hover:text-[var(--ink)]"
-                    >
-                      <ArrowLeft className="h-4 w-4" />
-                      Back
-                    </button>
-                  </div>
-
-                  <div className="flex items-center gap-4 rounded-3xl bg-[var(--surface)] p-4">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--ink)] text-lg font-black text-white">
-                      {initialsFor(selectedEmail.sender)}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="truncate text-base font-black">{selectedEmail.sender}</div>
-                      <div className="truncate text-sm font-semibold text-[var(--muted-ink)]">{selectedEmail.to_email || selectedEmail.sender}</div>
-                    </div>
-                  </div>
-                </section>
-
-                {!isDraftsView && (
-                  <section className="rounded-[1.75rem] border border-[var(--line)] bg-[var(--card)] p-6 shadow-[0_18px_60px_rgba(15,23,42,.06)]">
-                    <div className="mb-5 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand)]">
-                        <Sparkles className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-black uppercase">AI Summary</h3>
-                        <p className="text-xs font-semibold text-[var(--muted-ink)]">Saved automatically to All synced</p>
-                      </div>
-                    </div>
-                    <div className="email-prose">
-                      <ReactMarkdown>{selectedEmail.summary || 'No summary available.'}</ReactMarkdown>
-                    </div>
-                  </section>
-                )}
-
-                {isDraftsView && (
-                  <section className="flex min-h-[520px] flex-col rounded-[1.75rem] border border-[var(--line)] bg-[var(--card)] p-6 shadow-[0_18px_60px_rgba(15,23,42,.06)]">
-                    <div className="mb-5 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
-                        <PencilLine className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-black uppercase">Reply Studio</h3>
-                        <p className="text-xs font-semibold text-[var(--muted-ink)]">Edit the saved draft and save changes</p>
-                      </div>
-                    </div>
-                    <textarea
-                      value={draft}
-                      onChange={event => {
-                        setDraft(event.target.value);
-                        setDraftSaveState('idle');
-                      }}
-                      className="min-h-0 flex-1 resize-none rounded-[1.25rem] border border-[var(--line)] bg-[var(--surface)] p-5 text-sm font-medium leading-6 text-[var(--ink)] shadow-inner outline-none transition placeholder:text-[var(--muted-ink)] focus:border-[var(--brand)]"
-                      placeholder="Draft reply"
-                    />
-                    <div className="mt-4 grid grid-cols-2 gap-3">
-                      <button
-                        onClick={handleSaveDraft}
-                        disabled={savingDraft}
-                        className="rounded-2xl border border-[var(--line)] bg-[var(--card)] px-4 py-3 text-sm font-black transition hover:bg-white disabled:opacity-60"
-                      >
-                        {savingDraft ? 'Saving...' : draftSaveState === 'saved' ? 'Saved' : 'Save'}
-                      </button>
-                      <button
-                        onClick={handleSendReply}
-                        disabled={sending || !draft.trim()}
-                        className="flex items-center justify-center gap-2 rounded-2xl bg-[var(--brand)] px-4 py-3 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,.24)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
-                      >
-                        <Send className="h-4 w-4" />
-                        {sending ? 'Sending' : 'Send'}
-                      </button>
-                    </div>
-                    {draftSaveState === 'error' && (
-                      <p className="mt-3 rounded-2xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-bold text-rose-700">
-                        Draft was not saved. Check the backend log and try again.
-                      </p>
-                    )}
-                  </section>
-                )}
-              </motion.article>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex h-full items-center justify-center text-center"
-              >
-                <div className="rounded-[2rem] border border-dashed border-[var(--line)] bg-[var(--card)] p-10">
-                  <Mail className="mx-auto mb-4 h-12 w-12 text-[var(--muted-ink)]" />
-                  <p className="font-black text-[var(--muted-ink)]">Select an email.</p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </main>
-
-        {showReplyAside && (
-        <aside className="z-10 flex min-h-0 flex-col border-l border-[var(--line)] bg-[var(--reply)] p-5 max-[1180px]:fixed max-[1180px]:bottom-4 max-[1180px]:right-4 max-[1180px]:top-auto max-[1180px]:z-30 max-[1180px]:h-[54vh] max-[1180px]:w-[min(430px,calc(100vw-2rem))] max-[1180px]:rounded-[2rem] max-[1180px]:border max-[1180px]:shadow-[0_30px_100px_rgba(15,23,42,.20)] max-[900px]:hidden">
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <div className="text-xs font-black uppercase text-[var(--brand)]">
-                {isAllSyncedView ? 'Archive' : 'Reply studio'}
-              </div>
-              <h2 className="text-2xl font-black">
-                {isAllSyncedView
-                  ? 'Summary Only'
-                  : selectedEmail?.draft_reply?.trim()
-                    ? 'Saved Draft'
-                    : 'Suggested Reply'}
-              </h2>
+                    </span>
+                    <span className="mt-3 flex items-center gap-2">
+                      {email.draft_reply?.trim() && (
+                        <span className="rounded border border-[var(--border-strong)] px-2 py-0.5 text-[11px] text-[var(--text-muted)]">Draft</span>
+                      )}
+                      <span className={`rounded border px-2 py-0.5 text-[11px] ${priorityClass(email.priority)}`}>{email.priority || 'Normal'}</span>
+                    </span>
+                  </span>
+                </button>
+              ))}
             </div>
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand)]">
-              {isAllSyncedView ? <Sparkles className="h-5 w-5" /> : <PencilLine className="h-5 w-5" />}
-            </div>
-          </div>
+          )}
+        </div>
+      </section>
 
-          {selectedEmail ? (
-            <>
-              <div className="mb-4 rounded-3xl border border-[var(--line)] bg-[var(--card)] p-4">
-                <div className="mb-1 text-xs font-black uppercase text-[var(--muted-ink)]">To</div>
-                <div className="truncate text-sm font-black">{selectedEmail.to_email || selectedEmail.sender}</div>
-                <div className="mt-3 inline-flex rounded-full bg-[var(--surface)] px-3 py-1 text-[10px] font-black uppercase text-[var(--muted-ink)]">
-                  {isAllSyncedView
-                    ? 'Summary saved'
-                    : selectedEmail.draft_reply?.trim()
-                      ? 'Saved in Drafts'
-                      : 'Not saved yet'}
+      <main className={`${selectedEmail ? 'block' : 'hidden md:block'} min-w-0 flex-1 overflow-y-auto bg-[var(--app-bg)]`}>
+        {selectedEmail ? (
+          <article className="surface-enter mx-auto max-w-4xl px-6 py-5">
+            <button
+              onClick={() => setSelectedEmail(null)}
+              className="mb-4 inline-flex items-center gap-2 rounded-md border border-[var(--border)] bg-[var(--panel)] px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--panel-raised)] hover:text-[var(--text)] md:hidden"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Messages
+            </button>
+            <section className="panel-depth mb-4 rounded-lg border border-[var(--border)] bg-[var(--panel)]">
+              <div className="border-b border-[var(--border)] px-5 py-4">
+                <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-[var(--text-muted)]">
+                  <span className="rounded border border-[var(--border)] px-2 py-1">{selectedEmail.status || 'generated'}</span>
+                  <span className="flex items-center gap-1">
+                    <Clock3 className="h-3.5 w-3.5" />
+                    {safeFormatDate(selectedEmail.date, 'PPP p')}
+                  </span>
                 </div>
+                <h1 className="text-xl font-semibold leading-7 text-[var(--text)]">{selectedEmail.subject}</h1>
               </div>
+              <div className="flex items-center gap-3 px-5 py-4">
+                <span className="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--active)] text-sm font-semibold">
+                  {initialsFor(selectedEmail.sender)}
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-semibold">{selectedEmail.sender}</span>
+                  <span className="block truncate text-sm text-[var(--text-muted)]">{selectedEmail.to_email || selectedEmail.sender}</span>
+                </span>
+              </div>
+            </section>
 
+            {!isDraftsView && (
+            <section className="panel-depth mb-4 rounded-lg border border-[var(--border)] bg-[var(--panel)]">
+                <div className="border-b border-[var(--border)] px-5 py-3 text-sm font-semibold">Summary</div>
+                <div className="email-prose px-5 py-4">
+                  <ReactMarkdown>{selectedEmail.summary || 'No summary available.'}</ReactMarkdown>
+                </div>
+              </section>
+            )}
+
+            <section className="panel-depth rounded-lg border border-[var(--border)] bg-[var(--panel)]">
+              <div className="flex items-center justify-between gap-3 border-b border-[var(--border)] px-5 py-3">
+                <span className="text-sm font-semibold">{isDraftsView ? 'Saved draft' : 'Reply'}</span>
+                {draftSaveState === 'saved' && <span className="text-xs text-[var(--success)]">Saved</span>}
+              </div>
               {canEditReply ? (
-                <>
+                <div className="p-4">
                   <textarea
                     value={draft}
                     onChange={event => {
                       setDraft(event.target.value);
                       setDraftSaveState('idle');
                     }}
-                    className="min-h-0 flex-1 resize-none rounded-[1.25rem] border border-[var(--line)] bg-[var(--card)] p-5 text-sm font-medium leading-6 text-[var(--ink)] shadow-inner outline-none transition placeholder:text-[var(--muted-ink)] focus:border-[var(--brand)]"
+                    className="h-[300px] w-full resize-none rounded-md border border-[var(--border)] bg-[var(--field)] p-4 text-sm leading-6 text-[var(--text)] outline-none placeholder:text-[var(--text-subtle)] focus:border-[var(--accent)]"
                     placeholder="Draft reply"
                   />
-
-                  <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="mt-3 flex items-center justify-end gap-2">
                     <button
                       onClick={handleSaveDraft}
                       disabled={savingDraft}
-                      className="rounded-2xl border border-[var(--line)] bg-[var(--card)] px-4 py-3 text-sm font-black transition hover:bg-white disabled:opacity-60"
+                      className="rounded-md border border-[var(--border)] bg-[var(--panel)] px-3 py-2 text-sm font-medium text-[var(--text)] hover:bg-[var(--panel-raised)] disabled:opacity-60"
                     >
-                      {savingDraft ? 'Saving...' : draftSaveState === 'saved' ? 'Saved' : 'Save'}
+                      {savingDraft ? 'Saving' : draftSaveState === 'saved' ? 'Saved' : 'Save'}
                     </button>
                     <button
                       onClick={handleSendReply}
                       disabled={sending || !draft.trim()}
-                      className="flex items-center justify-center gap-2 rounded-2xl bg-[var(--brand)] px-4 py-3 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,.24)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex items-center gap-2 rounded-md bg-[var(--accent)] px-3 py-2 text-sm font-semibold text-[var(--accent-text)] hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       <Send className="h-4 w-4" />
                       {sending ? 'Sending' : 'Send'}
                     </button>
                   </div>
                   {draftSaveState === 'error' && (
-                    <p className="mt-3 rounded-2xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-bold text-rose-700">
+                    <p className="mt-3 rounded-md border border-[var(--danger)]/40 bg-[var(--danger-bg)] px-3 py-2 text-sm text-[var(--danger)]">
                       Draft was not saved. Check the backend log and try again.
                     </p>
                   )}
-                </>
+                </div>
               ) : (
-                <div className="flex flex-1 items-center justify-center rounded-[2rem] border border-dashed border-[var(--line)] bg-[var(--card)] p-5 text-center text-sm font-bold leading-6 text-[var(--muted-ink)]">
-                  All synced is the summary archive. Open Drafts to edit saved drafts, or use Current sync to save a suggested reply.
+                <div className="p-5 text-sm leading-6 text-[var(--text-muted)]">
+                  Open Current sync to save a suggested reply, or open Drafts to edit saved replies.
                 </div>
               )}
-            </>
-          ) : (
-            <div className="flex flex-1 items-center justify-center rounded-[2rem] border border-dashed border-[var(--line)] bg-[var(--card)] text-center text-sm font-bold text-[var(--muted-ink)]">
-              Select an email.
-            </div>
-          )}
-        </aside>
+            </section>
+          </article>
+        ) : (
+          <div className="flex h-full items-center justify-center p-6 text-sm text-[var(--text-muted)]">Select an email.</div>
         )}
-      </div>
+      </main>
     </div>
   );
 }

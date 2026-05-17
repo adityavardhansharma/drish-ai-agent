@@ -9,6 +9,8 @@ export type GmailMessagePart = {
   headers?: GmailHeader[] | null;
   body?: {
     data?: string | null;
+    attachmentId?: string | null;
+    size?: number | null;
   } | null;
   parts?: GmailMessagePart[] | null;
 };
@@ -24,6 +26,13 @@ export type ParsedEmail = {
   subject: string;
   body: string;
   messageId: string;
+  attachments: ParsedEmailAttachment[];
+};
+
+export type ParsedEmailAttachment = {
+  filename: string;
+  mimeType: string;
+  text: string;
 };
 
 export type SavedEmailRecord = {
