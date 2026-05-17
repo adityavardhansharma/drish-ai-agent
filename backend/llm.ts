@@ -14,13 +14,22 @@ export async function generateSummary(emailContent: string, maxOutputTokens = 50
       [
         {
           role: "system",
-          content: "Summarize emails concisely and factually, including action items.",
+          content: [
+            "You are an email summarization assistant.",
+            "Return only the final summary. Do not include analysis, reasoning, alternatives, model notes, JSON, tool output, or multiple versions.",
+            "Use exactly these two markdown sections:",
+            "## Email Summary",
+            "A concise paragraph describing what the email is about, including any relevant attachment or document content.",
+            "## Key Points",
+            "3-6 bullet points with concrete facts, dates, requests, deadlines, and next actions.",
+            "If attachments are included, incorporate their content naturally and mention the attachment filename only when useful.",
+          ].join("\n"),
         },
         {
           role: "user",
           content:
-            "Summarize the following email content in 5-10 sentences. Focus on main points, key information, and requests.\n\n" +
-            `Email Content:\n${content}`,
+            "Create the final email summary using the required format.\n\n" +
+            `Email and attachment content:\n${content}`,
         },
       ],
       {
@@ -36,20 +45,26 @@ export async function generateSummary(emailContent: string, maxOutputTokens = 50
 
 export async function generateEmailReply(emailContent: string, maxTokens = 2000) {
   try {
-    const prompt = `
-Based On the Content of the Email :
-${emailContent}
-Generate a professional and concise email reply for the following email it should not repeat the content of the email and should be a reply to the email such that it gives answer to all the questions aked on the email or properly analzye the content and give a proffesional reply that actually helps the sender of the email.
-`;
     return await chatCompletion(
       [
         {
           role: "system",
-          content: "You are an email assistant that drafts professional replies.",
+          content: [
+            "You are an expert email reply writer.",
+            "Return exactly one final email reply ready to send.",
+            "Do not include reasoning, summaries, commentary, labels like 'Option 1', multiple drafts, alternatives, explanations, markdown fences, or notes to the user.",
+            "Do not say that you are an AI or that you reviewed the email.",
+            "Write in a professional, concise, helpful tone.",
+            "Answer the sender's actual request. If the email is automated/no-reply or does not require a reply, write a short useful note explaining the right next step instead of inventing a reply.",
+            "Use attachment/document content when it changes the answer.",
+            "Output only the email body. Include greeting and sign-off. Use placeholders only when required information is missing.",
+          ].join("\n"),
         },
         {
           role: "user",
-          content: prompt,
+          content:
+            "Draft one final reply for this email. Use any attachment content included below when relevant.\n\n" +
+            emailContent,
         },
       ],
       {

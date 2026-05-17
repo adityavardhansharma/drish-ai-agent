@@ -1,4 +1,4 @@
-import { parseEmailContent, parseSender } from "./emailParser";
+import { extractEmailAttachments, parseEmailContent, parseSender } from "./emailParser";
 import { fetchEmails, getGmailService, sendReply } from "./gmail";
 import { generateEmailReply, generateSummary } from "./llm";
 import { logger } from "./logger";
@@ -41,10 +41,27 @@ export async function* processFetchEmails(): AsyncGenerator<StreamEvent> {
         continue;
       }
 
-      const content = `Subject: ${parsed.subject}\nFrom: ${parsed.sender}\nBody: ${parsed.body}`;
+      parsed.attachments = await extractEmailAttachments(service, emailData);
+      const attachmentContent = parsed.attachments.length > 0
+        ? parsed.attachments
+            .map((attachment) =>
+              [
+                `Attachment: ${attachment.filename}`,
+                `MIME type: ${attachment.mimeType}`,
+                attachment.text,
+              ].join("\n"),
+            )
+            .join("\n\n---\n\n")
+        : "No readable attachments.";
+      const content = [
+        `Subject: ${parsed.subject}`,
+        `From: ${parsed.sender}`,
+        `Body:\n${parsed.body}`,
+        `Attachments:\n${attachmentContent}`,
+      ].join("\n\n");
       yield { type: "status", message: `Summarizing email ${index + 1}/${total}...` };
       const [summary, reply] = await Promise.all([
-        generateSummary(content),
+        generateSummary(content, 900),
         generateEmailReply(content),
       ]);
 
@@ -54,7 +71,7 @@ export async function* processFetchEmails(): AsyncGenerator<StreamEvent> {
           `From: ${parsed.sender}\n` +
           `Subject: ${parsed.subject}\n` +
           `Message ID: ${parsed.messageId || "N/A"}\n\n` +
-          `Summary:\n${summary}`,
+          summary,
         reply,
         message_id: parsed.messageId,
         to_email: parsed.sender,
