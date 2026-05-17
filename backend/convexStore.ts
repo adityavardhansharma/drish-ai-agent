@@ -52,7 +52,7 @@ export async function saveEmailSummary(payload: {
         fromName: sender.fromName,
         subject: payload.subject ?? "",
         summary: payload.summary ?? "",
-        draftReply: payload.reply ?? "",
+        draftReply: "",
         status: "generated",
       }),
     );

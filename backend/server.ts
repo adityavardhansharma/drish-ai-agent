@@ -97,8 +97,11 @@ async function handleFetchEmails(_req: IncomingMessage, res: ServerResponse) {
   }
 }
 
+let activePort = settings.port;
+let server: http.Server | null = null;
+
 async function route(req: IncomingMessage, res: ServerResponse) {
-  const requestUrl = new URL(req.url ?? "/", `http://${req.headers.host ?? `${settings.host}:${settings.port}`}`);
+  const requestUrl = new URL(req.url ?? "/", `http://${req.headers.host ?? `${settings.host}:${activePort}`}`);
   const method = req.method ?? "GET";
 
   if (method === "GET" && requestUrl.pathname === "/api/emails/fetch") {
@@ -170,21 +173,38 @@ async function route(req: IncomingMessage, res: ServerResponse) {
 
 validateStartupConfig();
 
-const server = http.createServer((req, res) => {
-  route(req, res).catch((error) => {
-    const message = error instanceof Error ? error.message : String(error);
-    logger.error("Unhandled request error", message);
-    if (!res.headersSent) {
-      sendJson(res, { success: false, error: message }, 500);
-    } else {
-      res.end();
-    }
+function listen(port: number) {
+  const candidate = http.createServer((req, res) => {
+    route(req, res).catch((error) => {
+      const message = error instanceof Error ? error.message : String(error);
+      logger.error("Unhandled request error", message);
+      if (!res.headersSent) {
+        sendJson(res, { success: false, error: message }, 500);
+      } else {
+        res.end();
+      }
+    });
   });
-});
 
-server.listen(settings.port, settings.host, () => {
-  logger.info(`TypeScript backend running on http://${settings.host}:${settings.port}`);
-});
+  candidate.once("error", (error: NodeJS.ErrnoException) => {
+    if (error.code === "EADDRINUSE" && port < settings.port + 100) {
+      logger.warn(`Backend port ${port} is in use, trying ${port + 1}`);
+      listen(port + 1);
+      return;
+    }
 
-process.on("SIGTERM", () => server.close(() => process.exit(0)));
-process.on("SIGINT", () => server.close(() => process.exit(0)));
+    logger.error("Backend server failed", error.message);
+    process.exit(1);
+  });
+
+  candidate.listen(port, settings.host, () => {
+    server = candidate;
+    activePort = port;
+    logger.info(`TypeScript backend running on http://${settings.host}:${port}`);
+  });
+}
+
+listen(settings.port);
+
+process.on("SIGTERM", () => server?.close(() => process.exit(0)));
+process.on("SIGINT", () => server?.close(() => process.exit(0)));

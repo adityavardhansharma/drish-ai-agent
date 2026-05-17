@@ -73,7 +73,7 @@ export function CommandPalette() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-background/80 backdrop-blur-sm"
+          className="fixed inset-0 bg-[var(--ink)]/28 backdrop-blur-md"
         />
         
         <motion.div
@@ -81,23 +81,25 @@ export function CommandPalette() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -20 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative w-full max-w-2xl bg-background border border-border shadow-2xl rounded-xl overflow-hidden flex flex-col z-50"
+          className="relative z-50 flex w-[min(680px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--paper)]/92 shadow-[0_40px_140px_rgba(15,23,42,.22)] backdrop-blur-xl"
         >
-          <div className="flex items-center border-b border-border px-4 py-3">
-            <Search className="w-5 h-5 text-muted-foreground mr-3" />
+          <div className="flex items-center border-b border-[var(--line)] px-5 py-4">
+            <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand)]">
+              <Search className="h-5 w-5" />
+            </div>
             <input
               autoFocus
-              className="flex-1 bg-transparent border-none outline-none text-lg text-foreground placeholder:text-muted-foreground"
+              className="min-w-0 flex-1 border-none bg-transparent text-lg font-black text-[var(--ink)] outline-none placeholder:text-[var(--muted-ink)]"
               placeholder="Type a command or search..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <kbd className="hidden sm:inline-block font-mono bg-muted px-1.5 py-0.5 rounded text-xs text-muted-foreground border border-border">ESC</kbd>
+            <kbd className="hidden rounded-full border border-[var(--line)] bg-white/70 px-2.5 py-1 text-xs font-black text-[var(--muted-ink)] sm:inline-block">ESC</kbd>
           </div>
           
           <div className="max-h-[60vh] overflow-y-auto p-2">
             {filteredCommands.length === 0 ? (
-              <div className="py-14 text-center text-sm text-muted-foreground">
+              <div className="py-14 text-center text-sm font-bold text-[var(--muted-ink)]">
                 No results found.
               </div>
             ) : (
@@ -109,8 +111,10 @@ export function CommandPalette() {
                     <div
                       key={cmd.id}
                       className={cn(
-                        "flex items-center px-4 py-3 rounded-lg cursor-pointer transition-colors",
-                        isSelected ? "bg-primary text-primary-foreground" : "hover:bg-muted text-foreground"
+                        "flex cursor-pointer items-center rounded-2xl px-4 py-3 transition",
+                        isSelected
+                          ? "bg-[var(--ink)] text-[var(--paper)] shadow-[0_18px_50px_rgba(15,23,42,.20)]"
+                          : "text-[var(--ink)] hover:bg-white/70"
                       )}
                       onMouseEnter={() => setSelectedIndex(idx)}
                       onClick={() => {
@@ -119,8 +123,8 @@ export function CommandPalette() {
                         setQuery('');
                       }}
                     >
-                      <Icon className={cn("w-5 h-5 mr-3", isSelected ? "text-primary-foreground/80" : "text-muted-foreground")} />
-                      <span className="font-medium">{cmd.title}</span>
+                      <Icon className={cn("mr-3 h-5 w-5", isSelected ? "text-[var(--brand-soft)]" : "text-[var(--muted-ink)]")} />
+                      <span className="font-black">{cmd.title}</span>
                     </div>
                   );
                 })}
