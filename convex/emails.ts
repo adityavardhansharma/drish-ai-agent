@@ -80,14 +80,21 @@ export const upsertSummary = mutation({
       .withIndex("by_message_id", (q) => q.eq("message_id", args.messageId))
       .unique();
 
+    const savedDraftReply = args.draftReply || existing?.draft_reply || "";
+    const savedStatus = existing?.status === "sent"
+      ? existing.status
+      : savedDraftReply
+        ? (existing?.status === "draft_updated" ? existing.status : "draft_updated")
+        : args.status;
+
     const patch = {
       to_email: args.toEmail,
       from_email: args.fromEmail,
       from_name: args.fromName,
       subject: args.subject,
       summary: args.summary,
-      draft_reply: args.draftReply,
-      status: args.status,
+      draft_reply: savedDraftReply,
+      status: savedStatus,
       updated_at: now,
       last_error: undefined,
     };

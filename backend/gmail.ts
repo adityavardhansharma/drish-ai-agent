@@ -140,28 +140,20 @@ export async function getGmailService() {
   }
 }
 
-function todayQuery() {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  const format = (date: Date) =>
-    `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")}`;
-  return `is:unread after:${format(today)} before:${format(tomorrow)}`;
-}
-
 export async function fetchEmails(service: gmail_v1.Gmail, maxResults = settings.maxEmailsToFetch) {
   try {
     const results = await service.users.messages.list({
       userId: "me",
-      q: todayQuery(),
-      maxResults,
+      q: "in:inbox is:unread",
+      maxResults: Math.max(1, Math.min(maxResults, 10)),
       labelIds: ["INBOX"],
     });
     const messages = results.data.messages ?? [];
     if (messages.length === 0) {
-      logger.info("No unread messages found for today.");
+      logger.info("No unread inbox messages found.");
       return [];
     }
+    logger.info(`Found ${messages.length} unread inbox messages.`);
 
     const emailContents: GmailMessage[] = [];
     for (const message of messages) {

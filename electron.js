@@ -9,7 +9,6 @@ const {
 const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
-const waitOn = require('wait-on');
 const kill = require('tree-kill');
 
 // Add auto-launch functionality via the auto-launch package
@@ -24,7 +23,7 @@ if (process.env.ENABLE_GPU !== '1') {
 let mainWindow;
 let backendProcess = null;
 
-function loadEnvFile(filePath) {
+function loadEnvFile(filePath, override = false) {
   if (!fs.existsSync(filePath)) {
     return;
   }
@@ -39,7 +38,7 @@ function loadEnvFile(filePath) {
     const separatorIndex = trimmed.indexOf('=');
     const key = trimmed.slice(0, separatorIndex).trim();
     let value = trimmed.slice(separatorIndex + 1).trim();
-    if (!key || Object.prototype.hasOwnProperty.call(process.env, key)) {
+    if (!key || (!override && Object.prototype.hasOwnProperty.call(process.env, key))) {
       continue;
     }
 
@@ -54,6 +53,7 @@ function loadEnvFile(filePath) {
 }
 
 loadEnvFile(path.join(__dirname, '.env'));
+loadEnvFile(path.join(__dirname, '.env.local'), true);
 
 const PORT = process.env.PORT || '5000';
 const HOST = process.env.HOST || '127.0.0.1';
@@ -166,9 +166,34 @@ async function startBackendServer() {
     const command = fs.existsSync(tsxPath) ? tsxPath : 'npx';
     const args = fs.existsSync(tsxPath) ? [scriptPath] : ['tsx', scriptPath];
     backendProcess = spawn(command, args, { env, cwd: resourcePath });
+    let settled = false;
+    const startupTimer = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      reject(new Error(`Timed out waiting for backend to start at ${BACKEND_URL}`));
+    }, 30000);
+
+    function resolveStarted() {
+      if (settled) return;
+      settled = true;
+      clearTimeout(startupTimer);
+      console.log('TypeScript backend is running');
+      resolve();
+    }
+
+    function rejectStartup(error) {
+      if (settled) return;
+      settled = true;
+      clearTimeout(startupTimer);
+      reject(error);
+    }
 
     backendProcess.stdout.on('data', (data) => {
-      console.log(`Backend stdout: ${data}`);
+      const text = data.toString();
+      console.log(`Backend stdout: ${text}`);
+      if (text.includes('TypeScript backend running on')) {
+        resolveStarted();
+      }
     });
 
     backendProcess.stderr.on('data', (data) => {
@@ -181,11 +206,15 @@ async function startBackendServer() {
         'Backend Error',
         `Failed to start the TypeScript backend: ${error.message}`
       );
-      reject(error);
+      rejectStartup(error);
     });
 
     backendProcess.on('close', (code) => {
       console.log(`Backend process exited with code ${code}`);
+      if (!settled) {
+        rejectStartup(new Error(`Backend exited before startup with code ${code}`));
+        return;
+      }
       if (code !== 0 && mainWindow) {
         dialog.showErrorBox(
           'Server Error',
@@ -193,20 +222,6 @@ async function startBackendServer() {
         );
       }
     });
-
-    waitOn({ resources: [BACKEND_URL], timeout: 30000 })
-      .then(() => {
-        console.log('TypeScript backend is running');
-        resolve();
-      })
-      .catch((err) => {
-        console.error('Error waiting for backend server to start:', err);
-        dialog.showErrorBox(
-          'Server Error',
-          `Failed to connect to the TypeScript backend: ${err.message}`
-        );
-        reject(err);
-      });
   });
 }
 

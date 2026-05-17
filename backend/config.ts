@@ -5,9 +5,11 @@ import dotenv from "dotenv";
 
 export const rootDir = path.resolve(__dirname, "..");
 
-const envPath = path.join(rootDir, ".env");
-if (fs.existsSync(envPath)) {
-  dotenv.config({ path: envPath });
+for (const fileName of [".env", ".env.local"]) {
+  const envPath = path.join(rootDir, fileName);
+  if (fs.existsSync(envPath)) {
+    dotenv.config({ path: envPath, override: fileName === ".env.local" });
+  }
 }
 
 function optionalEnv(name: string): string | undefined {
